@@ -1,0 +1,16 @@
+.container {
+  @include flex-center;
+
+  padding-top: 32px;
+  border-bottom: 1px solid #757575;
+}
+
+.input {
+  width: 650px;
+  padding: 16px 25px;
+  background-color: #eee;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #9e9e9e;
+  border: none;
+}
