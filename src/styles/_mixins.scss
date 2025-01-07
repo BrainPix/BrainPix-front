@@ -1,0 +1,28 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-style {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: $font-size-base;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) { @content; }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) { @content; }
+}
