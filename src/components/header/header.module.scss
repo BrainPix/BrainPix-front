@@ -10,7 +10,20 @@
   padding: 16px 25px;
   background-color: #eee;
   border-radius: 10px;
-  font-size: 18px;
-  color: #9e9e9e;
   border: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.inputText {
+  width: 90%;
+  font-size: 18px;
+  border: none;
+  background-color: #eee;
+  color: #9e9e9e;
+
+  &:focus {
+    outline: none;
+  }
 }
