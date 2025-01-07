@@ -1,15 +1,13 @@
-@mixin flex-center {
+@mixin flexCenter {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-@mixin button-style {
+@mixin buttonStyle {
   padding: 12px 20px;
   border: none;
-  border-radius: 4px;
-  font-size: $font-size-base;
-  font-weight: bold;
+  font-size: $fontSizeBase;
   cursor: pointer;
   transition: background 0.3s ease;
   text-align: center;
@@ -17,4 +15,9 @@
   &:hover {
     opacity: 0.8;
   }
+}
+
+@mixin buttonSize($padding, $fontSize) {
+  padding: $padding;
+  font-size: $fontSize;
 }

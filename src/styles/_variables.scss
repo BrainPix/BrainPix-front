@@ -1,15 +1,14 @@
 // 색상 변수
-$primary-color: #4A90E2;
-$secondary-color: #999;
-$background-color: #F5F5F5;
-$bold-text-color: #222;
-$text-color: #424242;
-$border-color: #9E9E9E;
-// $button-bg: #000;
-// $button-hover-bg: #333;
+$colorPrimary: #4A90E2;
+$colorSecondary: #999;
+$backgroundColor: #F5F5F5;
+$borderColor: #9E9E9E;
+$textBoldColor: #222;
+$textPrimaryColor: #424242;
+$textSecondaryColor: #616161;
 
 // 폰트 변수
-$font-family: 'Pretendard', sans-serif;
-$font-size-base: 28px;
-$font-size-sm: 24px;
-$font-size-lg: 36px;
+$fontFamily: 'Pretendard', sans-serif;
+$fontSizeBase: 18px;
+$fontSizeSmall: 14px;
+$fontSizeLarge: 24px;

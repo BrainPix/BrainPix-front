@@ -1,33 +1,53 @@
-//import { Test } from './pages/test/Test';
-import "./styles/global.scss";
+import { useState } from 'react';
+import classNames from 'classnames';
+import './styles/main.scss';
 
 function App() {
-  return(
-    <div className="app-container">
-    <h1>Global SCSS 테스트</h1>
+  const [isClicked, setIsClicked] = useState(false);
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+  };
 
-    {/* 기본 버튼 */}
-    <button className="button button-primary">기본 버튼</button>
-    
-    {/* 테두리 버튼 */}
-    <button className="button button-outline">테두리 버튼</button>
+  return (
+    <div className='container'>
+      <h1>Global SCSS 테스트</h1>
 
-    {/* 블랙 버튼 */}
-    <button className="button button-dark">블랙 버튼</button>
+      <div className='cardOutlined'>
+        <h3>카드 제목</h3>
+        <p>카드 내용</p>
+      </div>
+      <div className='cardDark'></div>
 
-    {/* 비활성화 버튼 */}
-    <button className="button button-primary" disabled>비활성화 버튼</button>
+      {/* 기본 버튼 */}
+      <button className='button'>기본 버튼</button>
 
-    {/* 버튼 크기 테스트 */}
-    <button className="button button-primary button-small">작은 버튼</button>
-    <button className="button button-primary button-medium">중간 버튼</button>
-    <button className="button button-primary button-large">큰 버튼</button>
-    
-    {/* 추가적인 스타일이 적용되는지 확인 */}
-    <p className="test-text">이 문장은 글로벌 SCSS 스타일이 적용되어야 합니다.</p>
-  </div>
+      {/* 테두리 버튼 */}
+      <button className='button buttonOutlined'>테두리 버튼</button>
+
+      {/* 블랙 버튼 */}
+      <button className='button buttonDark'>블랙 버튼</button>
+
+      {/* 비활성화 버튼 */}
+      <button className='button' disabled>
+        비활성화 버튼
+      </button>
+
+      {/* 버튼 크기 테스트 */}
+      <button className='button buttonDark buttonSmall'>작은 버튼</button>
+      <button className='button buttonRounded buttonMedium'>중간 버튼</button>
+      <button className='button buttonOutlined buttonLarge'>큰 버튼</button>
+
+      {/* 버튼 클릭 이벤트 테스트 */}
+      <button
+        className={classNames('button', { clicked: isClicked })}
+        onClick={handleClick}
+      >
+        클릭 테스트 버튼
+      </button>
+
+      <p>이 문장은 글로벌 SCSS 스타일이 적용되어야 합니다.</p>
+    </div>
   );
-  //return <Test />;
 }
 
 export default App;
