@@ -1,12 +1,66 @@
+@import "variables";
+@import "mixins";
+
 .button {
-  padding: 10px 16px;
-  background-color: $button-bg;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  @include button-style;
+  font-size: $font-size-base;
+  // padding: 12px 20px;
+  // border-radius: 4px;
+  // font-weight: bold;
+  // text-align: center;
+  // display: inline-block;
+  // transition: all 0.3s ease;
 
   &:hover {
-    background-color: $button-hover;
+    opacity: 0.8;
   }
+
+  &:disabled {
+    background-color: lighten($primary-color, 20%);
+    cursor: not-allowed;
+  }
+}
+
+// 버튼 모양
+.button-rounded {
+  border-radius: 50px;
+  border-style: none;
+}
+
+.button-outline {
+  border: 1px solid $border-color;
+  background: #fafafa;
+  color: $secondary-color;
+  border-radius: 29px;
+
+  &:hover {
+    background-color: $border-color;
+    color: $primary-color;
+  }
+}
+
+.button-dark {
+  background: #424242;
+  color: #FAFAFA;
+  border-radius: 5px;
+
+  &:hover {
+    background: black;
+  }
+}
+
+// 버튼 크기
+.button-small {
+  padding: 6px 12px;
+  font-size: $font-size-sm;
+}
+
+.button-medium {
+  padding: 10px 16px;
+  font-size: $font-size-base;
+}
+
+.button-large {
+  padding: 14px 20px;
+  font-size: $font-size-lg;
 }

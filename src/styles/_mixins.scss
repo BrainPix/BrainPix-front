@@ -1,7 +1,7 @@
 @mixin flex-center {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 @mixin button-style {
@@ -17,12 +17,4 @@
   &:hover {
     opacity: 0.8;
   }
-}
-
-@mixin mobile {
-  @media (max-width: $mobile) { @content; }
-}
-
-@mixin tablet {
-  @media (max-width: $tablet) { @content; }
 }
