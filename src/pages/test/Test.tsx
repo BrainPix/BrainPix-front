@@ -11,13 +11,8 @@ export const Test = () => {
   return (
     <div className={classNames(styles.container)}>
       테스트 페이지입니다.
-      {/* <button
-        className={cn('testButton', { clicked: clicked })}
-        onClick={handleClickButton}>
-        테스트 버튼
-      </button> */}
       <button
-        className={classNames(styles.testButton, {
+        className={classNames(styles.t, {
           [styles.clicked]: clicked,
         })}
         onClick={handleClickButton}>
