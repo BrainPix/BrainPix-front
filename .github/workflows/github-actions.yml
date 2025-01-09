@@ -9,6 +9,7 @@ on:
     types:
       - opened
       - reopened
+      - synchronize #PR에 커밋이 추가될 때 실행
 
 jobs:
   update-status:
