@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import Search from '../../assets/icons/search.svg?react';
 import styles from './header.module.scss';
+import { SearchInput } from './SearchInput';
 
 export const Header = () => {
   const location = window.location.pathname;
@@ -15,16 +15,11 @@ export const Header = () => {
     '요청 과제': '/request-assign',
     '협업 광장': '/collaboration',
   };
+
   return (
     <div>
       <div className={classNames(styles.container)}>
-        <label className={classNames(styles.input)}>
-          <Search />
-          <input
-            className={classNames(styles.inputText)}
-            placeholder='어떤 아이디어를 찾으시나요? 키워드를 입력하세요'
-          />
-        </label>
+        <SearchInput />
         <menu>
           <div className={classNames(styles.optionWrapper)}>
             {Object.entries(OPTION_MENU).map(([menu, link]) => (

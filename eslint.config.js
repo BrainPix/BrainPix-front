@@ -1,31 +1,33 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   { ignores: ['dist'] },
   {
     extends: [
       js.configs.recommended,
+      'plugin:prettier/recommended',
+      'plugin:react/recommended',
+      'plugin:@typescript-eslint/recommended',
       ...tseslint.configs.recommended,
-      'plugin:prettier/recommended'
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser
+      globals: globals.browser,
     },
     plugins: {
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh
+      'react-refresh': reactRefresh,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true }
+        { allowConstantExport: true },
       ],
       'react/react-in-jsx-scope': 'off',
       'react/jsx-props-no-spreading': 'off',
@@ -45,7 +47,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': 'off',
       'prefer-destructuring': 'off',
       '@typescript-eslint/no-shadow': 'off',
-      'jsx-a11y/label-has-associated-control': 'off'
-    }
-  }
-)
+      'jsx-a11y/label-has-associated-control': 'off',
+    },
+  },
+);
