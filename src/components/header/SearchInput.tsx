@@ -7,13 +7,26 @@ import Clock from '../../assets/icons/clock.svg?react';
 import { debounce } from '../../utils/debounce';
 
 import styles from './searchInput.module.scss';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 export const SearchInput = () => {
+  const recentSearchWrapperRef = useRef<HTMLDivElement>(null);
+
+  const closeRecentSearchWrapper = () => {
+    setOpenRecentSearch(false);
+  };
+  useOutsideClick({
+    ref: recentSearchWrapperRef,
+    handler: closeRecentSearchWrapper,
+  });
+
   const [search, setSearch] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
   const [recentSearch, setRecentSearch] = useState<string[]>([]);
+  const [openRecentSearch, setOpenRecentSearch] = useState(true);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setOpenRecentSearch(true);
     const searchKeyword = e.target.value;
     if (searchKeyword === '') {
       setRecentSearch([]);
@@ -30,6 +43,7 @@ export const SearchInput = () => {
   };
 
   const handleEnterEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+    setOpenRecentSearch(true);
     if (e.code === 'Enter' && search !== '') {
       const prev = localStorage.getItem('recentSearch');
       const prevArray = prev ? JSON.parse(prev) : [];
@@ -54,7 +68,13 @@ export const SearchInput = () => {
   };
 
   return (
-    <label className={classNames(styles.input)}>
+    <label
+      className={classNames(
+        styles.input,
+        openRecentSearch && recentSearch.length !== 0
+          ? styles.roundedTop
+          : styles.roundedAll,
+      )}>
       <Search />
       <input
         ref={inputRef}
@@ -63,8 +83,10 @@ export const SearchInput = () => {
         onChange={debounce((e) => handleInputChange(e))}
         onKeyDown={(e) => handleEnterEvent(e)}
       />
-      {recentSearch.length !== 0 && (
-        <div className={classNames(styles.recentSearchWrapper)}>
+      {openRecentSearch && recentSearch.length !== 0 && (
+        <div
+          className={classNames(styles.recentSearchWrapper)}
+          ref={recentSearchWrapperRef}>
           <div className={classNames(styles.spaceBetween)}>
             <span>최근검색어</span>
             <span
@@ -81,9 +103,9 @@ export const SearchInput = () => {
                   styles.spaceBetween,
                   styles.recentSearch,
                 )}>
-                <div className='flex-center'>
+                <div>
                   <Clock />
-                  <span>{searches}</span>
+                  {searches}
                 </div>
                 <Delete onClick={() => handleDeleteKeyword(searches)} />
               </div>
