@@ -42,6 +42,17 @@ export const SearchInput = () => {
     }
   };
 
+  const handleDeleteKeyword = (keyword: string) => {
+    const updatedArray = recentSearch.filter((search) => search !== keyword);
+    setRecentSearch(updatedArray);
+    localStorage.setItem('recentSearch', JSON.stringify(updatedArray));
+  };
+
+  const handleAllDelete = () => {
+    localStorage.removeItem('recentSearch');
+    setRecentSearch([]);
+  };
+
   return (
     <label className={classNames(styles.input)}>
       <Search />
@@ -56,7 +67,11 @@ export const SearchInput = () => {
         <div className={classNames(styles.recentSearchWrapper)}>
           <div className={classNames(styles.spaceBetween)}>
             <span>최근검색어</span>
-            <span>전체 삭제</span>
+            <span
+              onClick={() => handleAllDelete()}
+              className={classNames(styles.hoverUnderline)}>
+              전체 삭제
+            </span>
           </div>
           <div>
             {recentSearch.map((searches) => (
@@ -70,13 +85,15 @@ export const SearchInput = () => {
                   <Clock />
                   <span>{searches}</span>
                 </div>
-                <Delete />
+                <Delete onClick={() => handleDeleteKeyword(searches)} />
               </div>
             ))}
           </div>
           <div className={classNames(styles.spaceBetween)}>
-            <span>최근 검색 저장 끄기</span>
-            <span>닫기</span>
+            <span className={classNames(styles.hoverUnderline)}>
+              최근 검색 저장 끄기
+            </span>
+            <span className={classNames(styles.hoverUnderline)}>닫기</span>
           </div>
         </div>
       )}

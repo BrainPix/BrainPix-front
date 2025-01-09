@@ -59,3 +59,11 @@
     outline: none;
   }
 }
+
+.hoverUnderline {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
