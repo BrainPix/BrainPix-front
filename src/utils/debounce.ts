@@ -1,16 +1,18 @@
-export const debounce = <T extends (...args: any[]) => any>(
-  func: T,
-  timeout = 500,
-) => {
+import { ChangeEvent } from 'react';
+
+interface DebounceProps {
+  handler: (e: ChangeEvent<HTMLInputElement>) => void;
+  timeout?: number;
+}
+
+export const debounce = ({ handler, timeout = 500 }: DebounceProps) => {
   let timer: ReturnType<typeof setTimeout>;
 
-  return (...args: Parameters<T>): ReturnType<T> => {
-    let result: any;
+  return (e: ChangeEvent<HTMLInputElement>) => {
     if (timer) clearTimeout(timeout);
 
     timer = setTimeout(() => {
-      result = func(...args);
+      handler(e);
     }, timeout);
-    return result;
   };
 };
