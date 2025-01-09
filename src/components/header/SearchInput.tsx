@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import { ChangeEvent, useRef, useState, KeyboardEvent } from 'react';
+import { ChangeEvent, useRef, useState, KeyboardEvent, useEffect } from 'react';
 
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 import Search from '../../assets/icons/search.svg?react';
 import Delete from '../../assets/icons/delete.svg?react';
 import Clock from '../../assets/icons/clock.svg?react';
 import { debounce } from '../../utils/debounce';
 
 import styles from './searchInput.module.scss';
-import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 export const SearchInput = () => {
   const recentSearchWrapperRef = useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ export const SearchInput = () => {
     if (e.code === 'Enter' && search !== '') {
       const prev = localStorage.getItem('recentSearch');
       const prevArray = prev ? JSON.parse(prev) : [];
-      const updatedArray = [...new Set([...prevArray, search.trim()])];
+      const updatedArray = [...new Set([search.trim(), ...prevArray])];
       localStorage.setItem('recentSearch', JSON.stringify(updatedArray));
       if (!inputRef.current) {
         return;
@@ -80,7 +80,7 @@ export const SearchInput = () => {
         ref={inputRef}
         className={classNames(styles.inputText)}
         placeholder='어떤 아이디어를 찾으시나요? 키워드를 입력하세요'
-        onChange={debounce((e) => handleInputChange(e))}
+        onChange={debounce({ handler: handleInputChange })}
         onKeyDown={(e) => handleEnterEvent(e)}
       />
       {openRecentSearch && recentSearch.length !== 0 && (
