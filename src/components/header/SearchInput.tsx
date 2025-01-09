@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEvent, useRef, useState, KeyboardEvent, useEffect } from 'react';
+import { ChangeEvent, useRef, useState, KeyboardEvent } from 'react';
 
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import Search from '../../assets/icons/search.svg?react';
