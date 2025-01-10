@@ -12,12 +12,6 @@ export const Test = () => {
     setClicked(!clicked);
   };
 
-  //버튼그룹 test
-
-  const handleSubmit = () => {
-    alert('등록 버튼 클릭됨');
-  };
-
   return (
     <div className={classNames(styles.container)}>
       테스트 페이지입니다.
@@ -31,7 +25,7 @@ export const Test = () => {
 
       {/* 버튼그룹 test */}
       <div className={styles.buttonGroupWrapper}>
-        <ButtonGroup onSubmit={handleSubmit} />
+        <ButtonGroup />
       </div>
     </div>
   );
