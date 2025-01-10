@@ -1,10 +1,9 @@
 ---
-name: "✨FEATURE"
+name: '✨FEATURE'
 about: Feature 작업 사항을 입력해주세요.
 title: ''
 labels: feature
 assignees: ''
-
 ---
 
 ## #️⃣연관된 이슈
