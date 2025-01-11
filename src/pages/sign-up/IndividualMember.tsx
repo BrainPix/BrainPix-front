@@ -1,8 +1,10 @@
 import classNames from 'classnames';
-import styles from './individualMember.module.scss';
+import { useNavigate } from 'react-router-dom';
 import { Input } from './Input';
+import styles from './individualMember.module.scss';
 
 export const IndividualMember = () => {
+  const navigate = useNavigate();
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.logo)}>로고</div>
@@ -39,6 +41,7 @@ export const IndividualMember = () => {
           </div>
         </div>
         <button
+          onClick={() => navigate('/sign-up/complete')}
           className={classNames(styles.submitButton)}
           type='submit'>
           완료

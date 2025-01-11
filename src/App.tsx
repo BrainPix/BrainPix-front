@@ -7,6 +7,7 @@ import { Collaboration } from './pages/collaboration/Collaboration';
 import { Signup } from './pages/sign-up/Signup';
 import { IndividualMember } from './pages/sign-up/IndividualMember';
 import { CorporateMember } from './pages/sign-up/CorporateMember';
+import { CompleteSignup } from './pages/sign-up/CompleteSignup';
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
         <Route
           path='/sign-up/corporate'
           element={<CorporateMember />}
+        />
+        <Route
+          path='/sign-up/complete'
+          element={<CompleteSignup />}
         />
       </Routes>
     </BrowserRouter>

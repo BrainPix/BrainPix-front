@@ -1,8 +1,10 @@
 import classNames from 'classnames';
 import { Input } from './Input';
 import styles from './corporateMember.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 export const CorporateMember = () => {
+  const navigate = useNavigate();
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.logo)}>로고</div>
@@ -42,6 +44,7 @@ export const CorporateMember = () => {
           </div>
         </div>
         <button
+          onClick={() => navigate('/sign-up/complete')}
           className={classNames(styles.submitButton)}
           type='submit'>
           완료
