@@ -5,6 +5,8 @@ import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { Collaboration } from './pages/collaboration/Collaboration';
 import { Signup } from './pages/sign-up/Signup';
+import { IndividualMember } from './pages/sign-up/IndividualMember';
+import { CorporateMember } from './pages/sign-up/CorporateMember';
 
 function App() {
   return (
@@ -31,6 +33,14 @@ function App() {
         <Route
           path='/sign-up'
           element={<Signup />}
+        />
+        <Route
+          path='/sign-up/individual'
+          element={<IndividualMember />}
+        />
+        <Route
+          path='/sign-up/corporate'
+          element={<CorporateMember />}
         />
       </Routes>
     </BrowserRouter>
