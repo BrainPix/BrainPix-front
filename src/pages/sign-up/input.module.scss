@@ -1,0 +1,23 @@
+.inputWrapper {
+  margin-top: 6px;
+  & > p {
+    color: #333;
+    font-size: 11px;
+    font-weight: 400;
+    margin-bottom: 1px;
+  }
+
+  & > input {
+    width: 326px;
+    height: 28px;
+    border-radius: 2px;
+    border: 1px solid #7a7a7a;
+    padding: 7px;
+
+    &::placeholder {
+      color: #898989;
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+}
