@@ -2,7 +2,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import styles from './test.module.scss';
 
-//버튼그룹 test 
+//버튼그룹 test
 import ButtonGroup from '../../components/button/ButtonGroup.tsx';
 
 export const Test = () => {
@@ -22,7 +22,6 @@ export const Test = () => {
         onClick={handleClickButton}>
         테스트 버튼
       </button>
-
       {/* 버튼그룹 test */}
       <div className={styles.buttonGroupWrapper}>
         <ButtonGroup />
