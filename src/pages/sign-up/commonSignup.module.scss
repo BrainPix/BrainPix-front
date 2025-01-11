@@ -1,0 +1,54 @@
+.container {
+  @include flex-center;
+
+  flex-direction: column;
+  height: 100vh;
+}
+
+.logo {
+  @include flex-center;
+
+  width: 293px;
+  height: 102px;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+  margin-bottom: 37px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 26px;
+
+  & > strong {
+    font-weight: 600;
+    color: #222;
+  }
+}
+
+.dividerWrapper {
+  text-align: center;
+  height: 10px;
+  position: relative;
+  margin-bottom: 16px;
+
+  & > span {
+    position: absolute;
+    background-color: white;
+    font-size: 10px;
+    left: 145px;
+    padding: 2px;
+    margin-top: 2px;
+  }
+
+  & > .divider {
+    width: 326px;
+    height: 0.5px;
+    background-color: #9c9c9c;
+  }
+}
+
+.inputContainer {
+  margin-bottom: 15px;
+}
