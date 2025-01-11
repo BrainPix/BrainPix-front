@@ -1,0 +1,21 @@
+@import './commonSignup.module.scss';
+
+.form {
+  @include flex-center;
+
+  flex-direction: column;
+}
+
+.submitButton {
+  width: 102px;
+  height: 28px;
+  border-radius: 2px;
+  font-size: 11px;
+  background: #4a4949;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: 400;
+  margin: 0 auto;
+  margin-top: 55px;
+}
