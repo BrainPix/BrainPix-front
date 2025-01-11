@@ -36,9 +36,9 @@
     position: absolute;
     background-color: white;
     font-size: 10px;
-    left: 145px;
+    left: 50%;
     padding: 2px;
-    margin-top: -7px;
+    transform: translate(-50%, -50%);
   }
 
   & > .divider {
@@ -49,5 +49,25 @@
 }
 
 .inputContainer {
-  padding-bottom: 15px;
+  padding-bottom: 26px;
+}
+
+.form {
+  @include flex-center;
+
+  flex-direction: column;
+}
+
+.submitButton {
+  width: 102px;
+  height: 28px;
+  border-radius: 2px;
+  font-size: 11px;
+  background: #4a4949;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: 400;
+  margin: 0 auto;
+  margin-top: 20px;
 }
