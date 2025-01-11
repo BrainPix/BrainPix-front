@@ -4,6 +4,7 @@ import { Layout } from './pages/layout/Layout';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { Collaboration } from './pages/collaboration/Collaboration';
+import { Signup } from './pages/sign-up/Signup';
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
             element={<Collaboration />}
           />
         </Route>
+        <Route
+          path='/sign-up'
+          element={<Signup />}
+        />
       </Routes>
     </BrowserRouter>
   );
