@@ -45,4 +45,9 @@
             background: var(--Grey-Grey-200, #e0e0e0);
         }
         }
+        .selected {
+            background-color: #f0f0f0;
+            color:  var(--Grey-Grey-900, #222);
+            border-color: #f0f0f0;
+        }
     }
