@@ -2,6 +2,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
 import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
+import Delete from '../../assets/icons/delete.svg?react';
 import styles from './login.module.scss';
 
 export const Login = () => {
@@ -40,6 +41,9 @@ export const Login = () => {
               htmlFor='id'
               className={classNames(styles.label)}>
               아이디
+              <div className={classNames(styles.iconWrapper)}>
+                <Delete />
+              </div>
             </label>
             <input
               className={classNames(styles.input)}
@@ -52,17 +56,14 @@ export const Login = () => {
               htmlFor='password'
               className={classNames(styles.label)}>
               비밀번호
-              {isVisiblePassword ? (
-                <EyeVisible
-                  onClick={() => setIsVisiblePassword(false)}
-                  className={classNames(styles.eyeIcon)}
-                />
-              ) : (
-                <EyeNonVisible
-                  onClick={() => setIsVisiblePassword(true)}
-                  className={classNames(styles.eyeIcon)}
-                />
-              )}
+              <div className={classNames(styles.iconWrapper)}>
+                {isVisiblePassword ? (
+                  <EyeVisible onClick={() => setIsVisiblePassword(false)} />
+                ) : (
+                  <EyeNonVisible onClick={() => setIsVisiblePassword(true)} />
+                )}
+                <Delete />
+              </div>
             </label>
             <input
               className={classNames(styles.input)}

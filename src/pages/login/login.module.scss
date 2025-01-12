@@ -86,11 +86,15 @@
   position: relative;
 }
 
-.eyeIcon {
+.iconWrapper {
+  height: 17px;
   position: absolute;
-  right: 35px;
-  top: 36px;
+  right: 12px;
+  top: 40px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .input {
