@@ -1,5 +1,12 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
 import styles from './PaymentSummary.module.scss';
+import EllipseGray from '../../assets/icons/ellipse_gray.svg';
+import EllipseBlue from '../../assets/icons/ellipse_blue.svg';
+import EllipseWhite from '../../assets/icons/ellipse_white.svg';
+import CheckLightIcon from '../../assets/icons/check-light.svg';
+import CheckLightGray from '../../assets/icons/check-light-gray.svg';
+import CheckLightBlue from '../../assets/icons/check-light-blue.svg';
 
 const PaymentSummary: React.FC = () => {
   const [isAllAgreed, setIsAllAgreed] = useState(false);
@@ -17,6 +24,7 @@ const PaymentSummary: React.FC = () => {
     setAgreements(newAgreements);
     setIsAllAgreed(newAgreements.every((value) => value));
   };
+
   return (
     <div className={styles.paymentSummary}>
       <div className={styles.title}>결제 금액</div>
@@ -42,31 +50,16 @@ const PaymentSummary: React.FC = () => {
         <div
           className={styles.agreementTitle}
           onClick={handleAllAgree}>
-          <button
-            type='button'
-            className={`${styles.checkButton} ${
-              isAllAgreed ? styles.active : styles.default
-            }`}>
-            <svg
-              className={styles.checkIcon}
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'>
-              <circle
-                cx='12'
-                cy='12'
-                r='12'
-                className={styles.circle}
-              />
-              {isAllAgreed && (
-                <path
-                  d='M8 12l2 2 4-4'
-                  className={styles.check}
-                />
-              )}
-            </svg>
-          </button>
+          <img
+            src={CheckLightIcon}
+            alt='체크 아이콘'
+            className={styles.checkIcon}
+          />
+          <img
+            src={isAllAgreed ? EllipseBlue : EllipseGray}
+            alt='전체 동의 체크 배경'
+            className={styles.checkBackground}
+          />
           아래 약관에 전체 동의해요
         </div>
 
@@ -74,36 +67,22 @@ const PaymentSummary: React.FC = () => {
           '‘BrainPIX’ 서비스 이용약관 동의 (필수)',
           '개인정보 수집 및 이용 동의 (필수)',
           '개인정보 제3자 제공 동의 (필수)',
-        ].map((label: string, index: number) => (
+        ].map((label, index) => (
           <div
             key={index}
-            className={styles.agreementRow}>
-            <button
-              type='button'
-              className={`${styles.checkButton} ${
-                agreements[index] ? styles.active : styles.default
-              }`}
-              onClick={() => handleAgreementClick(index)}>
-              <svg
-                className={styles.checkIcon}
-                width='24'
-                height='24'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'>
-                <circle
-                  cx='12'
-                  cy='12'
-                  r='12'
-                  className={styles.circle}
-                />
-                {agreements[index] && (
-                  <path
-                    d='M8 12l2 2 4-4'
-                    className={styles.check}
-                  />
-                )}
-              </svg>
-            </button>
+            className={styles.agreementRow}
+            onClick={() => handleAgreementClick(index)}>
+            <img
+              src={EllipseWhite}
+              alt='개별 동의 체크 배경'
+              className={styles.nonecheckBackground}
+              onClick={() => handleAgreementClick(index)}
+            />
+            <img
+              src={agreements[index] ? CheckLightBlue : CheckLightGray}
+              alt='체크 아이콘'
+              className={styles.checkIcon}
+            />
             <span className={styles.agreementLabel}>{label}</span>
             <span
               className={styles.details}

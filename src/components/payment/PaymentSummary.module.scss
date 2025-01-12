@@ -21,7 +21,6 @@
     padding: 30px 45px;
     border-radius: 5px;
     border: 1px solid var(--Grey-Grey-400, #bdbdbd);
-    //background: var(--Grey-Grey-50, #fafafa);
 }
 
 .line {
@@ -100,10 +99,10 @@
     }
 
 .agreementRow {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
 }
 
 .agreementLabel {
@@ -123,63 +122,56 @@ padding: 8px 0;
     margin-left: 16px;
 }
 
+.checkBackground {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.nonecheckBackground {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+
 .checkIcon {
+    position: absolute;
     flex-shrink: 0;
     width: 24px;
     height: 24px;
     margin-right: 12px;
     cursor: pointer;
+    margin-left: 4px;
+    margin-top: 4px;
     fill: var(--Grey-Grey-400, #bdbdbd);
 }
+
 
     .checkIcon.active {
         fill: #377ff8;
     }
 }
 
+.agreementTitle,
+.agreementRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.details {
+    cursor: pointer;
+    color: #616161;
+    font-size: 14px;
+}
+
 .checkButton {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
     position: relative;
-  
-    &.default {
-      background-color: transparent;
-    }
-  
-    &.active {
-      background-color: transparent;
-    }
-  
-    &.circle {
-      background-color: #bdbdbd; /* 원형 배경 */
-      border-radius: 50%;
-    }
-  
-    &.circle.active {
-      background-color: #377ff8; /* 활성화된 원형 배경 */
-    }
-  
-    svg {
-      width: 24px;
-      height: 24px;
-  
-      .check {
-        stroke: #fff; /* 체크 색상 */
-        fill: none;
-      }
-  
-      .checkLine {
-        stroke: #bdbdbd; /* 비활성 체크 색상 */
-        fill: none;
-      }
-  
-      .checkLine.active {
-        stroke: #377ff8; /* 활성 체크 색상 */
-      }
-    }
-  }
-  
+}
