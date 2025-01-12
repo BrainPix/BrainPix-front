@@ -14,3 +14,8 @@
 .clicked {
   background-color: orange;
 }
+
+.buttonGroupWrapper {
+  @include flex-center;
+  gap: 10px;
+}

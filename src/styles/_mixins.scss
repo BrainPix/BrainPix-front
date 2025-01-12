@@ -3,21 +3,3 @@
   justify-content: center;
   align-items: center;
 }
-
-@mixin buttonStyle {
-  padding: 12px 20px;
-  border: none;
-  font-size: $fontSizeBase;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  text-align: center;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
-@mixin buttonSize($padding, $fontSize) {
-  padding: $padding;
-  font-size: $fontSize;
-}

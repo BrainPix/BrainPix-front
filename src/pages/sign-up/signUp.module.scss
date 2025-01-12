@@ -1,0 +1,49 @@
+.container {
+  @include flex-center;
+
+  height: 100vh;
+  flex-direction: column;
+}
+
+.logo {
+  @include flex-center;
+
+  width: 293px;
+  height: 102px;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+  margin-bottom: 37px;
+}
+
+.headline {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 76px;
+  font-weight: 500;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 19px;
+}
+
+.memberButton {
+  @include flex-center;
+
+  width: 208px;
+  height: 73px;
+  font-size: 24px;
+  font-weight: 500;
+  border-radius: 36.5px;
+  border: none;
+  gap: 16.33px;
+  cursor: pointer;
+
+  & > span {
+    margin-top: 2px;
+  }
+}
+
+.individual {
+  background-color: #bdbdbd;
+}

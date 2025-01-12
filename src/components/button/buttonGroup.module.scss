@@ -1,0 +1,24 @@
+.buttonGroup {
+  @include flex-center; // flexbox 중앙 정렬
+  gap: 10px; // 버튼 간격
+}
+
+.cancelButton {
+  background-color: #ffffff;
+  color: #616161;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.submitButton {
+  background-color: #424242;
+  color: #ffffff;
+  border: none;
+  width: 125px;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 28px;
+}
