@@ -33,6 +33,14 @@
   gap: 45px;
   font-size: 24px;
   cursor: pointer;
+
+  & > * {
+    padding-bottom: 18px;
+  }
+
+  .clickedPage {
+    padding-bottom: 0px;
+  }
 }
 
 .clickedPage {
@@ -40,6 +48,7 @@
 
   flex-direction: column;
   text-align: center;
+  font-weight: 500;
 }
 
 .clickedPage::after {
