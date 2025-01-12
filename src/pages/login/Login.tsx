@@ -6,17 +6,35 @@ import styles from './login.module.scss';
 
 export const Login = () => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const [member, setMember] = useState<'individual' | 'corparate'>(
+    'individual',
+  );
+
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.logo)}>로고</div>
       <div className={classNames(styles.loginContainer)}>
         <div className={classNames(styles.buttonWrapper)}>
-          <button className={classNames(styles.memberButton)}>개인 회원</button>
-          <button className={classNames(styles.memberButton, styles.clicked)}>
+          <button
+            className={classNames(styles.memberButton, {
+              [styles.clicked]: member === 'individual',
+            })}
+            onClick={() => setMember('individual')}>
+            개인 회원
+          </button>
+          <button
+            className={classNames(styles.memberButton, {
+              [styles.clicked]: member === 'corparate',
+            })}
+            onClick={() => setMember('corparate')}>
             기업 회원
           </button>
         </div>
-        <div className={classNames(styles.inputContainer, styles.right)}>
+        <div
+          className={classNames(
+            styles.inputContainer,
+            member === 'corparate' ? styles.right : styles.left,
+          )}>
           <form className={classNames(styles.form)}>
             <label
               htmlFor='id'
