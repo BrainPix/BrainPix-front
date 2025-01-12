@@ -1,11 +1,11 @@
+import { useState } from 'react';
 import classNames from 'classnames';
+import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
+import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
 import styles from './login.module.scss';
 
-import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
-// import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
-
 export const Login = () => {
-  // const [isVisiblePassword, setIsVisiblePassword]
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.logo)}>로고</div>
@@ -34,7 +34,17 @@ export const Login = () => {
               htmlFor='password'
               className={classNames(styles.label)}>
               비밀번호
-              <EyeVisible className={classNames(styles.eyeIcon)} />
+              {isVisiblePassword ? (
+                <EyeVisible
+                  onClick={() => setIsVisiblePassword(false)}
+                  className={classNames(styles.eyeIcon)}
+                />
+              ) : (
+                <EyeNonVisible
+                  onClick={() => setIsVisiblePassword(true)}
+                  className={classNames(styles.eyeIcon)}
+                />
+              )}
             </label>
             <input
               className={classNames(styles.input)}
