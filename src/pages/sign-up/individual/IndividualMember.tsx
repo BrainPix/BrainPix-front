@@ -1,9 +1,10 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
 import { SIGN_UP_ERROR_MESSAGE } from '../../../constants/errorMessage';
 import { Input } from '../../../components/sign-up/Input';
+import { formatBirth } from '../../../utils/formatBirth';
 import styles from './individualMember.module.scss';
 
 export const IndividualMember = () => {
@@ -14,12 +15,9 @@ export const IndividualMember = () => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({ mode: 'onTouched' });
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   const registers = {
     id: register('id', {
@@ -49,7 +47,11 @@ export const IndividualMember = () => {
       },
     }),
     name: register('name'),
-    birth: register('birth'),
+    birth: register('birth', {
+      onChange: (e) => {
+        setValue('birth', formatBirth(e.target.value));
+      },
+    }),
     email: register('email'),
   };
 
@@ -114,6 +116,8 @@ export const IndividualMember = () => {
             />
             <Input
               label='생년월일'
+              placeholder='YYYY-MM-DD'
+              maxLength={10}
               {...registers.birth}
             />
             <Input
