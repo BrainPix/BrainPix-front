@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './test.module.scss';
 
 //버튼그룹 test
-import ButtonGroup from '../../components/button/ButtonGroup.tsx';
+import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 
 export const Test = () => {
   const [clicked, setClicked] = useState(false);

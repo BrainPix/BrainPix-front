@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { ChangeEvent, useRef, useState, KeyboardEvent } from 'react';
 
-import { useOutsideClick } from '../../hooks/useOutsideClick';
-import Search from '../../assets/icons/search.svg?react';
-import Delete from '../../assets/icons/delete.svg?react';
-import Clock from '../../assets/icons/clock.svg?react';
-import { debounce } from '../../utils/debounce';
+import Search from '../../../assets/icons/search.svg?react';
+import Delete from '../../../assets/icons/delete.svg?react';
+import Clock from '../../../assets/icons/clock.svg?react';
+import { debounce } from '../../../utils/debounce';
+import { useOutsideClick } from '../../../hooks/useOutsideClick';
 
 import styles from './searchInput.module.scss';
 
