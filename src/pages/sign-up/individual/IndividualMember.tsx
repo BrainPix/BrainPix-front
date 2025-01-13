@@ -1,7 +1,8 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
+import { SIGN_UP_ERROR_MESSAGE } from '../../../constants/errorMessage';
 import { Input } from '../../../components/sign-up/Input';
 import styles from './individualMember.module.scss';
 
@@ -9,12 +10,44 @@ export const IndividualMember = () => {
   // const navigate = useNavigate();
   const [emailDomain, setEmailDomain] = useState('');
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({ mode: 'onTouched' });
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   const registers = {
-    id: register('id'),
-    password: register('password'),
-    passwordCheck: register('passwordCheck'),
+    id: register('id', {
+      required: SIGN_UP_ERROR_MESSAGE.id,
+      minLength: { value: 6, message: SIGN_UP_ERROR_MESSAGE.id },
+      maxLength: { value: 12, message: SIGN_UP_ERROR_MESSAGE.id },
+      pattern: {
+        value: /^[a-z0-9]+$/,
+        message: SIGN_UP_ERROR_MESSAGE.id,
+      },
+    }),
+    password: register('password', {
+      required: SIGN_UP_ERROR_MESSAGE.passwordRegex,
+      minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
+      maxLength: { value: 20, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
+      pattern: {
+        value: /^(?=.*[a-zA-Z])(?=.*[\d\W_])[a-zA-Z\d\W_]$/,
+        message: SIGN_UP_ERROR_MESSAGE.passwordRegex,
+      },
+    }),
+    passwordCheck: register('passwordCheck', {
+      validate: (value) => {
+        if (watch('password') !== value) {
+          return SIGN_UP_ERROR_MESSAGE.passwordCheck;
+        }
+        return true;
+      },
+    }),
     name: register('name'),
     birth: register('birth'),
     email: register('email'),
@@ -46,17 +79,26 @@ export const IndividualMember = () => {
           <div className={classNames(styles.inputContainer)}>
             <Input
               label='아이디'
+              errorMessage={errors.id?.message && String(errors.id?.message)}
               {...registers.id}
             />
             <Input
               label='비밀번호'
               placeholder='비밀번호(영문 + 숫자 + 특수문자 8자 이상)'
               type='password'
+              errorMessage={
+                errors.password?.message && String(errors.password?.message)
+              }
               {...registers.password}
             />
+
             <Input
               placeholder='비밀번호 확인'
               type='password'
+              errorMessage={
+                errors.passwordCheck?.message &&
+                String(errors.passwordCheck?.message)
+              }
               {...registers.passwordCheck}
             />
           </div>
