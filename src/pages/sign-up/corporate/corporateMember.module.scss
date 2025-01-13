@@ -1,0 +1,7 @@
+@import '../../../components/sign-up/commonSignup.module.scss';
+
+.textBlue {
+  & > strong {
+    color: #00a5e1;
+  }
+}

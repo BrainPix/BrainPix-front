@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
-import { Input } from './Input';
+import { Input } from '../../../components/sign-up/Input';
 import styles from './individualMember.module.scss';
 
 export const IndividualMember = () => {

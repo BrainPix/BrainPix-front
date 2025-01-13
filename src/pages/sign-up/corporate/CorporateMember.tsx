@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Input } from './Input';
+import { Input } from '../../../components/sign-up/Input';
 import styles from './corporateMember.module.scss';
 import { useNavigate } from 'react-router-dom';
 

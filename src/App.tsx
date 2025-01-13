@@ -6,8 +6,8 @@ import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment/IdeaMarketP
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { Collaboration } from './pages/collaboration/Collaboration';
 import { Signup } from './pages/sign-up/Signup';
-import { IndividualMember } from './components/sign-up/IndividualMember';
-import { CorporateMember } from './components/sign-up/CorporateMember';
+import { IndividualMember } from './pages/sign-up/individual/IndividualMember';
+import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 
