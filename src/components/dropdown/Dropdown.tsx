@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useOutsideClick } from '../../hooks/useOutsideClick.ts';
 import classNames from 'classnames';
-import styles from './Dropdown.module.scss';
+import styles from './dropdown.module.scss';
 
 interface DropdownProps {
   label?: string;
