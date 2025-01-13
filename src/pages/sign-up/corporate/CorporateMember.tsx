@@ -2,12 +2,13 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { Input } from '../../../components/sign-up/Input';
 import styles from './corporateMember.module.scss';
+import { formatBirth } from '../../../utils/formatBirth';
 // import { useNavigate } from 'react-router-dom';
 
 export const CorporateMember = () => {
   // const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm({ mode: 'onTouched' });
+  const { register, handleSubmit, setValue } = useForm({ mode: 'onTouched' });
 
   const registers = {
     id: register('id'),
@@ -15,7 +16,11 @@ export const CorporateMember = () => {
     passwordCheck: register('passwordCheck'),
     name: register('name'),
     companyName: register('companyName'),
-    birth: register('birth'),
+    birth: register('birth', {
+      onChange: (e) => {
+        setValue('birth', formatBirth(e.target.value));
+      },
+    }),
     email: register('email'),
     position: register('position'),
   };
@@ -67,6 +72,8 @@ export const CorporateMember = () => {
             />
             <Input
               label='생년월일'
+              placeholder='YYYY-MM-DD'
+              maxLength={10}
               {...registers.birth}
             />
             <Input
