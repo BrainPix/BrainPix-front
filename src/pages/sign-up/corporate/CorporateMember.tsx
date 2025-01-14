@@ -2,7 +2,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { Input } from '../../../components/sign-up/Input';
 import styles from './corporateMember.module.scss';
-import { formatBirth } from '../../../utils/formatBirth';
+import { CorporateMemberRegisters } from '../../../constants/registers';
 // import { useNavigate } from 'react-router-dom';
 
 export const CorporateMember = () => {
@@ -10,20 +10,7 @@ export const CorporateMember = () => {
 
   const { register, handleSubmit, setValue } = useForm({ mode: 'onTouched' });
 
-  const registers = {
-    id: register('id'),
-    password: register('password'),
-    passwordCheck: register('passwordCheck'),
-    name: register('name'),
-    companyName: register('companyName'),
-    birth: register('birth', {
-      onChange: (e) => {
-        setValue('birth', formatBirth(e.target.value));
-      },
-    }),
-    email: register('email'),
-    position: register('position'),
-  };
+  const registers = CorporateMemberRegisters({ register, setValue });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
     console.log(payload);

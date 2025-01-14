@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
 import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
 import Delete from '../../assets/icons/delete.svg?react';
 import styles from './login.module.scss';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { loginRegisters } from '../../constants/registers';
 
 export const Login = () => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
@@ -17,6 +18,8 @@ export const Login = () => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
     console.log(payload);
   };
+
+  const registers = loginRegisters(register);
 
   const handleClickDelete = (type: 'id' | 'password') => {
     if (type === 'password') {
@@ -68,7 +71,7 @@ export const Login = () => {
               placeholder='아이디 입력'
               type='text'
               id='id'
-              {...register('id')}
+              {...registers.id}
             />
             <label
               htmlFor='password'
@@ -88,7 +91,7 @@ export const Login = () => {
               placeholder='비밀번호 입력'
               type={isVisiblePassword ? 'password' : 'text'}
               id='password'
-              {...register('password')}
+              {...registers.password}
             />
             <button
               type='submit'

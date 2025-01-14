@@ -2,10 +2,9 @@ import { ChangeEvent, useState } from 'react';
 import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
-import { SIGN_UP_ERROR_MESSAGE } from '../../../constants/errorMessage';
 import { Input } from '../../../components/sign-up/Input';
-import { formatBirth } from '../../../utils/formatBirth';
 import styles from './individualMember.module.scss';
+import { IndividualMemberRegisters } from '../../../constants/registers';
 
 export const IndividualMember = () => {
   // const navigate = useNavigate();
@@ -19,41 +18,7 @@ export const IndividualMember = () => {
     formState: { errors },
   } = useForm({ mode: 'onTouched' });
 
-  const registers = {
-    id: register('id', {
-      required: SIGN_UP_ERROR_MESSAGE.id,
-      minLength: { value: 6, message: SIGN_UP_ERROR_MESSAGE.id },
-      maxLength: { value: 12, message: SIGN_UP_ERROR_MESSAGE.id },
-      pattern: {
-        value: /^[a-z0-9]+$/,
-        message: SIGN_UP_ERROR_MESSAGE.id,
-      },
-    }),
-    password: register('password', {
-      required: SIGN_UP_ERROR_MESSAGE.passwordRegex,
-      minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
-      maxLength: { value: 20, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
-      pattern: {
-        value: /^(?=.*[a-zA-Z])(?=.*[\d\W_])[a-zA-Z\d\W_]$/,
-        message: SIGN_UP_ERROR_MESSAGE.passwordRegex,
-      },
-    }),
-    passwordCheck: register('passwordCheck', {
-      validate: (value) => {
-        if (watch('password') !== value) {
-          return SIGN_UP_ERROR_MESSAGE.passwordCheck;
-        }
-        return true;
-      },
-    }),
-    name: register('name'),
-    birth: register('birth', {
-      onChange: (e) => {
-        setValue('birth', formatBirth(e.target.value));
-      },
-    }),
-    email: register('email'),
-  };
+  const registers = IndividualMemberRegisters({ register, watch, setValue });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
     const data = { ...payload, email: payload.email + '@' + emailDomain };
