@@ -12,10 +12,19 @@ export const Login = () => {
     'individual',
   );
 
-  const { register, handleSubmit } = useForm({ mode: 'onSubmit' });
+  const { register, handleSubmit, setValue } = useForm({ mode: 'onSubmit' });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
     console.log(payload);
+  };
+
+  const handleClickDelete = (type: 'id' | 'password') => {
+    if (type === 'password') {
+      return setValue('password', '');
+    }
+    if (type === 'id') {
+      return setValue('id', '');
+    }
   };
 
   return (
@@ -51,7 +60,7 @@ export const Login = () => {
               className={classNames(styles.label)}>
               아이디
               <div className={classNames(styles.iconWrapper)}>
-                <Delete />
+                <Delete onClick={() => handleClickDelete('id')} />
               </div>
             </label>
             <input
@@ -71,13 +80,13 @@ export const Login = () => {
                 ) : (
                   <EyeNonVisible onClick={() => setIsVisiblePassword(true)} />
                 )}
-                <Delete />
+                <Delete onClick={() => handleClickDelete('password')} />
               </div>
             </label>
             <input
               className={classNames(styles.input)}
               placeholder='비밀번호 입력'
-              type='password'
+              type={isVisiblePassword ? 'password' : 'text'}
               id='password'
               {...register('password')}
             />
