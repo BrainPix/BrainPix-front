@@ -1,0 +1,21 @@
+.container {
+  @include flex-center;
+
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  gap: 10px;
+}
+
+.testButton {
+  color: red;
+}
+
+.clicked {
+  background-color: orange;
+}
+
+.buttonGroupWrapper {
+  @include flex-center;
+  gap: 10px;
+}
