@@ -1,42 +1,23 @@
 .container {
   display: flex;
-  padding: 20px;
+  flex-direction: column;
+  height: 100%;
+  min-height: 800px;
 }
 
-.sidebar {
-  width: 200px;
-  border-right: 1px solid #ddd;
-  padding-right: 20px;
-
-  .sidebarTitle {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-
-  .nav {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    .navItem {
-      cursor: pointer;
-      font-size: 14px;
-      color: #333;
-      padding: 8px;
-      border-radius: 5px;
-
-      &.active {
-        font-weight: bold;
-        color: #007aff;
-      }
-    }
-  }
+.contentWrapper {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  margin: 20px auto;
+  gap: 20px;
+  padding: 0 10%;
 }
 
 .mainContent {
   flex: 1;
-  padding-left: 20px;
+  padding: 20px;
+  overflow: auto;
 
   .title {
     font-size: 24px;
