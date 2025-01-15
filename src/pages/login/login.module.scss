@@ -4,11 +4,12 @@
 
 .logo {
   @include flex-center;
+
   width: 293px;
   height: 102px;
   background-color: #d9d9d9;
   border-radius: 5px;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 .loginContainer {
@@ -17,7 +18,7 @@
   background-color: #d9d9d9;
   border-radius: 15px;
   position: relative;
-  margin: 0px auto;
+  margin: 0 auto;
   margin-top: 33px;
   animation: shadow-drop-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
@@ -39,7 +40,7 @@
   border: none;
   text-align: center;
   cursor: pointer;
-  border-radius: 15px 15px 0px 0px;
+  border-radius: 15px 15px 0 0;
 }
 
 .clicked {
@@ -54,6 +55,7 @@
 
 .inputContainer {
   @include flex-center;
+
   position: absolute;
   top: 66px;
   width: 100%;
@@ -62,15 +64,17 @@
   border: 1px solid black;
 
   &.right {
-    border-radius: 15px 0px 15px 15px;
+    border-radius: 15px 0 15px 15px;
   }
+
   &.left {
-    border-radius: 0px 15px 15px 15px;
+    border-radius: 0 15px 15px;
   }
 }
 
 .form {
   @include flex-center;
+
   flex-direction: column;
   width: 100%;
   padding: 40px 37px 30px;
@@ -136,11 +140,10 @@
 
 @keyframes shadow-drop-center {
   0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 0%);
   }
+
   100% {
-    -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 35%);
   }
 }
