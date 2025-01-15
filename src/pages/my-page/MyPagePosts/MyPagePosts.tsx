@@ -3,6 +3,7 @@ import styles from './MyPagePosts.module.scss';
 import classNames from 'classnames';
 import { Header } from '../../../components/header/Header.tsx';
 import MyPageSidebar from '../../../components/sidebar/MyPageSidebar.tsx';
+import PostCard from '../../../components/postcard/PostCard.tsx';
 
 const MyPagePosts = () => {
   const [activeTab, setActiveTab] = useState('아이디어 마켓');
@@ -13,7 +14,7 @@ const MyPagePosts = () => {
       user: 'yeonyyy',
       title: '노인층을 위한 키오스크 대체 로봇',
       price: '500,000원',
-      thumbnail: '', // 이미지 URL (추후 추가 가능)
+      thumbnail: '', // 이미지 URL
     },
     // 추가 게시물 데이터
   ];
