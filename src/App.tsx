@@ -5,6 +5,7 @@ import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment/IdeaMarketPayment';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { Collaboration } from './pages/collaboration/Collaboration';
+import PostDetailWithoutLink from './pages/collaboration/PostDetailWithoutLink';
 import { Signup } from './pages/sign-up/Signup';
 import { IndividualMember } from './components/sign-up/IndividualMember';
 import { CorporateMember } from './components/sign-up/CorporateMember';
@@ -35,6 +36,10 @@ function App() {
           <Route
             path='/collaboration'
             element={<Collaboration />}
+          />
+          <Route
+            path='/collaboration/postdetailwithoutlink'
+            element={<PostDetailWithoutLink />}
           />
         </Route>
         <Route
