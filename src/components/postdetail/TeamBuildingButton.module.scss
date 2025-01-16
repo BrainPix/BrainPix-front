@@ -1,0 +1,24 @@
+  .button {
+    display: inline-flex;
+    padding: 20px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: #377ff8;
+    color: var(--Grey-Grey-50, #fafafa);
+    font-family: Pretendard, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    text-decoration: none; /* 링크 밑줄 제거 */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  
+    &:hover {
+      background-color: #2865c7; /* 호버 시 색상 변경 */
+    }
+  }
+  
