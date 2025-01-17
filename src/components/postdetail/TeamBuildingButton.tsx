@@ -1,4 +1,4 @@
-import styles from './teamBuildingButton.module.scss';
+import styles from './TeamBuildingButton.module.scss';
 
 const TeamBuildingButton = () => {
   return (
