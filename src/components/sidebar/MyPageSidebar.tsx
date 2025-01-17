@@ -1,4 +1,4 @@
-import styles from './MyPageSidebar.module.scss';
+import styles from './myPageSidebar.module.scss';
 import classNames from 'classnames';
 
 const MyPageSidebar = () => {

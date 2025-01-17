@@ -1,12 +1,14 @@
-import styles from './PostCard.module.scss';
+import styles from './postCard.module.scss';
 import classNames from 'classnames';
 
+const CategoryList[] = ['ideaMarket', 'requestTask', 'collaboration'];
+
 interface PostCardProps {
-  category: 'ideaMarket' | 'requestTask' | 'collaboration';
+  category: string[];
   user: string;
   title: string;
   image?: string;
-  price?: string | null;
+  price?: string;
   deadline?: string;
   memberInfo?: string;
 }
@@ -21,6 +23,7 @@ function PostCard({
   memberInfo,
 }: PostCardProps) {
   return (
+    //const finalCategory = options && options.length > 0 ? options : defaultOptions;
     <div className={classNames(styles.postCard, styles[category])}>
       <div className={styles.postHeader}>
         <img
