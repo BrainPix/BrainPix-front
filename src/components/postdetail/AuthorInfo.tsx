@@ -1,5 +1,5 @@
 import styles from './authorInfo.module.scss';
-import ProfileIcon from '../../assets/icons/profile.svg';
+import ProfileIcon from '../../assets/icons/nonprofile.svg';
 import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg';
 
 const AuthorInfo = () => {

@@ -1,5 +1,5 @@
 import styles from './profileHeader.module.scss';
-import profileIcon from '../../assets/icons/profile.svg';
+import profileIcon from '../../assets/icons/nonprofile.svg';
 
 const ProfileHeader = () => {
   return (
