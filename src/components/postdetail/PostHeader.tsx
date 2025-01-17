@@ -10,6 +10,7 @@ import emptyCircleBlue from '../../assets/icons/empty-blue-circle.svg';
 const PostHeader = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
+  // 북마크 버튼을 클릭했을 때 북마크 상태를 토글하는 함수
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };

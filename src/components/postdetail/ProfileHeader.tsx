@@ -5,6 +5,7 @@ const ProfileHeader = () => {
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
+        {/*프로필 아이콘 이미지를 불러옴*/}
         <img
           src={profileIcon}
           alt='Profile Icon'

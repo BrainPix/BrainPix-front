@@ -2,7 +2,6 @@ import styles from './taskDescription.module.scss';
 
 const TaskDescription = () => {
   const handleOpenClick = () => {};
-
   const handleDownloadClick = () => {};
 
   return (

@@ -16,6 +16,7 @@ const RecruitmentInfo = () => {
         <span className={styles.column}>모집 단위</span>
         <span className={styles.column}>모집 인원</span>
       </div>
+      {/*map을 사용하여 recruitmentUnits 배열을 순회하며 각 요소를 출력*/}
       {recruitmentUnits.map((unit, index) => (
         <div
           key={index}

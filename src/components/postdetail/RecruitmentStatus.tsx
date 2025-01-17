@@ -17,6 +17,7 @@ const RecruitmentStatus = () => {
         <span className={styles.column}>역할</span>
         <span className={styles.column}>포트폴리오</span>
       </div>
+      {/*map을 사용하여 members 배열을 순회하며 각 요소를 출력*/}
       {members.map((member, index) => (
         <div
           key={index}
