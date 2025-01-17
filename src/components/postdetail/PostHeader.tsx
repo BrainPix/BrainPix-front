@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './postHeader.module.scss';
+import styles from './PostHeader.module.scss';
 import arrowIcon from '../../assets/icons/arrow-up-2-thin.svg';
 import dotIcon from '../../assets/icons/dot.svg';
 import bookmarkGray from '../../assets/icons/bookmark-fill-gray.svg';

@@ -1,4 +1,4 @@
-import styles from './recruitmentStatus.module.scss';
+import styles from './RecruitmentStatus.module.scss';
 
 const RecruitmentStatus = () => {
   const members = [

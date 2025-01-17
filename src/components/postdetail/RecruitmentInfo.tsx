@@ -1,4 +1,4 @@
-import styles from './recruitmentInfo.module.scss';
+import styles from './RecruitmentInfo.module.scss';
 
 const RecruitmentInfo = () => {
   const recruitmentUnits = [
