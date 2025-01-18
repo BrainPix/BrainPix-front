@@ -1,10 +1,10 @@
 import React from 'react';
-import PaymentTitle from '../../../components/payment/PaymentTitle';
-import SellerInfo from '../../../components/info/SellerInfo';
-import PaymentMethods from '../../../components/payment/PaymentMethods';
-import PaymentSummary from '../../../components/payment/PaymentSummary';
-import PaymentButton from '../../../components/common/button/PaymentButton';
-import styles from './IdeaMarketPayment.module.scss';
+import PaymentTitle from '../../components/payment/PaymentTitle';
+import SellerInfo from '../../components/info/SellerInfo';
+import PaymentMethods from '../../components/payment/PaymentMethods';
+import PaymentSummary from '../../components/payment/PaymentSummary';
+import PaymentButton from '../../components/common/button/PaymentButton';
+import styles from './ideaMarketPayment.module.scss';
 
 const IdeaMarketPayment: React.FC = () => {
   return (

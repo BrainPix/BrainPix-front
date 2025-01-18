@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
-import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment/IdeaMarketPayment';
+import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { Collaboration } from './pages/collaboration/Collaboration';
 import PostDetailWithoutLink from './pages/collaboration/PostDetailWithoutLink';
