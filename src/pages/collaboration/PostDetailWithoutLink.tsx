@@ -7,7 +7,7 @@ import RecruitmentStatus from '../../components/postdetail/RecruitmentStatus';
 import TeamBuildingButton from '../../components/postdetail/TeamBuildingButton';
 import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
-import styles from './PostDetailWithoutLink.module.scss';
+import styles from './postDetailWithoutLink.module.scss';
 
 const PostDetailWithoutLink: React.FC = () => {
   return (
