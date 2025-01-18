@@ -1,10 +1,8 @@
 import styles from './postCard.module.scss';
 import classNames from 'classnames';
 
-const CategoryList[] = ['ideaMarket', 'requestTask', 'collaboration'];
-
 interface PostCardProps {
-  category: string[];
+  category: string;
   user: string;
   title: string;
   image?: string;
@@ -23,8 +21,8 @@ function PostCard({
   memberInfo,
 }: PostCardProps) {
   return (
-    //const finalCategory = options && options.length > 0 ? options : defaultOptions;
     <div className={classNames(styles.postCard, styles[category])}>
+      {/* 공통 헤더 */}
       <div className={styles.postHeader}>
         <img
           src='/default-profile.png'
@@ -33,13 +31,8 @@ function PostCard({
         />
         <span className={styles.username}>{user}</span>
       </div>
-      <div className={styles.postImage}>
-        <img
-          src={image || '/placeholder.png'}
-          alt={title}
-        />
-      </div>
 
+      {/* 카테고리별 조건부 렌더링 */}
       <div className={styles.postContent}>
         {category === 'ideaMarket' && (
           <>

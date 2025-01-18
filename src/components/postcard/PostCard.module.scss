@@ -1,53 +1,70 @@
 .postCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   width: 250px;
-  height: 350px;
+  padding: 16px;
   border: 1px solid #ddd;
   border-radius: 12px;
-  padding: 16px;
-  background-color: #fff;
+  background: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
 
-  &:hover {
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  &.ideaMarket {
+    border-color: #007aff;
+    background-color: #f0f8ff;
+  }
+
+  &.requestTask {
+    border-color: #ff9500;
+    background-color: #fffaf0;
+  }
+
+  &.collaboration {
+    border-color: #34c759;
+    background-color: #f0fff4;
   }
 
   .postHeader {
     display: flex;
     align-items: center;
-    width: 100%;
     margin-bottom: 12px;
 
     .profileImage {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      object-fit: cover;
       margin-right: 8px;
     }
 
     .username {
       font-weight: bold;
-      font-size: 14px;
     }
   }
 
   .postImage {
     width: 100%;
     height: 150px;
-    background-color: #f0f0f0;
+    background: #f0f0f0;
     border-radius: 8px;
     margin-bottom: 10px;
   }
 
   .postContent {
-    text-align: left;
-    width: 100%;
-    font-size: 14px;
-    color: #333;
+    p {
+      margin: 4px 0;
+    }
+
+    .price {
+      font-size: 16px;
+      color: #007aff;
+      font-weight: bold;
+    }
+
+    .deadline {
+      font-size: 14px;
+      color: #ff9500;
+    }
+
+    .memberInfo {
+      font-size: 14px;
+      color: #34c759;
+    }
   }
 }

@@ -7,18 +7,6 @@ import PostCard from '../../../components/postcard/PostCard.tsx';
 
 const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
 
-/*
-interface PostCardProps {
-  category: 'ideaMarket' | 'requestTask' | 'collaboration';
-  user: string;
-  title: string;
-  image?: string;
-  price?: string;
-  deadline?: string;
-  memberInfo?: string;
-}
-*/
-
 const MyPagePosts = () => {
   const [activeTab, setActiveTab] = useState(TABS[0]);
 

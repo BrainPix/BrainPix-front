@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
-import MyPagePosts from './pages/my-page/MyPagePosts/MyPagePosts';
+import MyPagePosts from './pages/mypage/MyPagePosts/MyPagePosts';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment/IdeaMarketPayment';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
