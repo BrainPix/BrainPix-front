@@ -1,6 +1,7 @@
 import React from 'react';
 import ProfileHeader from '../../components/postdetail/ProfileHeader';
 import PostHeader from '../../components/postdetail/PostHeader';
+import WebLinkBox from '../../components/postdetail/WebLinkBox';
 import TaskDescription from '../../components/postdetail/TaskDescription';
 import RecruitmentInfo from '../../components/postdetail/RecruitmentInfo';
 import RecruitmentStatus from '../../components/postdetail/RecruitmentStatus';
@@ -15,6 +16,7 @@ const PostDetailWithoutLink: React.FC = () => {
       <div className={styles.margin}>
         <ProfileHeader />
         <PostHeader />
+        <WebLinkBox />
         <TaskDescription />
         <RecruitmentInfo />
         <RecruitmentStatus />
