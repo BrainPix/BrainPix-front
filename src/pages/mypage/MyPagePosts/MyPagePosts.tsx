@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styles from './myPagePosts.module.scss';
-import classNames from 'classnames';
+//import classNames from 'classnames';
 import { Header } from '../../../components/header/Header.tsx';
 import MyPageSidebar from '../../../components/sidebar/MyPageSidebar.tsx';
 import PostCard from '../../../components/postcard/PostCard.tsx';
+import TabNavigation from '../../../components/tab-navigation/TabNavigation.tsx';
 
 const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
 
@@ -49,19 +50,11 @@ const MyPagePosts = () => {
             게시물 관리 <span className={styles.count}>11</span>
           </h1>
 
-          {/* 탭 네비게이션 */}
-          <div className={styles.tabs}>
-            {TABS.map((tab) => (
-              <div
-                key={tab}
-                className={classNames(styles.tabItem, {
-                  [styles.activeTab]: activeTab === tab,
-                })}
-                onClick={() => setActiveTab(tab)}>
-                {tab}
-              </div>
-            ))}
-          </div>
+          <TabNavigation
+            tabs={TABS}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
 
           {/* 게시물 리스트 */}
           <div className={styles.postList}>
