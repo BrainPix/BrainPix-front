@@ -25,8 +25,8 @@ function PostCard({
       {/* 공통 헤더 */}
       <div className={styles.postHeader}>
         <img
-          src='/default-profile.png'
-          alt='User Profile'
+          src={image || ''}
+          alt=''
           className={styles.profileImage}
         />
         <span className={styles.username}>{user}</span>
@@ -38,8 +38,8 @@ function PostCard({
           <>
             <div className={styles.postImage}>
               <img
-                src={image || '/placeholder.png'}
-                alt={title}
+                src={image || ''}
+                alt={''}
               />
             </div>
             <p>{title}</p>
@@ -52,8 +52,8 @@ function PostCard({
             <p>{title}</p>
             <div className={styles.postImage}>
               <img
-                src={image || '/placeholder.png'}
-                alt='Task'
+                src={image || ''}
+                alt=''
               />
             </div>
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
@@ -65,8 +65,8 @@ function PostCard({
             <p>{title}</p>
             <div className={styles.postImage}>
               <img
-                src={image || '/placeholder.png'}
-                alt='Collaboration'
+                src={image || ''}
+                alt=''
               />
             </div>
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
