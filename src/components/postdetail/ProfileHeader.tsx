@@ -1,4 +1,4 @@
-import styles from './ProfileHeader.module.scss';
+import styles from './profileHeader.module.scss';
 import profileIcon from '../../assets/icons/nonprofile.svg';
 
 const ProfileHeader = () => {

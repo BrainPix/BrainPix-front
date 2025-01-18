@@ -1,4 +1,4 @@
-import styles from './TaskDescription.module.scss';
+import styles from './taskDescription.module.scss';
 
 const TaskDescription = () => {
   const handleOpenClick = () => {};
