@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './PaymentTitle.module.scss';
+import styles from './paymentTitle.module.scss';
 
 const PaymentTitle: React.FC = () => {
   return (

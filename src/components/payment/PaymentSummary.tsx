@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
-import styles from './PaymentSummary.module.scss';
+import styles from './paymentSummary.module.scss';
 import EllipseGray from '../../assets/icons/Ellipse_gray.svg';
 import EllipseBlue from '../../assets/icons/Ellipse_blue.svg';
 import EllipseWhite from '../../assets/icons/Ellipse_white.svg';

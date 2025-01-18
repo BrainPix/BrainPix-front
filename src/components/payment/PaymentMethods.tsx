@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './PaymentMethods.module.scss';
+import styles from './paymentMethods.module.scss';
 
 const PaymentMethods: React.FC = () => {
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
