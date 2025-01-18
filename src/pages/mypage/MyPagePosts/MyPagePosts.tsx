@@ -36,6 +36,24 @@ const MyPagePosts = () => {
       deadline: '20',
       memberInfo: 'Member (현재인원)/(모집인원)',
     },
+    {
+      id: 4,
+      category: 'ideaMarket',
+      user: 'yeonyyy',
+      title: '테스트!!',
+      image: '/image3.png',
+      deadline: '20',
+      memberInfo: 'Member (현재인원)/(모집인원)',
+    },
+    {
+      id: 5,
+      category: 'ideaMarket',
+      user: 'yeonyyy',
+      title: '안뇽',
+      image: '/image3.png',
+      deadline: '20',
+      memberInfo: 'Member (현재인원)/(모집인원)',
+    },
     // 게시물 데이터 추가
   ];
 
