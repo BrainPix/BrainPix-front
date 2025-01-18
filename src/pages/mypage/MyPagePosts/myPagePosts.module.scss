@@ -36,4 +36,13 @@
     justify-items: center;
     gap: 20px;
   }
+  
+  .clickablePost {
+    cursor: pointer;
+  
+    &:hover {
+      background-color: #f9f9f9;
+      transition: background-color 0.3s ease;
+    }
+  }
 }

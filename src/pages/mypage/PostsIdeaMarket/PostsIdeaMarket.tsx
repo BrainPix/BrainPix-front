@@ -1,22 +1,37 @@
+import { useParams } from 'react-router-dom';
 import './postsIdeaMarket.module.scss';
 
-interface PurchaseRecord {
-  id: string;
-  paymentMethod: string;
-  amount: number;
-}
+// interface PurchaseRecord {
+//   id: string;
+//   paymentMethod: string;
+//   amount: number;
+// }
 
-interface PostIdeaMarketProps {
-  title: string;
-  price: number;
-  purchaseRecords: PurchaseRecord[];
-}
+const mockPosts = [
+  {
+    id: '1',
+    title: '노인층을 위한 키오스크 대체 로봇',
+    price: 500000,
+    purchaseRecords: [
+      { id: 'user1', paymentMethod: '카드', amount: 250000 },
+      { id: 'user2', paymentMethod: '현금', amount: 250000 },
+    ],
+  },
+  // 추가 데이터...
+];
 
-function PostIdeaMarket({
-  title,
-  price,
-  purchaseRecords,
-}: PostIdeaMarketProps) {
+function PostsIdeaMarket() {
+  const { postId } = useParams<{ postId: string }>();
+
+  // mock 데이터에서 postId에 맞는 데이터 찾기
+  const post = mockPosts.find((p) => p.id === postId);
+
+  if (!post) {
+    return <div>게시글을 찾을 수 없습니다.</div>;
+  }
+
+  const { title, price, purchaseRecords } = post;
+
   return (
     <div className='postcard-details'>
       <div className='postcard-header'>
@@ -59,4 +74,4 @@ function PostIdeaMarket({
   );
 }
 
-export default PostIdeaMarket;
+export default PostsIdeaMarket;

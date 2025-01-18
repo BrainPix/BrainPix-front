@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './myPagePosts.module.scss';
 //import classNames from 'classnames';
 import { Header } from '../../../components/header/Header.tsx';
@@ -9,6 +10,7 @@ import TabNavigation from '../../../components/tab-navigation/TabNavigation.tsx'
 const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
 
 const MyPagePosts = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
   const posts = [
@@ -87,10 +89,12 @@ const MyPagePosts = () => {
                     post.category === 'collaboration'),
               )
               .map((post) => (
-                <PostCard
+                <div
                   key={post.id}
-                  {...post}
-                />
+                  className={styles.clickablePost}
+                  onClick={() => navigate(`/posts-idea-market/${post.id}`)}>
+                  <PostCard {...post} />
+                </div>
               ))}
           </div>
         </main>
