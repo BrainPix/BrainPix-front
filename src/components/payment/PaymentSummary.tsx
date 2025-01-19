@@ -1,28 +1,47 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './paymentSummary.module.scss';
-import EllipseGray from '../../assets/icons/Ellipse_gray.svg';
-import EllipseBlue from '../../assets/icons/Ellipse_blue.svg';
-import EllipseWhite from '../../assets/icons/Ellipse_white.svg';
-import CheckLightIcon from '../../assets/icons/check-light.svg';
-import CheckLightGray from '../../assets/icons/check-light-gray.svg';
-import CheckLightBlue from '../../assets/icons/check-light-blue.svg';
+import EllipseGray from '../../assets/icons/Ellipse_gray.svg?react';
+import EllipseBlue from '../../assets/icons/Ellipse_blue.svg?react';
+import EllipseWhite from '../../assets/icons/Ellipse_white.svg?react';
+import CheckLightIcon from '../../assets/icons/check-light.svg?react';
+import CheckLightGray from '../../assets/icons/check-light-gray.svg?react';
+import CheckLightBlue from '../../assets/icons/check-light-blue.svg?react';
 
-const PaymentSummary: React.FC = () => {
+const PaymentSummary = () => {
   const [isAllAgreed, setIsAllAgreed] = useState(false);
-  const [agreements, setAgreements] = useState([false, false, false]);
+
+  const agreementItems = [
+    {
+      id: 'terms',
+      label: '‘BrainPIX’ 서비스 이용약관 동의 (필수)',
+      agreed: false,
+    },
+    {
+      id: 'privacy',
+      label: '개인정보 수집 및 이용 동의 (필수)',
+      agreed: false,
+    },
+    {
+      id: 'thirdParty',
+      label: '개인정보 제3자 제공 동의 (필수)',
+      agreed: false,
+    },
+  ];
+
+  const [agreements, setAgreements] = useState(agreementItems);
 
   const handleAllAgree = () => {
     const newState = !isAllAgreed;
     setIsAllAgreed(newState);
-    setAgreements(agreements.map(() => newState));
+    setAgreements(agreements.map((item) => ({ ...item, agreed: newState })));
   };
 
-  const handleAgreementClick = (index: number) => {
-    const newAgreements = [...agreements];
-    newAgreements[index] = !newAgreements[index];
-    setAgreements(newAgreements);
-    setIsAllAgreed(newAgreements.every((value) => value));
+  const handleAgreementClick = (id: string) => {
+    const updatedAgreements = agreements.map((item) =>
+      item.id === id ? { ...item, agreed: !item.agreed } : item,
+    );
+    setAgreements(updatedAgreements);
+    setIsAllAgreed(updatedAgreements.every((item) => item.agreed));
   };
 
   return (
@@ -50,45 +69,35 @@ const PaymentSummary: React.FC = () => {
         <div
           className={styles.agreementTitle}
           onClick={handleAllAgree}>
-          <img
-            src={CheckLightIcon}
-            alt='체크 아이콘'
-            className={styles.checkIcon}
-          />
-          <img
-            src={isAllAgreed ? EllipseBlue : EllipseGray}
-            alt='전체 동의 체크 배경'
+          <CheckLightIcon className={styles.checkIcon} />
+          <EllipseBlue
             className={styles.checkBackground}
+            style={{
+              display: isAllAgreed ? 'block' : 'none',
+            }}
+          />
+          <EllipseGray
+            className={styles.checkBackground}
+            style={{
+              display: !isAllAgreed ? 'block' : 'none',
+            }}
           />
           아래 약관에 전체 동의해요
         </div>
 
-        {[
-          '‘BrainPIX’ 서비스 이용약관 동의 (필수)',
-          '개인정보 수집 및 이용 동의 (필수)',
-          '개인정보 제3자 제공 동의 (필수)',
-        ].map((label, index) => (
+        {agreements.map((item) => (
           <div
-            key={index}
+            key={item.id}
             className={styles.agreementRow}
-            onClick={() => handleAgreementClick(index)}>
-            <img
-              src={EllipseWhite}
-              alt='개별 동의 체크 배경'
-              className={styles.nonecheckBackground}
-              onClick={() => handleAgreementClick(index)}
-            />
-            <img
-              src={agreements[index] ? CheckLightBlue : CheckLightGray}
-              alt='체크 아이콘'
-              className={styles.checkIcon}
-            />
-            <span className={styles.agreementLabel}>{label}</span>
-            <span
-              className={styles.details}
-              onClick={() => handleAgreementClick(index)}>
-              자세히
-            </span>
+            onClick={() => handleAgreementClick(item.id)}>
+            <EllipseWhite className={styles.nonecheckBackground} />
+            {item.agreed ? (
+              <CheckLightBlue className={styles.checkIcon} />
+            ) : (
+              <CheckLightGray className={styles.checkIcon} />
+            )}
+            <span className={styles.agreementLabel}>{item.label}</span>
+            <span className={styles.details}>자세히</span>
           </div>
         ))}
       </div>

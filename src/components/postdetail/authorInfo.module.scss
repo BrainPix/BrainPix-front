@@ -17,6 +17,15 @@
   margin-bottom: 18px;
 }
 
+.arrowButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  @include flex-center;
+}
+
 .arrowIcon {
   width: 45px;
   height: 45px;
@@ -47,8 +56,8 @@
 .profileIcon {
   width: 100px;
   height: 100px;
-  border-radius: 50%; /* 동그라미로 만듦 */
-  background-color: #d9d9d9; /* 색상 */
+  border-radius: 50%;
+  background-color: #d9d9d9;
   margin-right: 45px;
 }
 

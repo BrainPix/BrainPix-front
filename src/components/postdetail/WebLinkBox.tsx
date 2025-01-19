@@ -1,5 +1,5 @@
 import styles from './webLinkBox.module.scss';
-import ShortcutArrow from '../../assets/icons/shortcut-arrow.svg';
+import ShortcutArrow from '../../assets/icons/shortcut-arrow.svg?react';
 
 const WebLinkBox = () => {
   return (
@@ -8,11 +8,7 @@ const WebLinkBox = () => {
         <span className={styles.webLinkText}>웹 링크</span>
       </div>
       <button className={styles.shortcutButton}>
-        <img
-          src={ShortcutArrow}
-          alt='바로가기'
-          className={styles.shortcutArrow}
-        />
+        <ShortcutArrow className={styles.shortcutArrow} />
       </button>
     </div>
   );

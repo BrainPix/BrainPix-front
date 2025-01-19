@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './postHeader.module.scss';
-import arrowIcon from '../../assets/icons/arrow-up-2-thin.svg';
-import dotIcon from '../../assets/icons/dot.svg';
+import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
+import DotIcon from '../../assets/icons/dot.svg?react';
 import BookmarkIcon from '../../assets/icons/bookmark-fill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/empty-circle.svg?react';
 
@@ -16,11 +16,7 @@ const PostHeader = () => {
     <div className={styles.container}>
       <div className={styles.navigation}>
         <span className={styles.text}>협업광장</span>
-        <img
-          src={arrowIcon}
-          alt='Arrow Icon'
-          className={styles.arrowIcon}
-        />
+        <ArrowIcon className={styles.arrowIcon} />
         <span className={styles.text}>디자인</span>
       </div>
       <div className={styles.titleContainer}>
@@ -29,17 +25,9 @@ const PostHeader = () => {
       </div>
       <div className={styles.details}>
         <span className={styles.date}>2024/12/28</span>
-        <img
-          src={dotIcon}
-          alt='Dot Icon'
-          className={styles.dotIcon}
-        />
+        <DotIcon className={styles.dotIcon} />
         <span className={styles.info}>조회 120</span>
-        <img
-          src={dotIcon}
-          alt='Dot Icon'
-          className={styles.dotIcon}
-        />
+        <DotIcon className={styles.dotIcon} />
         <span className={styles.info}>저장 12</span>
         <button
           className={styles.bookmarkButton}

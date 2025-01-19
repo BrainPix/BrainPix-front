@@ -1,16 +1,14 @@
 import styles from './authorInfo.module.scss';
-import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg';
+import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
 
 const AuthorInfo = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>작성자 정보</h1>
-        <img
-          src={ArrowIcon}
-          alt='화살표'
-          className={styles.arrowIcon}
-        />
+        <button className={styles.arrowButton}>
+          <ArrowIcon className={styles.arrowIcon} />
+        </button>
       </div>
       <div className={styles.divider}></div>
       <div className={styles.content}>
