@@ -1,124 +1,121 @@
 .container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .title {
-    color: var(--Grey-Grey-900, #222);
-    font-size: 32px;
-    font-weight: 500;
-    letter-spacing: -0.32px;
-    margin-bottom: 18px;
-  }
-  
-  .arrowIcon {
-    width: 45px;
-    height: 45px;
-    transform: rotate(0deg);
-    flex-shrink: 0;
-  }
-  
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: #9e9e9e;
-  }
-  
-  .content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 45px;
-    margin-bottom: 45px;
-  }
-  
-  .profile {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  
-  .profileIcon {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #d9d9d9;
-    margin-right: 45px;
-  }
-  
-  .name {
-    color: var(--Grey-Grey-900, #222);
-    font-size: 36px;
-    font-weight: 500;
-    letter-spacing: -0.36px;
-  }
-  
-  .messageButton {
-    width: 260px;
-    height: 75px;
-    border-radius: 74px;
-    padding: 22px 40px 22px 40px;
-    border: 1px solid var(--Grey-Grey-400, #bdbdbd);
-    background: var(--Grey-Grey-100, #f5f5f5);
-    cursor: pointer;
-  }
+  display: flex;
+  flex-direction: column;
+}
 
-  .messageText {
-    color: var(--Grey-Grey-700, #616161);
-    font-size: 26px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.26px;
-  }
-  
-  .infoBox {
-    display: flex;
-    width: 600px;
-    height: 120px;
-    border-radius: 5px;
-    border: 1px solid var(--Grey-Grey-400, #bdbdbd);
-    padding: 20px;
-    gap: 20px;
-    margin-bottom: 300px;
-  }
-  
-  .infoItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-  }
-  
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .dividerLine {
-    width: 1px;
-    height: 30px;
-    background: #e0e0e0;
-    margin-top: 45px;
-  }
+.title {
+  color: var(--Grey-Grey-900, #222);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+  margin-bottom: 18px;
+}
 
-  .infoTitle {
-    color: var(--Grey-Grey-600, #757575);
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 12px;
-    margin-top: 29px;
-  }
-  
-  .infoValue {
-    color: var(--Grey-Grey-800, #424242);
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 29px;
-  }
-  
-  
+.arrowIcon {
+  width: 45px;
+  height: 45px;
+  transform: rotate(0deg);
+  flex-shrink: 0;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: #9e9e9e;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profileIcon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* 동그라미로 만듦 */
+  background-color: #d9d9d9; /* 색상 */
+  margin-right: 45px;
+}
+
+.name {
+  color: var(--Grey-Grey-900, #222);
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.36px;
+}
+
+.messageButton {
+  width: 260px;
+  height: 75px;
+  border-radius: 74px;
+  padding: 22px 40px 22px 40px;
+  border: 1px solid var(--Grey-Grey-400, #bdbdbd);
+  background: var(--Grey-Grey-100, #f5f5f5);
+  cursor: pointer;
+}
+
+.messageText {
+  color: var(--Grey-Grey-700, #616161);
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.26px;
+}
+
+.infoBox {
+  display: flex;
+  width: 600px;
+  height: 120px;
+  border-radius: 5px;
+  border: 1px solid var(--Grey-Grey-400, #bdbdbd);
+  padding: 20px;
+  gap: 20px;
+  margin-bottom: 300px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.dividerLine {
+  width: 1px;
+  height: 30px;
+  background: #e0e0e0;
+  margin-top: 45px;
+}
+
+.infoTitle {
+  color: var(--Grey-Grey-600, #757575);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 12px;
+  margin-top: 29px;
+}
+
+.infoValue {
+  color: var(--Grey-Grey-800, #424242);
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 29px;
+}

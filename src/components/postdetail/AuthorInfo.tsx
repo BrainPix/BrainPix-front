@@ -1,5 +1,4 @@
 import styles from './authorInfo.module.scss';
-import ProfileIcon from '../../assets/icons/nonprofile.svg';
 import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg';
 
 const AuthorInfo = () => {
@@ -16,11 +15,7 @@ const AuthorInfo = () => {
       <div className={styles.divider}></div>
       <div className={styles.content}>
         <div className={styles.profile}>
-          <img
-            src={ProfileIcon}
-            alt='프로필'
-            className={styles.profileIcon}
-          />
+          <div className={styles.profileIcon}></div>
           <span className={styles.name}>SEO YEON</span>
         </div>
         <button className={styles.messageButton}>
