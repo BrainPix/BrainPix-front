@@ -1,4 +1,3 @@
-import React from 'react';
 import ProfileHeader from '../../components/postdetail/ProfileHeader';
 import PostHeader from '../../components/postdetail/PostHeader';
 import TaskDescription from '../../components/postdetail/TaskDescription';
@@ -9,7 +8,7 @@ import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './postDetailWithoutLink.module.scss';
 
-const PostDetailWithoutLink: React.FC = () => {
+const PostDetailWithoutLink = () => {
   return (
     <>
       <div className={styles.margin}>
