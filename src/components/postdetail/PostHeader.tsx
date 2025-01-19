@@ -2,15 +2,12 @@ import { useState } from 'react';
 import styles from './postHeader.module.scss';
 import arrowIcon from '../../assets/icons/arrow-up-2-thin.svg';
 import dotIcon from '../../assets/icons/dot.svg';
-import bookmarkGray from '../../assets/icons/bookmark-fill-gray.svg';
-import bookmarkBlue from '../../assets/icons/bookmark-fill-blue.svg';
-import emptyCircleGray from '../../assets/icons/empty-gray-circle.svg';
-import emptyCircleBlue from '../../assets/icons/empty-blue-circle.svg';
+import BookmarkIcon from '../../assets/icons/bookmark-fill.svg?react';
+import EmptyCircleIcon from '../../assets/icons/empty-circle.svg?react';
 
 const PostHeader = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  // 북마크 버튼을 클릭했을 때 북마크 상태를 토글하는 함수
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
@@ -47,15 +44,15 @@ const PostHeader = () => {
         <button
           className={styles.bookmarkButton}
           onClick={toggleBookmark}>
-          <img
-            src={isBookmarked ? emptyCircleBlue : emptyCircleGray}
-            alt='Outer Circle'
+          <EmptyCircleIcon
             className={styles.outerCircle}
+            style={{
+              stroke: isBookmarked ? '#377FF8' : '#BDBDBD',
+            }}
           />
-          <img
-            src={isBookmarked ? bookmarkBlue : bookmarkGray}
-            alt='Bookmark Icon'
+          <BookmarkIcon
             className={styles.bookmarkIcon}
+            fill={isBookmarked ? '#377FF8' : '#BDBDBD'}
           />
         </button>
       </div>
