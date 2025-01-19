@@ -60,8 +60,7 @@
   .button {
     display: flex;
     padding: 5px 15px;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
     border-radius: 5px;
     background: var(--Grey-Grey-700, #616161);
     color: var(--Grey-Grey-50, #FAFAFA);
