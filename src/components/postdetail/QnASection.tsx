@@ -8,7 +8,8 @@ const QnASection = () => {
       <div className={styles.inputContainer}>
         <textarea
           className={styles.textArea}
-          placeholder=''></textarea>
+          placeholder=''
+        />
         <button className={styles.submitButton}>등록</button>
       </div>
       <div className={styles.qnaItem}>
