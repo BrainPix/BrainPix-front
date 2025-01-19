@@ -1,4 +1,4 @@
-name: Frontend GitHub Actions
+name: Merge To Ready
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
