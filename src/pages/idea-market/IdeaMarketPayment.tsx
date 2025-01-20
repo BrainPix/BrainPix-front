@@ -1,4 +1,3 @@
-import React from 'react';
 import PaymentTitle from '../../components/payment/PaymentTitle';
 import SellerInfo from '../../components/payment/SellerInfo';
 import PaymentMethods from '../../components/payment/PaymentMethods';
@@ -6,7 +5,7 @@ import PaymentSummary from '../../components/payment/PaymentSummary';
 import PaymentButton from '../../components/payment/PaymentButton';
 import styles from './ideaMarketPayment.module.scss';
 
-const IdeaMarketPayment: React.FC = () => {
+const IdeaMarketPayment = () => {
   return (
     <>
       <div className={styles.ideaMarketPayment}>
