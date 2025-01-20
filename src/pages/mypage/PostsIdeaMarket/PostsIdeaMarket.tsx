@@ -2,26 +2,15 @@ import { useParams } from 'react-router-dom';
 import styles from './postsIdeaMarket.module.scss';
 import MyPageLayout from '../../layout/MyPageLayout.tsx';
 
-// interface PurchaseRecord {
-//   id: string;
-//   paymentMethod: string;
-//   amount: number;
-// }
-
-const mockUser = {
-  id: 'user1', // 로그인한 사용자 ID
-  name: '현재 사용자',
-};
-
 const mockPosts = [
   {
     id: '1',
     authorId: 'user1',
-    title: '노인층을 위한 키오스크 대체 로봇',
-    price: 500000,
+    title: '디자인 해드립니다',
+    price: 200000000,
     purchaseRecords: [
-      { id: 'user1', paymentMethod: '카드', amount: 250000 },
-      { id: 'user2', paymentMethod: '현금', amount: 250000 },
+      { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+      { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
     ],
   },
   // 추가 데이터...
@@ -37,10 +26,8 @@ function PostsIdeaMarket() {
     return <div>게시글을 찾을 수 없습니다.</div>;
   }
 
-  const { title, price, purchaseRecords, authorId } = post;
+  const { title, price, purchaseRecords } = post;
 
-  // 현재 사용자와 작성자 비교
-  const isAuthor = mockUser.id === authorId;
   return (
     <MyPageLayout>
       <div className={styles.postcardDetails}>
@@ -69,19 +56,13 @@ function PostsIdeaMarket() {
                 <td>{record.amount.toLocaleString()}</td>
                 <td>
                   <button className={styles.messageButton}>
-                    메시지 보내기
+                    메신저 보내기
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {isAuthor && (
-          <div className={styles.postcardActions}>
-            <button className={styles.editButton}>수정하기</button>
-            <button className={styles.deleteButton}>삭제</button>
-          </div>
-        )}
       </div>
     </MyPageLayout>
   );

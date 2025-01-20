@@ -19,13 +19,13 @@
     .navItem {
       cursor: pointer;
       font-size: 14px;
-      color: #333;
+      color: #757575;
       padding: 8px;
       border-radius: 5px;
 
       &.active {
         font-weight: bold;
-        color: #007aff;
+        color: #424242;
       }
     }
   }

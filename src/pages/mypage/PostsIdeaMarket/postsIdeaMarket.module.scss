@@ -1,37 +1,36 @@
 .postcardDetails {
   padding: 20px;
-  font-family: Arial, sans-serif;
 
   .postcardHeader {
     display: flex;
     align-items: center;
+    background-color: #F5F5F5;
+    padding: 25px 45px;
     margin-bottom: 20px;
 
     .imagePlaceholder {
+      @include flex-center;
       width: 100px;
       height: 100px;
       background-color: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       margin-right: 20px;
     }
 
     .postcardInfo {
       h1 {
-        font-size: 1.5rem;
+        font-size: 20px;
         margin: 0;
       }
 
       p {
-        font-size: 1.2rem;
+        font-size: 24px;
         color: #555;
       }
     }
   }
 
   h2 {
-    font-size: 1.4rem;
+    font-size: 24px;
     margin-bottom: 10px;
   }
 
@@ -52,35 +51,16 @@
     }
   }
 
-  .postcardActions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-
-    .editButton,
-    .deleteButton {
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .editButton {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .deleteButton {
-      background-color: #dc3545;
-      color: white;
-    }
-  }
-
   .messageButton {
     padding: 5px 10px;
     border: none;
-    background-color: #28a745;
+    border-radius: 5px;
+    background-color: #616161;
     color: #fff;
     cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 }
