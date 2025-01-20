@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './myPagePosts.module.scss';
-//import classNames from 'classnames';
-import { Header } from '../../../components/header/Header.tsx';
-import MyPageSidebar from '../../../components/sidebar/MyPageSidebar.tsx';
+import MyPageLayout from '../../layout/MyPageLayout.tsx';
 import PostCard from '../../../components/postcard/PostCard.tsx';
 import TabNavigation from '../../../components/tab-navigation/TabNavigation.tsx';
 
@@ -60,46 +58,37 @@ const MyPagePosts = () => {
   ];
 
   return (
-    <div className={styles.container}>
-      <Header />
-      <div className={styles.contentWrapper}>
-        <MyPageSidebar />
+    <MyPageLayout>
+      <h1 className={styles.title}>
+        게시물 관리 <span className={styles.count}>11</span>
+      </h1>
 
-        <main className={styles.mainContent}>
-          <h1 className={styles.title}>
-            게시물 관리 <span className={styles.count}>11</span>
-          </h1>
+      <TabNavigation
+        tabs={TABS}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
 
-          <TabNavigation
-            tabs={TABS}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
-
-          {/* 게시물 리스트 */}
-          <div className={styles.postList}>
-            {posts
-              .filter(
-                (post) =>
-                  (activeTab === '아이디어 마켓' &&
-                    post.category === 'ideaMarket') ||
-                  (activeTab === '요청과제' &&
-                    post.category === 'requestTask') ||
-                  (activeTab === '협업광장' &&
-                    post.category === 'collaboration'),
-              )
-              .map((post) => (
-                <div
-                  key={post.id}
-                  className={styles.clickablePost}
-                  onClick={() => navigate(`/posts-idea-market/${post.id}`)}>
-                  <PostCard {...post} />
-                </div>
-              ))}
-          </div>
-        </main>
+      {/* 게시물 리스트 */}
+      <div className={styles.postList}>
+        {posts
+          .filter(
+            (post) =>
+              (activeTab === '아이디어 마켓' &&
+                post.category === 'ideaMarket') ||
+              (activeTab === '요청과제' && post.category === 'requestTask') ||
+              (activeTab === '협업광장' && post.category === 'collaboration'),
+          )
+          .map((post) => (
+            <div
+              key={post.id}
+              className={styles.clickablePost}
+              onClick={() => navigate(`/posts-idea-market/${post.id}`)}>
+              <PostCard {...post} />
+            </div>
+          ))}
       </div>
-    </div>
+    </MyPageLayout>
   );
 };
 

@@ -1,13 +1,13 @@
-.postcard-details {
+.postcardDetails {
   padding: 20px;
   font-family: Arial, sans-serif;
 
-  .postcard-header {
+  .postcardHeader {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
 
-    .image-placeholder {
+    .imagePlaceholder {
       width: 100px;
       height: 100px;
       background-color: #f0f0f0;
@@ -17,7 +17,7 @@
       margin-right: 20px;
     }
 
-    .postcard-info {
+    .postcardInfo {
       h1 {
         font-size: 1.5rem;
         margin: 0;
@@ -35,7 +35,7 @@
     margin-bottom: 10px;
   }
 
-  .purchase-table {
+  .purchaseTable {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
@@ -52,30 +52,31 @@
     }
   }
 
-  .postcard-actions {
+  .postcardActions {
     display: flex;
     gap: 10px;
+    margin-top: 20px;
 
-    .edit-button,
-    .delete-button {
+    .editButton,
+    .deleteButton {
       padding: 10px 20px;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 14px;
     }
 
-    .edit-button {
+    .editButton {
       background-color: #007bff;
-      color: #fff;
+      color: white;
     }
 
-    .delete-button {
+    .deleteButton {
       background-color: #dc3545;
-      color: #fff;
+      color: white;
     }
   }
 
-  .message-button {
+  .messageButton {
     padding: 5px 10px;
     border: none;
     background-color: #28a745;
