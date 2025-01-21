@@ -85,6 +85,11 @@
     letter-spacing: -0.24px;
     cursor: pointer;
   }
+
+  .open:hover,
+  .download:hover {
+    color: var(--Grey-Grey-800, #424242);
+  }
   
   .separator {
     color: var(--Grey-Grey-600, #757575);
