@@ -1,8 +1,9 @@
+import classNames from 'classnames';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
-import classNames from 'classnames';
-import styles from './personalProfile.module.scss';
+import { Portfolio } from '../../components/personal-profile/portfolio';
 import { userProfileData } from '../../types/userData';
+import styles from './personalProfile.module.scss';
 
 export const PersonalProfile = () => {
   // const { id } = useParams();
@@ -32,7 +33,7 @@ export const PersonalProfile = () => {
         end: '2023/06',
       },
       {
-        name: 'SY TECH 인턴',
+        name: 'TECH 인턴',
         start: '2024/12',
         end: '2027/02',
       },
@@ -43,6 +44,7 @@ export const PersonalProfile = () => {
     <div className={classNames(styles.container)}>
       <ProfileCard />
       <DescriptionTable userData={userData} />
+      <Portfolio />
     </div>
   );
 };
