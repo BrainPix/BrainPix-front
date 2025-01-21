@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import styles from './test.module.scss';
 
 //버튼그룹 test
-import ButtonGroup from '../../components/button/ButtonGroup.tsx';
+import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 
 //드롭다운 버튼 test
 import Dropdown from '../../components/dropdown/Dropdown.tsx';
