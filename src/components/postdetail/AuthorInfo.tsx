@@ -1,5 +1,6 @@
 import styles from './authorInfo.module.scss';
 import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
+import CorporateLabel from '../common/label/CorporateLabel';
 
 const AuthorInfo = () => {
   return (
@@ -13,8 +14,11 @@ const AuthorInfo = () => {
       <div className={styles.divider}></div>
       <div className={styles.content}>
         <div className={styles.profile}>
-          <div className={styles.profileIcon}></div>
-          <span className={styles.name}>SEO YEON</span>
+          <div className={styles.profileIcon} />
+          <div className={styles.textContainer}>
+            <CorporateLabel />
+            <span className={styles.name}>SEO YEON</span>
+          </div>
         </div>
         <button className={styles.messageButton}>
           <div className={styles.messageText}>메신저 보내기</div>

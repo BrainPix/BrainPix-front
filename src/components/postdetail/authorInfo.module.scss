@@ -61,6 +61,11 @@
   margin-right: 45px;
 }
 
+.textContainer{
+  display: flex;
+  flex-direction: column;
+}
+
 .name {
   color: var(--Grey-Grey-900, #222);
   font-size: 36px;

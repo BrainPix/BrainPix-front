@@ -1,3 +1,4 @@
+import SelfOfferLabel from '../common/label/SelfOfferLabel';
 import styles from './profileHeader.module.scss';
 
 const ProfileHeader = () => {
@@ -6,7 +7,7 @@ const ProfileHeader = () => {
       <div className={styles.profileContainer}>
         <div className={styles.profileIcon}></div>
         <div className={styles.textContainer}>
-          <div className={styles.label}>자체공모</div>
+          <SelfOfferLabel />
           <span className={styles.name}>Soyeon</span>
         </div>
       </div>
