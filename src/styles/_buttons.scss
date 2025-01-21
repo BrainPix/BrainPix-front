@@ -1,0 +1,46 @@
+@import 'variables';
+@import 'mixins';
+
+.button {
+  @include buttonStyle;
+
+  // 버튼 크기
+  &Small {
+    @include buttonSize(4px 6px, $fontSizeSmall);
+  }
+  &Medium {
+    @include buttonSize(12px 16px, $fontSizeBase);
+  }
+  &Large {
+    @include buttonSize(12px 34px, $fontSizeLarge);
+  }
+  
+  // 버튼 스타일
+  &Outlined {
+    border: 1px solid $borderColor;
+    background: #fafafa;
+    color: $textSecondaryColor;
+    border-radius: 29px;
+
+    &:hover {
+      background-color: $borderColor;
+      color: $textBoldColor;
+    }
+  }
+
+  &Dark {
+    background: #424242;
+    color: #FAFAFA;
+    border-radius: 5px;
+
+    &:hover {
+      background: black;
+    }
+  }
+
+  // 버튼 모양
+  &Rounded {
+    border-radius: 50px;
+    border-style: none;
+  }
+}
