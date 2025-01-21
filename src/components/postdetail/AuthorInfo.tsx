@@ -16,8 +16,8 @@ const AuthorInfo = () => {
         <div className={styles.profile}>
           <div className={styles.profileIcon} />
           <div className={styles.textContainer}>
-            <CorporateLabel />
             <span className={styles.name}>SEO YEON</span>
+            <CorporateLabel />
           </div>
         </div>
         <button className={styles.messageButton}>
