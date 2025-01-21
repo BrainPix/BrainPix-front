@@ -39,30 +39,27 @@ function PostsIdeaMarket() {
           </div>
         </div>
         <h2>구매 현황</h2>
-        <table className={styles.purchaseTable}>
-          <thead>
-            <tr>
-              <th>아이디</th>
-              <th>거래 방식</th>
-              <th>지불 금액</th>
-              <th>액션</th>
-            </tr>
-          </thead>
-          <tbody>
-            {purchaseRecords.map((record) => (
-              <tr key={record.id}>
-                <td>{record.id}</td>
-                <td>{record.paymentMethod}</td>
-                <td>{record.amount.toLocaleString()}</td>
-                <td>
-                  <button className={styles.messageButton}>
-                    메신저 보내기
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className={styles.purchaseCardWrapper}>
+          <div className={styles.cardHeader}>
+            <span>아이디</span>
+            <span>거래 방식</span>
+            <span>지불 금액</span>
+          </div>
+          {purchaseRecords.map((record) => (
+            <div
+              key={record.id}
+              className={styles.purchaseCard}>
+              <div className={styles.cardDetails}>
+                <div>{record.id}</div>
+                <div>{record.paymentMethod}</div>
+                <div>{record.amount.toLocaleString()}</div>
+              </div>
+              <div className={styles.cardActions}>
+                <button className={styles.messageButton}>메신저 보내기</button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </MyPageLayout>
   );
