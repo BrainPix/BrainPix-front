@@ -1,0 +1,53 @@
+.container {
+  padding: 45px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #929292;
+}
+
+.profileContainer {
+  display: flex;
+  gap: 30px;
+}
+
+.profileNameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  & > .userType {
+    @include flex-center;
+
+    height: 29px;
+  }
+
+  & > .userName {
+    font-size: 32px;
+    font-weight: 500;
+  }
+
+  & > .role {
+    color: #616161;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.profileImage {
+  width: 100px;
+  height: 100px;
+  background-color: #d9d9d9;
+  border-radius: 100px;
+}
+
+.mailIcon {
+  @include flex-center;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 100px;
+  border: 1px solid #9e9e9e;
+  cursor: pointer;
+}
