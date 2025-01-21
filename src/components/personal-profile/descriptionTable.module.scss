@@ -1,0 +1,92 @@
+.container {
+  display: grid;
+  gap: 130px 110px;
+  padding-top: 45px;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 130px;
+}
+
+.descriptionWrapper {
+  & > .title {
+    font-size: 28px;
+    font-weight: 500;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #9e9e9e;
+  }
+}
+
+.infoTable {
+  gap: 15px;
+}
+
+.row {
+  & > * {
+    padding-bottom: 15px;
+  }
+
+  & > th {
+    width: max-content;
+    text-align: left;
+    padding-right: 30px;
+  }
+
+  & > td {
+    font-weight: 400;
+  }
+}
+
+.skillsContainer,
+.careersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.skillWrapper {
+  display: flex;
+  margin-top: 5px;
+
+  & > .name {
+    width: 80px;
+  }
+
+  & > .content {
+    width: 242px;
+  }
+}
+
+.careerWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+
+  & > .name {
+    width: 120px;
+    text-align: start;
+  }
+
+  & > .date {
+    width: 172px;
+    text-align: right;
+  }
+}
+
+@mixin divider($margin) {
+  width: 1px;
+  height: 15px;
+  margin: 0 $margin;
+}
+
+.skillDivider {
+  @include divider(20px);
+}
+
+.careerDivider {
+  @include divider(auto);
+}
