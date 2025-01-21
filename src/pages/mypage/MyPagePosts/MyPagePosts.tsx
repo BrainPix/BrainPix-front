@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './myPagePosts.module.scss';
 //import classNames from 'classnames';
-import { Header } from '../../../components/header/Header.tsx';
+import { Header } from '../../../components/common/header/Header.tsx';
 import MyPageSidebar from '../../../components/sidebar/MyPageSidebar.tsx';
 import PostCard from '../../../components/postcard/PostCard.tsx';
 import TabNavigation from '../../../components/tab-navigation/TabNavigation.tsx';
