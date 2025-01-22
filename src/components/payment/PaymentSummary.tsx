@@ -10,7 +10,7 @@ import CheckLightBlue from '../../assets/icons/check-light-blue.svg?react';
 const PaymentSummary = () => {
   const [isAllAgreed, setIsAllAgreed] = useState(false);
 
-  const agreementItems = [
+  const AGREEMENT_ITEMS = [
     {
       id: 'terms',
       label: '‘BrainPIX’ 서비스 이용약관 동의 (필수)',
@@ -28,7 +28,7 @@ const PaymentSummary = () => {
     },
   ];
 
-  const [agreements, setAgreements] = useState(agreementItems);
+  const [agreements, setAgreements] = useState(AGREEMENT_ITEMS);
 
   const handleAllAgree = () => {
     const newState = !isAllAgreed;
@@ -90,7 +90,7 @@ const PaymentSummary = () => {
             key={item.id}
             className={styles.agreementRow}
             onClick={() => handleAgreementClick(item.id)}>
-            <EllipseWhite className={styles.nonecheckBackground} />
+            <EllipseWhite className={styles.noneCheckBackground} />
             {item.agreed ? (
               <CheckLightBlue className={styles.checkIcon} />
             ) : (
