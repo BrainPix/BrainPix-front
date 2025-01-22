@@ -14,7 +14,7 @@
   &Large {
     @include buttonSize(12px 34px, $fontSizeLarge);
   }
-  
+
   // 버튼 스타일
   &Outlined {
     border: 1px solid $borderColor;
