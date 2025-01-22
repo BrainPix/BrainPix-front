@@ -9,7 +9,7 @@ import styles from './personalProfile.module.scss';
 export const PersonalProfile = () => {
   // const { id } = useParams();
 
-  const userData: userProfileData = {
+  const USER_DATA: userProfileData = {
     id: 123,
     name: 'MIN JEONG',
     phoneNumber: '010-1234-5678',
@@ -44,7 +44,7 @@ export const PersonalProfile = () => {
   return (
     <div className={classNames(styles.container)}>
       <ProfileCard />
-      <DescriptionTable userData={userData} />
+      <DescriptionTable userData={USER_DATA} />
       <Portfolio />
       <PostsCarousel />
     </div>
