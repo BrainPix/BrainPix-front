@@ -9,6 +9,11 @@ import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 //드롭다운 버튼 test
 import Dropdown from '../../components/dropdown/Dropdown.tsx';
 
+//라벨 test
+import CorporateLabel from '../../components/common/label/CorporateLabel.tsx';
+import PersonalLabel from '../../components/common/label/PersonalLabel.tsx';
+import CorporatePublicLabel from '../../components/common/label/CorporatePublicLabel.tsx';
+
 export const Test = () => {
   const [clicked, setClicked] = useState(false);
   const handleClickButton = () => {
@@ -33,6 +38,9 @@ export const Test = () => {
         <Dropdown />
         {/* <Dropdown max_visible_options={7} /> */}
       </div>
+      <CorporateLabel />
+      <PersonalLabel />
+      <CorporatePublicLabel />
     </div>
   );
 };

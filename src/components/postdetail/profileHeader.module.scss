@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+.profileIcon {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  margin-right: 28px;
+  border-radius: 50%; /* 동그라미로 만듦 */
+  background-color: #d9d9d9; /* 색상 */
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.name {
+  color: var(--Grey-Grey-900, #222);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.viewProfile {
+  position: absolute;
+  margin-top: 81px;
+  right: 16px;
+  color: var(--Grey-Grey-500, #9e9e9e);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+}
+
+.divider {
+  margin-top: 16px;
+  width: 100%;
+  height: 1px;
+  background: #9e9e9e;
+}

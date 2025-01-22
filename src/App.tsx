@@ -2,9 +2,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
-import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment/IdeaMarketPayment';
+import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { Collaboration } from './pages/collaboration/Collaboration';
+import PostDetailWithoutLink from './pages/collaboration/PostDetailWithoutLink';
+import PostDetailWithLink from './pages/collaboration/PostDetailWithLink';
 import { Signup } from './pages/sign-up/Signup';
 import { IndividualMember } from './pages/sign-up/individual/IndividualMember';
 import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
@@ -35,6 +37,14 @@ function App() {
           <Route
             path='/collaboration'
             element={<Collaboration />}
+          />
+          <Route
+            path='/collaboration/postdetailwithoutlink'
+            element={<PostDetailWithoutLink />}
+          />
+          <Route
+            path='/collaboration/postdetailwithlink'
+            element={<PostDetailWithLink />}
           />
         </Route>
         <Route
