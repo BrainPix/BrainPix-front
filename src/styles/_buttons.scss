@@ -8,9 +8,11 @@
   &Small {
     @include buttonSize(4px 6px, $fontSizeSmall);
   }
+
   &Medium {
     @include buttonSize(12px 16px, $fontSizeBase);
   }
+
   &Large {
     @include buttonSize(12px 34px, $fontSizeLarge);
   }
@@ -30,7 +32,7 @@
 
   &Dark {
     background: #424242;
-    color: #FAFAFA;
+    color: #fafafa;
     border-radius: 5px;
 
     &:hover {
