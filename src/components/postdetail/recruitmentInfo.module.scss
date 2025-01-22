@@ -1,0 +1,97 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .title {
+    color: var(--Grey-Grey-900, #222);
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.32px;
+    margin-bottom: 15px;
+  }
+  
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: #9e9e9e;
+  }
+  
+  .tableHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+    color: var(--Grey-Grey-600, #757575);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.26px;
+    margin-bottom: 15px;
+    gap: 160px;
+  }
+  
+  .column {
+    width: 300px;
+    text-align: left;
+  }
+  
+  .recruitmentRow {
+    display: flex;
+    align-items: center;
+    width: 950px;
+    height: 80px;
+  }
+  
+  .leftBox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 300px;
+    height: 80px;
+    padding: 0 25px;
+    flex-shrink: 0;
+    border-radius: 10px 0px 0px 10px;
+    border: 1px solid var(--Grey-Grey-500, #9e9e9e);
+  }
+  
+  .rightBox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 300px;
+    height: 80px;
+    padding: 0 25px;
+    flex-shrink: 0;
+    border-radius: 0px 10px 10px 0px;
+    border: 1px solid var(--Grey-Grey-500, #9e9e9e);
+  }
+  
+  .role {
+    color: var(--Grey-Grey-800, #424242);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.24px;
+  }
+  
+  .count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--Grey-Grey-800, #424242);
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.24px;
+  }
+  
+  .separator {
+    color: var(--Grey-Grey-500, #9e9e9e);
+  }
+  
+  

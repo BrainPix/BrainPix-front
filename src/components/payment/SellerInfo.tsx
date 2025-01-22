@@ -1,7 +1,6 @@
-import React from 'react';
-import styles from './SellerInfo.module.scss';
+import styles from './sellerInfo.module.scss';
 
-const SellerInfo: React.FC = () => {
+const SellerInfo = () => {
   return (
     <div className={styles.sellerInfo}>
       <div className={styles.title}>판매자 정보</div>

@@ -59,7 +59,7 @@
 }
 
 .totalLabel {
-    color: #616161;
+    //color: #616161;
     font-size: 28px;
     font-weight: 500;
     letter-spacing: -0.28px;
@@ -128,7 +128,7 @@
     flex-shrink: 0;
 }
 
-.nonecheckBackground {
+.noneCheckBackground {
     width: 32px;
     height: 32px;
     flex-shrink: 0;
@@ -144,7 +144,6 @@
     cursor: pointer;
     margin-left: 4px;
     margin-top: 4px;
-    fill: var(--Grey-Grey-400, #bdbdbd);
 }
 
 
