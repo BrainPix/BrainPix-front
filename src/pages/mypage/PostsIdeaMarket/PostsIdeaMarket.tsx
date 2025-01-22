@@ -1,6 +1,7 @@
 import { useParams, useLocation } from 'react-router-dom';
 import styles from './postsIdeaMarket.module.scss';
 import MyPageLayout from '../../layout/MyPageLayout.tsx';
+import arrowButton from '../../../assets/icons/arrow-button.svg';
 
 const mockPosts = [
   {
@@ -21,6 +22,7 @@ function PostsIdeaMarket() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get('category') || '카테고리 없음';
+  //console.log(category);
 
   // mock 데이터에서 postId에 맞는 데이터 찾기
   const post = mockPosts.find((p) => p.id === postId);
@@ -45,6 +47,10 @@ function PostsIdeaMarket() {
             <p>{title}</p>
             <h2>{price.toLocaleString()} 원</h2>
           </div>
+          <img
+            src={arrowButton}
+            alt='화살표 버튼'
+            className={styles.arrowButton}></img>
         </div>
         <div className={styles.purchaseCardWrapper}>
           <h2>구매 현황</h2>

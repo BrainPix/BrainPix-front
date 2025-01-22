@@ -51,7 +51,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 80%;
+    width: 70%;
     gap: 10px;
 
     .postcardCategory {
@@ -69,6 +69,13 @@
       color: #222;
       margin: 0;
     }
+  }
+
+  .arrowButton {
+    @include flex-center;
+    width: 37.5px;
+    height: 18.75px;
+    cursor: pointer;
   }
 }
 
