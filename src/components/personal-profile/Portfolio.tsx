@@ -10,7 +10,7 @@ export const Portfolio = () => {
         gap={50}
         cardWidth={199}
         cardCount={4}
-        buttonPosition='center'
+        buttonPosition='top'
         dataLength={10}>
         {new Array(10).fill(0).map((_, idx) => (
           <div

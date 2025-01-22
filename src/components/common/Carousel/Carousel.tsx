@@ -34,16 +34,24 @@ export const Carousel = ({
     <div className={classNames(styles.container)}>
       {buttonPosition === 'top' ? (
         <div className={classNames(styles.navigationControls)}>
-          <button>
+          <button
+            disabled={currentPage <= 0}
+            className={classNames(styles.arrow, {
+              [styles.disabled]: currentPage === 0,
+            })}>
             <Arrow
-              color='#9e9e9e'
               width={24}
               height={24}
               className={classNames(styles.left)}
               onClick={handleClickPreviousButton}
             />
           </button>
-          <button onClick={handleClickNextButton}>
+          <button
+            onClick={handleClickNextButton}
+            disabled={currentPage > LAST_PAGE - 1}
+            className={classNames(styles.arrow, {
+              [styles.disabled]: currentPage > LAST_PAGE - 1,
+            })}>
             <Arrow
               width={24}
               height={24}
@@ -52,18 +60,25 @@ export const Carousel = ({
         </div>
       ) : (
         <div className={classNames(styles.centerNavigationControls)}>
-          <button disabled={currentPage <= 0}>
+          <button
+            disabled={currentPage <= 0}
+            className={classNames(styles.arrow, {
+              [styles.disabled]: currentPage === 0,
+            })}>
             <Arrow
-              color='#9e9e9e'
               width={40}
               height={40}
-              className={classNames(styles.left)}
+              color={currentPage <= 0 ? '#9e9e9e' : 'black'}
               onClick={handleClickPreviousButton}
+              className={classNames(styles.left)}
             />
           </button>
           <button
             onClick={handleClickNextButton}
-            disabled={currentPage > LAST_PAGE - 1}>
+            disabled={currentPage > LAST_PAGE - 1}
+            className={classNames(styles.arrow, {
+              [styles.disabled]: currentPage > LAST_PAGE - 1,
+            })}>
             <Arrow
               width={40}
               height={40}
