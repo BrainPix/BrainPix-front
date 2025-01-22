@@ -83,7 +83,9 @@ const MyPagePosts = () => {
             <div
               key={post.id}
               className={styles.clickablePost}
-              onClick={() => navigate(`/posts-idea-market/${post.id}`)}>
+              onClick={() =>
+                navigate(`/posts-idea-market/${post.id}?category=${activeTab}`)
+              }>
               <PostCard {...post} />
             </div>
           ))}

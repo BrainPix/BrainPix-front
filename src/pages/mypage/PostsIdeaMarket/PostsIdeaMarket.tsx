@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import styles from './postsIdeaMarket.module.scss';
 import MyPageLayout from '../../layout/MyPageLayout.tsx';
 
@@ -18,6 +18,9 @@ const mockPosts = [
 
 function PostsIdeaMarket() {
   const { postId } = useParams<{ postId: string }>();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get('category') || '카테고리 없음';
 
   // mock 데이터에서 postId에 맞는 데이터 찾기
   const post = mockPosts.find((p) => p.id === postId);
@@ -30,16 +33,21 @@ function PostsIdeaMarket() {
 
   return (
     <MyPageLayout>
-      <div className={styles.postcardDetails}>
+      <div className={styles.postcardWrapper}>
+        <div className={styles.sectionWrapper}>
+          <div className={styles.sectionTitle}>게시물 관리</div>
+          <div className={styles.sectionCateogry}>{category}</div>
+        </div>
         <div className={styles.postcardHeader}>
           <div className={styles.imagePlaceholder}>이미지</div>
           <div className={styles.postcardInfo}>
-            <h1>{title}</h1>
-            <p>{price.toLocaleString()} 원</p>
+            <div className={styles.postCardCategory}>아이디어 마켓 &gt;</div>
+            <p>{title}</p>
+            <h2>{price.toLocaleString()} 원</h2>
           </div>
         </div>
-        <h2>구매 현황</h2>
         <div className={styles.purchaseCardWrapper}>
+          <h2>구매 현황</h2>
           <div className={styles.cardHeader}>
             <span>아이디</span>
             <span>거래 방식</span>
