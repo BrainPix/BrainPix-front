@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
-import { Portfolio } from '../../components/personal-profile/portfolio';
+import { Portfolio } from '../../components/personal-profile/Portfolio';
 import { userProfileData } from '../../types/userData';
+import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
 import styles from './personalProfile.module.scss';
 
 export const PersonalProfile = () => {
@@ -45,6 +46,7 @@ export const PersonalProfile = () => {
       <ProfileCard />
       <DescriptionTable userData={userData} />
       <Portfolio />
+      <PostsCarousel />
     </div>
   );
 };
