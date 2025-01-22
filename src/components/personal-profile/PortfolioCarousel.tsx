@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import styles from './portfolio.module.scss';
+import styles from './portfolioCarousel.module.scss';
 import { Carousel } from '../common/Carousel/Carousel';
 
-export const Portfolio = () => {
+export const PortfolioCarousel = () => {
   return (
     <div className={classNames(styles.container)}>
       <h1 className={classNames(styles.title)}>포트폴리오</h1>
