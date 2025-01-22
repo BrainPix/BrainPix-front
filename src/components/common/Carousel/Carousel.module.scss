@@ -1,3 +1,12 @@
+@mixin navigation-button-style($size) {
+  width: $size;
+  height: $size;
+  border-radius: 100px;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
 .container {
   position: relative;
   width: 100%;
@@ -25,12 +34,9 @@
   margin-bottom: 10px;
 
   & > button {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    padding: 0;
+    @include navigation-button-style(24px);
+
     border: none;
-    background: none;
   }
 
   & > .disabled {
@@ -46,13 +52,9 @@
   transform: translateY(200%) translateX(-10%);
 
   & > button {
-    width: 45px;
-    height: 45px;
-    border-radius: 100px;
+    @include navigation-button-style(45px);
+
     border: 1px solid #424242;
-    background: none;
-    cursor: pointer;
-    padding: 0;
   }
 
   & > .disabled {
