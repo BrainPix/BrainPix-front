@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { Carousel } from '../common/Carousel/Carousel';
-import { PortfolioPopup } from './portfolioPopup';
+import { PortfolioPopup } from './PortfolioPopup';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import styles from './portfolioCarousel.module.scss';
 
