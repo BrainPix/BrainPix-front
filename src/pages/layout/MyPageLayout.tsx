@@ -7,7 +7,9 @@ export const MyPageLayout = () => {
   return (
     <div className={classNames(styles.container)}>
       <Sidebar />
-      <Outlet />
+      <div className={classNames(styles.content)}>
+        <Outlet />
+      </div>
     </div>
   );
 };
