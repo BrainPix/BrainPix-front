@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './PaymentButton.module.scss';
+import styles from './paymentButton.module.scss';
 
 interface PaymentButtonProps {
   isPaymentReady: boolean;

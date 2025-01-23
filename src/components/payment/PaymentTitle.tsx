@@ -1,7 +1,6 @@
-import React from 'react';
-import styles from './PaymentTitle.module.scss';
+import styles from './paymentTitle.module.scss';
 
-const PaymentTitle: React.FC = () => {
+const PaymentTitle = () => {
   return (
     <div className={styles.paymentTitle}>
       <div className={styles.title}>결제하기</div>
