@@ -3,6 +3,7 @@ import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import MyPagePosts from './pages/mypage/MyPagePosts/MyPagePosts';
 import PostsIdeaMarket from './pages/mypage/PostsIdeaMarket/PostsIdeaMarket';
+import PostsRequestAssign from './pages/mypage/PostsRequestAssign/PostsRequestAssign';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
@@ -54,8 +55,12 @@ function App() {
           element={<MyPagePosts />}
         />
         <Route
-          path='/posts-idea-market/:postId'
+          path='/my/posts-idea-market/:postId'
           element={<PostsIdeaMarket />}
+        />
+        <Route
+          path='/my/posts-request-assign/:postId'
+          element={<PostsRequestAssign />}
         />
         <Route
           path='/sign-up'

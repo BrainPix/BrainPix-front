@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '../../components/header/Header.tsx';
+import { Header } from '../../components/common/header/Header.tsx';
 import MyPageSidebar from '../../components/sidebar/MyPageSidebar.tsx';
 import styles from './myPageLayout.module.scss';
 
