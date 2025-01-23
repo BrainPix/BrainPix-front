@@ -2,6 +2,21 @@ import styles from './postsRequestAssign.module.scss';
 import MyPageLayout from '../../layout/MyPageLayout.tsx';
 
 function PostsRequestAssign() {
+  const mockPosts = [
+    {
+      id: 2,
+      category: 'requestTask',
+      user: 'yeonyyy',
+      title: 'Web 개발 부탁드립니다.',
+      deadline: '21',
+      purchaseRecords: [
+        { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+        { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+      ],
+    },
+    // 추가 데이터...
+  ];
+
   return (
     <MyPageLayout>
       <div className={styles.container}>

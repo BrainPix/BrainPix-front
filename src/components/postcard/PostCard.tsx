@@ -47,7 +47,7 @@ function PostCard({
           </>
         )}
 
-        {category === 'requestTask' && (
+        {category === 'requestAssign' && (
           <>
             <p>{title}</p>
             <div className={styles.postImage}>

@@ -22,7 +22,7 @@ const MyPagePosts = () => {
     },
     {
       id: 2,
-      category: 'requestTask',
+      category: 'requestAssign',
       user: 'yeonyyy',
       title: 'Web 개발 부탁드립니다.',
       deadline: '20',
@@ -76,7 +76,7 @@ const MyPagePosts = () => {
             (post) =>
               (activeTab === '아이디어 마켓' &&
                 post.category === 'ideaMarket') ||
-              (activeTab === '요청과제' && post.category === 'requestTask') ||
+              (activeTab === '요청과제' && post.category === 'requestAssign') ||
               (activeTab === '협업광장' && post.category === 'collaboration'),
           )
           .map((post) => (
