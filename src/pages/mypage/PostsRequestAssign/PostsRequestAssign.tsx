@@ -1,21 +1,34 @@
 import styles from './postsRequestAssign.module.scss';
 import MyPageLayout from '../../layout/MyPageLayout.tsx';
 
+const mockPosts = [
+  {
+    id: 2,
+    category: 'requestAssign',
+    user: 'yeonyyy',
+    title: 'Web 개발 부탁드립니다.',
+    deadline: '21',
+    purchaseRecords: [
+      { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+      { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+    ],
+  },
+  // 추가 데이터...
+];
+
 function PostsRequestAssign() {
-  const mockPosts = [
-    {
-      id: 2,
-      category: 'requestAssign',
-      user: 'yeonyyy',
-      title: 'Web 개발 부탁드립니다.',
-      deadline: '21',
-      purchaseRecords: [
-        { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
-        { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
-      ],
-    },
-    // 추가 데이터...
-  ];
+  const { postId } = useParams<{ postId: string }>();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get('category') || '카테고리 없음';
+  //console.log(category);
+
+  // mock 데이터에서 postId에 맞는 데이터 찾기
+  const post = mockPosts.find((p) => p.id === postId);
+
+  if (!post) {
+    return <div>게시글을 찾을 수 없습니다.</div>;
+  }
 
   return (
     <MyPageLayout>

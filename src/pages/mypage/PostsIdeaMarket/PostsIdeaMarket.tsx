@@ -4,11 +4,15 @@ import MyPageLayout from '../../layout/MyPageLayout.tsx';
 import arrowButton from '../../../assets/icons/arrow-button.svg';
 
 const mockPosts = [
+  // 게시물 데이터 예시
   {
     id: '1',
-    authorId: 'user1',
+    nickname: 'user1',
     title: '디자인 해드립니다',
+    profileImage: '',
     price: 200000000,
+    ideaMarketAuth: 'ALL',
+    imageURL: '',
     purchaseRecords: [
       { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
       { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
@@ -31,7 +35,7 @@ function PostsIdeaMarket() {
     return <div>게시글을 찾을 수 없습니다.</div>;
   }
 
-  const { title, price, purchaseRecords } = post;
+  const { nickname, title, price, purchaseRecords } = post;
 
   return (
     <MyPageLayout>
