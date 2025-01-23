@@ -5,7 +5,7 @@ function PostsRequestAssign() {
   const mockPosts = [
     {
       id: 2,
-      category: 'requestTask',
+      category: 'requestAssign',
       user: 'yeonyyy',
       title: 'Web 개발 부탁드립니다.',
       deadline: '21',
