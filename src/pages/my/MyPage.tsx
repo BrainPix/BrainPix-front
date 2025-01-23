@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import styles from './myPage.module.scss';
 import { MyProfileCard } from '../../components/my/MyProfileCard';
-import { NewsList } from '../../components/my/NewsList';
+import { PreviewList } from '../../components/my/PreviewList';
 import { Fragment } from 'react/jsx-runtime';
 
 export const MyPage = () => {
@@ -50,7 +50,17 @@ export const MyPage = () => {
           <button>전체보기</button>
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          <NewsList isRead />
+          <PreviewList isRead />
+          <PreviewList />
+        </div>
+      </div>
+      <div>
+        <div className={classNames(styles.title)}>
+          내 아이디어
+          <button>전체보기</button>
+        </div>
+        <div className={classNames(styles.recentNewsWrapper)}>
+          <PreviewList />
         </div>
       </div>
     </div>
