@@ -1,15 +1,17 @@
 import classNames from 'classnames';
-import styles from './newsList.module.scss';
+import styles from './previewList.module.scss';
 import Arrow from '../../assets/icons/arrowRight.svg?react';
 
 interface NewsListPropsType {
   isRead?: boolean;
 }
 
-export const NewsList = ({ isRead = false }: NewsListPropsType) => {
+export const PreviewList = ({ isRead = false }: NewsListPropsType) => {
   return (
     <div className={classNames(styles.container, { [styles.isRead]: isRead })}>
-      {isRead && <div className={classNames(styles.tag)}>읽음</div>}
+      {isRead && (
+        <div className={classNames(styles.tag, styles.read)}>읽음</div>
+      )}
       <div className={classNames(styles.pageRouteWrapper)}>
         <span className={classNames(styles.page)}>아이디어 마켓</span>
         <Arrow
