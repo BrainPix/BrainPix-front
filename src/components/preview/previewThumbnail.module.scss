@@ -1,47 +1,70 @@
-.container {
+  .container {
     width: 312px;
-    border: 0.5px solid #DBDBDB;
+    height: 372px;
+    flex-shrink: 0;
     border-radius: 5px;
+    border: 0.5px solid var(--Grey-Grey-400, #BDBDBD);
+    display: flex;           // 추가
+    flex-direction: column;  // 추가
+    align-items: center;     // 추가
   }
   
   .profileSection {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
-    padding: 8px;
-  
-    & > span {
+    padding: 26px 16px;
+    align-self: flex-start;  // 추가: profileSection만 왼쪽 정렬
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    
+    & > span:not(.verifiedBadge) {
       font-size: 14px;
       color: #424242;
     }
   }
   
   .profileImage {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    overflow: hidden;
-  
-    & > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    border: 0.5px solid #979797;
+    background: url(<path-to-image>) lightgray 50% / cover no-repeat;
   }
   
   .verifiedBadge {
+    display: flex;
+    width: 48px;
+    height: 12px;
     padding: 2px 8px;
-    background-color: #006AC6;
-    color: white;
-    border-radius: 4px;
-    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 17.5px;
+    background: #474747;
+
+    color: var(--Grey-Grey-50, #FAFAFA);
+    font-family: Pretendard;
+    font-size: 6px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.06px;
   }
   
   .thumbnailImage {
-    width: 312px;
-    height: 372px;
-    background-color: #DBDBDB;
-    
+    width: 190px;
+    height: 190px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    background: var(--Grey-Grey-500, #9E9E9E);
+    align-self: center;      // 추가: thumbnailImage는 중앙 정렬
+  
     & > img {
       width: 100%;
       height: 100%;
@@ -50,14 +73,19 @@
   }
   
   .contentSection {
-    padding: 12px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 8px;
   
     & > p {
-      font-size: 14px;
-      color: #424242;
+      color: #000;
+
+      font-family: Pretendard;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
     }
   }
   
