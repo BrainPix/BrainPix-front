@@ -1,7 +1,7 @@
 import styles from './recruitmentInfo.module.scss';
 
 const RecruitmentInfo = () => {
-  const recruitmentUnits = [
+  const RECRUITMENT_UNITS = [
     { id: '1', role: '디자이너', current: 1, total: 4 },
     { id: '2', role: '디자이너', current: 1, total: 4 },
   ];
@@ -17,7 +17,7 @@ const RecruitmentInfo = () => {
         <span className={styles.column}>모집 인원</span>
       </div>
       {/*map을 사용하여 recruitmentUnits 배열을 순회하며 각 요소를 출력*/}
-      {recruitmentUnits.map((unit) => (
+      {RECRUITMENT_UNITS.map((unit) => (
         <div
           key={unit.id}
           className={styles.recruitmentRow}>
