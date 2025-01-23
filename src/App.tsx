@@ -13,7 +13,7 @@ import { IndividualMember } from './pages/sign-up/individual/IndividualMember';
 import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
-import { PersonalProfile } from './pages/personalProfile/PersonalProfile';
+import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my/MyPage';
 
 function App() {
