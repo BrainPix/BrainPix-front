@@ -1,0 +1,135 @@
+@mixin title-style($color) {
+  color: $color;
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.container {
+  width: 1000px;
+  height: 400px;
+  flex-shrink: 0;
+  background: var(--Grey-Grey-200, #EEE);
+}
+  
+.subTitle {
+  margin-top: 39px;
+  margin-left: 62px;
+  color: var(--Grey-Grey-800, #424242);
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  
+  .highlight {
+    font-weight: 500;
+  }
+}
+  
+.title {
+  @include title-style(var(--Grey-Grey-800, #424242));
+  margin-left: 62px;
+    
+  .highlight {
+    @include title-style(#E85650);
+  }
+}
+  
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+  
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  flex: 1;
+}
+  
+.card {
+  width: 250px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1px solid var(--Grey-Grey-300, #E0E0E0);
+  background: var(--Grey-Grey-50, #FAFAFA);
+  margin-left: 15px;
+}
+  
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:disabled {
+    opacity: 0.1;
+  }
+  
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+  
+.more {
+  text-align: right;
+  margin-top: 15px;
+  margin-right: 85px;
+  
+  button {
+    color: var(--Grey-Grey-700, #616161);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.16px;
+    border: none;
+  
+    &:hover {
+      color: #495057;
+    }
+  }
+}
+
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+  
+.headerContent {
+  flex: 1;
+}
+
+.notice {
+  width: 496px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #808080;
+  padding-left: 18px;
+  padding-top: 15px;
+  margin-bottom: 32px;
+  margin-top: 39px;
+  margin-right: 56px;
+  
+  color: #F1F1F1;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: -0.2px;
+}
