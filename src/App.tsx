@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
+import MyPagePosts from './pages/mypage/MyPagePosts/MyPagePosts';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment';
 import IdeaRegisteredPage from './pages/idea-market/IdeaRegisteredPage';
@@ -57,6 +58,10 @@ function App() {
             element={<PostDetailWithLink />}
           />
         </Route>
+        <Route
+          path='/my' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
+          element={<MyPagePosts />}
+        />
         <Route
           path='/sign-up'
           element={<Signup />}

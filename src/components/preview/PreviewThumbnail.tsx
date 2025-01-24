@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './previewThumbnail.module.scss';
 import Bookmark from '../../assets/icons/bookmark.svg?react';
+import Profile from '../../assets/icons/profile.svg?react';
 
 interface PreviewThumbnailProps {
   imageUrl?: string;
@@ -27,13 +28,19 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
     <div className={styles.container}>
       <div className={styles.profileSection}>
         <div className={styles.profileImage}>
-          <img
-            src={profileImage || '/api/placeholder/24/24'}
-            alt={username}
-          />
+          {profileImage ? (
+            <img
+              src={profileImage} // 나중에 API 나오면 profile.svg 지우고 여기에 api 넣으면 됩니다.
+              alt={username} // yeonyny 부분에 해당합니다.
+            />
+          ) : (
+            <Profile className={styles.defaultProfileIcon} />
+          )}
         </div>
-        <span>{username}</span>
-        {verified && <span className={styles.verifiedBadge}>인증됨</span>}
+        <div className={styles.userInfo}>
+          {verified && <span className={styles.verifiedBadge}>기업 공개</span>}
+          <span>{username}</span>
+        </div>
       </div>
 
       <div className={styles.thumbnailImage}>
@@ -45,7 +52,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
         ) : (
           <img
             src='/api/placeholder/312/372'
-            alt='placeholder'
+            alt='썸네일 API 받아오는 공간'
           />
         )}
       </div>
