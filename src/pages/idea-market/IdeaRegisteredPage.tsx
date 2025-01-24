@@ -1,5 +1,5 @@
 import ProfileHeader from '../../components/postdetail/ProfileHeader';
-import PostTitle from '../../components/registeredPage/PostTitle';
+import PostTitlePay from '../../components/registeredPage/PostTitlePay';
 import IdeaDescription from '../../components/registeredPage/IdeaDescription';
 import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
@@ -10,7 +10,7 @@ const IdeaRegisteredPage = () => {
     <>
       <div className={styles.margin}>
         <ProfileHeader />
-        <PostTitle />
+        <PostTitlePay />
         <IdeaDescription />
         <QnASection />
         <AuthorInfo />
