@@ -5,12 +5,21 @@ import DotIcon from '../../assets/icons/dot.svg?react';
 import BookmarkIcon from '../../assets/icons/bookmark-fill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/empty-circle.svg?react';
 import CorporatePublicLabel from '../common/label/CorporatePublicLabel';
-
-const PostTitle = () => {
+import RequestSupportModal from '../modal/RequestSupportModal';
+const PostTitleApply = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -51,9 +60,14 @@ const PostTitle = () => {
           <span className={styles.info}>저장 12</span>
         </div>
       </div>
-      <button className={styles.purchaseButton}>구매하기</button>
+      <button
+        className={styles.purchaseButton}
+        onClick={openModal}>
+        지원하기
+      </button>
+      {isModalOpen && <RequestSupportModal onClose={closeModal} />}
     </div>
   );
 };
 
-export default PostTitle;
+export default PostTitleApply;
