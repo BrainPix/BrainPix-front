@@ -7,7 +7,7 @@
     border-radius: 10px;
     background: #377ff8;
     color: var(--Grey-Grey-50, #fafafa);
-    font-family: Pretendard, sans-serif;
+    font-family: Pretendard;
     font-size: 32px;
     font-style: normal;
     font-weight: 500;
@@ -16,6 +16,7 @@
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    border: none;
   
     &:hover {
       background-color: #2865c7;
