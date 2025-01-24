@@ -3,7 +3,7 @@ import PostTitleApply from '../../components/registeredPage/PostTitleApply';
 import AssignmentDescription from '../../components/registeredPage/AssignmentDescription';
 import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
-import styles from './RequestRegisteredPage.module.scss';
+import styles from './requestRegisteredPage.module.scss';
 
 const RequestRegisteredPage = () => {
   return (
