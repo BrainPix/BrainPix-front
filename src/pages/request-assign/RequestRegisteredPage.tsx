@@ -1,5 +1,5 @@
 import ProfileHeader from '../../components/postdetail/ProfileHeader';
-import PostTitle from '../../components/registeredPage/PostTitle';
+import PostTitleApply from '../../components/registeredPage/PostTitleApply';
 import AssignmentDescription from '../../components/registeredPage/AssignmentDescription';
 import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
@@ -10,7 +10,7 @@ const RequestRegisteredPage = () => {
     <>
       <div className={styles.margin}>
         <ProfileHeader />
-        <PostTitle />
+        <PostTitleApply />
         <AssignmentDescription />
         <QnASection />
         <AuthorInfo />
