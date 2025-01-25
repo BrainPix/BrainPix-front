@@ -1,6 +1,6 @@
 import styles from './authorInfo.module.scss';
 import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
-import CorporateLabel from '../common/label/CorporateLabel';
+import Label from '../common/label/Label';
 
 const AuthorInfo = () => {
   return (
@@ -17,7 +17,10 @@ const AuthorInfo = () => {
           <div className={styles.profileIcon} />
           <div className={styles.textContainer}>
             <span className={styles.name}>SEO YEON</span>
-            <CorporateLabel />
+            <Label
+              text='기업'
+              type='corporate'
+            />
           </div>
         </div>
         <button className={styles.messageButton}>

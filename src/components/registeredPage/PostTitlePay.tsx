@@ -4,7 +4,7 @@ import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
 import DotIcon from '../../assets/icons/dot.svg?react';
 import BookmarkIcon from '../../assets/icons/bookmark-fill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/empty-circle.svg?react';
-import CorporatePublicLabel from '../common/label/CorporatePublicLabel';
+import Label from '../common/label/Label';
 
 const PostTitlePay = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -26,7 +26,10 @@ const PostTitlePay = () => {
         </div>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>디자인 해드립니다</h1>
-          <CorporatePublicLabel />
+          <Label
+            text='기업 공개'
+            type='corporatePublic'
+          />
           <button
             className={styles.bookmarkButton}
             onClick={toggleBookmark}>
