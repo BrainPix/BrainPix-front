@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styles from './postTitle.module.scss';
-import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
+import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import DotIcon from '../../assets/icons/dot.svg?react';
-import BookmarkIcon from '../../assets/icons/bookmark-fill.svg?react';
-import EmptyCircleIcon from '../../assets/icons/empty-circle.svg?react';
+import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
+import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
 import RequestSupportModal from '../modal/RequestSupportModal';
 const PostTitleApply = () => {

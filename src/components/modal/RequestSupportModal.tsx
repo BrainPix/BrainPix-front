@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './supportModal.module.scss';
-import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
-import EllipseGray from '../../assets/icons/Ellipse_gray.svg?react';
-import EllipseBlue from '../../assets/icons/Ellipse_blue.svg?react';
-import CheckLightIcon from '../../assets/icons/check-light.svg?react';
+import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
+import EllipseGray from '../../assets/icons/ellipseGray.svg?react';
+import EllipseBlue from '../../assets/icons/ellipseBlue.svg?react';
+import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 
 interface RequestSupportModalProps {
   onClose: () => void;

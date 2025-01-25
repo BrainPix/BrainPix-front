@@ -1,5 +1,5 @@
 import styles from './authorInfo.module.scss';
-import ArrowIcon from '../../assets/icons/arrow-up-2-thin.svg?react';
+import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
 
 const AuthorInfo = () => {
