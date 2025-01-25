@@ -5,9 +5,10 @@ const mockPosts = [
   {
     id: 2,
     category: 'requestAssign',
-    user: 'yeonyyy',
+    nickname: 'yeonyyy',
     title: 'Web 개발 부탁드립니다.',
-    deadline: '21',
+    imageUrl: '',
+    daysLeft: '21',
     purchaseRecords: [
       { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
       { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },

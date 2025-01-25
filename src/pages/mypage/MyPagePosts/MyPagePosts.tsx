@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './myPagePosts.module.scss';
+//import classNames from 'classnames';
 import MyPageLayout from '../../layout/MyPageLayout.tsx';
 import PostCard from '../../../components/postcard/PostCard.tsx';
 import TabNavigation from '../../../components/tab-navigation/TabNavigation.tsx';

@@ -7,7 +7,7 @@ const mockPosts = [
   // 게시물 데이터 예시
   {
     id: '1',
-    nickname: 'user1',
+    nickname: 'SEO YEON',
     title: '디자인 해드립니다',
     profileImage: '',
     price: 200000000,

@@ -1,4 +1,4 @@
-import styles from './TabNavigation.module.scss';
+import styles from './tabNavigation.module.scss';
 import classNames from 'classnames';
 
 interface TabNavigationProps {
