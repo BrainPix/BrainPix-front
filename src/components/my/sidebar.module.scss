@@ -9,14 +9,16 @@
   }
 
   & > .mainTitle {
-    font-size: 36px;
-    color: #222;
+    @include pretendard-36-500;
+
+    color: $grey-900;
     margin-bottom: 45px;
   }
 
   & > .subTitle {
-    font-size: 32px;
-    color: #757575;
+    @include pretendard-32-500;
+
+    color: $grey-900;
     margin-bottom: 30px;
   }
 }
@@ -27,8 +29,9 @@
   gap: 15px;
 
   & > a {
-    font-size: 24px;
-    color: #757575;
+    @include pretendard-24-500;
+
+    color: $grey-700;
     text-decoration: none;
   }
 }
