@@ -4,8 +4,7 @@
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 500;
+  @include pretendard-28-500;
 }
 
 .portfolio {
@@ -21,12 +20,12 @@
   }
 
   & > .title {
+    @include pretendard-20-500;
+
     margin-bottom: 5px;
-    font-size: 20px;
   }
 
   & > .date {
-    font-size: 16px;
-    font-weight: 400;
+    @include pretendard-16-400;
   }
 }

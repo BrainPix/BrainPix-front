@@ -5,9 +5,15 @@
   padding-bottom: 84px;
 }
 
+.optionWrapper {
+  display: flex;
+  gap: 30px;
+  margin-left: 48px;
+}
+
 .bottomPageWrapper {
   padding-left: 360px;
-  border-bottom: 2px solid #757575;
+  border-bottom: 2px solid $grey-600;
   display: flex;
   gap: 45px;
   font-size: 24px;
@@ -21,28 +27,23 @@
   }
 }
 
-.optionWrapper {
-  display: flex;
-  gap: 30px;
-}
-
 .optionWrapper > * {
-  color: #424242;
+  color: $grey-800;
   text-decoration: none;
   font-size: 20px;
 
   &:hover {
-    color: #006ac6;
+    color: $primary;
   }
 }
 
 .clickedPage {
   @include flex-center;
 
-  padding-bottom: 0;
   flex-direction: column;
   text-align: center;
   font-weight: 500;
+  padding-bottom: 0;
 }
 
 .clickedPage::after {
@@ -50,5 +51,5 @@
   display: block;
   width: 80px;
   padding-bottom: 15px;
-  border-bottom: 4px solid #757575;
+  border-bottom: 4px solid $grey-600;
 }

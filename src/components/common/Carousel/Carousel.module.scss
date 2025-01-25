@@ -13,7 +13,7 @@
 }
 
 .arrow {
-  stroke: #424242;
+  stroke: $grey-800;
 }
 
 .carouselContainer {
@@ -45,21 +45,21 @@
 }
 
 .centerNavigationControls {
+  @include flex-space-between;
+
   width: 120%;
-  display: flex;
-  justify-content: space-between;
   position: absolute;
   transform: translateY(200%) translateX(-10%);
 
   & > button {
     @include navigation-button-style(45px);
 
-    border: 1px solid #424242;
+    border: 1px solid $grey-800;
   }
 
   & > .disabled {
-    border-color: #bdbdbd;
-    stroke: #bdbdbd;
+    border-color: $grey-400;
+    stroke: $grey-400;
   }
 }
 

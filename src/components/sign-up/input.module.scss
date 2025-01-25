@@ -3,30 +3,32 @@
 }
 
 .label {
+  @include pretendard-11-500;
+
   margin: 0;
   margin-top: 5px;
   color: #333;
-  font-size: 11px;
-  font-weight: 500;
   margin-bottom: 1px;
 }
 
 .errorMessage {
+  @include pretendard-11-400;
+
   color: red;
-  font-size: 10px;
   margin-top: 5px;
 }
 
 @mixin input {
+  @include pretendard-11-400;
+
   border-radius: 2px;
   border: 1px solid #7a7a7a;
   padding: 7px;
-  font-size: 11px;
 
   &::placeholder {
+    @include pretendard-11-400;
+
     color: #898989;
-    font-size: 11px;
-    font-weight: 400;
   }
 
   &:focus {

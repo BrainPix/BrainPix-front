@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 import styles from './test.module.scss';
-
 //버튼그룹 test
 import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 
@@ -38,6 +37,7 @@ export const Test = () => {
         <Dropdown />
         {/* <Dropdown max_visible_options={7} /> */}
       </div>
+      <button className='buttonFilled-grey800'>dd</button>
       <CorporateLabel />
       <PersonalLabel />
       <CorporatePublicLabel />

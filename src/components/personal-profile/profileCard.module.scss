@@ -1,10 +1,9 @@
 .container {
+  @include flex-space-between;
+
   padding: 45px 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #929292;
+  border-bottom: 1px solid $grey-500;
 }
 
 .profileContainer {
@@ -24,14 +23,13 @@
   }
 
   & > .userName {
-    font-size: 32px;
-    font-weight: 500;
+    @include pretendard-32-500;
   }
 
   & > .role {
-    color: #616161;
-    font-size: 16px;
-    font-weight: 400;
+    @include pretendard-16-400;
+
+    color: $grey-700;
   }
 }
 
