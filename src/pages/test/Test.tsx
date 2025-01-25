@@ -35,9 +35,9 @@ export const Test = () => {
         <Dropdown />
         {/* <Dropdown max_visible_options={7} /> */}
       </div>
+      <button className='buttonFilled-grey800'>dd</button>
       {/* 라벨 test */}
       <div>
-        <button className='buttonFilled-grey800'>dd</button>
         <Label
           text='기업'
           type='corporate'
