@@ -4,11 +4,26 @@
   justify-content: center;
 }
 
-.headerContainer {
+.headerComponents {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 47px 352px 0;
+  position: relative;
+}
+
+.leftComponents {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  align-items: flex-start;
+}
+
+.rightComponents {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  align-items: flex-end;
 }
 
 .ideaText {
@@ -21,21 +36,42 @@
   letter-spacing: -0.32px;
 }
 
-.buttonGroup {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
 .registerButton {
   display: flex;
   width: 254px;
   height: 53px;
   padding: 10px 20px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
   border-radius: 54px;
   border: 1px solid var(--Grey-Grey-700, #616161);
   background: var(--Grey-Grey-50, #FAFAFA);
+
+  color: var(--Grey-Grey-700, #616161);
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.24px;
+}
+
+.reviseDropdown {
+  display: flex;
+  width: 158px;
+  padding: 12px 21px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 23px;
+}
+
+.thumbnailGrid {
+  margin: 40px 352px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  row-gap: 40px;
 }
