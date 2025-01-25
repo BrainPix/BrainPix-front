@@ -13,6 +13,12 @@ export const RecentNews = () => {
 
   const handleClickPageNum = (page: number) => {
     setClickedPage(page);
+    if (page !== 1 && page === currentPageNums[0]) {
+      return setCurrentPageNums([page - 3, page - 2, page - 1, page, page + 1]);
+    }
+    if (page === currentPageNums[currentPageNums.length - 1]) {
+      return setCurrentPageNums([page - 1, page, page + 1, page + 2, page + 3]);
+    }
   };
   return (
     <div className={classNames(styles.container)}>
