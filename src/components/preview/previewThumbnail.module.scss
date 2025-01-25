@@ -22,7 +22,8 @@
   flex-direction: column;
 
   & > span:not(.verifiedBadge) {
-    font-size: 14px;
+    @include pretendard-14-500;
+
     color: $grey-800;
   }
 }
@@ -37,17 +38,21 @@
 }
 
 .verifiedBadge {
-  @include flex-center;
-  @include pretendard-6-500;
-
+  display: flex;
   width: 48px;
   height: 12px;
   padding: 2px 8px;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   flex-shrink: 0;
   border-radius: 17.5px;
   background: #474747;
-  color: $grey-50;
+  color: var(--Grey-Grey-50, #fafafa);
+  font-family: Pretendard;
+  font-size: 6px;
+  font-style: normal;
+  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.06px;
 }
@@ -57,7 +62,7 @@
   height: 190px;
   flex-shrink: 0;
   border-radius: 2px;
-  background: $grey-500;
+  background-color: $grey-400;
   align-self: center; // 추가: thumbnailImage는 중앙 정렬
 
   & > img {
@@ -75,6 +80,7 @@
 
   & > p {
     color: #000;
+    font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
