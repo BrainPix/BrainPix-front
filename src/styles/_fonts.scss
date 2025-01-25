@@ -20,6 +20,10 @@
   font-weight: $font-weight;
 }
 
+@mixin pretendard-6-500 {
+  @include font-mixin('Pretendard', 6px, 500);
+}
+
 @mixin pretendard-11-400 {
   @include font-mixin('Pretendard', 11px, 400);
 }
