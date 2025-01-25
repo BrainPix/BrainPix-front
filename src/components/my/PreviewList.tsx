@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import styles from './previewList.module.scss';
 import Arrow from '../../assets/icons/arrowRight.svg?react';
 import Trash from '../../assets/icons/trash.svg?react';
+import Undo from '../../assets/icons/undo.svg?react';
 
 interface NewsListPropsType {
   isRead?: boolean;
-  iconType?: 'delete' | 'more';
+  iconType?: 'trash' | 'more' | 'delete';
 }
 
 export const PreviewList = ({
@@ -29,10 +30,20 @@ export const PreviewList = ({
       <span className={classNames(styles.content)}>
         Roria님이 댓글을 남겼습니다.
       </span>
-      {iconType === 'more' ? (
+      {iconType === 'more' && (
         <button className={classNames(styles.tag)}>자세히</button>
-      ) : (
-        <Trash className={classNames(styles.deleteIcon)} />
+      )}
+      {iconType === 'trash' && (
+        <Trash className={classNames(styles.trashIcon)} />
+      )}
+      {iconType === 'delete' && (
+        <>
+          <button
+            className={classNames(styles.deleteButton, 'buttonFilled-grey700')}>
+            삭제
+          </button>
+          <Undo />
+        </>
       )}
     </div>
   );
