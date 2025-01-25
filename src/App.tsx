@@ -15,6 +15,7 @@ import { IndividualMember } from './pages/sign-up/individual/IndividualMember';
 import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
+import { PersonalProfile } from './pages/personalProfile/PersonalProfile';
 
 function App() {
   return (
@@ -48,6 +49,10 @@ function App() {
           <Route
             path='/collaboration'
             element={<Collaboration />}
+          />
+          <Route
+            path='/personal-profile/:id'
+            element={<PersonalProfile />}
           />
           <Route
             path='/collaboration/postdetailwithoutlink'

@@ -16,10 +16,10 @@
 }
 
 .headline {
-  font-size: 32px;
+  @include pretendard-32-500;
+
   text-align: center;
   margin-bottom: 76px;
-  font-weight: 500;
 }
 
 .buttonWrapper {
@@ -29,11 +29,10 @@
 
 .memberButton {
   @include flex-center;
+  @include pretendard-24-500;
 
   width: 208px;
   height: 73px;
-  font-size: 24px;
-  font-weight: 500;
   border-radius: 36.5px;
   border: none;
   gap: 16.33px;
@@ -45,5 +44,5 @@
 }
 
 .individual {
-  background-color: #bdbdbd;
+  background-color: $grey-400;
 }
