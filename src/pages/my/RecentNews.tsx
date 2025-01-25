@@ -1,0 +1,52 @@
+import { useState } from 'react';
+import classNames from 'classnames';
+import styles from './recentNews.module.scss';
+import { PreviewList } from '../../components/my/PreviewList';
+import Arrow from '../../assets/icons/arrowRight.svg?react';
+
+export const RecentNews = () => {
+  const [currentPageNums, setCurrentPageNums] = useState<number[]>([
+    1, 2, 3, 4, 5,
+  ]);
+
+  const [clickedPage, setClickedPage] = useState<number>(1);
+
+  const handleClickPageNum = (page: number) => {
+    setClickedPage(page);
+  };
+  return (
+    <div className={classNames(styles.container)}>
+      <div>
+        <h1 className={classNames(styles.title)}>최근 소식</h1>
+        <PreviewList iconType='delete' />
+        <div className={classNames(styles.pageNumberWrapper)}>
+          {currentPageNums.map((currentPageNum) => (
+            <span
+              key={currentPageNum}
+              className={classNames(
+                clickedPage === currentPageNum
+                  ? styles.clicked
+                  : styles.nonClicked,
+              )}
+              onClick={() => handleClickPageNum(currentPageNum)}>
+              {currentPageNum}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div>
+        <h1 className={classNames(styles.title)}>휴지통</h1>
+        <button
+          className={classNames(styles.moreButton, 'buttonFilled-grey700')}>
+          더보기
+          <Arrow
+            width={24}
+            height={24}
+            stroke='#fafafa'
+            className={classNames(styles.bottomArrow)}
+          />
+        </button>
+      </div>
+    </div>
+  );
+};

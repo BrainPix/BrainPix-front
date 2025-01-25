@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.title {
+  @include pretendard-32-500;
+
+  color: $grey-900;
+  width: 100%;
+  border-bottom: 1px solid $grey-500;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.moreButton {
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bottomArrow {
+  transform: rotate(90deg);
+}
+
+.pageNumberWrapper {
+  width: fit-content;
+  display: flex;
+  margin: 0 auto;
+  gap: 10px;
+  margin-top: 15px;
+
+  & > * {
+    cursor: pointer;
+  }
+
+  & > .nonClicked {
+    color: $grey-500;
+  }
+
+  & > .clicked {
+    color: $grey-700;
+  }
+}

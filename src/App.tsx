@@ -16,6 +16,7 @@ import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my/MyPage';
+import { RecentNews } from './pages/my/RecentNews';
 
 function App() {
   return (
@@ -58,6 +59,10 @@ function App() {
             <Route
               path='/my'
               element={<MyPage />}
+            />
+            <Route
+              path='/my/recent-news'
+              element={<RecentNews />}
             />
           </Route>
         </Route>
