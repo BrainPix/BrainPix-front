@@ -1,0 +1,41 @@
+.ideaMarketMain {
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 47px 352px 0;
+}
+
+.ideaText {
+  color: var(--Grey-Grey-800, #424242);
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.registerButton {
+  display: flex;
+  width: 254px;
+  height: 53px;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 54px;
+  border: 1px solid var(--Grey-Grey-700, #616161);
+  background: var(--Grey-Grey-50, #FAFAFA);
+}
