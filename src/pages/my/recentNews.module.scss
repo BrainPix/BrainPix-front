@@ -20,10 +20,15 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .bottomArrow {
   transform: rotate(90deg);
+}
+
+.upArrow {
+  transform: rotate(270deg);
 }
 
 .pageNumberWrapper {
@@ -44,4 +49,10 @@
   & > .clicked {
     color: $grey-700;
   }
+}
+
+.trashListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }

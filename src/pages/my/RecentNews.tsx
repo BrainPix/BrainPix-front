@@ -62,6 +62,14 @@ export const RecentNews = () => {
             )}
           />
         </button>
+        {isOpenMoreDelete && (
+          <div className={classNames(styles.trashListWrapper)}>
+            <PreviewList iconType='delete' />
+            <PreviewList iconType='delete' />
+            <PreviewList iconType='delete' />
+            <PreviewList iconType='delete' />
+          </div>
+        )}
       </div>
     </div>
   );
