@@ -20,6 +20,18 @@
   font-weight: $font-weight;
 }
 
+@mixin pretendard-11-400 {
+  @include font-mixin('Pretendard', 11px, 400);
+}
+
+@mixin pretendard-11-500 {
+  @include font-mixin('Pretendard', 11px, 500);
+}
+
+@mixin pretendard-11-600 {
+  @include font-mixin('Pretendard', 11px, 600);
+}
+
 @mixin pretendard-12-400 {
   @include font-mixin('Pretendard', 12px, 400);
 }
@@ -30,6 +42,18 @@
 
 @mixin pretendard-12-600 {
   @include font-mixin('Pretendard', 12px, 600);
+}
+
+@mixin pretendard-13-400 {
+  @include font-mixin('Pretendard', 13px, 400);
+}
+
+@mixin pretendard-13-500 {
+  @include font-mixin('Pretendard', 13px, 500);
+}
+
+@mixin pretendard-13-600 {
+  @include font-mixin('Pretendard', 13px, 600);
 }
 
 @mixin pretendard-14-400 {
@@ -80,6 +104,18 @@
   @include font-mixin('Pretendard', 20px, 600);
 }
 
+@mixin pretendard-22-400 {
+  @include font-mixin('Pretendard', 22px, 400);
+}
+
+@mixin pretendard-22-500 {
+  @include font-mixin('Pretendard', 22px, 500);
+}
+
+@mixin pretendard-22-600 {
+  @include font-mixin('Pretendard', 22px, 600);
+}
+
 @mixin pretendard-24-400 {
   @include font-mixin('Pretendard', 24px, 400);
 }
@@ -104,6 +140,18 @@
   @include font-mixin('Pretendard', 26px, 600);
 }
 
+@mixin pretendard-28-400 {
+  @include font-mixin('Pretendard', 28px, 400);
+}
+
+@mixin pretendard-28-500 {
+  @include font-mixin('Pretendard', 28px, 500);
+}
+
+@mixin pretendard-28-600 {
+  @include font-mixin('Pretendard', 28px, 600);
+}
+
 @mixin pretendard-30-400 {
   @include font-mixin('Pretendard', 30px, 400);
 }
@@ -116,8 +164,24 @@
   @include font-mixin('Pretendard', 30px, 600);
 }
 
+@mixin pretendard-32-400 {
+  @include font-mixin('Pretendard', 32px, 400);
+}
+
+@mixin pretendard-32-500 {
+  @include font-mixin('Pretendard', 32px, 500);
+}
+
 @mixin pretendard-32-600 {
   @include font-mixin('Pretendard', 32px, 600);
+}
+
+@mixin pretendard-36-500 {
+  @include font-mixin('Pretendard', 36px, 500);
+}
+
+@mixin pretendard-36-600 {
+  @include font-mixin('Pretendard', 36px, 600);
 }
 
 @mixin pretendard-40-700 {
