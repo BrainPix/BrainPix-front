@@ -1,27 +1,26 @@
 .paymentButton {
-    margin-top: 45px;
-    margin-bottom: 45px;
-    width: 950px;
-    height: 75px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    font-family: Pretendard, sans-serif;
-    font-size: 32px;
-    font-weight: 600;
-    letter-spacing: -0.32px;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    transition: background 0.3s;
-  
-    &.active {
-      background: #377ff8;
-      color: var(--Grey-Grey-50, #fafafa);
-    }
-  
-    &.disabled {
-      background: #bdbdbd;
-      color: var(--Grey-Grey-400, #e0e0e0);
-      cursor: not-allowed;
-    }
+  @include pretendard-32-600;
+
+  margin-top: 45px;
+  margin-bottom: 45px;
+  width: 950px;
+  height: 75px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  letter-spacing: -0.32px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+
+  &.active {
+    background: $primary;
+    color: $grey-50;
   }
+
+  &.disabled {
+    background: $grey-400;
+    color: $grey-300;
+    cursor: not-allowed;
+  }
+}
