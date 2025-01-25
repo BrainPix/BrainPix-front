@@ -1,0 +1,37 @@
+.recordWrapper {
+  //@include flex-center;
+  flex-direction: column;
+}
+
+.recordRow {
+  display: flex;
+  align-items: center;
+  width: 847px;
+  height: 65px;
+  border: 1px solid #9e9e9e;
+  border-radius: 5px;
+}
+
+.recordDetail {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 18px 14px;
+  border-right: 1px solid #9e9e9e;
+}
+
+.messageButton {
+  width: 106px;
+  height: 34px;
+  background-color: #616161;
+  font-size: 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.messageButton:hover {
+  background-color: #424242;
+}

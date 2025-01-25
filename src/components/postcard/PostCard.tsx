@@ -1,4 +1,4 @@
-import styles from './PostCard.module.scss';
+import styles from './postCard.module.scss';
 import classNames from 'classnames';
 
 interface PostCardProps {

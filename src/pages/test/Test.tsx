@@ -14,6 +14,9 @@ import CorporateLabel from '../../components/common/label/CorporateLabel.tsx';
 import PersonalLabel from '../../components/common/label/PersonalLabel.tsx';
 import CorporatePublicLabel from '../../components/common/label/CorporatePublicLabel.tsx';
 
+//마이페이지 게시물 관리 컴포넌트 test
+import PostRecord from '../../components/post-record/PostRecord.tsx';
+
 export const Test = () => {
   const [clicked, setClicked] = useState(false);
   const handleClickButton = () => {
@@ -38,9 +41,20 @@ export const Test = () => {
         <Dropdown />
         {/* <Dropdown max_visible_options={7} /> */}
       </div>
-      <CorporateLabel />
-      <PersonalLabel />
-      <CorporatePublicLabel />
+      <div>
+        <CorporateLabel />
+        <PersonalLabel />
+        <CorporatePublicLabel />
+      </div>
+      {/* 마이페이지 게시물 관리 컴포넌트 test */}
+      <div className={styles.postRecordWrapper}>
+        <PostRecord
+          records={[
+            { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+            { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+          ]}
+        />
+      </div>
     </div>
   );
 };
