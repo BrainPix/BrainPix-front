@@ -4,8 +4,16 @@ import styles from './sidebar.module.scss';
 export const Sidebar = () => {
   return (
     <div className={classNames(styles.container)}>
-      <h1>마이페이지</h1>
-      <h2>내 정보</h2>
+      <a
+        href='/my'
+        className={classNames(styles.title)}>
+        마이페이지
+      </a>
+      <a
+        href='/my/info'
+        className={classNames(styles.subTitle)}>
+        내 정보
+      </a>
       <div className={classNames(styles.menuWrapper)}>
         <a href='my'>포트폴리오</a>
         <a href='my'>게시물 관리</a>

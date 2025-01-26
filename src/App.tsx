@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
-import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
@@ -16,6 +15,7 @@ import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my-page/myPage/MyPage';
+import { Info } from './pages/my-page/info/Info';
 
 function App() {
   return (
@@ -59,12 +59,16 @@ function App() {
               path='/my'
               element={<MyPage />}
             />
+            <Route
+              path='/my/info'
+              element={<Info />}
+            />
           </Route>
         </Route>
-        <Route
+        {/* <Route
           path='/my' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
           element={<MyPagePosts />}
-        />
+        /> */}
         <Route
           path='/sign-up'
           element={<Signup />}
