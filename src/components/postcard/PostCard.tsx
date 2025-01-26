@@ -1,15 +1,6 @@
 import styles from './PostCard.module.scss';
 import classNames from 'classnames';
-
-interface PostCardProps {
-  category: string;
-  user: string;
-  title: string;
-  image?: string;
-  price?: string;
-  deadline?: string;
-  memberInfo?: string;
-}
+import { PostData } from '../../types/postData';
 
 function PostCard({
   category,
@@ -19,7 +10,7 @@ function PostCard({
   price,
   deadline,
   memberInfo,
-}: PostCardProps) {
+}: PostData) {
   return (
     <div className={classNames(styles.postCard, styles[category])}>
       {/* 공통 헤더 */}
