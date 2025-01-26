@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import styles from './supportModal.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
@@ -27,6 +28,11 @@ const CollaborationSupportModal = ({
     setIsChecked((prev) => !prev);
   };
 
+  //폼 제출 핸들러
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 기본 폼 제출 방지
+  };
+
   return (
     <div
       className={styles.overlay}
@@ -43,7 +49,9 @@ const CollaborationSupportModal = ({
           </button>
         </div>
         <hr className={styles.divider} />
-        <div className={styles.content}>
+        <form
+          className={styles.content}
+          onSubmit={handleSubmit}>
           <div className={styles.titleSection}>
             <div className={styles.breadcrumb}>
               <span>요청과제</span>
@@ -111,7 +119,7 @@ const CollaborationSupportModal = ({
           <h2 className={styles.sectionTitle}>추가 메시지</h2>
           <textarea className={styles.textarea} />
           <button className={styles.submitButton}>지원하기</button>
-        </div>
+        </form>
       </div>
     </div>
   );
