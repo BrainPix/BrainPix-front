@@ -4,9 +4,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     justify-content: flex-end;
@@ -26,9 +24,7 @@
 }
   
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-space-between;
     margin-bottom: 15px;
   }
   
