@@ -1,3 +1,13 @@
+@mixin flex-col-15($isBorderRight) {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @if $isBorderRight {
+    border-right: 1px solid $grey-500;
+  }
+}
+
 .contentContainer {
   display: flex;
   flex-direction: column;
@@ -33,14 +43,44 @@
   display: flex;
 
   & > * {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    @include flex-col-15(false);
   }
 
   & > .labelWrapper {
     width: 120px;
     border-right: 1px solid $grey-500;
     margin-right: 45px;
+  }
+}
+
+.skillInfoWrapper {
+  margin-top: 30px;
+  width: 100%;
+  height: max-content;
+}
+
+.skillInfoWrapper > .list {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+
+  & > .label {
+    @include pretendard-28-500;
+
+    width: 75px;
+  }
+
+  & > .content {
+    @include pretendard-24-400;
+
+    width: 425px;
+    margin: 0 45px;
+    padding: 7.5px 45px;
+    height: max-content;
+    min-height: 45px;
+    border-left: 1px solid $grey-500;
+    border-right: 1px solid $grey-500;
+    line-height: 1;
   }
 }
