@@ -8,7 +8,7 @@ import TabNavigation from '../../../components/tab-navigation/TabNavigation.tsx'
 
 const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
 
-const MyPagePosts = () => {
+export const MyPagePosts = () => {
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
   const posts = [
@@ -98,5 +98,3 @@ const MyPagePosts = () => {
     </div>
   );
 };
-
-export default MyPagePosts;

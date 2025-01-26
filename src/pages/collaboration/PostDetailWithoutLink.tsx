@@ -8,7 +8,7 @@ import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './postDetailWithoutLink.module.scss';
 
-const PostDetailWithoutLink = () => {
+export const PostDetailWithoutLink = () => {
   return (
     <>
       <div className={styles.margin}>
@@ -30,5 +30,3 @@ const PostDetailWithoutLink = () => {
     </>
   );
 };
-
-export default PostDetailWithoutLink;
