@@ -5,7 +5,7 @@ import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './ideaRegisteredPage.module.scss';
 
-const IdeaRegisteredPage = () => {
+export const IdeaRegisteredPage = () => {
   return (
     <>
       <div className={styles.margin}>
@@ -18,5 +18,3 @@ const IdeaRegisteredPage = () => {
     </>
   );
 };
-
-export default IdeaRegisteredPage;

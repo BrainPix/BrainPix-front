@@ -5,7 +5,7 @@ import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './requestRegisteredPage.module.scss';
 
-const RequestRegisteredPage = () => {
+export const RequestRegisteredPage = () => {
   return (
     <>
       <div className={styles.margin}>
@@ -18,5 +18,3 @@ const RequestRegisteredPage = () => {
     </>
   );
 };
-
-export default RequestRegisteredPage;

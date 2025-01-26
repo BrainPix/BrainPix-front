@@ -5,7 +5,7 @@ import PaymentSummary from '../../components/payment/PaymentSummary';
 import PaymentButton from '../../components/payment/PaymentButton';
 import styles from './ideaMarketPayment.module.scss';
 
-const IdeaMarketPayment = () => {
+export const IdeaMarketPayment = () => {
   return (
     <>
       <div className={styles.ideaMarketPayment}>
@@ -23,5 +23,3 @@ const IdeaMarketPayment = () => {
     </>
   );
 };
-
-export default IdeaMarketPayment;
