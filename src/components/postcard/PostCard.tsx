@@ -30,7 +30,7 @@ function PostCard({
             <div className={styles.postImage}>
               <img
                 src={image || ''}
-                alt={''}
+                alt='postImage'
               />
             </div>
             <p>{title}</p>
@@ -44,7 +44,7 @@ function PostCard({
             <div className={styles.postImage}>
               <img
                 src={image || ''}
-                alt=''
+                alt='postImage'
               />
             </div>
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
@@ -57,7 +57,7 @@ function PostCard({
             <div className={styles.postImage}>
               <img
                 src={image || ''}
-                alt=''
+                alt='postImage'
               />
             </div>
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
