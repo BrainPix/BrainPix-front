@@ -23,3 +23,24 @@
   border: 1px solid $grey-500;
   border-radius: 5px;
 }
+
+.individualInfoWrapper {
+  @include pretendard-28-500;
+
+  color: $grey-800;
+  margin-top: 30px;
+  letter-spacing: -0.28px;
+  display: flex;
+
+  & > * {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  & > .labelWrapper {
+    width: 120px;
+    border-right: 1px solid $grey-500;
+    margin-right: 45px;
+  }
+}
