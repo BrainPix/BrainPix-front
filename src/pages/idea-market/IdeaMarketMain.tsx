@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import styles from './IdeaMarketMain.module.scss';
+import styles from './ideaMarketMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import Dropdown from '../../components/dropdown/Dropdown';
 import { Carousel } from '../../components/common/Carousel/Carousel';
