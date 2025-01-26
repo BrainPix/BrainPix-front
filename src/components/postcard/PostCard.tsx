@@ -1,6 +1,6 @@
 import styles from './PostCard.module.scss';
 import classNames from 'classnames';
-import { PostData } from '../../types/postData';
+import { PostProps, PostCategories } from '../../types/postData';
 
 function PostCard({
   category,
@@ -10,7 +10,7 @@ function PostCard({
   price,
   deadline,
   memberInfo,
-}: PostData) {
+}: PostProps) {
   return (
     <div className={classNames(styles.postCard, styles[category])}>
       {/* 공통 헤더 */}
@@ -25,7 +25,7 @@ function PostCard({
 
       {/* 카테고리별 조건부 렌더링 */}
       <div className={styles.postContent}>
-        {category === 'ideaMarket' && (
+        {category === PostCategories.IDEA_MARKET && (
           <>
             <div className={styles.postImage}>
               <img
@@ -38,7 +38,7 @@ function PostCard({
           </>
         )}
 
-        {category === 'requestAssign' && (
+        {category === PostCategories.REQUEST_ASSIGN && (
           <>
             <p>{title}</p>
             <div className={styles.postImage}>
@@ -51,7 +51,7 @@ function PostCard({
           </>
         )}
 
-        {category === 'collaboration' && (
+        {category === PostCategories.COLLABORATION && (
           <>
             <p>{title}</p>
             <div className={styles.postImage}>
