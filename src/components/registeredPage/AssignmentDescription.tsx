@@ -1,4 +1,4 @@
-import styles from './AssignmentDescription.module.scss';
+import styles from './assignmentDescription.module.scss';
 
 const AssignmentDescription = () => {
   const handleOpenClick = () => {};
