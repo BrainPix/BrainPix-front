@@ -22,6 +22,15 @@
   margin-bottom: 20px;
 }
 
+.recordHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  border-style: none;
+}
+
 .recordDetail {
   display: flex;
   align-items: center;
@@ -34,7 +43,7 @@
   font-size: 24px;
 }
 
-.messageButton {
+.recordActions {
   flex: 1;
   width: 106px;
   height: 34px;
@@ -46,6 +55,6 @@
   cursor: pointer;
 }
 
-.messageButton:hover {
+.recordActions:hover {
   background-color: #424242;
 }

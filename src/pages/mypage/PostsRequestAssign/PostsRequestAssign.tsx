@@ -38,16 +38,34 @@ function PostsRequestAssign() {
           <p>요청 과제</p>
         </div>
 
-        {/* 지원 현황 */}
         <PostRecord
-          records={post.ApplyRecords}
           title='지원 현황'
+          columns={[
+            { key: 'id', label: '아이디' },
+            { key: 'role', label: '역할' },
+            { key: 'currentTotal', label: '현재 인원 / 모집 인원' },
+          ]}
+          records={[{ id: 'serqe', role: '디자이너', current: 1, Total: 4 }]}
+          actions={[
+            {
+              label: '수락',
+              onClick: (record) => console.log(`수락: ${record.id}`),
+            },
+            {
+              label: '거절',
+              onClick: (record) => console.log(`거절: ${record.id}`),
+            },
+          ]}
         />
 
-        {/* 현재 인원 */}
         <PostRecord
-          records={post.currentMembers}
           title='현재 인원'
+          columns={[
+            { key: 'id', label: '아이디' },
+            { key: 'role', label: '역할' },
+            { key: 'current', label: '현재 인원' },
+          ]}
+          records={[{ id: 'serqe', role: '디자이너', current: 1 }]}
         />
       </div>
     </MyPageLayout>

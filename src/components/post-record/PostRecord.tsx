@@ -1,21 +1,36 @@
 import styles from './postRecord.module.scss';
 
 interface Record {
-  id: string; // 아이디
-  role: string; // 역할
-  current: number; // 현재 인원
-  total?: number; // 모집 인원
+  [key: string]: string | number | undefined;
 }
 
 interface PostRecordProps {
   records: Record[];
-  title: string; // 게시물 제목
+  title: string; // 레코드 제목
+  columns: { key: string; label: string }[]; // 레코드 컬럼명
+  actions?: { label: string; onClick: (record: Record) => void }[]; // 버튼 필요 시 추가
 }
 
-function PostRecord({ records, title }: PostRecordProps) {
+function PostRecord({ records, title, columns, actions }: PostRecordProps) {
+  console.log(records);
   return (
     <div className={styles.recordWrapper}>
+      {/* 레코드 제목 */}
       <div className={styles.recordTitle}>{title}</div>
+      {/* 레코드 컬럼명 */}
+      <div className={styles.recordHeader}>
+        {columns.map((col) => (
+          <div
+            key={col.key}
+            className={styles.recordDetail}>
+            {col.label}
+          </div>
+        ))}
+      </div>
+      {actions !== undefined ? (
+        <span className={styles.recordHeader}></span>
+      ) : null}
+      {/* 레코드 값을 컬럼에 맞게 출력 */}
       {records.map((record) => (
         <div
           key={record.id}
@@ -27,10 +42,18 @@ function PostRecord({ records, title }: PostRecordProps) {
               ? `${record.current} 명 / ${record.total} 명`
               : `${record.current} 명`}
           </div>
-          <div className={styles.recordDetail}>
-            <button className={styles.messageButton}>수락</button>
-            <button className={styles.messageButton}>거절</button>
-          </div>
+          {actions && (
+            <div className={styles.recordDetail}>
+              {actions.map((action, index) => (
+                <button
+                  key={index}
+                  className={styles.recordActions}
+                  onClick={() => action.onClick(record)}>
+                  {action.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </div>
