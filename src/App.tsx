@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
-import MyPagePosts from './pages/mypage/MyPagePosts/MyPagePosts';
+import { MyPageLayout } from './pages/layout/MyPageLayout';
+import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
@@ -15,7 +16,8 @@ import { IndividualMember } from './pages/sign-up/individual/IndividualMember';
 import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
-import { PersonalProfile } from './pages/personalProfile/PersonalProfile';
+import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
+import { MyPage } from './pages/my-page/myPage/MyPage';
 
 function App() {
   return (
@@ -62,6 +64,12 @@ function App() {
             path='/collaboration/postdetailwithlink'
             element={<PostDetailWithLink />}
           />
+          <Route element={<MyPageLayout />}>
+            <Route
+              path='/my'
+              element={<MyPage />}
+            />
+          </Route>
         </Route>
         <Route
           path='/my' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
