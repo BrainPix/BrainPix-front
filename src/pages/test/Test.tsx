@@ -41,9 +41,9 @@ export const Test = () => {
         {/* <Dropdown max_visible_options={7} /> */}
       </div>
       <button className='buttonFilled-grey800'>dd</button>
-        <CorporateLabel />
-        <PersonalLabel />
-        <CorporatePublicLabel />
+      <CorporateLabel />
+      <PersonalLabel />
+      <CorporatePublicLabel />
       {/* 마이페이지 게시물 관리 컴포넌트 test */}
       <div className={styles.postRecordWrapper}>
         <PostRecord

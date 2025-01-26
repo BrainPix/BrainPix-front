@@ -3,6 +3,15 @@
   flex-direction: column;
 }
 
+.recordTitle {
+  font-size: 32px;
+  font-weight: bold;
+  color: #222;
+  border-bottom: 1px solid #9e9e9e;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+}
+
 .recordRow {
   display: flex;
   align-items: center;
@@ -10,18 +19,23 @@
   height: 65px;
   border: 1px solid #9e9e9e;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .recordDetail {
-  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
   height: 100%;
-  padding: 18px 14px;
+  padding: 0 14px;
   border-right: 1px solid #9e9e9e;
+  font-size: 24px;
 }
 
 .messageButton {
+  flex: 1;
   width: 106px;
   height: 34px;
   background-color: #616161;
