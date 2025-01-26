@@ -1,0 +1,25 @@
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  margin-top: 45px;
+}
+
+.title {
+  @include pretendard-32-500;
+
+  color: $grey-900;
+}
+
+.introduceWrapper {
+  @include pretendard-24-400;
+
+  width: 100%;
+  height: 150px;
+  color: black;
+  padding: 25px 20px;
+  display: flex;
+  align-items: center;
+  border: 1px solid $grey-500;
+  border-radius: 5px;
+}
