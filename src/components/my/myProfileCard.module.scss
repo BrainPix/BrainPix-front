@@ -12,7 +12,28 @@
   background-color: #d9d9d9;
 }
 
+.typeWrapper {
+  display: flex;
+  gap: 15px;
+
+  & > .position {
+    @include pretendard-20-400;
+
+    color: $grey-700;
+  }
+}
+
 .name {
   font-size: 36px;
   font-weight: 500;
+}
+
+.editButton {
+  @include pretendard-20-500;
+
+  width: fit-content;
+  margin-left: auto;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
 }
