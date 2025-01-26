@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './IdeaMarketMain.module.scss';
-import RecommendedSection from '../../components/recommend/RecommendedSection';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import Dropdown from '../../components/dropdown/Dropdown';
+import { Carousel } from '../../components/common/Carousel/Carousel';
 
 import Category from '../../assets/icons/category.svg?react';
 
@@ -12,7 +12,22 @@ const IdeaMarketMain = () => {
   return (
     <>
       <div className={styles.ideaMarketMain}>
-        <RecommendedSection />
+        <Carousel
+          cardWidth={250}
+          cardCount={3}
+          gap={45}
+          dataLength={6}>
+          {Array(3)
+            .fill(null)
+            .map((_, index) => (
+              <PreviewThumbnail
+                key={index}
+                username='메인'
+                description='BrainPix 페이지'
+                price={123456}
+              />
+            ))}
+        </Carousel>
       </div>
       <div className={styles.headerComponents}>
         <div className={styles.leftComponents}>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styles from './recommendedSection.module.scss';
-import LeftButton from '../../assets/icons/leftButton.svg?react';
-import RightButton from '../../assets/icons/rightButton.svg?react';
+import ClickButton from '../../assets/icons/clickButton.svg?react';
 
 const PopularIdeasSection = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +35,7 @@ const PopularIdeasSection = () => {
           className={styles.navButton}
           onClick={handlePrevious}
           disabled={currentPage === 1}>
-          <LeftButton />
+          <ClickButton className={styles.rotatedButton} />
         </button>
 
         <div className={styles.grid}>
@@ -51,7 +50,7 @@ const PopularIdeasSection = () => {
           className={styles.navButton}
           onClick={handleNext}
           disabled={currentPage >= totalItems - 2}>
-          <RightButton />
+          <ClickButton />
         </button>
       </div>
 

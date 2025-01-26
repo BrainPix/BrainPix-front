@@ -1,41 +1,35 @@
 .dropdown {
   position: relative;
   width: 240px;
-  width: 240px;
   font-family: Arial, sans-serif;
-  font-size: 15px;
   font-size: 15px;
 }
 
 .label {
-  font-size: 12px;
   font-size: 12px;
   margin-bottom: 4px;
   display: block;
 }
 
 .selectBox {
+  @include flex-space-between;
+
   background: #fff;
   padding: 10px;
-  border: 1px solid #bdbdbd;
-  border: 1px solid #bdbdbd;
+  border: 1px solid $grey-400;
   cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 5px;
-  height : 40px;
-  border-radius: 5px;
-  height : 40px;
+  height: 40px;
 }
 
 .arrow {
+  @include flex-center;
+
   font-size: 30px;
   flex-shrink: 0;
   width: 25px;
   height: 25px;
-  @include flex-center;
-  color : #616161;
+  color: $grey-700;
 }
 
 .selectBox.open .arrow {
@@ -45,17 +39,15 @@
 .optionsList {
   position: absolute;
   width: 100%;
-  background: white;
-  border: 1px solid #bdbdbd;
-  max-height: calc(5 * 40px); // option 1개 당 40px로 임의로 설정
-  border: 1px solid #bdbdbd;
+  background: white; // option 1개 당 40px로 임의로 설정
+  border: 1px solid $grey-400;
   max-height: calc(5 * 40px); // option 1개 당 40px로 임의로 설정
   overflow-y: auto;
   list-style: none;
   padding: 0;
   margin: 5px 0;
   border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
 }
 
 .option {

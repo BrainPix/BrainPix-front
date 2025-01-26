@@ -12,13 +12,13 @@
   width: 1000px;
   height: 400px;
   flex-shrink: 0;
-  background: var(--Grey-Grey-200, #EEE);
+  background: $grey-200;
 }
   
 .subTitle {
   margin-top: 39px;
   margin-left: 62px;
-  color: var(--Grey-Grey-800, #424242);
+  color: $grey-800;
   font-family: Pretendard;
   font-size: 24px;
   font-style: normal;
@@ -32,11 +32,11 @@
 }
   
 .title {
-  @include title-style(var(--Grey-Grey-800, #424242));
+  @include title-style($grey-800);
   margin-left: 62px;
     
   .highlight {
-    @include title-style(#E85650);
+    @include title-style($red);
   }
 }
   
@@ -58,8 +58,8 @@
   height: 200px;
   flex-shrink: 0;
   border-radius: 5px;
-  border: 1px solid var(--Grey-Grey-300, #E0E0E0);
-  background: var(--Grey-Grey-50, #FAFAFA);
+  border: 1px solid $grey-300;
+  background: $grey-50;
   margin-left: 15px;
 }
   
@@ -88,7 +88,7 @@
   margin-right: 85px;
   
   button {
-    color: var(--Grey-Grey-700, #616161);
+    color: $grey-700;
     font-family: Pretendard;
     font-size: 16px;
     font-style: normal;
@@ -98,7 +98,7 @@
     border: none;
   
     &:hover {
-      color: #495057;
+      color: $grey-900;
     }
   }
 }
@@ -132,4 +132,8 @@
   font-weight: 300;
   line-height: normal;
   letter-spacing: -0.2px;
+}
+
+.rotatedButton {
+  transform: rotate(180deg);
 }

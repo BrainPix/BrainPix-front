@@ -31,11 +31,11 @@
 }
 
 .memberButton {
+  @include pretendard-26-600;
+
   width: 50%;
   background-color: #d9d9d9;
   border-bottom: none;
-  font-size: 26px;
-  font-weight: 600;
   color: #515151;
   border: none;
   text-align: center;
@@ -45,7 +45,7 @@
 
 .clicked {
   position: relative;
-  color: #222;
+  color: $grey-900;
   background-color: white;
   border: 1px solid black;
   border-bottom: none;
@@ -81,10 +81,10 @@
 }
 
 .label {
+  @include pretendard-16-400;
+
   width: 100%;
   color: #333;
-  font-size: 15px;
-  font-weight: 400;
   text-align: left;
   margin-bottom: 8px;
   position: relative;
@@ -113,20 +113,20 @@
   }
 
   &::placeholder {
+    @include pretendard-13-400;
+
     color: #898989;
-    font-size: 13px;
-    font-weight: 400;
   }
 }
 
 .loginButton {
+  @include pretendard-16-500;
+
   width: 260px;
   height: 40px;
   border-radius: 2px;
   background-color: black;
   color: white;
-  font-size: 15px;
-  font-weight: 600;
   cursor: pointer;
   margin-bottom: 20px;
 }
