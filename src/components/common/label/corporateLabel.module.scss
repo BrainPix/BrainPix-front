@@ -1,21 +1,21 @@
 .label {
-    display: inline-flex;
-    padding: 5px 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 17.5px;
-    background: var(--blue-blue-03, #6DA2FF);
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 500; 
+  display: inline-flex;
+  padding: 5px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 17.5px;
+  background: $primary-300;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.text{
-    color: var(--Grey-Grey-50, #FAFAFA);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.16px;
+.text {
+  color: $grey-50;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.16px;
 }

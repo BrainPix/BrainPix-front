@@ -1,107 +1,103 @@
 .container {
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .navigation {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
-    margin-top: 45px;
-  }
-  
-  .text {
-    color: var(--Grey-Grey-500, #9E9E9E);
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: -0.2px;
-  }
-  
-  .arrowIcon {
-    width: 28px;
-    height: 28px;
-    transform: rotate(-180deg);
-    flex-shrink: 0;
-  }
-  
-  .titleContainer {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-  }
-  
-  .title {
-    color: var(--Grey-Grey-800, #424242);
-    font-size: 36px;
-    font-weight: 600;
-    letter-spacing: -0.36px;
-  }
-  
-  .badge {
-    display: inline-flex;
-    padding: 8px 15px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 17.5px;
-    background: #324161;
-    color: var(--Grey-Grey-50, #FAFAFA);
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.16px;
-  }
-  
-  .details {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: relative;
-  }
-  
-  .date,
-  .info {
-    color: var(--Grey-Grey-600, #757575);
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: -0.18px;
-  }
-  
-  .dotIcon {
-    width: 4px;
-    height: 4px;
-    fill: var(--Grey-Grey-400, #BDBDBD);
-  }
-  
-  .bookmarkButton {
-    position: absolute;
-    margin-bottom: 135px;
-    right: 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .outerCircle {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    z-index: 1;
-  }
-  
-  .bookmarkIcon {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    z-index: 2;
-  }
-  
-  
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  margin-top: 45px;
+}
+
+.text {
+  @include pretendard-20-400;
+
+  color: $grey-500;
+  letter-spacing: -0.2px;
+}
+
+.arrowIcon {
+  width: 28px;
+  height: 28px;
+  transform: rotate(-180deg);
+  flex-shrink: 0;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.title {
+  @include pretendard-36-600;
+
+  color: $grey-800;
+  letter-spacing: -0.36px;
+}
+
+.badge {
+  @include pretendard-16-500;
+
+  display: inline-flex;
+  padding: 8px 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 17.5px;
+  background: #324161;
+  letter-spacing: -0.16px;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.date,
+.info {
+  @include pretendard-18-400;
+
+  color: $grey-600;
+  letter-spacing: -0.18px;
+}
+
+.dotIcon {
+  width: 4px;
+  height: 4px;
+  fill: $grey-400;
+}
+
+.bookmarkButton {
+  @include flex-center;
+
+  position: absolute;
+  margin-bottom: 135px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+}
+
+.outerCircle {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  z-index: 1;
+}
+
+.bookmarkIcon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  z-index: 2;
+}

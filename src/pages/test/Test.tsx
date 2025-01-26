@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 import styles from './test.module.scss';
-
 //버튼그룹 test
 import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 
@@ -41,11 +40,10 @@ export const Test = () => {
         <Dropdown />
         {/* <Dropdown max_visible_options={7} /> */}
       </div>
-      <div>
+      <button className='buttonFilled-grey800'>dd</button>
         <CorporateLabel />
         <PersonalLabel />
         <CorporatePublicLabel />
-      </div>
       {/* 마이페이지 게시물 관리 컴포넌트 test */}
       <div className={styles.postRecordWrapper}>
         <PostRecord
