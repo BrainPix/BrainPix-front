@@ -7,7 +7,7 @@ export const RequestAssignEdit = () => {
         <h1 className={styles.companyName}>SY TECH</h1>
         <div className={styles.actions}>
           <button className={styles.actionButton}>수정하기</button>
-          <button className={styles.actionButton}>삭제하기</button>
+          <button className={styles.actionButton}>삭제</button>
         </div>
       </div>
       <div>
