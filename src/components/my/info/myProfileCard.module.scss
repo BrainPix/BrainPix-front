@@ -1,8 +1,21 @@
 .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileContainer {
   width: 100%;
   display: flex;
   gap: 30px;
   align-items: center;
+  position: relative;
+}
+
+.profileWrapper {
+  @include flex-center;
+
+  flex-direction: column;
+  gap: 15px;
 }
 
 .profile {
@@ -10,6 +23,18 @@
   height: 120px;
   border-radius: 100px;
   background-color: #d9d9d9;
+}
+
+.profileEditButton {
+  @include pretendard-16-500;
+
+  color: $grey-700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  margin-left: 8px;
+  margin-top: 15px;
 }
 
 .typeWrapper {

@@ -19,40 +19,53 @@ export const MyProfileCard = ({
 }: MyProfileCardPropsType) => {
   return (
     <div className={classNames(styles.container)}>
-      {USER_DATA.profileImage ? (
-        <img
-          className={classNames(styles.profile)}
-          src={USER_DATA.profileImage}
-          alt='프로필 이미지'
-        />
-      ) : (
-        <div className={classNames(styles.profile)} />
-      )}
-      <div>
-        <div className={classNames(styles.typeWrapper)}>
-          <div>{USER_DATA.type}</div>
-          {(status === 'edit' || status === 'save') && (
-            <span className={classNames(styles.position)}>
-              {USER_DATA.position}
-            </span>
-          )}
+      <div className={classNames(styles.profileContainer)}>
+        {USER_DATA.profileImage ? (
+          <div className={classNames(styles.profileWrapper)}>
+            <img
+              className={classNames(styles.profile)}
+              src={USER_DATA.profileImage}
+              alt='프로필 이미지'
+            />
+          </div>
+        ) : (
+          <div className={classNames(styles.profileWrapper)}>
+            <div className={classNames(styles.profile)} />
+          </div>
+        )}
+        <div>
+          <div className={classNames(styles.typeWrapper)}>
+            <div>{USER_DATA.type}</div>
+            {(status === 'edit' || status === 'save') && (
+              <span className={classNames(styles.position)}>
+                {USER_DATA.position}
+              </span>
+            )}
+          </div>
+          <h1 className={classNames(styles.name)}>{USER_DATA.name}</h1>
         </div>
-        <h1 className={classNames(styles.name)}>{USER_DATA.name}</h1>
+        {status === 'edit' && (
+          <button
+            type='button'
+            onClick={onClickButton}
+            className={classNames(styles.editButton, 'buttonOutlined-grey500')}>
+            수정하기
+          </button>
+        )}
+        {status === 'save' && (
+          <button
+            type='button'
+            onClick={onClickButton}
+            className={classNames(styles.editButton, 'buttonOutlined-grey500')}>
+            저장하기
+          </button>
+        )}
       </div>
-      {status === 'edit' && (
+      {status == 'edit' && (
         <button
-          type='button'
-          onClick={onClickButton}
-          className={classNames(styles.editButton, 'buttonOutlined-grey500')}>
-          수정하기
-        </button>
-      )}
-      {status === 'save' && (
-        <button
-          type='button'
-          onClick={onClickButton}
-          className={classNames(styles.editButton, 'buttonOutlined-grey500')}>
-          저장하기
+          className={classNames(styles.profileEditButton)}
+          type='button'>
+          프로필 사진 수정
         </button>
       )}
     </div>
