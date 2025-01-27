@@ -11,12 +11,10 @@
     width: 350px;
     height: 350px;
     flex-shrink: 0;
-    background: var(--Grey-Grey-300, #E0E0E0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    color: var(--Grey-Grey-700, #616161);
+    background: $grey-300;
+    @include flex-center;
+    @include pretendard-18-500;
+    color: $grey-700;
   }
   
   .placeholderBox {
@@ -36,9 +34,8 @@
   }
   
   .text {
-    color: var(--Grey-Grey-500, #9E9E9E);
-    font-size: 20px;
-    font-weight: 400;
+    color: $grey-500;
+    @include pretendard-20-400;
     letter-spacing: -0.2px;
   }
   
@@ -56,16 +53,14 @@
   }
   
   .title {
-    color: var(--Grey-Grey-800, #424242);
-    font-size: 36px;
-    font-weight: 600;
+    color: $grey-800;
+    @include pretendard-36-600;
     letter-spacing: -0.36px;
   }
   
   .price {
-    color: var(--Grey-Grey-800, #424242);
-    font-size: 32px;
-    font-weight: 600;
+    color: $grey-800;
+    @include pretendard-32-600;
     margin-bottom: 20px;
   }
   
@@ -78,15 +73,14 @@
   
   .date,
   .info {
-    color: var(--Grey-Grey-600, #757575);
-    font-size: 18px;
-    font-weight: 400;
+    color: $grey-600;
+    @include pretendard-18-400;
   }
   
   .dotIcon {
     width: 4px;
     height: 4px;
-    fill: var(--Grey-Grey-400, #BDBDBD);
+    fill: $grey-400;
   }
   
   .bookmarkButton {
@@ -118,11 +112,10 @@
     height: 75px;
     flex-shrink: 0;
     border-radius: 10px;
-    background: var(--blue-blue-04-main, #377FF8);
-    color: var(--Grey-Grey-50, #FAFAFA);
-    font-size: 26px;
+    background: $primary;
+    color: $grey-50;
+    @include pretendard-26-500;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
     letter-spacing: -0.26px;
     @include flex-center;

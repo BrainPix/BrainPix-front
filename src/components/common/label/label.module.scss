@@ -4,8 +4,7 @@
     justify-content: center;
     border-radius: 17.5px;
     padding: 5px 10px;
-    font-size: 16px;
-    font-weight: 500;
+    @include pretendard-16-500;
     line-height: normal;
     letter-spacing: -0.16px;
     gap: 10px;
@@ -13,22 +12,22 @@
 
 //기업
 .corporate {
-    background-color: var(--blue-blue-03, #6DA2FF);
-    color: var(--Grey-Grey-50, #FAFAFA);
+    background-color: $primary-300;
+    color: $grey-50;
 }
 
 //기업 공개
 .corporatePublic {
-    color: var(--grey-grey-09, #424242);
-    border: 1px solid var(--grey-grey-07, #757575);
-    background: var(--grey-grey-01, #FAFAFA);
+    color: $grey-800;
+    border: 1px solid $grey-600;
+    background: $grey-50;
     
 }
 
 //개인
 .personal {
-    background: #77E17E;
-    color: var(--Grey-Grey-50, #FAFAFA);
+    background: $green;
+    color: $grey-50;
 }
 
 //자체 공모
