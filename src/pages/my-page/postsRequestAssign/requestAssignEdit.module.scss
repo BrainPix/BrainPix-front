@@ -1,4 +1,3 @@
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -6,7 +5,6 @@
   margin-bottom: 45px;
   padding-bottom: 76px;
   border-bottom: 1px solid $grey-500;
-  //gap: 10px;
 }
 
 .companyInfo {
@@ -45,6 +43,12 @@
   margin: 0 27px;
 }
 
+.imageAndDetails {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
 .imageWrapper {
   flex: 1;
   text-align: center;
@@ -53,9 +57,8 @@
 .mainImage {
   @include font-mixin('Pretendard', 32px, 500);
   width: 350px;
-  max-width: 300px;
-  height: auto;
-  background-color: $grey-300;
+  height: 350px;
+  background-color: #d9d9d9;
   border-style: none;
 }
 
@@ -63,102 +66,47 @@
   flex: 2;
 }
 
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
+.route{
+  @include pretendard-20-400;
+  color: $grey-500;
+  margin-bottom: 16px;
 }
 
-.date {
-  font-size: 0.875rem;
-  color: #888;
+.deadline {
+  width: 138px;
+  height: 35px;
+  @include pretendard-16-500;
+  color: $grey-50;
+  background-color: #324161;
+  border-radius: 17.5px;
+  text-align: center;
+  margin-bottom: 17px;
+}
+
+.title {
+  @include font-mixin('Pretendard', 36px, 600);
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
+.date {
+  font-size: 18px;
+  color: $grey-600;
+}
+
 .applyButton {
-  padding: 10px 20px;
+  width: 260px;
+  height: 75px;
+  font-size: 26px;
+  margin-top: 63px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  float: right;
 }
 
 .applyButton:hover {
   background-color: #0056b3;
-}
-
-.description {
-  margin-bottom: 20px;
-}
-
-.attachments {
-  margin-bottom: 20px;
-}
-
-.attachmentItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.attachmentActions {
-  display: flex;
-  gap: 10px;
-}
-
-.attachmentButton {
-  padding: 5px 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.recruitmentInfo {
-  margin-top: 20px;
-}
-
-.recruitmentTable {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.recruitmentTable th,
-.recruitmentTable td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-}
-
-.recruitmentTable th {
-  background-color: #f9f9f9;
-  font-weight: bold;
-}
-
-.title {
-  width: 100%;
-  border-bottom: 1px solid #9e9e9e;
-  font-size: 32px;
-  font-weight: 500;
-  margin-top: 90px;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  & > button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    font-weight: 500;
-    color: #9e9e9e;
-  }
-}
-
-.recentNewsWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 }
