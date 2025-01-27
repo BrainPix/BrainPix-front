@@ -35,21 +35,20 @@
 }
 
 .individualInfoWrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.individualInfoWrapper > .list {
   @include pretendard-28-500;
 
   color: $grey-800;
-  margin-top: 30px;
   letter-spacing: -0.28px;
   display: flex;
 
-  & > * {
-    @include flex-col-15(false);
-  }
-
-  & > .labelWrapper {
-    width: 120px;
-    border-right: 1px solid $grey-500;
-    margin-right: 45px;
+  & > .label {
+    min-width: 75px;
   }
 }
 
@@ -64,24 +63,20 @@
   height: auto;
   display: flex;
   align-items: center;
+  letter-spacing: -0.28px;
+  line-height: 45px;
 
   & > .label {
     @include pretendard-28-500;
 
-    width: 75px;
+    min-width: 75px;
   }
 
   & > .content {
     @include pretendard-24-400;
 
     width: 425px;
-    margin: 0 45px;
-    padding: 7.5px 45px;
     height: max-content;
-    min-height: 45px;
-    border-left: 1px solid $grey-500;
-    border-right: 1px solid $grey-500;
-    line-height: 1;
   }
 }
 
@@ -116,6 +111,7 @@
 .divider {
   width: 1px;
   min-height: 45px;
+  height: 100%;
   background-color: $grey-500;
   margin: 0 45px;
 }
