@@ -9,7 +9,11 @@ export const SpecializationPart = () => {
         전문 분야
         <span className={classNames(styles.subTitle)}>{'(최대 3개)'}</span>
       </h1>
-      <Dropdown customClassName={classNames(styles.speciallizationDropdown)} />
+      <div className={classNames(styles.dropdown)}>
+        <Dropdown
+          customClassName={classNames(styles.speciallizationDropdown)}
+        />
+      </div>
     </div>
   );
 };

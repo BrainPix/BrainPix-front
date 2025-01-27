@@ -1,6 +1,6 @@
 @import './commonStyle.module';
 
-.speciallizationWrapper > * {
+.dropdown > * {
   @include pretendard-24-400;
 
   color: $grey-700;
