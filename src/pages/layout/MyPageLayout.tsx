@@ -1,22 +1,15 @@
-import React from 'react';
-import { Header } from '../../components/common/header/Header.tsx';
-import MyPageSidebar from '../../components/sidebar/MyPageSidebar.tsx';
+import { Outlet } from 'react-router-dom';
+import { Sidebar } from '../../components/my/Sidebar';
+import classNames from 'classnames';
 import styles from './myPageLayout.module.scss';
 
-interface MyPageLayoutProps {
-  children: React.ReactNode;
-}
-
-const MyPageLayout: React.FC<MyPageLayoutProps> = ({ children }) => {
+export const MyPageLayout = () => {
   return (
-    <div className={styles.container}>
-      <Header />
-      <div className={styles.contentWrapper}>
-        <MyPageSidebar />
-        <main className={styles.mainContent}>{children}</main>
+    <div className={classNames(styles.container)}>
+      <Sidebar />
+      <div className={classNames(styles.content)}>
+        <Outlet />
       </div>
     </div>
   );
 };
-
-export default MyPageLayout;

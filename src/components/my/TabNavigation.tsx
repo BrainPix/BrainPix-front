@@ -7,7 +7,11 @@ interface TabNavigationProps {
   onTabChange: (tab: string) => void;
 }
 
-function TabNavigation({ tabs, activeTab, onTabChange }: TabNavigationProps) {
+export const TabNavigation = ({
+  tabs,
+  activeTab,
+  onTabChange,
+}: TabNavigationProps) => {
   return (
     <div className={styles.tabs}>
       {tabs.map((tab) => (
@@ -22,6 +26,4 @@ function TabNavigation({ tabs, activeTab, onTabChange }: TabNavigationProps) {
       ))}
     </div>
   );
-}
-
-export default TabNavigation;
+};
