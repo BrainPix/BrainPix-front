@@ -1,13 +1,12 @@
-export type PostCategory = (typeof PostCategories)[keyof typeof PostCategories];
-
-export const PostCategories = {
-  IDEA_MARKET: 'ideaMarket',
-  REQUEST_ASSIGN: 'requestAssign',
-  COLLABORATION: 'collaboration',
-} as const;
+export enum PostCategories {
+  IDEA_MARKET = 'ideaMarket',
+  REQUEST_ASSIGN = 'requestAssign',
+  COLLABORATION = 'collaboration',
+}
 
 export interface PostProps {
-  category: PostCategory;
+  id: number;
+  category: PostCategories;
   user: string;
   title: string;
   image?: string;

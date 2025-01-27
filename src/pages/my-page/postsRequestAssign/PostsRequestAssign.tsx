@@ -1,5 +1,5 @@
 import styles from './postsRequestAssign.module.scss';
-import PostRecord from '../../../components/post-record/PostRecord.tsx';
+import { PostRecord } from '../../../components/post-record/PostRecord.tsx';
 import { useLocation, useParams } from 'react-router-dom';
 
 const mockPosts = [

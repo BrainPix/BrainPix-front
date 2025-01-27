@@ -3,18 +3,19 @@ import styles from './myPagePosts.module.scss';
 //import classNames from 'classnames';
 import { Header } from '../../../components/common/header/Header.tsx';
 import { Sidebar } from '../../../components/my/Sidebar.tsx';
-import PostCard from '../../../components/postcard/PostCard.tsx';
+import { PostCard } from '../../../components/postcard/PostCard.tsx';
 import { TabNavigation } from '../../../components/my/TabNavigation.tsx';
+import { PostProps, PostCategories } from '../../../types/postData.ts';
 
 const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
 
 export const MyPagePosts = () => {
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
-  const posts = [
+  const posts: PostProps[] = [
     {
       id: 1,
-      category: 'ideaMarket',
+      category: PostCategories.IDEA_MARKET,
       user: 'yeonyyy',
       title: '노인층을 위한 키오스크 대체 로봇',
       image: '',
@@ -22,14 +23,14 @@ export const MyPagePosts = () => {
     },
     {
       id: 2,
-      category: 'requestTask',
+      category: PostCategories.REQUEST_ASSIGN,
       user: 'yeonyyy',
       title: 'Web 개발 부탁드립니다.',
       deadline: '20',
     },
     {
       id: 3,
-      category: 'collaboration',
+      category: PostCategories.COLLABORATION,
       user: 'yeonyyy',
       title: '제목 입니다.',
       image: '/image3.png',
@@ -38,7 +39,7 @@ export const MyPagePosts = () => {
     },
     {
       id: 4,
-      category: 'ideaMarket',
+      category: PostCategories.IDEA_MARKET,
       user: 'yeonyyy',
       title: '테스트!!',
       image: '/image3.png',
@@ -47,7 +48,7 @@ export const MyPagePosts = () => {
     },
     {
       id: 5,
-      category: 'ideaMarket',
+      category: PostCategories.IDEA_MARKET,
       user: 'yeonyyy',
       title: '안뇽',
       image: '/image3.png',
@@ -82,7 +83,7 @@ export const MyPagePosts = () => {
                   (activeTab === '아이디어 마켓' &&
                     post.category === 'ideaMarket') ||
                   (activeTab === '요청과제' &&
-                    post.category === 'requestTask') ||
+                    post.category === 'requestAssign') ||
                   (activeTab === '협업광장' &&
                     post.category === 'collaboration'),
               )

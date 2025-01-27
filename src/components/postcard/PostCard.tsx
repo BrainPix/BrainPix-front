@@ -2,7 +2,7 @@ import styles from './PostCard.module.scss';
 import classNames from 'classnames';
 import { PostProps, PostCategories } from '../../types/postData';
 
-function PostCard({
+export const PostCard = ({
   category,
   user,
   title,
@@ -10,7 +10,7 @@ function PostCard({
   price,
   deadline,
   memberInfo,
-}: PostProps) {
+}: PostProps) => {
   return (
     <div className={classNames(styles.postCard, styles[category])}>
       {/* 공통 헤더 */}
@@ -67,6 +67,4 @@ function PostCard({
       </div>
     </div>
   );
-}
-
-export default PostCard;
+};

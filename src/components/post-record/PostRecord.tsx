@@ -11,22 +11,29 @@ interface PostRecordProps {
   actions?: { label: string; onClick: (record: Record) => void }[]; // 버튼 필요 시 추가
 }
 
-function PostRecord({ records, title, columns, actions }: PostRecordProps) {
-  console.log(records);
+export const PostRecord = ({
+  records = [],
+  title,
+  columns = [],
+  actions,
+}: PostRecordProps) => {
+  //console.log(records);
   return (
     <div className={styles.recordWrapper}>
       {/* 레코드 제목 */}
       <div className={styles.recordTitle}>{title}</div>
       {/* 레코드 컬럼명 */}
-      <div className={styles.recordHeader}>
-        {columns.map((col) => (
-          <div
-            key={col.key}
-            className={styles.recordDetail}>
-            {col.label}
-          </div>
-        ))}
-      </div>
+      {columns.length > 0 ? (
+        <div className={styles.recordHeader}>
+          {columns.map((col) => (
+            <div
+              key={col.key}
+              className={styles.recordDetail}>
+              {col.label}
+            </div>
+          ))}
+        </div>
+      ) : null}
       {actions !== undefined ? (
         <span className={styles.recordHeader}></span>
       ) : null}
@@ -58,6 +65,4 @@ function PostRecord({ records, title, columns, actions }: PostRecordProps) {
       ))}
     </div>
   );
-}
-
-export default PostRecord;
+};
