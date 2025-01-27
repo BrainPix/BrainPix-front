@@ -1,13 +1,3 @@
-@mixin flex-col-15($isBorderRight) {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-
-  @if $isBorderRight {
-    border-right: 1px solid $grey-500;
-  }
-}
-
 .contentContainer {
   display: flex;
   flex-direction: column;

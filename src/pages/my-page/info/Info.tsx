@@ -15,6 +15,7 @@ export const Info = () => {
     노션: '노션 주소',
     깃허브: '깃허브 주소',
   };
+
   return (
     <div>
       <MyProfileCard status='edit' />
