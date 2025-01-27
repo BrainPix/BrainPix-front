@@ -1,0 +1,59 @@
+@import './commonStyle.module';
+
+.skillInfoWrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  height: max-content;
+}
+
+.skillInfoWrapper > .list {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.28px;
+  line-height: 45px;
+
+  & > .label {
+    @include pretendard-28-500;
+
+    min-width: 75px;
+  }
+
+  & > .content {
+    @include pretendard-24-400;
+
+    width: 425px;
+    height: max-content;
+  }
+}
+
+.skillInput {
+  display: flex;
+  height: 70px;
+  margin-bottom: 20px;
+}
+
+.skillNameInput {
+  @include pretendard-24-400;
+
+  color: $grey-500;
+  height: 100%;
+  flex-grow: 1;
+  background-color: $grey-50;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid $grey-500;
+  padding: 18px 20px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.levelCheckboxWrapper {
+  padding: 18px 20px;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid $grey-500;
+  border-left: none;
+}

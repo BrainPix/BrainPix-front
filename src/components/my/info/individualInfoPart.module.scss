@@ -1,7 +1,30 @@
-.container {
+@import './commonStyle.module';
+
+.individualInfoWrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.individualInfoWrapper > .list {
+  @include pretendard-28-500;
+
+  color: $grey-800;
+  letter-spacing: -0.28px;
+  display: flex;
+
+  & > .label {
+    min-width: 75px;
+  }
+}
+
+.inputContainer {
   width: 100%;
   display: flex;
   height: 65px;
+  margin-top: 15px;
+  margin-bottom: 28px;
 
   & > * {
     @include pretendard-24-400;

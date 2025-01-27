@@ -1,4 +1,30 @@
-.container {
+@import './commonStyle.module';
+
+.experienceWrapper {
+  @include pretendard-28-400;
+
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.experienceWrapper > .list {
+  @include pretendard-24-400;
+
+  display: flex;
+  align-items: center;
+  line-height: 45px;
+
+  & > .content {
+    width: 374px;
+  }
+
+  & > .date {
+    width: 236px;
+  }
+}
+
+.experienceInput {
   display: flex;
   margin-top: 30px;
   margin-bottom: 15px;
@@ -34,7 +60,7 @@
   }
 }
 
-.divider {
+.inputDivider {
   width: 20px;
   height: 2px;
   background-color: $grey-500;

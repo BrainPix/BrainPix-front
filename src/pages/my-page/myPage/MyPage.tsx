@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import styles from './myPage.module.scss';
-import { MyProfileCard } from '../../../components/my/MyProfileCard';
+import { MyProfileCard } from '../../../components/my/info/MyProfileCard';
 import { PreviewList } from '../../../components/my/PreviewList';
 import { Fragment } from 'react/jsx-runtime';
 
@@ -23,7 +23,7 @@ export const MyPage = () => {
 
   return (
     <div>
-      <MyProfileCard />
+      <MyProfileCard status='main' />
       <div className={classNames(styles.subInfoWrapper)}>
         {Object.entries(SUB_INFO).map(([key, value], idx) => (
           <Fragment key={key}>
