@@ -3,6 +3,7 @@ import styles from './myProfileCard.module.scss';
 
 interface MyProfileCardPropsType {
   status: 'main' | 'edit' | 'save';
+  onClickButton?: () => void;
 }
 
 const USER_DATA = {
@@ -12,7 +13,10 @@ const USER_DATA = {
   position: 'IT/디자인',
 };
 
-export const MyProfileCard = ({ status }: MyProfileCardPropsType) => {
+export const MyProfileCard = ({
+  status,
+  onClickButton,
+}: MyProfileCardPropsType) => {
   return (
     <div className={classNames(styles.container)}>
       {USER_DATA.profileImage ? (
@@ -27,7 +31,7 @@ export const MyProfileCard = ({ status }: MyProfileCardPropsType) => {
       <div>
         <div className={classNames(styles.typeWrapper)}>
           <div>{USER_DATA.type}</div>
-          {status === 'edit' && (
+          {(status === 'edit' || status === 'save') && (
             <span className={classNames(styles.position)}>
               {USER_DATA.position}
             </span>
@@ -37,8 +41,18 @@ export const MyProfileCard = ({ status }: MyProfileCardPropsType) => {
       </div>
       {status === 'edit' && (
         <button
+          type='button'
+          onClick={onClickButton}
           className={classNames(styles.editButton, 'buttonOutlined-grey500')}>
           수정하기
+        </button>
+      )}
+      {status === 'save' && (
+        <button
+          type='button'
+          onClick={onClickButton}
+          className={classNames(styles.editButton, 'buttonOutlined-grey500')}>
+          저장하기
         </button>
       )}
     </div>

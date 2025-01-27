@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.input {
+  @include pretendard-24-400;
+
+  background-color: $grey-50;
+  padding: 25px 20px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.dateInputWrapper {
+  @include flex-space-between;
+
+  width: 466px;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid $grey-500;
+  border-left: none;
+
+  & > * {
+    border: none;
+    width: 50%;
+  }
+
+  & > .endDate {
+    text-align: end;
+  }
+}
+
+.divider {
+  width: 20px;
+  height: 2px;
+  background-color: $grey-500;
+}
+
+.contentInput {
+  width: 350px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid $grey-500;
+}

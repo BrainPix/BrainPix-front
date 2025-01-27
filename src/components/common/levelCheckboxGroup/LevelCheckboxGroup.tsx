@@ -19,7 +19,7 @@ export const LevelCheckboxGroup = ({
   };
 
   return (
-    <form className={classNames(styles.skillLevelWrapper)}>
+    <div className={classNames(styles.skillLevelWrapper)}>
       <div>
         <input
           type='radio'
@@ -56,6 +56,6 @@ export const LevelCheckboxGroup = ({
         />
         <label htmlFor='lower'>하</label>
       </div>
-    </form>
+    </div>
   );
 };

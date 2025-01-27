@@ -7,6 +7,7 @@ interface DropdownProps {
   label?: string;
   options?: string[];
   max_visible_options?: number;
+  customClassName?: string;
 }
 
 const defaultOptions = [
@@ -29,11 +30,12 @@ const Dropdown = ({
   label = '',
   options,
   max_visible_options = 5,
+  customClassName,
 }: DropdownProps) => {
   const finalOptions = options && options.length > 0 ? options : defaultOptions;
   // console.log(finalOptions[0], finalOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState('분야별');
+  const [selected, setSelected] = useState(options?.[0] || '분야별');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const optionsListRef = useRef<HTMLUListElement>(null);
 
@@ -54,7 +56,11 @@ const Dropdown = ({
       ref={dropdownRef}>
       {label && <label className={styles.label}>{label}</label>}
       <div
-        className={classNames(styles.selectBox, { [styles.open]: isOpen })}
+        className={classNames(
+          styles.selectBox,
+          { [styles.open]: isOpen },
+          customClassName,
+        )}
         onClick={() => setIsOpen(!isOpen)}>
         {selected}
         <span className={styles.arrow}>&#9662;</span>
