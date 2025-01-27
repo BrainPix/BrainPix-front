@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styles from './info.module.scss';
 
 import { MyProfileCard } from '../../../components/my/MyProfileCard';
+import { PortfolioCarousel } from '../../../components/personal-profile/PortfolioCarousel';
 import { LevelCheckboxGroup } from '../../../components/common/levelCheckboxGroup/LevelCheckboxGroup';
 
 export const Info = () => {
@@ -44,6 +45,29 @@ export const Info = () => {
               <LevelCheckboxGroup onChangeLevel={handleClick} />
             </div>
           </div>
+        </div>
+        <div>
+          <h1 className={classNames(styles.title)}>경력 사항</h1>
+          <div className={classNames(styles.experienceWrapper)}>
+            <div className={classNames(styles.list)}>
+              <span className={classNames(styles.content)}>
+                삼성 소프트웨어 개발(서버) 인턴쉽
+              </span>
+              <hr className={classNames(styles.divider)} />
+              <span className={classNames(styles.date)}>2024/08 - 2024/12</span>
+            </div>
+            <div className={classNames(styles.list)}>
+              <span className={classNames(styles.content)}>
+                삼성 소프트웨어 개발(서버) 인턴쉽
+              </span>
+              <hr className={classNames(styles.divider)} />
+              <span className={classNames(styles.date)}>2024/08 - 2024/12</span>
+            </div>
+          </div>
+        </div>
+        <div className={classNames(styles.portfolioWrapper)}>
+          <h1 className={classNames(styles.title)}>포트폴리오</h1>
+          <PortfolioCarousel size={3} />
         </div>
       </div>
     </div>
