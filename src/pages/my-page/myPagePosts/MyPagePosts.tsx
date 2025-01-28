@@ -8,21 +8,22 @@ export const MyPagePosts = () => {
   const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
-  const posts: PostProps[] = [
+  const POSTS: PostProps[] = [
     {
       id: 1,
       category: PostCategories.IDEA_MARKET,
       user: 'yeonyyy',
       title: '노인층을 위한 키오스크 대체 로봇',
-      image: '',
-      price: '500,000원',
+      image: null,
+      price: 500000,
     },
     {
       id: 2,
       category: PostCategories.REQUEST_ASSIGN,
       user: 'yeonyyy',
       title: 'Web 개발 부탁드립니다.',
-      deadline: '20',
+      image: null,
+      deadline: 20,
     },
     {
       id: 3,
@@ -30,8 +31,9 @@ export const MyPagePosts = () => {
       user: 'yeonyyy',
       title: '제목 입니다.',
       image: '/image3.png',
-      deadline: '20',
-      memberInfo: 'Member (현재인원)/(모집인원)',
+      deadline: 20,
+      current: 0,
+      total: 5,
     },
     {
       id: 4,
@@ -39,8 +41,11 @@ export const MyPagePosts = () => {
       user: 'yeonyyy',
       title: '테스트!!',
       image: '/image3.png',
-      deadline: '20',
-      memberInfo: 'Member (현재인원)/(모집인원)',
+      deadline: 20,
+      current: 0,
+      total: 5,
+      saveCount: 17,
+      viewCount: 25,
     },
     {
       id: 5,
@@ -48,10 +53,10 @@ export const MyPagePosts = () => {
       user: 'yeonyyy',
       title: '안뇽',
       image: '/image3.png',
-      deadline: '20',
-      memberInfo: 'Member (현재인원)/(모집인원)',
+      deadline: 17,
+      saveCount: 17,
+      viewCount: 25,
     },
-    // 게시물 데이터 추가
   ];
 
   return (
@@ -68,20 +73,17 @@ export const MyPagePosts = () => {
 
       {/* 게시물 리스트 */}
       <div className={styles.postList}>
-        {posts
-          .filter(
-            (post) =>
-              (activeTab === '아이디어 마켓' &&
-                post.category === 'ideaMarket') ||
-              (activeTab === '요청과제' && post.category === 'requestAssign') ||
-              (activeTab === '협업광장' && post.category === 'collaboration'),
-          )
-          .map((post) => (
-            <PostCard
-              key={post.id}
-              {...post}
-            />
-          ))}
+        {POSTS.filter(
+          (post) =>
+            (activeTab === '아이디어 마켓' && post.category === 'ideaMarket') ||
+            (activeTab === '요청과제' && post.category === 'requestAssign') ||
+            (activeTab === '협업광장' && post.category === 'collaboration'),
+        ).map((post) => (
+          <PostCard
+            key={post.id}
+            {...post}
+          />
+        ))}
       </div>
     </div>
   );

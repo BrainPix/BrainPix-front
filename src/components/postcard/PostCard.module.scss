@@ -45,13 +45,19 @@
     }
 
     .deadline {
-      font-size: 14px;
-      color: #ff9500;
+      width: 54px;
+      height: 29px;
+      @include pretendard-14-500;
+      color: $grey-50;
+      background-color: $primary;
+      border-radius: 17.5px;
+      text-align: center;
+      margin-bottom: 17px;
     }
 
     .memberInfo {
       font-size: 14px;
-      color: #34c759;
+      color: $grey-600;
     }
   }
 }

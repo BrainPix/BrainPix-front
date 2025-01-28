@@ -110,3 +110,44 @@
 .applyButton:hover {
   background-color: #0056b3;
 }
+
+.description {
+  width: 100%;
+  border-bottom: 1px solid #9e9e9e;
+  font-size: 32px;
+  font-weight: 500;
+  margin-top: 90px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.attachments {
+  margin: 20px 0;
+}
+
+.attachmentItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.attachmentActions {
+  display: flex;
+  gap: 10px;
+}
+
+.attachmentButton {
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.attachmentButton:hover {
+  background-color: #e0e0e0;
+}

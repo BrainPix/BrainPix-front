@@ -9,17 +9,24 @@ export const PostCard = ({
   image,
   price,
   deadline,
-  memberInfo,
+  current,
+  total,
+  saveCount,
+  viewCount,
 }: PostProps) => {
   return (
     <div className={classNames(styles.postCard, styles[category])}>
       {/* 공통 헤더 */}
       <div className={styles.postHeader}>
-        <img
-          src={image || ''}
-          alt=''
-          className={styles.profileImage}
-        />
+        {image ? (
+          <img
+            src={image}
+            alt='프로필 사진'
+            className={styles.profileImage}
+          />
+        ) : (
+          <div className={styles.profileImage} />
+        )}
         <span className={styles.username}>{user}</span>
       </div>
 
@@ -27,12 +34,15 @@ export const PostCard = ({
       <div className={styles.postContent}>
         {category === PostCategories.IDEA_MARKET && (
           <>
-            <div className={styles.postImage}>
+            {image ? (
               <img
-                src={image || ''}
-                alt='postImage'
+                src={image}
+                alt='게시글 사진'
+                className={styles.postImage}
               />
-            </div>
+            ) : (
+              <div className={styles.postImage} />
+            )}
             <p>{title}</p>
             {price && <p className={styles.price}>{price}</p>}
           </>
@@ -41,12 +51,15 @@ export const PostCard = ({
         {category === PostCategories.REQUEST_ASSIGN && (
           <>
             <p>{title}</p>
-            <div className={styles.postImage}>
+            {image ? (
               <img
-                src={image || ''}
-                alt='postImage'
+                src={image}
+                alt='게시글 사진'
+                className={styles.postImage}
               />
-            </div>
+            ) : (
+              <div className={styles.postImage} />
+            )}
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
           </>
         )}
@@ -54,14 +67,21 @@ export const PostCard = ({
         {category === PostCategories.COLLABORATION && (
           <>
             <p>{title}</p>
-            <div className={styles.postImage}>
+            {image ? (
               <img
-                src={image || ''}
-                alt='postImage'
+                src={image}
+                alt='게시글 사진'
+                className={styles.postImage}
               />
-            </div>
+            ) : (
+              <div className={styles.postImage} />
+            )}
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
-            {memberInfo && <p className={styles.memberInfo}>{memberInfo}</p>}
+            {current && total && (
+              <p className={styles.memberInfo}>
+                저장 {saveCount} · 조회 {viewCount}
+              </p>
+            )}
           </>
         )}
       </div>

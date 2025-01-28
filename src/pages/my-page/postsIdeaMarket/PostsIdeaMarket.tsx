@@ -3,7 +3,6 @@ import styles from './postsIdeaMarket.module.scss';
 import arrowButton from '../../../assets/icons/arrow-button.svg';
 
 const mockPosts = [
-  // 게시물 데이터 예시
   {
     id: '1',
     nickname: 'SEO YEON',
@@ -17,7 +16,6 @@ const mockPosts = [
       { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
     ],
   },
-  // 추가 데이터...
 ];
 
 export const PostsIdeaMarket = () => {

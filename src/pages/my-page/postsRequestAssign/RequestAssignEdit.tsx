@@ -14,7 +14,16 @@ export const RequestAssignEdit = () => {
     viewCount: 120,
     saveCount: 12,
     deadline: 21,
+    description: '과제 설명입니다...',
   };
+  const ATTACHMENT = {
+    fileName: '첨부파일입니다...pdf',
+    fileUrl: '#',
+  };
+  const RECRUIT_INFO = [
+    { role: '디자이너', current: 1, total: 4, payment: '100,000원 (건당)' },
+    { role: '프론트엔드', current: 1, total: 4, payment: '추후 협의' },
+  ];
   return (
     <div>
       {/* 게시글 작성자의 이미지, 단체명, 수정&삭제 버튼 */}
@@ -65,6 +74,28 @@ export const RequestAssignEdit = () => {
             {POST_DATA.saveCount}
           </p>
           <button className={styles.applyButton}>지원하기</button>
+        </div>
+      </div>
+      {/* 과제 설명 */}
+      <div className={styles.description}>
+        <h3>과제 설명</h3>
+        <p>{POST_DATA.description}</p>
+      </div>
+
+      {/* 첨부파일 */}
+      <div className={styles.attachments}>
+        <h3>첨부파일</h3>
+        <div className={styles.attachmentItem}>
+          <a
+            href={ATTACHMENT.fileUrl}
+            target='_blank'
+            rel='noopener noreferrer'>
+            {ATTACHMENT.fileName}
+          </a>
+          <div className={styles.attachmentActions}>
+            <button className={styles.attachmentButton}>열기</button>
+            <button className={styles.attachmentButton}>다운로드</button>
+          </div>
         </div>
       </div>
     </div>

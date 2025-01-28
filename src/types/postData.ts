@@ -9,8 +9,11 @@ export interface PostProps {
   category: PostCategories;
   user: string;
   title: string;
-  image?: string;
-  price?: string;
-  deadline?: string;
-  memberInfo?: string;
+  image: string | null;
+  price?: number;
+  deadline?: number;
+  current?: number;
+  total?: number;
+  saveCount?: number;
+  viewCount?: number;
 }
