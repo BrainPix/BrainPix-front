@@ -1,4 +1,5 @@
 import styles from './postFormTitle.module.scss';
+import { DeadlineLabel } from '../common/label/DeadlineLabel.tsx';
 
 export const PostFormTitle = () => {
   const POST_DATA = {
@@ -31,9 +32,7 @@ export const PostFormTitle = () => {
           <div className={styles.route}>
             {POST_DATA.tab} {'>'} {POST_DATA.category}
           </div>
-          <div className={styles.deadline}>
-            모집 마감 (D-{POST_DATA.deadline})
-          </div>
+          <DeadlineLabel deadline={POST_DATA.deadline} />
           <p className={styles.title}>{POST_DATA.title}</p>
           <p className={styles.date}>
             {POST_DATA.date} · 조회 {POST_DATA.viewCount} · 저장{' '}
