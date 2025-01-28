@@ -1,0 +1,69 @@
+.imageAndDetails {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.imageWrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.mainImage {
+  @include font-mixin('Pretendard', 32px, 500);
+  @include flex-center;
+  width: 350px;
+  height: 350px;
+  background-color: #d9d9d9;
+  font-size: $grey-700;
+}
+
+.details {
+  flex: 2;
+}
+
+.route{
+  @include pretendard-20-400;
+  color: $grey-500;
+  margin-bottom: 16px;
+}
+
+.deadline {
+  width: 138px;
+  height: 35px;
+  @include pretendard-16-500;
+  @include flex-center;
+  color: $grey-50;
+  background-color: #324161;
+  border-radius: 17.5px;
+  text-align: center;
+  margin-bottom: 17px;
+}
+
+.title {
+  @include font-mixin('Pretendard', 36px, 600);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.date {
+  font-size: 18px;
+  color: $grey-600;
+}
+
+.applyButton {
+  width: 260px;
+  height: 75px;
+  font-size: 26px;
+  margin-top: 63px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  float: right;
+}
+
+.applyButton:hover {
+  background-color: #0056b3;
+}
