@@ -14,11 +14,11 @@ import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
-//import { MyPage } from './pages/my-page/myPage/MyPage';
+import { MyPage } from './pages/my-page/myPage/MyPage';
 import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
 import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
-import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
+//import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 
 function App() {
   return (
@@ -60,7 +60,7 @@ function App() {
           <Route element={<MyPageLayout />}>
             <Route
               path='/my'
-              element={<RequestAssignEdit />}
+              element={<MyPage />}
             />
             <Route
               path='/my/posts'

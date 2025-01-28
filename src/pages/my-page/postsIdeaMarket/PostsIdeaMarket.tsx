@@ -5,7 +5,7 @@ import arrowButton from '../../../assets/icons/arrow-button.svg';
 export const PostsIdeaMarket = () => {
   const POST_DATA = [
     {
-      id: '1',
+      id: 1,
       user: 'SEO YEON',
       title: '디자인 해드립니다',
       postImage: '',
@@ -24,7 +24,7 @@ export const PostsIdeaMarket = () => {
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get('category') || '카테고리 없음';
   // POST_DATA에서 postId에 맞는 데이터 찾기
-  const post = POST_DATA.find((post) => post.id === postId);
+  const post = POST_DATA.find((post) => post.id === Number(postId));
 
   if (!post) {
     return <div>게시글을 찾을 수 없습니다.</div>;
