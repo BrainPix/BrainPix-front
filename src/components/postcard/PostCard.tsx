@@ -16,6 +16,7 @@ export const PostCard = ({
 }: PostProps) => {
   return (
     <div className={classNames(styles.postCard, styles[category])}>
+      {/* 카테고리별 조건부 렌더링 */}
       {/* 공통 헤더 */}
       <div className={styles.postHeader}>
         {image ? (
@@ -29,8 +30,7 @@ export const PostCard = ({
         )}
         <span className={styles.username}>{user}</span>
       </div>
-
-      {/* 카테고리별 조건부 렌더링 */}
+      {/* 게시글 내용 */}
       <div className={styles.postContent}>
         {category === PostCategories.IDEA_MARKET && (
           <>

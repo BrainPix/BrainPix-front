@@ -1,29 +1,26 @@
 .tabs {
   @include flex-center;
-  //gap:20px;
+  width: 845px;
+  height: 48px;
   margin-bottom: 20px;
-  border-bottom: 2px solid #ddd;
 }
 
 .tabItem {
   flex: 1;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 20px;
+  @include pretendard-28-500;
   text-align: center;
-  color: #999;
+  color: $grey-500;
   transition:
     background-color 0.3s,
     color 0.3s;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid $grey-500;
 
   &.activeTab {
-    color: #007aff;
-    border-bottom: 3px solid #007aff;
+    @include pretendard-28-500;
+    color: $grey-800;
+    border-bottom: 2px solid $grey-700;
     font-weight: bold;
-  }
-
-  &:hover {
-    background-color: #f0f0f0;
   }
 }
