@@ -8,8 +8,9 @@ export interface PostProps {
   id: number;
   category: PostCategories;
   user: string;
+  profileImage: string | null;
   title: string;
-  image: string | null;
+  postImage: string | null;
   price?: number;
   deadline?: number;
   current?: number;

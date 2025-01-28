@@ -5,8 +5,9 @@ import { PostProps, PostCategories } from '../../types/postData';
 export const PostCard = ({
   category,
   user,
+  profileImage,
   title,
-  image,
+  postImage,
   price,
   deadline,
   current,
@@ -19,9 +20,9 @@ export const PostCard = ({
       {/* 카테고리별 조건부 렌더링 */}
       {/* 공통 헤더 */}
       <div className={styles.postHeader}>
-        {image ? (
+        {profileImage ? (
           <img
-            src={image}
+            src={profileImage}
             alt='프로필 사진'
             className={styles.profileImage}
           />
@@ -34,9 +35,9 @@ export const PostCard = ({
       <div className={styles.postContent}>
         {category === PostCategories.IDEA_MARKET && (
           <>
-            {image ? (
+            {postImage ? (
               <img
-                src={image}
+                src={postImage}
                 alt='게시글 사진'
                 className={styles.postImage}
               />
@@ -51,9 +52,9 @@ export const PostCard = ({
         {category === PostCategories.REQUEST_ASSIGN && (
           <>
             <p>{title}</p>
-            {image ? (
+            {postImage ? (
               <img
-                src={image}
+                src={postImage}
                 alt='게시글 사진'
                 className={styles.postImage}
               />
@@ -67,9 +68,9 @@ export const PostCard = ({
         {category === PostCategories.COLLABORATION && (
           <>
             <p>{title}</p>
-            {image ? (
+            {postImage ? (
               <img
-                src={image}
+                src={postImage}
                 alt='게시글 사진'
                 className={styles.postImage}
               />
