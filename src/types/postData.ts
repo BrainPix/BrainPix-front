@@ -13,8 +13,8 @@ export interface PostProps {
   postImage: string | null;
   price?: number;
   deadline?: number;
-  current?: number;
-  total?: number;
+  current?: number; // 현재 인원
+  total?: number; // 총 모집 인원
   saveCount?: number;
   viewCount?: number;
 }

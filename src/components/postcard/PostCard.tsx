@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './PostCard.module.scss';
 import classNames from 'classnames';
 import { PostProps, PostCategories } from '../../types/postData';
 
 export const PostCard = ({
+  id,
   category,
   user,
   profileImage,
@@ -15,8 +17,24 @@ export const PostCard = ({
   saveCount,
   viewCount,
 }: PostProps) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    let categoryPath = '';
+    if (category === PostCategories.IDEA_MARKET) categoryPath = 'idea-market';
+    else if (category === PostCategories.REQUEST_ASSIGN)
+      categoryPath = 'request-assign';
+    else if (category === PostCategories.COLLABORATION)
+      categoryPath = 'collaboration';
+
+    if (categoryPath) {
+      navigate(`/my/posts/${categoryPath}/${id}`);
+    }
+  };
   return (
-    <div className={classNames(styles.postCard, styles[category])}>
+    <div
+      className={classNames(styles.postCard, styles[category])}
+      onClick={handleCardClick}>
       {/* 카테고리별 조건부 렌더링 */}
       {/* 공통 헤더 */}
       <div className={styles.postHeader}>

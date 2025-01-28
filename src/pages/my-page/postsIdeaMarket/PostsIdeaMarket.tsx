@@ -2,37 +2,35 @@ import { useParams, useLocation } from 'react-router-dom';
 import styles from './postsIdeaMarket.module.scss';
 import arrowButton from '../../../assets/icons/arrow-button.svg';
 
-const mockPosts = [
-  {
-    id: '1',
-    nickname: 'SEO YEON',
-    title: '디자인 해드립니다',
-    profileImage: '',
-    price: 200000000,
-    ideaMarketAuth: 'ALL',
-    imageURL: '',
-    purchaseRecords: [
-      { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
-      { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
-    ],
-  },
-];
-
 export const PostsIdeaMarket = () => {
+  const POST_DATA = [
+    {
+      id: '1',
+      user: 'SEO YEON',
+      title: '디자인 해드립니다',
+      postImage: '',
+      price: 200000000,
+      ideaMarketAuth: 'ALL',
+    },
+  ];
+  const PURCHASE_RECORDS = [
+    { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+    { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
+  ];
+
+  // 게시물 id 받아오기
   const { postId } = useParams<{ postId: string }>();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get('category') || '카테고리 없음';
-  //console.log(category);
-
-  // mock 데이터에서 postId에 맞는 데이터 찾기
-  const post = mockPosts.find((p) => p.id === postId);
+  // POST_DATA에서 postId에 맞는 데이터 찾기
+  const post = POST_DATA.find((post) => post.id === postId);
 
   if (!post) {
     return <div>게시글을 찾을 수 없습니다.</div>;
   }
 
-  const { nickname, title, price, purchaseRecords } = post;
+  const { title, price } = post;
 
   return (
     <div className={styles.postcardWrapper}>
@@ -45,7 +43,7 @@ export const PostsIdeaMarket = () => {
         <div className={styles.postcardInfo}>
           <div className={styles.postCardCategory}>아이디어 마켓 &gt;</div>
           <p>{title}</p>
-          <h2>{price.toLocaleString()} 원</h2>
+          <h2>{price} 원</h2>
         </div>
         <img
           src={arrowButton}
@@ -59,14 +57,14 @@ export const PostsIdeaMarket = () => {
           <span>거래 방식</span>
           <span>지불 금액</span>
         </div>
-        {purchaseRecords.map((record) => (
+        {PURCHASE_RECORDS.map((record) => (
           <div
             key={record.id}
             className={styles.purchaseCard}>
             <div className={styles.cardDetails}>
               <div>{record.id}</div>
               <div>{record.paymentMethod}</div>
-              <div>{record.amount.toLocaleString()}</div>
+              <div>{record.amount}</div>
             </div>
             <div className={styles.cardActions}>
               <button className={styles.messageButton}>메신저 보내기</button>
