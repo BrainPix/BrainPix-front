@@ -8,6 +8,7 @@ interface DropdownProps {
   options?: string[];
   max_visible_options?: number;
   customClassName?: string;
+  onSelect?: (value: string) => void;
 }
 
 const defaultOptions = [
@@ -31,6 +32,7 @@ const Dropdown = ({
   options,
   max_visible_options = 5,
   customClassName,
+  onSelect,
 }: DropdownProps) => {
   const finalOptions = options && options.length > 0 ? options : defaultOptions;
   // console.log(finalOptions[0], finalOptions[1]);
@@ -42,6 +44,7 @@ const Dropdown = ({
   const handleSelect = (option: string) => {
     setSelected(option);
     setIsOpen(false);
+    onSelect?.(option);
   };
 
   // 외부 클릭 감지

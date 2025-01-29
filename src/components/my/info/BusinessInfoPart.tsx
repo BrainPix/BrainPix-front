@@ -1,30 +1,27 @@
 import { ChangeEvent, forwardRef } from 'react';
 import classNames from 'classnames';
-import styles from './introducePart.module.scss';
+import styles from './businessInfoPart.module.scss';
 
-interface IntroducePartPropsType {
+interface BusinessInfoPartPropsType {
   editMode: boolean;
   userType: '개인' | '기업';
 }
 
-export const IntroducePart = forwardRef<
+export const BusinessInfoPart = forwardRef<
   HTMLTextAreaElement,
-  IntroducePartPropsType
->(({ editMode, userType, ...rest }, ref) => {
+  BusinessInfoPartPropsType
+>(({ editMode, ...rest }, ref) => {
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     console.log(e.target.value);
   };
+
   return (
     <div>
-      <h1 className={classNames(styles.title)}>
-        {userType === '개인' ? '자기 소개' : '기업 소개'}
-      </h1>
+      <h1 className={classNames(styles.title)}>사업 정보</h1>
       <textarea
         className={classNames(styles.introduceWrapper)}
         onChange={handleChange}
-        placeholder={
-          userType === '기업' ? '기업 소개를 입력하세요(텍스트)' : ''
-        }
+        placeholder='기타 사업 정보를 입력하세요(텍스트)'
         disabled={!editMode}
         ref={ref}
         {...rest}
@@ -33,4 +30,4 @@ export const IntroducePart = forwardRef<
   );
 });
 
-IntroducePart.displayName = 'IntroducePart';
+BusinessInfoPart.displayName = 'BusinessInfoPart';

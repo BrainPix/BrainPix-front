@@ -21,17 +21,13 @@ export const MyProfileCard = ({
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.profileContainer)}>
         {USER_DATA.profileImage ? (
-          <div className={classNames(styles.profileWrapper)}>
-            <img
-              className={classNames(styles.profile)}
-              src={USER_DATA.profileImage}
-              alt='프로필 이미지'
-            />
-          </div>
+          <img
+            className={classNames(styles.profile)}
+            src={USER_DATA.profileImage}
+            alt='프로필 이미지'
+          />
         ) : (
-          <div className={classNames(styles.profileWrapper)}>
-            <div className={classNames(styles.profile)} />
-          </div>
+          <div className={classNames(styles.profile)} />
         )}
         <div>
           <div className={classNames(styles.typeWrapper)}>
@@ -54,14 +50,13 @@ export const MyProfileCard = ({
         )}
         {status === 'save' && (
           <button
-            type='button'
-            onClick={onClickButton}
+            type='submit'
             className={classNames(styles.editButton, 'buttonOutlined-grey500')}>
             저장하기
           </button>
         )}
       </div>
-      {status == 'edit' && (
+      {status == 'save' && (
         <button
           className={classNames(styles.profileEditButton)}
           type='button'>
