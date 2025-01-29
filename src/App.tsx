@@ -16,7 +16,7 @@ import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my-page/myPage/MyPage';
-import { RecentNews } from './pages/my-page/RecentNews';
+import { RecentNews } from './pages/my-page/myPage/RecentNews';
 
 function App() {
   return (
@@ -64,12 +64,12 @@ function App() {
               path='/my/recent-news'
               element={<RecentNews />}
             />
+            <Route
+              path='/my/posts' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
+              element={<MyPagePosts />}
+            />
           </Route>
         </Route>
-        <Route
-          path='/my' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
-          element={<MyPagePosts />}
-        />
         <Route
           path='/sign-up'
           element={<Signup />}

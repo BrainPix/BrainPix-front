@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import styles from './myPage.module.scss';
-import { MyProfileCard } from '../../../components/my/MyProfileCard';
-import { PreviewList } from '../../../components/my/PreviewList';
+import { MyProfileCard } from '../../../components/my-page/MyProfileCard';
+import { PreviewList } from '../../../components/my-page/PreviewList';
 import { Fragment } from 'react/jsx-runtime';
 
 export const MyPage = () => {
