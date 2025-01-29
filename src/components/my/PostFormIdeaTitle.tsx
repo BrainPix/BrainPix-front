@@ -1,18 +1,20 @@
 import styles from './postFormIdeaTitle.module.scss';
-import { DeadlineLabel } from '../common/label/DeadlineLabel.tsx';
+import CorporatePublicLabel from '../common/label/CorporatePublicLabel';
 
 export const PostFormIdeaTitle = () => {
   const POST_DATA = {
-    tab: '요청과제',
+    tab: '아이디어 마켓',
     category: '디자인',
     mainImage: null,
-    title: 'Web 서비스 제안',
+    title: '디자인 해드립니다',
+    price: 2000000,
     date: '2024/12/28',
     viewCount: 120,
     saveCount: 12,
     deadline: 21,
-    description: '과제 설명입니다...',
   };
+
+  const FORMATTEDPRICE = POST_DATA.price.toLocaleString();
 
   return (
     <div>
@@ -32,8 +34,11 @@ export const PostFormIdeaTitle = () => {
           <div className={styles.route}>
             {POST_DATA.tab} {'>'} {POST_DATA.category}
           </div>
-          <DeadlineLabel deadline={POST_DATA.deadline} />
-          <p className={styles.title}>{POST_DATA.title}</p>
+          <div className={styles.titleAndLabel}>
+            <p className={styles.title}>{POST_DATA.title}</p>
+            <CorporatePublicLabel />
+          </div>
+          <div className={styles.price}>{FORMATTEDPRICE}원</div>
           <p className={styles.date}>
             {POST_DATA.date} · 조회 {POST_DATA.viewCount} · 저장{' '}
             {POST_DATA.saveCount}

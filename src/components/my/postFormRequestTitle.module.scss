@@ -28,18 +28,6 @@
   margin-bottom: 16px;
 }
 
-.deadline {
-  width: 138px;
-  height: 35px;
-  @include pretendard-16-500;
-  @include flex-center;
-  color: $grey-50;
-  background-color: #324161;
-  border-radius: 17.5px;
-  text-align: center;
-  margin-bottom: 17px;
-}
-
 .title {
   @include font-mixin('Pretendard', 36px, 600);
   font-weight: bold;

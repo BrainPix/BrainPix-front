@@ -1,5 +1,5 @@
 import { PostFormAuthor } from '../../../components/my/PostFormAuthor';
-import { PostFormIdeaTitle} from '../../../components/my/PostFormIdeaTitle';
+import { PostFormIdeaTitle } from '../../../components/my/PostFormIdeaTitle';
 import { PostFormContent } from '../../../components/my/PostFormContent';
 import QnASection from '../../../components/postdetail/QnASection';
 import AuthorInfo from '../../../components/postdetail/AuthorInfo';
@@ -22,6 +22,8 @@ export const IdeaMarketEdit = () => {
         userName={USER_DATA.userName}
         profileImage={USER_DATA.profileImage}
       />
+      {/* 게시물 제목, 게시물 정보 */}
+      <PostFormIdeaTitle />
       {/* 과제 설명, 첨부파일 */}
       <PostFormContent
         descriptionTitle={FORM_DATA.descriptionTitle}
