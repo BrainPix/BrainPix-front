@@ -2,21 +2,21 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
-import MyPagePosts from './pages/mypage/MyPagePosts/MyPagePosts';
+import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
-import IdeaMarketPayment from './pages/idea-market/IdeaMarketPayment';
+import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { Collaboration } from './pages/collaboration/Collaboration';
-import PostDetailWithoutLink from './pages/collaboration/PostDetailWithoutLink';
-import PostDetailWithLink from './pages/collaboration/PostDetailWithLink';
+import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
+import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
 import { Signup } from './pages/sign-up/Signup';
 import { IndividualMember } from './pages/sign-up/individual/IndividualMember';
 import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
-import { MyPage } from './pages/my/MyPage';
-import { RecentNews } from './pages/my/RecentNews';
+import { MyPage } from './pages/my-page/myPage/MyPage';
+import { RecentNews } from './pages/my-page/RecentNews';
 
 function App() {
   return (
