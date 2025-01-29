@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import styles from './myPagePosts.module.scss';
 //import classNames from 'classnames';
 import PostCard from '../../../components/postcard/PostCard.tsx';
 
-const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
+// const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
 
 export const MyPagePosts = () => {
-  const [activeTab, setActiveTab] = useState(TABS[0]);
-
   const posts = [
     {
       id: 1,
@@ -67,12 +64,9 @@ export const MyPagePosts = () => {
             {posts
               .filter(
                 (post) =>
-                  (activeTab === '아이디어 마켓' &&
-                    post.category === 'ideaMarket') ||
-                  (activeTab === '요청과제' &&
-                    post.category === 'requestTask') ||
-                  (activeTab === '협업광장' &&
-                    post.category === 'collaboration'),
+                  post.category === 'ideaMarket' ||
+                  post.category === 'requestTask' ||
+                  post.category === 'collaboration',
               )
               .map((post) => (
                 <PostCard
