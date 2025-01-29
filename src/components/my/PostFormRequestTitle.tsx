@@ -1,7 +1,7 @@
-import styles from './postFormTitle.module.scss';
+import styles from './postFormRequestTitle.module.scss';
 import { DeadlineLabel } from '../common/label/DeadlineLabel.tsx';
 
-export const PostFormTitle = () => {
+export const PostFormRequestTitle = () => {
   const POST_DATA = {
     tab: '요청과제',
     category: '디자인',

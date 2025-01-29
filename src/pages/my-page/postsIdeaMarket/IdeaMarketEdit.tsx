@@ -1,19 +1,18 @@
-import { PostFormContent } from '../../../components/my/PostFormContent';
 import { PostFormAuthor } from '../../../components/my/PostFormAuthor';
-import { PostFormRequestTitle } from '../../../components/my/PostFormRequestTitle';
-import { PostFormRecruitmentInfo } from '../../../components/my/PostFormRecruitmentInfo';
+import { PostFormIdeaTitle} from '../../../components/my/PostFormIdeaTitle';
+import { PostFormContent } from '../../../components/my/PostFormContent';
 import QnASection from '../../../components/postdetail/QnASection';
 import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 
-export const RequestAssignEdit = () => {
+export const IdeaMarketEdit = () => {
   const FORM_DATA = {
-    descriptionTitle: '과제 설명',
-    description: '과제 설명입니다...',
+    descriptionTitle: '아이디어 설명',
+    description: '아이디어 설명입니다...',
     attachmentTitle: '첨부파일',
     attachmentFileName: '첨부파일입니다... .pdf',
   };
   const USER_DATA = {
-    userName: 'SY TECH',
+    userName: 'SEO YEON',
     profileImage: null,
   };
   return (
@@ -23,8 +22,6 @@ export const RequestAssignEdit = () => {
         userName={USER_DATA.userName}
         profileImage={USER_DATA.profileImage}
       />
-      <PostFormRequestTitle />
-
       {/* 과제 설명, 첨부파일 */}
       <PostFormContent
         descriptionTitle={FORM_DATA.descriptionTitle}
@@ -32,10 +29,6 @@ export const RequestAssignEdit = () => {
         attachmentTitle={FORM_DATA.attachmentTitle}
         attachmentFileName={FORM_DATA.attachmentFileName}
       />
-
-      {/* 모집 정보 */}
-      <PostFormRecruitmentInfo />
-
       {/* 담당자 Q&A */}
       <QnASection />
 

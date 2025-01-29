@@ -18,7 +18,8 @@ import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
 import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
-import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
+import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
+//import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 
 function App() {
   return (
@@ -60,7 +61,7 @@ function App() {
           <Route element={<MyPageLayout />}>
             <Route
               path='/my'
-              element={<RequestAssignEdit />}
+              element={<IdeaMarketEdit />}
             />
             <Route
               path='/my/posts'
