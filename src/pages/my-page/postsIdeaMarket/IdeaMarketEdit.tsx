@@ -1,6 +1,6 @@
-import { PostFormAuthor } from '../../../components/my/PostFormAuthor';
-import { PostFormIdeaTitle } from '../../../components/my/PostFormIdeaTitle';
-import { PostFormContent } from '../../../components/my/PostFormContent';
+import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
+import { PostFormIdeaTitle } from '../../../components/my-page/PostFormIdeaTitle';
+import { PostFormContent } from '../../../components/my-page/PostFormContent';
 import QnASection from '../../../components/postdetail/QnASection';
 import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 

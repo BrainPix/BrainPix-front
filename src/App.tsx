@@ -17,9 +17,10 @@ import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
 import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
+import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsCollaboration';
 //import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 //import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
-import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
+//import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
 import { MyPage } from './pages/my-page/myPage/MyPage';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 
@@ -78,8 +79,8 @@ function App() {
               element={<PostsRequestAssign />}
             />
             <Route
-              path='/my/posts/request-assign/edit/:postId'
-              element={<CollaborationEdit />}
+              path='/my/posts/collaboration/:postId'
+              element={<PostsCollaboration />}
             />
             <Route
               path='/my/recent-news'

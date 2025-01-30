@@ -13,9 +13,6 @@ import CorporateLabel from '../../components/common/label/CorporateLabel.tsx';
 import PersonalLabel from '../../components/common/label/PersonalLabel.tsx';
 import CorporatePublicLabel from '../../components/common/label/CorporatePublicLabel.tsx';
 
-//마이페이지 게시물 관리 컴포넌트 test
-import { PostRecord } from '../../components/post-record/PostRecord.tsx';
-
 export const Test = () => {
   const [clicked, setClicked] = useState(false);
   const handleClickButton = () => {
@@ -44,21 +41,6 @@ export const Test = () => {
       <CorporateLabel />
       <PersonalLabel />
       <CorporatePublicLabel />
-      {/* 마이페이지 게시물 관리 컴포넌트 test */}
-      <div className={styles.postRecordWrapper}>
-        <PostRecord
-          title='결제 내역'
-          records={[
-            { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
-            { id: 'serqe', paymentMethod: '카카오페이', amount: 1000 },
-          ]}
-          columns={[
-            { key: 'id', label: '아이디' },
-            { key: 'paymentMethod', label: '결제 수단' },
-            { key: 'amount', label: '금액' },
-          ]}
-        />
-      </div>
     </div>
   );
 };
