@@ -1,0 +1,131 @@
+.container {
+  position: fixed;
+  top: 200px;
+  right: 10px;
+  z-index: 10;
+  width: 1000px;
+  background-color: $grey-50;
+  box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
+  padding: 39px 50px 159px;
+  border-radius: 50px;
+}
+
+.title {
+  @include pretendard-36-500;
+}
+
+.titleDivider {
+  width: 100%;
+  height: 1px;
+  background-color: $grey-500;
+  margin-top: 15px;
+}
+
+.contentContainer {
+  padding: 29px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.imageInputLabel {
+  @include flex-center;
+  @include pretendard-16-400;
+
+  width: 128px;
+  height: 128px;
+  border-radius: 5px;
+  background-color: $grey-200;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5.33px;
+  color: $grey-600;
+}
+
+.imageInput {
+  display: none;
+}
+
+.titleInput {
+  @include pretendard-24-400;
+
+  padding: 18px 20px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid $grey-400;
+  background-color: $grey-50;
+}
+
+.inputTitle {
+  @include pretendard-28-500;
+
+  margin-bottom: 29px;
+}
+
+.infoInputWrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.dateInputWrapper {
+  @include flex-space-between;
+
+  width: 520px;
+  border-radius: 5px;
+  border: 1px solid $grey-400;
+
+  & > input {
+    @include pretendard-24-400;
+
+    padding: 18px 20px;
+    border: none;
+    background-color: $grey-50;
+    width: 50%;
+
+    &:last-child {
+      text-align: right;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & > .divider {
+    width: 20px;
+    height: 2px;
+    background-color: $grey-500;
+  }
+}
+
+.textInput {
+  width: 850px;
+  height: 300px;
+
+  & > * {
+    @include pretendard-16-500;
+  }
+}
+
+.uploadButtonWrapper {
+  display: flex;
+  gap: 15px;
+  margin-left: auto;
+  margin-top: 25px;
+
+  & > * {
+    @include pretendard-32-500;
+
+    cursor: pointer;
+  }
+
+  & > .cancelButton {
+    border: none;
+    background: none;
+  }
+
+  & > .uploadButton {
+    padding: 10px 30px;
+    border-radius: 50px;
+  }
+}
