@@ -1,20 +1,41 @@
+import { useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './ portfolio.module.scss';
+
 import { AddPortfolioModal } from '../../../components/my-page/portfolio/AddPortfolioModal';
+import { useOutsideClick } from '../../../hooks/useOutsideClick';
 
 export const Portfolio = () => {
   const PORTFOLIO_COUNT = 6;
 
+  const [isOpenAddPortfolioModal, setIsOpenAddPortfolioModal] = useState(false);
+
+  const closeOpenAddPortfolioModal = () => {
+    setIsOpenAddPortfolioModal(false);
+  };
+
+  const addPortfolioModalRef = useRef(null);
+  useOutsideClick({
+    ref: addPortfolioModalRef,
+    handler: closeOpenAddPortfolioModal,
+  });
+
   return (
     <div className={classNames(styles.container)}>
-      <AddPortfolioModal />
+      {isOpenAddPortfolioModal && (
+        <AddPortfolioModal
+          ref={addPortfolioModalRef}
+          onClose={closeOpenAddPortfolioModal}
+        />
+      )}
       <div className={classNames(styles.title)}>
         포트폴리오 관리하기
         <span className={classNames(styles.portfolioCount)}>
           {PORTFOLIO_COUNT}
         </span>
         <button
-          className={classNames(styles.addButton, 'buttonOutlined-grey500')}>
+          onClick={() => setIsOpenAddPortfolioModal(true)}
+          className={classNames('buttonOutlined-grey500', styles.addButton)}>
           추가하기
         </button>
       </div>

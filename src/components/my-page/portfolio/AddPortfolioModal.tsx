@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './addPortfolioModal.module.scss';
 import ReactQuill from 'react-quill';
@@ -8,12 +9,22 @@ import Dropdown from '../../common/dropdown/Dropdown';
 import 'react-quill/dist/quill.snow.css';
 import { QuillToolbar } from './QuillToolbar';
 
-export const AddPortfolioModal = () => {
+interface AddPortfolioModalPropsType {
+  onClose: () => void;
+}
+
+export const AddPortfolioModal = forwardRef<
+  HTMLDivElement,
+  AddPortfolioModalPropsType
+>(({ onClose }, ref) => {
   const modules = {
     toolbar: { container: '#toolbar', handlers: {} },
   };
+
   return (
-    <div className={classNames(styles.container)}>
+    <div
+      className={classNames(styles.container)}
+      ref={ref}>
       <h1 className={classNames(styles.title)}>포트폴리오 추가</h1>
       <hr className={classNames(styles.titleDivider)} />
       <form className={classNames(styles.contentContainer)}>
@@ -62,6 +73,7 @@ export const AddPortfolioModal = () => {
         <div className={classNames(styles.uploadButtonWrapper)}>
           <button
             type='button'
+            onClick={onClose}
             className={classNames(styles.cancelButton)}>
             닫기
           </button>
@@ -74,4 +86,6 @@ export const AddPortfolioModal = () => {
       </form>
     </div>
   );
-};
+});
+
+AddPortfolioModal.displayName = 'AddPortfolioModal';
