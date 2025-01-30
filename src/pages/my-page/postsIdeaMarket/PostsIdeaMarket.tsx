@@ -31,6 +31,7 @@ export const PostsIdeaMarket = () => {
   }
 
   const { title, price } = post;
+  const FORMATTEDPRICE = price.toLocaleString();
 
   return (
     <div className={styles.postcardWrapper}>
@@ -43,7 +44,7 @@ export const PostsIdeaMarket = () => {
         <div className={styles.postcardInfo}>
           <div className={styles.postCardCategory}>아이디어 마켓 &gt;</div>
           <p>{title}</p>
-          <h2>{price} 원</h2>
+          <h2>{FORMATTEDPRICE} 원</h2>
         </div>
         <img
           src={arrowButton}

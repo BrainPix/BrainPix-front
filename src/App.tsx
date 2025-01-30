@@ -18,8 +18,9 @@ import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
 import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
-import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
+//import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 //import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
+import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
 
 function App() {
   return (
@@ -61,7 +62,7 @@ function App() {
           <Route element={<MyPageLayout />}>
             <Route
               path='/my'
-              element={<IdeaMarketEdit />}
+              element={<CollaborationEdit />}
             />
             <Route
               path='/my/posts'
