@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import styles from './myPagePosts.module.scss';
+import { TabNavigation } from '../../../components/my-page/TabNavigation.tsx';
 import { PostCard } from '../../../components/postcard/PostCard.tsx';
-import { TabNavigation } from '../../../components/my/TabNavigation.tsx';
-import { PostProps, PostCategories } from '../../../types/postData.ts';
+import { PostCategories } from '../../../types/postData.ts';
 
 export const MyPagePosts = () => {
   const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
   const [activeTab, setActiveTab] = useState(TABS[0]);
-
-  const POSTS: PostProps[] = [
+  const posts = [
     {
       id: 1,
       category: PostCategories.IDEA_MARKET,
@@ -65,30 +64,34 @@ export const MyPagePosts = () => {
   ];
 
   return (
-    <div>
-      <h1 className={styles.title}>
-        게시물 관리 <span className={styles.count}>11</span>
-      </h1>
-
-      <TabNavigation
-        tabs={TABS}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
-
-      {/* 게시물 리스트 */}
-      <div className={styles.postList}>
-        {POSTS.filter(
-          (post) =>
-            (activeTab === '아이디어 마켓' && post.category === 'ideaMarket') ||
-            (activeTab === '요청과제' && post.category === 'requestAssign') ||
-            (activeTab === '협업광장' && post.category === 'collaboration'),
-        ).map((post) => (
-          <PostCard
-            key={post.id}
-            {...post}
+    <div className={styles.container}>
+      <div className={styles.contentWrapper}>
+        <main className={styles.mainContent}>
+          <h1 className={styles.title}>
+            게시물 관리 <span className={styles.count}>11</span>
+          </h1>
+          <TabNavigation
+            tabs={TABS}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
           />
-        ))}
+          {/* 게시물 리스트 */}
+          <div className={styles.postList}>
+            {posts
+              .filter(
+                (post) =>
+                  post.category === 'ideaMarket' ||
+                  post.category === 'requestTask' ||
+                  post.category === 'collaboration',
+              )
+              .map((post) => (
+                <PostCard
+                  key={post.id}
+                  {...post}
+                />
+              ))}
+          </div>
+        </main>
       </div>
     </div>
   );

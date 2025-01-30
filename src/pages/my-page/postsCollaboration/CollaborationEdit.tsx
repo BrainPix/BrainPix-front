@@ -1,4 +1,4 @@
-import { PostFormAuthor } from '../../../components/my/PostFormAuthor';
+import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
 import PostHeader from '../../../components/postdetail/PostHeader';
 import WebLinkBox from '../../../components/postdetail/WebLinkBox';
 import TaskDescription from '../../../components/postdetail/TaskDescription';

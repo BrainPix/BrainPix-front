@@ -1,6 +1,6 @@
 export enum PostCategories {
   IDEA_MARKET = 'ideaMarket',
-  REQUEST_ASSIGN = 'requestAssign',
+  REQUEST_ASSIGN = 'requestTask',
   COLLABORATION = 'collaboration',
 }
 

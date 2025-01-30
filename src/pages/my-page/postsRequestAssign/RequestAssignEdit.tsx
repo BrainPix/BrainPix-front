@@ -1,7 +1,7 @@
-import { PostFormContent } from '../../../components/my/PostFormContent';
-import { PostFormAuthor } from '../../../components/my/PostFormAuthor';
-import { PostFormRequestTitle } from '../../../components/my/PostFormRequestTitle';
-import { PostFormRecruitmentInfo } from '../../../components/my/PostFormRecruitmentInfo';
+import { PostFormContent } from '../../../components/my-page/PostFormContent';
+import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
+import { PostFormRequestTitle } from '../../../components/my-page/PostFormRequestTitle';
+import { PostFormRecruitmentInfo } from '../../../components/my-page/PostFormRecruitmentInfo';
 import QnASection from '../../../components/postdetail/QnASection';
 import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 

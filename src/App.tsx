@@ -14,13 +14,14 @@ import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
-//import { MyPage } from './pages/my-page/myPage/MyPage';
 import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
 import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
 //import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 //import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
+import { MyPage } from './pages/my-page/myPage/MyPage';
+import { RecentNews } from './pages/my-page/myPage/RecentNews';
 
 function App() {
   return (
@@ -62,7 +63,7 @@ function App() {
           <Route element={<MyPageLayout />}>
             <Route
               path='/my'
-              element={<CollaborationEdit />}
+              element={<MyPage />}
             />
             <Route
               path='/my/posts'
@@ -76,10 +77,14 @@ function App() {
               path='/my/posts/request-assign/:postId'
               element={<PostsRequestAssign />}
             />
-            {/* <Route
+            <Route
               path='/my/posts/request-assign/edit/:postId'
-              element={<RequestAssignEdit />}
-            /> */}
+              element={<CollaborationEdit />}
+            />
+            <Route
+              path='/my/recent-news'
+              element={<RecentNews />}
+            />
           </Route>
         </Route>
         <Route
