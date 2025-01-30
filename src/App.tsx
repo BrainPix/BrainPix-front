@@ -17,6 +17,7 @@ import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my-page/myPage/MyPage';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
+import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 
 function App() {
   return (
@@ -67,6 +68,10 @@ function App() {
             <Route
               path='/my/posts' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
               element={<MyPagePosts />}
+            />
+            <Route
+              path='/my/portfolio' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
+              element={<Portfolio />}
             />
           </Route>
         </Route>
