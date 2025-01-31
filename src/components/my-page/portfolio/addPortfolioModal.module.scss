@@ -1,40 +1,41 @@
 .container {
   position: fixed;
-  height: 98%;
+  height: auto;
   top: 1%;
   right: 10px;
   z-index: 10;
-  width: 1000px;
+  width: 650px;
   background-color: $grey-50;
   box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
-  padding: 39px 50px;
+  padding: 40px;
   border-radius: 50px;
 }
 
 .title {
-  @include pretendard-36-500;
+  @include pretendard-24-500;
+
+  line-height: normal;
 }
 
 .titleDivider {
   width: 100%;
   height: 1px;
   background-color: $grey-500;
-  margin-top: 15px;
+  margin: 15px 0;
 }
 
 .contentContainer {
-  padding: 29px 25px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 .imageInputLabel {
   @include flex-center;
-  @include pretendard-16-400;
+  @include pretendard-14-400;
 
-  width: 128px;
-  height: 128px;
+  width: 100px;
+  height: 100px;
   border-radius: 5px;
   background-color: $grey-200;
   cursor: pointer;
@@ -48,14 +49,15 @@
 }
 
 .titleInput {
-  @include pretendard-20-400;
+  @include pretendard-14-400;
 
-  padding: 13px 20px;
+  padding: 15px 20px;
   width: 100%;
   height: 50px;
   border-radius: 5px;
   border: 1px solid $grey-400;
   background-color: $grey-50;
+  margin: 15px 0;
 
   &:focus {
     outline: none;
@@ -63,17 +65,17 @@
 }
 
 .categoryDropdown {
-  @include pretendard-20-400;
+  @include pretendard-16-400;
 
-  padding: 13px 20px;
+  padding: 15px 20px;
   color: $grey-600;
-  height: 50px;
+  height: 49px;
 }
 
 .inputTitle {
-  @include pretendard-28-500;
+  @include pretendard-18-500;
 
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .infoInputWrapper {
@@ -84,12 +86,13 @@
 .dateInputWrapper {
   @include flex-space-between;
 
-  width: 520px;
+  width: 260px;
+  height: 49px;
   border-radius: 5px;
   border: 1px solid $grey-400;
 
   & > input {
-    @include pretendard-20-400;
+    @include pretendard-14-400;
 
     padding: 13px 20px;
     border: none;
@@ -103,10 +106,14 @@
     &:focus {
       outline: none;
     }
+
+    &::placeholder {
+      color: $grey-600;
+    }
   }
 
   & > .divider {
-    width: 20px;
+    width: 10px;
     height: 2px;
     background-color: $grey-500;
   }
@@ -115,22 +122,22 @@
 .textInput {
   @include pretendard-16-500;
 
-  width: 850px;
-  height: 300px;
+  width: 570px;
+  height: 250px;
 
   & > * {
-    @include pretendard-16-500;
+    @include pretendard-14-400;
   }
 }
 
 .uploadButtonWrapper {
   display: flex;
   gap: 15px;
+  margin: 15px 0;
   margin-left: auto;
-  margin-top: 25px;
 
   & > * {
-    @include pretendard-26-500;
+    @include pretendard-20-400;
 
     cursor: pointer;
   }
@@ -138,10 +145,11 @@
   & > .cancelButton {
     border: none;
     background: none;
+    color: $grey-600;
   }
 
   & > .uploadButton {
-    padding: 10px 30px;
-    border-radius: 50px;
+    padding: 10px 20px;
+    border-radius: 34px;
   }
 }

@@ -34,8 +34,8 @@ export const AddPortfolioModal = forwardRef<
         <label htmlFor='imageInput'>
           <div className={classNames(styles.imageInputLabel)}>
             <ImageInput
-              width={54}
-              height={54}
+              width={48}
+              height={48}
             />
             대표사진
           </div>
@@ -86,7 +86,7 @@ export const AddPortfolioModal = forwardRef<
           </button>
           <button
             type='submit'
-            className={classNames('buttonFilled-grey800', styles.uploadButton)}>
+            className={classNames('buttonFilled-primary', styles.uploadButton)}>
             업로드
           </button>
         </div>

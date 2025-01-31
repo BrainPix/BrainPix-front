@@ -1,13 +1,13 @@
 .container {
   position: fixed;
-  height: 98%;
+  height: auto;
   top: 1%;
   right: 10px;
   z-index: 10;
-  width: 1000px;
+  width: 650px;
   background-color: $grey-50;
   box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
-  padding: 39px 50px;
+  padding: 40px;
   border-radius: 50px;
 }
 
@@ -15,15 +15,16 @@
   @include flex-space-between;
 
   & > .title {
-    @include pretendard-36-500;
+    @include pretendard-24-500;
+
+    line-height: normal;
   }
 
   & > .editButton {
-    @include pretendard-20-500;
+    @include pretendard-16-500;
 
-    padding: 10px 20px;
-    border-radius: 29px;
     cursor: pointer;
+    border: none;
   }
 }
 
@@ -31,11 +32,10 @@
   width: 100%;
   height: 1px;
   background-color: $grey-500;
-  margin-top: 15px;
+  margin: 20px 0 15px;
 }
 
 .contentContainer {
-  padding: 29px 25px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -48,14 +48,14 @@
 }
 
 .infoWrapper {
-  @include pretendard-28-500;
+  @include pretendard-18-500;
 
   display: flex;
   align-items: center;
   color: $grey-700;
 
   & > input {
-    @include pretendard-28-500;
+    @include pretendard-18-400;
 
     background-color: $grey-50;
     border-radius: 5px;
@@ -81,14 +81,15 @@
 
 .imageInputLabel {
   @include flex-center;
-  @include pretendard-16-400;
+  @include pretendard-14-400;
 
   flex-direction: column;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   border-radius: 5px;
   background-color: $grey-200;
   color: $grey-600;
+  margin: 15px 0;
 }
 
 .imageInput {
@@ -98,9 +99,9 @@
 .contentInput {
   @include pretendard-20-500;
 
-  width: 850px;
+  width: 100%;
   color: $grey-700;
-  height: 400px;
+  height: 200px;
   border-radius: 5px;
   border-radius: 1px solid $grey-400;
   background-color: $grey-50;
@@ -115,11 +116,11 @@
 .deleteButtonWrapper {
   display: flex;
   gap: 15px;
+  margin: 15px 0;
   margin-left: auto;
-  margin-top: 25px;
 
   & > * {
-    @include pretendard-26-500;
+    @include pretendard-20-400;
 
     cursor: pointer;
   }
@@ -127,10 +128,11 @@
   & > .cancelButton {
     border: none;
     background: none;
+    color: $grey-600;
   }
 
   & > .deleteButton {
-    padding: 10px 30px;
-    border-radius: 50px;
+    padding: 10px 20px;
+    border-radius: 34px;
   }
 }
