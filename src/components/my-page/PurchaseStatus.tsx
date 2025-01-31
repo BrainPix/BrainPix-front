@@ -1,4 +1,4 @@
-import styles from './PurchaseStatus.module.scss';
+import styles from './purchaseStatus.module.scss';
 
 export const PurchaseStatus = () => {
   const PURCHASE_RECORDS = [
