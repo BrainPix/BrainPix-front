@@ -1,15 +1,20 @@
 import { forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './writeMessageModal.module.scss';
+import { PreviousMessageType } from '../../../types/message';
 
 interface WriteMessageModalPropsType {
   onClose: () => void;
+  type?: 'detail' | 'reply';
+  previousMessage?: PreviousMessageType;
 }
 
 export const WriteMessageModal = forwardRef<
   HTMLDivElement,
   WriteMessageModalPropsType
->(({ onClose }, ref) => {
+>(({ onClose, type = 'detail', previousMessage }, ref) => {
+  const PreviousData = `To. ${previousMessage?.receiver} \nFrom. ${previousMessage?.sender} \n${previousMessage?.previousContent}`;
+
   return (
     <div
       className={classNames(styles.container)}
@@ -20,23 +25,48 @@ export const WriteMessageModal = forwardRef<
         <div className={classNames(styles.inputContainer)}>
           <div className={classNames(styles.inputWrapper)}>
             <span>보낸 사람</span>
-            <div className={classNames(styles.receiveNameTag)}>
-              SEO YEON KIM
-            </div>
+            <div className={classNames(styles.nameTag)}>SEO YEON KIM</div>
           </div>
           <div className={classNames(styles.inputWrapper)}>
             <span>받는 사람</span>
-            <input className={classNames(styles.textInput)} />
+            {type === 'detail' ? (
+              <input className={classNames(styles.textInput)} />
+            ) : (
+              <div className={classNames(styles.nameTag)}>
+                {previousMessage?.receiver}
+              </div>
+            )}
           </div>
           <div className={classNames(styles.inputWrapper)}>
             <span>제목</span>
-            <input className={classNames(styles.textInput)} />
+            <input
+              className={classNames(styles.textInput, {
+                [styles.reply]: type === 'reply',
+              })}
+            />
+            {type === 'reply' && (
+              <div className={classNames(styles.replyTag)}>RE :</div>
+            )}
           </div>
         </div>
-        <textarea
-          className={classNames(styles.contentInput)}
-          placeholder='내용을 입력하세요.'
-        />
+        <div className={classNames(styles.contentInputWrapper)}>
+          <textarea
+            className={classNames(styles.contentInput, {
+              [styles.replyTop]: type === 'reply',
+            })}
+            placeholder='내용을 입력하세요.'
+          />
+          {type === 'reply' && (
+            <textarea
+              className={classNames(styles.contentInput, {
+                [styles.replyBottom]: type === 'reply',
+              })}
+              placeholder='내용을 입력하세요.'
+              defaultValue={(type === 'reply' && PreviousData) || ''}
+              disabled
+            />
+          )}
+        </div>
         <div className={classNames(styles.sendButtonWrapper)}>
           <button
             onClick={onClose}

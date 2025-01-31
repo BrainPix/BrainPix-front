@@ -8,5 +8,10 @@ export interface MessageType {
 }
 
 export type MessagesKeyType = 'all' | 'receive' | 'send';
-
 export type MessagesType = Record<MessagesKeyType, MessageType[]>;
+
+export interface PreviousMessageType {
+  receiver: string;
+  sender: string;
+  previousContent: string;
+}

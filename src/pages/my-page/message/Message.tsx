@@ -1,54 +1,16 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './message.module.scss';
-import { MessagesKeyType, MessagesType } from '../../../types/message';
+
+import { MessagesKeyType } from '../../../types/message';
 import { noMessage } from '../../../constants/noMessageText';
 import { WriteMessageModal } from '../../../components/my-page/message/WriteMessageModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
+import { MESSAGES_TEMP, PREVIOUS_MESSAGE_TEMP } from '../../../constants/temp';
 
 export const Message = () => {
   const READ_COUNT = 1;
   const UNREAD_COUNT = 1;
-
-  const MESSAGES: MessagesType = {
-    all: [
-      {
-        id: 1,
-        root: ['협업광장', '기획'],
-        date: '12월 29일',
-        name: 'SEO YEON',
-        content: 'Web 서비스 게시글 관련 제안 드립니다.',
-        isRead: false,
-      },
-      {
-        id: 2,
-        root: ['협업광장', '기획'],
-        date: '12월 29일',
-        name: 'SEO YEON',
-        content: 'Web 서비스 게시글 관련 제안 드립니다.',
-        isRead: true,
-      },
-    ],
-    receive: [
-      {
-        id: 1,
-        root: ['협업광장', '기획'],
-        date: '12월 29일',
-        name: 'SEO YEON',
-        content: 'Web 서비스 게시글 관련 제안 드립니다.',
-        isRead: false,
-      },
-      {
-        id: 2,
-        root: ['협업광장', '기획'],
-        date: '12월 29일',
-        name: 'SEO YEON',
-        content: 'Web 서비스 게시글 관련 제안 드립니다.',
-        isRead: true,
-      },
-    ],
-    send: [],
-  };
 
   const MENU: Record<MessagesKeyType, string> = {
     all: '전체 메세지',
@@ -78,6 +40,8 @@ export const Message = () => {
         <WriteMessageModal
           onClose={handleCloseWriteModal}
           ref={writeMessageModalRef}
+          type='reply'
+          previousMessage={PREVIOUS_MESSAGE_TEMP}
         />
       )}
       <div className={classNames(styles.titleWrapper)}>
@@ -108,10 +72,9 @@ export const Message = () => {
       <div className={classNames(styles.contentContainer)}>
         {Object.entries(MENU).map(([key, value]) => {
           const messageKey = key as MessagesKeyType;
-
           return (
             clickedMenu === value &&
-            (MESSAGES[messageKey].length === 0 ? (
+            (MESSAGES_TEMP[messageKey].length === 0 ? (
               <div
                 key={key}
                 className={classNames(styles.noMessageTextContainer)}>
@@ -121,7 +84,7 @@ export const Message = () => {
               <div
                 key={key}
                 className={classNames(styles.messageCardContainer)}>
-                {MESSAGES[messageKey].map((message) => (
+                {MESSAGES_TEMP[messageKey].map((message) => (
                   <div
                     key={message.id}
                     className={classNames(styles.messageCardWrapper, {
