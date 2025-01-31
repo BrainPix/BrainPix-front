@@ -18,7 +18,7 @@
   & > .subTitle {
     @include pretendard-32-500;
 
-    color: $grey-900;
+    color: $grey-600;
     margin-bottom: 30px;
   }
 }
@@ -31,7 +31,12 @@
   & > a {
     @include pretendard-24-500;
 
-    color: $grey-700;
+    color: $grey-600;
     text-decoration: none;
+  }
+
+  & > a.clicked {
+    color: $grey-800;
+    font-weight: 700;
   }
 }
