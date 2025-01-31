@@ -5,8 +5,6 @@ export const IdeaMarketPostCard = ({
   category,
   user,
   profileImage,
-  // title,
-  // postImage,
   price,
   saveCount,
   viewCount,
