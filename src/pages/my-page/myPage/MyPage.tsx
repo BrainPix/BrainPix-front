@@ -1,13 +1,8 @@
 import classNames from 'classnames';
-import styles from './myPage.module.scss';
-<<<<<<< HEAD
-import { MyProfileCard } from '../../../components/my/info/MyProfileCard';
-import { PreviewList } from '../../../components/my/PreviewList';
-=======
-import { MyProfileCard } from '../../../components/my-page/MyProfileCard';
-import { PreviewList } from '../../../components/my-page/PreviewList';
->>>>>>> afadcb3b95f3853e7d84f919f0f3e7c12c4f6ad3
 import { Fragment } from 'react/jsx-runtime';
+import styles from './myPage.module.scss';
+import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard';
+import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 
 export const MyPage = () => {
   const USER_DATA = {
@@ -28,7 +23,7 @@ export const MyPage = () => {
 
   return (
     <div>
-      <MyProfileCard status='main' />
+      <MyProfileCard />
       <div className={classNames(styles.subInfoWrapper)}>
         {Object.entries(SUB_INFO).map(([key, value], idx) => (
           <Fragment key={key}>

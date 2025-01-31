@@ -3,14 +3,14 @@ import classNames from 'classnames';
 import styles from './info.module.scss';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { MyProfileCard } from '../../../components/my/info/MyProfileCard';
-import { IntroducePart } from '../../../components/my/info/IntroducePart';
-import { IndividualInfoPart } from '../../../components/my/info/IndividualInfoPart';
-import { SkillPart } from '../../../components/my/info/SkillPart';
-import { ExperiencePart } from '../../../components/my/info/ExperiencePart';
-import { PortfolioPart } from '../../../components/my/info/PortfolioPart';
-import { SpecializationPart } from '../../../components/my/info/SpecializationPart';
-import { BusinessInfoPart } from '../../../components/my/info/BusinessInfoPart';
+import { MyProfileCard } from '../../../components/my-page/info/MyProfileCard';
+import { IntroducePart } from '../../../components/my-page/info/IntroducePart';
+import { IndividualInfoPart } from '../../../components/my-page/info/IndividualInfoPart';
+import { SkillPart } from '../../../components/my-page/info/SkillPart';
+import { ExperiencePart } from '../../../components/my-page/info/ExperiencePart';
+import { PortfolioPart } from '../../../components/my-page/info/PortfolioPart';
+import { SpecializationPart } from '../../../components/my-page/info/SpecializationPart';
+import { BusinessInfoPart } from '../../../components/my-page/info/BusinessInfoPart';
 
 const USER_DATA = {
   연락처: '01023451234',
@@ -107,10 +107,7 @@ export const Info = () => {
             userType={userType}
             registers={enterpriseInfoRegisters}
           />
-          <BusinessInfoPart
-            editMode={editMode}
-            userType={userType}
-          />
+          <BusinessInfoPart editMode={editMode} />
           <PortfolioPart
             editMode={editMode}
             userType={userType}

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import styles from './specializationPart.module.scss';
-import Dropdown from '../../dropdown/Dropdown';
+import Dropdown from '../../common/dropdown/Dropdown';
 
 interface SpecializationPartPropsType {
   userType: '개인' | '기업';

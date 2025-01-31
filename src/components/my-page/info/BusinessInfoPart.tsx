@@ -4,7 +4,6 @@ import styles from './businessInfoPart.module.scss';
 
 interface BusinessInfoPartPropsType {
   editMode: boolean;
-  userType: '개인' | '기업';
 }
 
 export const BusinessInfoPart = forwardRef<

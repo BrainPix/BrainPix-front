@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import styles from './previewList.module.scss';
-import Arrow from '../../assets/icons/arrowRight.svg?react';
-import Trash from '../../assets/icons/trash.svg?react';
-import Undo from '../../assets/icons/undo.svg?react';
+import Arrow from '../../../assets/icons/arrowRight.svg?react';
+import Trash from '../../../assets/icons/trash.svg?react';
+import Undo from '../../../assets/icons/undo.svg?react';
 
 interface NewsListPropsType {
   isRead?: boolean;

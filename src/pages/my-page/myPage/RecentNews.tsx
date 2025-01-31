@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import classNames from 'classnames';
 import styles from './recentNews.module.scss';
-import { PreviewList } from '../../../components/my-page/PreviewList';
+import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 import Arrow from '../../../assets/icons/arrowRight.svg?react';
 
 export const RecentNews = () => {
