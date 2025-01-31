@@ -49,22 +49,27 @@ export const PostCard = ({
         )}
         <span className={styles.username}>{user}</span>
       </div>
-      {/* 게시글 내용 */}
+      {/* 게시글 이미지 아래 게시글 정보(프로필 사진, 이름, 가격, 저장, 조회) */}
       <div className={styles.postContent}>
         {category === PostCategories.IDEA_MARKET && (
-          <>
-            {postImage ? (
-              <img
-                src={postImage}
-                alt='게시글 사진'
-                className={styles.postImage}
-              />
-            ) : (
-              <div className={styles.postImage} />
-            )}
-            <p>{title}</p>
-            {price && <p className={styles.price}>{price}</p>}
-          </>
+          <div>
+            <div>
+              {profileImage ? (
+                <img
+                  src={profileImage}
+                  alt='프로필 사진'
+                  className={styles.profileImage}
+                />
+              ) : (
+                <div className={styles.profileImage} />
+              )}
+              <span className={styles.username}>{user}</span>
+            </div>
+            {price && <div className={styles.price}>{price}</div>}
+            <p>
+              저장 {viewCount} • 조회 {saveCount}
+            </p>
+          </div>
         )}
 
         {category === PostCategories.REQUEST_ASSIGN && (

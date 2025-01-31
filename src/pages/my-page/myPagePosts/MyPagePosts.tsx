@@ -68,7 +68,8 @@ export const MyPagePosts = () => {
       <div className={styles.contentWrapper}>
         <main className={styles.mainContent}>
           <h1 className={styles.title}>
-            게시물 관리 <span className={styles.count}>11</span>
+            게시물 관리{' '}
+            <span className={styles.count}>총 게시글 {posts.length}</span>
           </h1>
           <TabNavigation
             tabs={TABS}
