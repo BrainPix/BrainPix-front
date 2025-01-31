@@ -24,7 +24,7 @@ import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsColl
 //import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 //import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
 import { MyPage } from './pages/my-page/myPage/MyPage';
-//import { Info } from './pages/my-page/myPage/Info';
+import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 
 function App() {
@@ -93,10 +93,10 @@ function App() {
               path='/my/posts/collaboration/:postId'
               element={<PostsCollaboration />}
             />
-            {/* <Route
+            <Route
               path='/my/info'
               element={<Info />}
-            /> */}
+            />
             <Route
               path='/my/recent-news'
               element={<RecentNews />}
