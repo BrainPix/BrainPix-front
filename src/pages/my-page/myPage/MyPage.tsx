@@ -1,7 +1,12 @@
 import classNames from 'classnames';
 import styles from './myPage.module.scss';
+<<<<<<< HEAD
 import { MyProfileCard } from '../../../components/my/info/MyProfileCard';
 import { PreviewList } from '../../../components/my/PreviewList';
+=======
+import { MyProfileCard } from '../../../components/my-page/MyProfileCard';
+import { PreviewList } from '../../../components/my-page/PreviewList';
+>>>>>>> afadcb3b95f3853e7d84f919f0f3e7c12c4f6ad3
 import { Fragment } from 'react/jsx-runtime';
 
 export const MyPage = () => {
@@ -38,7 +43,7 @@ export const MyPage = () => {
       <div>
         <div className={classNames(styles.title)}>
           자기소개
-          <button>수정하기</button>
+          <a href='/my'>수정하기</a>
         </div>
         <p className={classNames(styles.introduceContent)}>
           {USER_DATA.introduce}
@@ -47,7 +52,7 @@ export const MyPage = () => {
       <div>
         <div className={classNames(styles.title)}>
           최근 소식
-          <button>전체보기</button>
+          <a href='/my/recent-news'>전체보기</a>
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
           <PreviewList isRead />
@@ -57,7 +62,7 @@ export const MyPage = () => {
       <div>
         <div className={classNames(styles.title)}>
           내 아이디어
-          <button>전체보기</button>
+          <a href='/my'>전체보기</a>
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
           <PreviewList />

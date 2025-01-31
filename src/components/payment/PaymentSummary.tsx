@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import styles from './paymentSummary.module.scss';
-import EllipseGray from '../../assets/icons/Ellipse_gray.svg?react';
-import EllipseBlue from '../../assets/icons/Ellipse_blue.svg?react';
-import EllipseWhite from '../../assets/icons/Ellipse_white.svg?react';
-import CheckLightIcon from '../../assets/icons/check-light.svg?react';
-import CheckLightGray from '../../assets/icons/check-light-gray.svg?react';
-import CheckLightBlue from '../../assets/icons/check-light-blue.svg?react';
+import EllipseGray from '../../assets/icons/ellipseGray.svg?react';
+import EllipseBlue from '../../assets/icons/ellipseBlue.svg?react';
+import EllipseWhite from '../../assets/icons/ellipseWhite.svg?react';
+import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
+import CheckLightGray from '../../assets/icons/checkLightGray.svg?react';
+import CheckLightBlue from '../../assets/icons/checkLightBlue.svg?react';
 
 const PaymentSummary = () => {
   const [isAllAgreed, setIsAllAgreed] = useState(false);

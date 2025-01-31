@@ -30,6 +30,8 @@
 .button {
   @include flex-center;
 
+  cursor: pointer;
+
   &Small {
     font-size: $font-size-small;
   }
