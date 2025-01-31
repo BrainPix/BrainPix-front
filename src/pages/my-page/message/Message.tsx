@@ -5,8 +5,8 @@ import { MessagesKeyType, MessagesType } from '../../../types/message';
 import { noMessage } from '../../../constants/noMessageText';
 
 export const Message = () => {
-  const READ_COUNT = 6;
-  const UNREAD_COUNT = 0;
+  const READ_COUNT = 1;
+  const UNREAD_COUNT = 1;
 
   const MESSAGES: MessagesType = {
     all: [
@@ -16,6 +16,7 @@ export const Message = () => {
         date: '12월 29일',
         name: 'SEO YEON',
         content: 'Web 서비스 게시글 관련 제안 드립니다.',
+        isRead: false,
       },
       {
         id: 2,
@@ -23,6 +24,7 @@ export const Message = () => {
         date: '12월 29일',
         name: 'SEO YEON',
         content: 'Web 서비스 게시글 관련 제안 드립니다.',
+        isRead: true,
       },
     ],
     receive: [
@@ -32,6 +34,7 @@ export const Message = () => {
         date: '12월 29일',
         name: 'SEO YEON',
         content: 'Web 서비스 게시글 관련 제안 드립니다.',
+        isRead: false,
       },
       {
         id: 2,
@@ -39,6 +42,7 @@ export const Message = () => {
         date: '12월 29일',
         name: 'SEO YEON',
         content: 'Web 서비스 게시글 관련 제안 드립니다.',
+        isRead: true,
       },
     ],
     send: [],
@@ -99,7 +103,9 @@ export const Message = () => {
                 {MESSAGES[messageKey].map((message) => (
                   <div
                     key={message.id}
-                    className={classNames(styles.messageCardWrapper)}>
+                    className={classNames(styles.messageCardWrapper, {
+                      [styles.isRead]: message.isRead,
+                    })}>
                     <div className={classNames(styles.leftWrapper)}>
                       <div className={classNames(styles.rootWrapper)}>
                         {message.root.map((root, idx) => (

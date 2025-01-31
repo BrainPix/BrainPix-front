@@ -4,6 +4,7 @@ export interface MessageType {
   date: string;
   name: string;
   content: string;
+  isRead: boolean;
 }
 
 export type MessagesKeyType = 'all' | 'receive' | 'send';
