@@ -1,4 +1,3 @@
-import styles from './postsCollaboraion.module.scss';
 import { useParams } from 'react-router-dom';
 import { PostHeader } from '../../../components/my-page/PostHeader.tsx';
 import { ApplyStatus } from '../../../components/my-page/ApplyStatus.tsx';
@@ -8,7 +7,7 @@ export const PostsCollaboration = () => {
   const POST_DATA = [
     {
       id: 2,
-      tab: '요청과제',
+      tab: '협업 광장',
       category: '기획',
       postImage: null,
       title: 'Web 서비스 제안',
@@ -30,8 +29,11 @@ export const PostsCollaboration = () => {
   return (
     <>
       <PostHeader
+        tab={post.tab}
         category={post.category}
         title={post.title}
+        deadline={post.deadline}
+        postImage={post.postImage}
       />
       <ApplyStatus />
       <CurrentPeople />

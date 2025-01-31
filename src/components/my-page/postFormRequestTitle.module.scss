@@ -31,6 +31,7 @@
 .title {
   @include font-mixin('Pretendard', 36px, 600);
   font-weight: bold;
+  margin-top: 17px;
   margin-bottom: 20px;
 }
 

@@ -1,7 +1,7 @@
-import styles from './postsRequestAssign.module.scss';
+import { useParams } from 'react-router-dom';
 import { CurrentPeople } from '../../../components/my-page/CurrentPeople.tsx';
 import { ApplyStatus } from '../../../components/my-page/ApplyStatus.tsx';
-import { useParams } from 'react-router-dom';
+import { PostHeader } from '../../../components/my-page/PostHeader.tsx';
 
 export const PostsRequestAssign = () => {
   const POST_DATA = [
@@ -25,14 +25,18 @@ export const PostsRequestAssign = () => {
   if (!post) {
     return <div>게시글을 찾을 수 없습니다.</div>;
   }
+
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2>게시물 관리</h2>
-        <p>요청 과제</p>
-      </div>
+    <>
+      <PostHeader
+        tab={post.tab}
+        category={post.category}
+        title={post.title}
+        deadline={post.deadline}
+        postImage={post.postImage}
+      />
       <ApplyStatus />
       <CurrentPeople />
-    </div>
+    </>
   );
 };
