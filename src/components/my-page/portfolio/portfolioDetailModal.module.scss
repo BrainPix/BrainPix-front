@@ -40,6 +40,12 @@
   gap: 15px;
 }
 
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .infoWrapper {
   @include pretendard-28-500;
 
@@ -51,9 +57,16 @@
     @include pretendard-28-500;
 
     background-color: $grey-50;
+    border-radius: 5px;
+    border: 1px solid $grey-700;
+    padding: 4px;
 
     &:disabled {
       border: none;
+    }
+
+    &:focus {
+      outline: none;
     }
   }
 }
