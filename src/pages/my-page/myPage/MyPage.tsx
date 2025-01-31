@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import styles from './myPage.module.scss';
-import { MyProfileCard } from '../../../components/my-page/MyProfileCard';
-import { PreviewList } from '../../../components/my-page/PreviewList';
 import { Fragment } from 'react/jsx-runtime';
+import styles from './myPage.module.scss';
+import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard';
+import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 
 export const MyPage = () => {
   const USER_DATA = {

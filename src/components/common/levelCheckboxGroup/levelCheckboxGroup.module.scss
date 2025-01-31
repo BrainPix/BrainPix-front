@@ -1,0 +1,25 @@
+.skillLevelWrapper {
+  @include pretendard-24-400;
+
+  color: $grey-700;
+  display: flex;
+  gap: 30px;
+
+  & > div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+.checkBox {
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  border: 1px solid $grey-700;
+  appearance: none;
+
+  &:checked {
+    background-color: $primary;
+  }
+}

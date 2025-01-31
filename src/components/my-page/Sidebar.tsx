@@ -5,7 +5,7 @@ export const Sidebar = () => {
   return (
     <div className={classNames(styles.container)}>
       <a
-        href='/my'
+        href='/my/info'
         className={classNames(styles.mainTitle)}>
         마이페이지
       </a>
