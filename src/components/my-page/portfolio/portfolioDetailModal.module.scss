@@ -1,12 +1,12 @@
 .container {
   position: fixed;
-  top: 10%;
+  top: 0;
   right: 10px;
   z-index: 10;
   width: 1000px;
   background-color: $grey-50;
   box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
-  padding: 39px 50px 159px;
+  padding: 39px 50px;
   border-radius: 50px;
 }
 
