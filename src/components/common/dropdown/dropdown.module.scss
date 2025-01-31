@@ -2,6 +2,11 @@
   position: relative;
   font-family: Arial, sans-serif;
   font-size: 15px;
+  z-index: 100;
+
+  & > * {
+    cursor: pointer;
+  }
 }
 
 .label {
@@ -52,7 +57,6 @@
 
 .option {
   padding: 10px;
-  cursor: pointer;
   transition: background 0.3s;
 
   &:hover {
