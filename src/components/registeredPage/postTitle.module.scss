@@ -1,0 +1,128 @@
+.container {
+    margin-top: 45px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    position: relative;
+  }
+  
+  .leftSection {
+    width: 350px;
+    height: 350px;
+    flex-shrink: 0;
+    background: $grey-300;
+    @include flex-center;
+    @include pretendard-18-500;
+    color: $grey-700;
+  }
+  
+  .placeholderBox {
+    text-align: center;
+  }
+  
+  .rightSection {
+    flex-grow: 1;
+    margin-left: 50px;
+  }
+  
+  .navigation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .text {
+    color: $grey-500;
+    @include pretendard-20-400;
+    letter-spacing: -0.2px;
+  }
+  
+  .arrowIcon {
+    width: 28px;
+    height: 28px;
+    transform: rotate(-180deg);
+  }
+  
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .title {
+    color: $grey-800;
+    @include pretendard-36-600;
+    letter-spacing: -0.36px;
+  }
+  
+  .price {
+    color: $grey-800;
+    @include pretendard-32-600;
+    margin-bottom: 20px;
+  }
+  
+  .details {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+  }
+  
+  .date,
+  .info {
+    color: $grey-600;
+    @include pretendard-18-400;
+  }
+  
+  .dotIcon {
+    width: 4px;
+    height: 4px;
+    fill: $grey-400;
+  }
+  
+  .bookmarkButton {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    @include flex-center;
+    margin-top: 30px;
+  }
+  
+  .outerCircle {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .bookmarkIcon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  
+  .purchaseButton {
+    width: 260px;
+    height: 75px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: $primary;
+    color: $grey-50;
+    @include pretendard-26-500;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.26px;
+    @include flex-center;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    cursor: pointer;
+    border: none;
+  }
+  

@@ -1,13 +1,28 @@
 import styles from './teamBuildingButton.module.scss';
+import { useState } from 'react';
+import CollaborationSupportModal from '../modal/CollaborationSupportModal';
 
 const TeamBuildingButton = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a
-      href='#'
-      className={styles.button}>
-      팀 빌딩 신청하기
-    </a>
+    <>
+      <button
+        type='button'
+        className={styles.button}
+        onClick={openModal}>
+        팀 빌딩 신청하기
+      </button>
+      {isModalOpen && <CollaborationSupportModal onClose={closeModal} />}
+    </>
   );
 };
 
