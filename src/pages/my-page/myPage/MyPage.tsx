@@ -35,19 +35,16 @@ export const MyPage = () => {
           </Fragment>
         ))}
       </div>
-      <div>
-        <div className={classNames(styles.title)}>
-          자기소개
-          <a href='/my'>수정하기</a>
-        </div>
+      <div className={classNames(styles.contentContainer)}>
+        <div className={classNames(styles.title)}>자기소개</div>
         <p className={classNames(styles.introduceContent)}>
           {USER_DATA.introduce}
         </p>
       </div>
-      <div>
+      <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.title)}>
           최근 소식
-          <a href='/my/recent-news'>전체보기</a>
+          <a href='/my/recent-news'>자세히</a>
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
           <PreviewList isRead />
