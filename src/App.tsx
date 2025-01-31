@@ -85,7 +85,7 @@ function App() {
               element={<MyPagePosts />}
             />
             <Route
-              path='/my/portfolio' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
+              path='/my/portfolio'
               element={<Portfolio />}
             />
           </Route>
