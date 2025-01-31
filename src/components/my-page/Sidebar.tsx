@@ -3,7 +3,6 @@ import styles from './sidebar.module.scss';
 
 export const Sidebar = () => {
   const location = window.location.pathname;
-  console.log(location);
 
   const MENU_LOCATION = {
     포트폴리오: '/my/portfolio',
