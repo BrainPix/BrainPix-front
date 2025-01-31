@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './message.module.scss';
 import { MessagesKeyType, MessagesType } from '../../../types/message';
 import { noMessage } from '../../../constants/noMessageText';
+import { WriteMessageModal } from '../../../components/my-page/message/WriteMessageModal';
+import { useOutsideClick } from '../../../hooks/useOutsideClick';
 
 export const Message = () => {
   const READ_COUNT = 1;
@@ -57,9 +59,27 @@ export const Message = () => {
   type MenuValueType = (typeof MENU)[MessagesKeyType];
 
   const [clickedMenu, setClickedMenu] = useState<MenuValueType>('전체 메세지');
+  const [isOpenWriteModal, setIsOpenWriteModal] = useState(false);
+
+  const writeMessageModalRef = useRef(null);
+
+  const handleCloseWriteModal = () => {
+    setIsOpenWriteModal(false);
+  };
+
+  useOutsideClick({
+    ref: writeMessageModalRef,
+    handler: handleCloseWriteModal,
+  });
 
   return (
     <div>
+      {isOpenWriteModal && (
+        <WriteMessageModal
+          onClose={handleCloseWriteModal}
+          ref={writeMessageModalRef}
+        />
+      )}
       <div className={classNames(styles.titleWrapper)}>
         <span className={classNames(styles.title)}>메신저</span>
         <span className={classNames(styles.readCount)}>읽음 {READ_COUNT}</span>
@@ -68,6 +88,7 @@ export const Message = () => {
           안 읽음 {UNREAD_COUNT}
         </span>
         <button
+          onClick={() => setIsOpenWriteModal(true)}
           className={classNames(styles.writeButton, 'buttonOutlined-grey500')}>
           메시지 쓰기
         </button>
