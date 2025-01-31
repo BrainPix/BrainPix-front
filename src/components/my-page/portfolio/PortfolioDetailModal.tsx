@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './portfolioDetailModal.module.scss';
 
@@ -12,6 +12,14 @@ export const PortfolioDetailModal = forwardRef<
   HTMLDivElement,
   PortfolioDetailModalPropsType
 >(({ onClose }, ref) => {
+  const [editMode, setEditMode] = useState(false);
+
+  const handleClickEditButton = () => {
+    if (editMode) {
+      return setEditMode(false);
+    }
+    setEditMode(true);
+  };
   return (
     <div
       className={classNames(styles.container)}
@@ -19,8 +27,9 @@ export const PortfolioDetailModal = forwardRef<
       <div className={classNames(styles.titleWrapper)}>
         <h1 className={classNames(styles.title)}>포트폴리오 제목</h1>
         <button
+          onClick={handleClickEditButton}
           className={classNames('buttonOutlined-grey500', styles.editButton)}>
-          수정하기
+          {editMode ? '수정완료' : '수정하기'}
         </button>
       </div>
       <hr className={classNames(styles.titleDivider)} />
@@ -29,12 +38,18 @@ export const PortfolioDetailModal = forwardRef<
           <div className={classNames(styles.infoWrapper)}>
             <span>카테고리 </span>
             <hr className={classNames(styles.infoDivider)} />
-            디자인
+            <input
+              defaultValue={'디자인'}
+              disabled={!editMode}
+            />
           </div>
           <div className={classNames(styles.infoWrapper)}>
             <span>프로젝트 기간 </span>
             <hr className={classNames(styles.infoDivider)} />
-            2024/08 - 2024/12
+            <input
+              defaultValue={'2024/08 - 2024/12'}
+              disabled={!editMode}
+            />
           </div>
         </div>
         <label htmlFor='imageInput'>
@@ -52,7 +67,10 @@ export const PortfolioDetailModal = forwardRef<
           alt='이미지'
           className={classNames(styles.imageInput)}
         />
-        <textarea className={classNames(styles.contentInput)} />
+        <textarea
+          disabled={!editMode}
+          className={classNames(styles.contentInput)}
+        />
         <div className={classNames(styles.deleteButtonWrapper)}>
           <button
             type='button'

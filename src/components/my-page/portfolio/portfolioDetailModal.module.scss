@@ -22,6 +22,7 @@
 
     padding: 10px 20px;
     border-radius: 29px;
+    cursor: pointer;
   }
 }
 
@@ -40,9 +41,21 @@
 }
 
 .infoWrapper {
+  @include pretendard-28-500;
+
   display: flex;
   align-items: center;
   color: $grey-700;
+
+  & > input {
+    @include pretendard-28-500;
+
+    background-color: $grey-50;
+
+    &:disabled {
+      border: none;
+    }
+  }
 }
 
 .infoDivider {

@@ -1,12 +1,12 @@
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
 import styles from './addPortfolioModal.module.scss';
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill-new';
 
 import IamgeInput from '../../../assets/icons/imageInput.svg?react';
 import Dropdown from '../../common/dropdown/Dropdown';
 
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill-new/dist/quill.snow.css';
 import { QuillToolbar } from './QuillToolbar';
 
 interface AddPortfolioModalPropsType {
@@ -20,6 +20,8 @@ export const AddPortfolioModal = forwardRef<
   const modules = {
     toolbar: { container: '#toolbar', handlers: {} },
   };
+
+  const quillRef = useRef<ReactQuill>(null);
 
   return (
     <div
@@ -67,6 +69,7 @@ export const AddPortfolioModal = forwardRef<
           <div className={classNames(styles.contentInputWrapper)}>
             <QuillToolbar />
             <ReactQuill
+              ref={quillRef}
               modules={modules}
               className={classNames(styles.textInput)}
               placeholder='내용을 입력하세요'
