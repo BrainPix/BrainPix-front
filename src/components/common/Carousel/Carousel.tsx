@@ -35,6 +35,7 @@ export const Carousel = ({
       {buttonPosition === 'top' ? (
         <div className={classNames(styles.navigationControls)}>
           <button
+            type='button'
             disabled={currentPage <= 0}
             className={classNames(styles.arrow, {
               [styles.disabled]: currentPage === 0,
@@ -47,6 +48,7 @@ export const Carousel = ({
             />
           </button>
           <button
+            type='button'
             onClick={handleClickNextButton}
             disabled={currentPage > LAST_PAGE - 1}
             className={classNames(styles.arrow, {
@@ -61,6 +63,7 @@ export const Carousel = ({
       ) : (
         <div className={classNames(styles.centerNavigationControls)}>
           <button
+            type='button'
             disabled={currentPage <= 0}
             className={classNames(styles.arrow, {
               [styles.disabled]: currentPage === 0,
@@ -74,6 +77,7 @@ export const Carousel = ({
             />
           </button>
           <button
+            type='button'
             onClick={handleClickNextButton}
             disabled={currentPage > LAST_PAGE - 1}
             className={classNames(styles.arrow, {

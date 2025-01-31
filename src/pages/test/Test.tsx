@@ -9,9 +9,7 @@ import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 import Dropdown from '../../components/common/dropdown/Dropdown.tsx';
 
 //라벨 test
-import CorporateLabel from '../../components/common/label/CorporateLabel.tsx';
-import PersonalLabel from '../../components/common/label/PersonalLabel.tsx';
-import CorporatePublicLabel from '../../components/common/label/CorporatePublicLabel.tsx';
+import Label from '../../components/common/label/Label.tsx';
 
 export const Test = () => {
   const [clicked, setClicked] = useState(false);
@@ -38,9 +36,25 @@ export const Test = () => {
         {/* <Dropdown max_visible_options={7} /> */}
       </div>
       <button className='buttonFilled-grey800'>dd</button>
-      <CorporateLabel />
-      <PersonalLabel />
-      <CorporatePublicLabel />
+      {/* 라벨 test */}
+      <div>
+        <Label
+          text='기업'
+          type='corporate'
+        />
+        <Label
+          text='기업 공개'
+          type='corporatePublic'
+        />
+        <Label
+          text='개인'
+          type='personal'
+        />
+        <Label
+          text='자체 공모'
+          type='selfOffer'
+        />
+      </div>
     </div>
   );
 };

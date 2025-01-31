@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileContainer {
+  width: 100%;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  position: relative;
+}
+
+.profileWrapper {
+  @include flex-center;
+
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile {
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+  background-color: #d9d9d9;
+}
+
+.profileEditButton {
+  @include pretendard-16-500;
+
+  color: $grey-700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  margin-left: 8px;
+  margin-top: 15px;
+}
+
+.typeWrapper {
+  display: flex;
+  gap: 15px;
+
+  & > .position {
+    @include pretendard-20-400;
+
+    color: $grey-700;
+  }
+}
+
+.name {
+  font-size: 36px;
+  font-weight: 500;
+}
+
+.editButton {
+  @include pretendard-20-500;
+
+  width: fit-content;
+  margin-left: auto;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+}

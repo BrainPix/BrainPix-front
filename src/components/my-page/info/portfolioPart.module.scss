@@ -1,0 +1,12 @@
+@import './commonStyle.module';
+
+.manageText {
+  @include pretendard-20-500;
+
+  color: $grey-500;
+  cursor: pointer;
+}
+
+.portfolioWrapper {
+  width: 700px;
+}
