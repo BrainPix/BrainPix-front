@@ -4,7 +4,9 @@ import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
+import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
+import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
 import { Collaboration } from './pages/collaboration/Collaboration';
 import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
@@ -38,12 +40,20 @@ function App() {
             element={<IdeaMarket />}
           />
           <Route
+            path='/idea-market/registered'
+            element={<IdeaRegisteredPage />}
+          />
+          <Route
             path='/idea-market/payment'
             element={<IdeaMarketPayment />}
           />
           <Route
             path='/request-assign'
             element={<RequestAssign />}
+          />
+          <Route
+            path='/request-assign/registered'
+            element={<RequestRegisteredPage />}
           />
           <Route
             path='/collaboration'
