@@ -17,7 +17,7 @@ export const IdeaMarketPostCard = ({
             {profileImage ? (
               <img
                 src={profileImage}
-                alt='프로필 사진'
+                alt='프로필사진'
                 className={styles.profileImage}
               />
             ) : (
