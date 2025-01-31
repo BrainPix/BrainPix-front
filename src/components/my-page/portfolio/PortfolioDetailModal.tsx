@@ -52,14 +52,14 @@ export const PortfolioDetailModal = forwardRef<
             />
           </div>
         </div>
-        <label htmlFor='imageInput'>
-          <div className={classNames(styles.imageInputLabel)}>
-            <ImageInput
-              width={107}
-              height={107}
-            />
-            대표사진
-          </div>
+        <label
+          htmlFor='imageInput'
+          className={classNames(styles.imageInputLabel)}>
+          <ImageInput
+            width={107}
+            height={107}
+          />
+          대표사진
         </label>
         <input
           id='imageInput'
