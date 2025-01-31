@@ -4,20 +4,32 @@ import styles from './ portfolio.module.scss';
 
 import { AddPortfolioModal } from '../../../components/my-page/portfolio/AddPortfolioModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
+import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
 
 export const Portfolio = () => {
   const PORTFOLIO_COUNT = 6;
 
   const [isOpenAddPortfolioModal, setIsOpenAddPortfolioModal] = useState(false);
+  const [isOpenPortfolioDetailModal, setIsOpenPortfolioDetailModal] =
+    useState(false);
 
-  const closeOpenAddPortfolioModal = () => {
+  const handleCloseAddPortfolioModal = () => {
     setIsOpenAddPortfolioModal(false);
   };
 
+  const handleClosePortfolioDetailModal = () => {
+    setIsOpenPortfolioDetailModal(false);
+  };
+
   const addPortfolioModalRef = useRef(null);
+  const portfolioDetailModalRef = useRef(null);
   useOutsideClick({
     ref: addPortfolioModalRef,
-    handler: closeOpenAddPortfolioModal,
+    handler: handleCloseAddPortfolioModal,
+  });
+  useOutsideClick({
+    ref: portfolioDetailModalRef,
+    handler: handleClosePortfolioDetailModal,
   });
 
   return (
@@ -25,7 +37,13 @@ export const Portfolio = () => {
       {isOpenAddPortfolioModal && (
         <AddPortfolioModal
           ref={addPortfolioModalRef}
-          onClose={closeOpenAddPortfolioModal}
+          onClose={handleCloseAddPortfolioModal}
+        />
+      )}
+      {isOpenPortfolioDetailModal && (
+        <PortfolioDetailModal
+          ref={portfolioDetailModalRef}
+          onClose={handleClosePortfolioDetailModal}
         />
       )}
       <div className={classNames(styles.title)}>
@@ -46,6 +64,7 @@ export const Portfolio = () => {
           .map((val) => (
             <div
               key={val}
+              onClick={() => setIsOpenPortfolioDetailModal(true)}
               className={classNames(styles.portfolioCardWrapper)}>
               <div className={classNames(styles.image)} />
               <p className={classNames(styles.portfolioTitle)}>{val}</p>

@@ -30,7 +30,10 @@ export const AddPortfolioModal = forwardRef<
       <form className={classNames(styles.contentContainer)}>
         <label htmlFor='imageInput'>
           <div className={classNames(styles.imageInputLabel)}>
-            <IamgeInput />
+            <IamgeInput
+              width={54}
+              height={54}
+            />
             대표사진
           </div>
         </label>
