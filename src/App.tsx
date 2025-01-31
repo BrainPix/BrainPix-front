@@ -20,8 +20,8 @@ import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequ
 import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsCollaboration';
 //import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 //import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
-//import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
-import { MyPage } from './pages/my-page/myPage/MyPage';
+import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
+//import { MyPage } from './pages/my-page/myPage/MyPage';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
           <Route element={<MyPageLayout />}>
             <Route
               path='/my'
-              element={<MyPage />}
+              element={<CollaborationEdit />}
             />
             <Route
               path='/my/posts'
