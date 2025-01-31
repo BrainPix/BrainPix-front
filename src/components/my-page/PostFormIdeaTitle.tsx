@@ -1,5 +1,5 @@
 import styles from './postFormIdeaTitle.module.scss';
-import CorporatePublicLabel from '../common/label/CorporatePublicLabel';
+import CorporatePublicLabel from '../../components/common/label/Label.tsx';
 
 export const PostFormIdeaTitle = () => {
   const POST_DATA = {
@@ -36,7 +36,10 @@ export const PostFormIdeaTitle = () => {
           </div>
           <div className={styles.titleAndLabel}>
             <p className={styles.title}>{POST_DATA.title}</p>
-            <CorporatePublicLabel />
+            <CorporatePublicLabel
+              text='기업 공개'
+              type='corporatePublic'
+            />
           </div>
           <div className={styles.price}>{FORMATTEDPRICE}원</div>
           <p className={styles.date}>

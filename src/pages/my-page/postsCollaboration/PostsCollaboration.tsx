@@ -6,7 +6,7 @@ import { CurrentPeople } from '../../../components/my-page/CurrentPeople.tsx';
 export const PostsCollaboration = () => {
   const POST_DATA = [
     {
-      id: 2,
+      id: 3,
       tab: '협업 광장',
       category: '기획',
       postImage: null,
