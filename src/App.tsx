@@ -20,11 +20,8 @@ import { MyPage } from './pages/my-page/myPage/MyPage';
 import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
-<<<<<<< HEAD
 import { Message } from './pages/my-page/message/Message';
-=======
 import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
->>>>>>> e3d04e9a095e417267faa97ca8a75f401b39f1f2
 
 function App() {
   return (
