@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react';
 import classNames from 'classnames';
-import Dropdown from '../../common/dropdown/Dropdown';
+import { Dropdown } from '../../common/dropdown/Dropdown';
 import styles from './individualInfoPart.module.scss';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
