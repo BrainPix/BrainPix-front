@@ -1,19 +1,15 @@
 import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
-import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
-import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
-import Delete from '../../assets/icons/delete.svg?react';
 import styles from './login.module.scss';
 import { loginRegisters } from '../../constants/registers';
 
 export const Login = () => {
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [member, setMember] = useState<'individual' | 'corparate'>(
     'individual',
   );
 
-  const { register, handleSubmit, setValue } = useForm({ mode: 'onSubmit' });
+  const { register, handleSubmit } = useForm({ mode: 'onSubmit' });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
     console.log(payload);
@@ -21,18 +17,10 @@ export const Login = () => {
 
   const registers = loginRegisters(register);
 
-  const handleClickDelete = (type: 'id' | 'password') => {
-    if (type === 'password') {
-      return setValue('password', '');
-    }
-    if (type === 'id') {
-      return setValue('id', '');
-    }
-  };
-
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.logo)}>로고</div>
+      <h1 className={classNames(styles.title)}>로그인</h1>
       <div className={classNames(styles.loginContainer)}>
         <div className={classNames(styles.buttonWrapper)}>
           <button
@@ -58,41 +46,25 @@ export const Login = () => {
           <form
             onSubmit={handleSubmit(handleSubmitHandler)}
             className={classNames(styles.form)}>
-            <label
-              htmlFor='id'
-              className={classNames(styles.label)}>
-              아이디
-              <div className={classNames(styles.iconWrapper)}>
-                <Delete onClick={() => handleClickDelete('id')} />
-              </div>
-            </label>
-            <input
-              className={classNames(styles.input)}
-              placeholder='아이디 입력'
-              type='text'
-              id='id'
-              {...registers.id}
-            />
-            <label
-              htmlFor='password'
-              className={classNames(styles.label)}>
-              비밀번호
-              <div className={classNames(styles.iconWrapper)}>
-                {isVisiblePassword ? (
-                  <EyeVisible onClick={() => setIsVisiblePassword(false)} />
-                ) : (
-                  <EyeNonVisible onClick={() => setIsVisiblePassword(true)} />
-                )}
-                <Delete onClick={() => handleClickDelete('password')} />
-              </div>
-            </label>
-            <input
-              className={classNames(styles.input)}
-              placeholder='비밀번호 입력'
-              type={isVisiblePassword ? 'password' : 'text'}
-              id='password'
-              {...registers.password}
-            />
+            <div>
+              <h3 className={classNames(styles.label)}>아이디</h3>
+              <input
+                className={classNames(styles.input)}
+                placeholder='아이디 입력'
+                type='text'
+                id='id'
+                {...registers.id}
+              />
+            </div>
+            <div>
+              <h3 className={classNames(styles.label)}>비밀번호</h3>
+              <input
+                className={classNames(styles.input)}
+                placeholder='비밀번호 입력'
+                id='password'
+                {...registers.password}
+              />
+            </div>
             <button
               type='submit'
               className={classNames(styles.loginButton)}>
@@ -101,7 +73,7 @@ export const Login = () => {
             <a
               href='/sign-up'
               className={classNames(styles.signUpText)}>
-              회원가입
+              회원가입하기
             </a>
           </form>
         </div>
