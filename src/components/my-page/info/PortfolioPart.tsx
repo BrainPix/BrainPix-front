@@ -13,13 +13,13 @@ export const PortfolioPart = ({
 }: PortfolioParttPropsType) => {
   return (
     <div className={classNames(styles.portfolioWrapper)}>
-      <div className={classNames(styles.title)}>
+      <div className={classNames(styles.portfolioTitle)}>
         {userType === '기업' && '기업'} 포트폴리오
         {editMode && (
           <span className={classNames(styles.manageText)}>관리하기</span>
         )}
       </div>
-      <PortfolioCarousel size={3} />
+      <PortfolioCarousel size={4} />
     </div>
   );
 };

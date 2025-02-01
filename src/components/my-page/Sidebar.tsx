@@ -5,17 +5,17 @@ export const Sidebar = () => {
   return (
     <div className={classNames(styles.container)}>
       <a
-        href='/my/info'
+        href='/my'
         className={classNames(styles.mainTitle)}>
         마이페이지
       </a>
       <a
-        href='/my'
+        href='/my/info'
         className={classNames(styles.subTitle)}>
         내 정보
       </a>
       <div className={classNames(styles.menuWrapper)}>
-        <a href='my'>포트폴리오</a>
+        <a href='/my/portfolio'>포트폴리오</a>
         <a href='/my/posts'>게시물 관리</a>
         <a href='my'>지원현황</a>
         <a href='my'>메신저</a>

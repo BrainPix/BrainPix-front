@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
-import { IdeaMarket } from './pages/idea-market/IdeaMarket';
+import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
+import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
@@ -26,6 +27,7 @@ import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsColl
 import { MyPage } from './pages/my-page/myPage/MyPage';
 import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
+import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 
 function App() {
   return (
@@ -38,7 +40,11 @@ function App() {
           />
           <Route
             path='/idea-market'
-            element={<IdeaMarket />}
+            element={<IdeaMarketMain />}
+          />
+          <Route
+            path='/idea-market/register'
+            element={<IdeaMarketRegister />}
           />
           <Route
             path='/idea-market/registered'
@@ -100,6 +106,10 @@ function App() {
             <Route
               path='/my/recent-news'
               element={<RecentNews />}
+            />
+            <Route
+              path='/my/portfolio'
+              element={<Portfolio />}
             />
           </Route>
         </Route>

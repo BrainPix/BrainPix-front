@@ -1,37 +1,47 @@
 .title {
-  @include pretendard-32-500;
+  @include pretendard-20-500;
 
   color: $grey-900;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+  border-bottom: 1px solid $grey-400;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  position: relative;
 
   & > .subTitle {
-    @include pretendard-20-500;
+    @include pretendard-18-400;
 
-    color: red;
+    color: $red;
+    margin-top: 1px;
   }
 }
 
-.publicCheckboxWrapper {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+.publicCheckWrapper {
+  @include pretendard-18-400;
 
-  & > input {
-    width: 20px;
-    height: 20px;
-    border: 1px solid $grey-500;
-    cursor: pointer;
-  }
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  color: $grey-500;
 
   & > span {
-    @include pretendard-16-400;
-
-    color: $grey-500;
-    line-height: 19px;
-    margin-top: 1px;
+    margin-top: 2px;
   }
+}
+
+.checkboxLabel {
+  width: 16px;
+  height: 16px;
+  border: 1px solid $grey-500;
+  border-radius: 100px;
+  cursor: pointer;
+  outline: none;
+}
+
+.checkboxInput {
+  display: none;
 }
 
 .divider {
@@ -46,14 +56,15 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .addButton {
-  @include pretendard-20-500;
+  @include pretendard-16-400;
 
-  padding: 5px 15px;
+  padding: 10px 15px;
   width: max-content;
-  border-radius: 5px;
+  border-radius: 34px;
   cursor: pointer;
   margin-left: auto;
 }

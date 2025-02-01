@@ -76,7 +76,7 @@ const Dropdown = ({
           {finalOptions.map((option) => (
             <li
               key={option}
-              className={styles.option}
+              className={(classNames(styles.option), customClassName)}
               role='option'
               aria-selected={selected === option}
               tabIndex={0}
