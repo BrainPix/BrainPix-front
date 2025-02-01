@@ -47,7 +47,6 @@ export const Message = () => {
       <div className={classNames(styles.titleWrapper)}>
         <span className={classNames(styles.title)}>메신저</span>
         <span className={classNames(styles.readCount)}>읽음 {READ_COUNT}</span>
-        <hr className={classNames(styles.divider)} />
         <span className={classNames(styles.readCount)}>
           안 읽음 {UNREAD_COUNT}
         </span>
