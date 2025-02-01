@@ -4,9 +4,9 @@ import { Dropdown } from '../../../components/common/dropdown/Dropdown';
 //import MainImage from '../../../assets/images/requestRegisterPostImage.png';
 
 export const RequestAssignRegister = () => {
-  const [category, setCategory] = useState('');
-  const [pageSetting, setPageSetting] = useState('Open Idea');
-  const [techZone, setTechZone] = useState('Tech Zone');
+  // const [category, setCategory] = useState('');
+  // const [pageSetting, setPageSetting] = useState('Open Idea');
+  // const [techZone, setTechZone] = useState('Tech Zone');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -24,12 +24,12 @@ export const RequestAssignRegister = () => {
             <span className={styles.text}>페이지 설정</span>
             <span className={styles.required}>(필수)</span>
             {/* 컴포넌트 */}
-            <div>
+            {/* <div>
               <button className={styles.active}>{pageSetting}</button>
               <span>|</span>
               <button>{techZone}</button>
               <button className={styles.openIdeaDesc}>Open Idea 설명 ▼</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
