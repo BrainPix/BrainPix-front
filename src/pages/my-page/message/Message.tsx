@@ -21,12 +21,23 @@ export const Message = () => {
   type MenuValueType = (typeof MENU)[MessagesKeyType];
 
   const [clickedMenu, setClickedMenu] = useState<MenuValueType>('전체 메세지');
+  const [writeModalType, setWriteModalType] = useState<
+    'write' | 'reply' | 'show'
+  >('show');
   const [isOpenWriteModal, setIsOpenWriteModal] = useState(false);
 
   const writeMessageModalRef = useRef(null);
 
   const handleCloseWriteModal = () => {
     setIsOpenWriteModal(false);
+  };
+
+  const handleChangeModalType = (type: 'write' | 'reply' | 'show') => {
+    setWriteModalType(type);
+  };
+
+  const handleClickReplyButton = () => {
+    setWriteModalType('reply');
   };
 
   useOutsideClick({
@@ -39,8 +50,9 @@ export const Message = () => {
       {isOpenWriteModal && (
         <WriteMessageModal
           onClose={handleCloseWriteModal}
+          onClickReply={handleClickReplyButton}
           ref={writeMessageModalRef}
-          type='reply'
+          type={writeModalType}
           previousMessage={PREVIOUS_MESSAGE_TEMP}
         />
       )}
@@ -51,7 +63,10 @@ export const Message = () => {
           안 읽음 {UNREAD_COUNT}
         </span>
         <button
-          onClick={() => setIsOpenWriteModal(true)}
+          onClick={() => {
+            setIsOpenWriteModal(true);
+            setWriteModalType('write');
+          }}
           className={classNames(styles.writeButton, 'buttonOutlined-grey500')}>
           메시지 쓰기
         </button>
@@ -82,6 +97,10 @@ export const Message = () => {
             ) : (
               <div
                 key={key}
+                onClick={() => {
+                  handleChangeModalType('show');
+                  setIsOpenWriteModal(true);
+                }}
                 className={classNames(styles.messageCardContainer)}>
                 {MESSAGES_TEMP[messageKey].map((message) => (
                   <div

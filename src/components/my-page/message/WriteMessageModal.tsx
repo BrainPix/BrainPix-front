@@ -5,34 +5,39 @@ import { PreviousMessageType } from '../../../types/message';
 
 interface WriteMessageModalPropsType {
   onClose: () => void;
-  type?: 'detail' | 'reply';
+  onClickReply: () => void;
+  type?: 'write' | 'reply' | 'show';
   previousMessage?: PreviousMessageType;
 }
 
 export const WriteMessageModal = forwardRef<
   HTMLDivElement,
   WriteMessageModalPropsType
->(({ onClose, type = 'detail', previousMessage }, ref) => {
+>(({ onClose, onClickReply, type = 'detail', previousMessage }, ref) => {
   const PreviousData = `To. ${previousMessage?.receiver} \nFrom. ${previousMessage?.sender} \n${previousMessage?.previousContent}`;
 
   return (
     <div
       className={classNames(styles.container)}
       ref={ref}>
-      <h3 className={classNames(styles.title)}>메세지 보내기</h3>
+      <h3 className={classNames(styles.title)}>
+        {type === 'show' ? '받은 메세지' : '메세지 보내기'}
+      </h3>
       <hr className={classNames(styles.titleDivider)} />
       <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.inputContainer)}>
           <div className={classNames(styles.inputWrapper)}>
             <span>보낸 사람</span>
-            <div className={classNames(styles.nameTag)}>SEO YEON KIM</div>
+            <div className={classNames(styles.nameTag, styles.sender)}>
+              SEO YEON KIM
+            </div>
           </div>
           <div className={classNames(styles.inputWrapper)}>
             <span>받는 사람</span>
             {type === 'detail' ? (
               <input className={classNames(styles.textInput)} />
             ) : (
-              <div className={classNames(styles.nameTag)}>
+              <div className={classNames(styles.nameTag, styles.receiver)}>
                 {previousMessage?.receiver}
               </div>
             )}
@@ -71,12 +76,21 @@ export const WriteMessageModal = forwardRef<
           <button
             onClick={onClose}
             className={classNames(styles.cancelButton)}>
-            취소
+            닫기
           </button>
-          <button
-            className={classNames('buttonFilled-grey800', styles.sendButton)}>
-            보내기
-          </button>
+          {type === 'show' && (
+            <button
+              onClick={onClickReply}
+              className={classNames('buttonFilled-primary', styles.sendButton)}>
+              답장하기
+            </button>
+          )}
+          {(type === 'write' || type === 'reply') && (
+            <button
+              className={classNames('buttonFilled-primary', styles.sendButton)}>
+              보내기
+            </button>
+          )}
         </div>
       </div>
     </div>
