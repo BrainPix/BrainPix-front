@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './postTitle.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import DotIcon from '../../assets/icons/dot.svg?react';
@@ -8,15 +9,20 @@ import Label from '../common/label/Label';
 
 const PostTitlePay = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const navigate = useNavigate();
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
 
+  const handlePurchaseClick = () => {
+    navigate('/idea-market/payment');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <div className={styles.placeholderBox}>대표사진</div>
+        <div className={styles.placeholderBox}></div>
       </div>
       <div className={styles.rightSection}>
         <div className={styles.navigation}>
@@ -54,7 +60,11 @@ const PostTitlePay = () => {
           <span className={styles.info}>저장 12</span>
         </div>
       </div>
-      <button className={styles.purchaseButton}>구매하기</button>
+      <button
+        className={styles.purchaseButton}
+        onClick={handlePurchaseClick}>
+        구매하기
+      </button>
     </div>
   );
 };
