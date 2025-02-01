@@ -1,14 +1,14 @@
 .container {
   display: flex;
   flex-direction: column;
+  width: 800px;
 }
 
 .title {
   color: $grey-900;
-  font-size: 32px;
-  font-weight: 500;
+  @include pretendard-26-500;
   letter-spacing: -0.32px;
-  margin-top: 130px;
+  margin-top: 80px;
 }
 
 .divider {
@@ -28,17 +28,17 @@
   @include pretendard-16-500;
 
   width: 100%;
-  height: 150px;
+  height: 100px;
   border: 1px solid $grey-500;
   padding: 10px;
   resize: none;
 }
 
 .submitButton {
-  @include pretendard-28-600;
-
-  width: 150px;
-  height: 150px;
+  @include pretendard-18-500;
+  padding: 33px 29px;
+  width: 100px;
+  height: 100px;
   background: $grey-700;
   color: white;
   border: none;
@@ -55,8 +55,8 @@
 }
 
 .profileIcon {
-  width: 60px;
-  height: 60px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   background: #d9d9d9;
   margin-right: 15px;
@@ -72,19 +72,19 @@
 }
 
 .id {
-  @include pretendard-28-500;
+  @include pretendard-18-500;
 
   color: $grey-800;
 }
 
 .date {
-  @include pretendard-18-500;
+  @include pretendard-14-400;
 
   color: $grey-500;
 }
 
 .question {
-  @include pretendard-24-500;
+  @include pretendard-20-400;
 
   color: $grey-800;
   margin-top: 15px;
@@ -94,11 +94,11 @@
   display: flex;
   gap: 15px;
   margin-top: 15px;
-  margin-bottom: 131px;
+  margin-bottom: 30px;
 }
 
 .actionButton {
-  @include pretendard-18-400;
+  @include pretendard-14-400;
 
   color: $grey-500;
   border: none;

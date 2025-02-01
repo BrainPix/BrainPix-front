@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 800px;
   position: relative;
 }
 
@@ -14,8 +14,8 @@
 }
 
 .profileIcon {
-  width: 100px;
-  height: 100px;
+  width: 45px;
+  height: 45px;
   flex-shrink: 0;
   margin-right: 28px;
   border-radius: 50%;
