@@ -100,7 +100,6 @@ export const Info = () => {
         </div>
       ) : (
         <div className={classNames(styles.contentContainer)}>
-          {editMode && <SpecializationPart userType={userType} />}
           <IntroducePart
             editMode={editMode}
             userType={userType}
@@ -112,6 +111,7 @@ export const Info = () => {
             userType={userType}
             registers={enterpriseInfoRegisters}
           />
+          {editMode && <SpecializationPart userType={userType} />}
           <BusinessInfoPart editMode={editMode} />
           <PortfolioPart
             editMode={editMode}
