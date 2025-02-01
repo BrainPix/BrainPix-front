@@ -8,7 +8,7 @@ export const Header = () => {
   const OPTION_MENU = {
     등록하기: '/register',
     요청하기: '/request',
-    마이: 'my',
+    마이: '/my',
   };
   const PAGE_MENU = {
     '아이디어 마켓': '/idea-market',

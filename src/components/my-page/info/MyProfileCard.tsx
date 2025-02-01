@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import styles from './myProfileCard.module.scss';
+import Label from '../../common/label/Label';
 
 interface MyProfileCardPropsType {
   status: 'main' | 'edit' | 'save';
@@ -29,16 +30,17 @@ export const MyProfileCard = ({
         ) : (
           <div className={classNames(styles.profile)} />
         )}
-        <div>
-          <div className={classNames(styles.typeWrapper)}>
-            <div>{USER_DATA.type}</div>
-            {(status === 'edit' || status === 'save') && (
-              <span className={classNames(styles.position)}>
-                {USER_DATA.position}
-              </span>
-            )}
-          </div>
+        <div className={classNames(styles.info)}>
+          <Label
+            text='개인'
+            type='personal'
+          />
           <h1 className={classNames(styles.name)}>{USER_DATA.name}</h1>
+          {(status === 'edit' || status === 'save') && (
+            <span className={classNames(styles.position)}>
+              {USER_DATA.position}
+            </span>
+          )}
         </div>
         {status === 'edit' && (
           <button

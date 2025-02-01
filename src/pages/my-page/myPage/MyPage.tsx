@@ -25,29 +25,25 @@ export const MyPage = () => {
     <div>
       <MyProfileCard />
       <div className={classNames(styles.subInfoWrapper)}>
-        {Object.entries(SUB_INFO).map(([key, value], idx) => (
+        {Object.entries(SUB_INFO).map(([key, value]) => (
           <Fragment key={key}>
             <div>
               <p className={classNames(styles.subTitle)}>{key}</p>
               <p className={classNames(styles.content)}>{value}</p>
             </div>
-            {idx < 2 && <hr className={classNames(styles.divider)} />}
           </Fragment>
         ))}
       </div>
-      <div>
-        <div className={classNames(styles.title)}>
-          자기소개
-          <a href='/my'>수정하기</a>
-        </div>
+      <div className={classNames(styles.contentContainer)}>
+        <div className={classNames(styles.title)}>자기소개</div>
         <p className={classNames(styles.introduceContent)}>
           {USER_DATA.introduce}
         </p>
       </div>
-      <div>
+      <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.title)}>
           최근 소식
-          <a href='/my/recent-news'>전체보기</a>
+          <a href='/my/recent-news'>자세히</a>
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
           <PreviewList isRead />
