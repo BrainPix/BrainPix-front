@@ -8,34 +8,34 @@
 .logo {
   @include flex-center;
 
-  width: 293px;
-  height: 102px;
+  width: 200px;
+  height: 75px;
   background-color: #d9d9d9;
   border: 1px solid #d9d9d9;
   margin-bottom: 37px;
 }
 
 .headline {
-  @include pretendard-32-500;
+  @include pretendard-28-500;
 
   text-align: center;
-  margin-bottom: 76px;
+  margin-bottom: 80px;
 }
 
 .buttonWrapper {
   display: flex;
-  gap: 19px;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .memberButton {
   @include flex-center;
-  @include pretendard-24-500;
+  @include pretendard-20-500;
 
-  width: 208px;
-  height: 73px;
-  border-radius: 36.5px;
-  border: none;
-  gap: 16.33px;
+  width: 360px;
+  height: 65px;
+  border-radius: 50px;
+  gap: 10px;
   cursor: pointer;
 
   & > span {
@@ -43,6 +43,15 @@
   }
 }
 
-.individual {
-  background-color: $grey-400;
+.signUpText {
+  @include pretendard-16-400;
+
+  color: $grey-600;
+  margin-top: 55px;
+
+  & > strong {
+    @include pretendard-16-500;
+
+    cursor: pointer;
+  }
 }
