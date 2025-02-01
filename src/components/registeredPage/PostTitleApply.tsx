@@ -25,7 +25,7 @@ const PostTitleApply = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <div className={styles.placeholderBox}>대표사진</div>
+        <div className={styles.placeholderBox}></div>
       </div>
       <div className={styles.rightSection}>
         <div className={styles.navigation}>
