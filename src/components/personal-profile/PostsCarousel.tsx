@@ -1,4 +1,4 @@
-import { Carousel } from '../common/Carousel/Carousel';
+import { Carousel } from '../common/carousel/Carousel';
 import classNames from 'classnames';
 import styles from './postCarousel.module.scss';
 
