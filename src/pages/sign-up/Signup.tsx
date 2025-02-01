@@ -8,7 +8,6 @@ import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
 
 export const Signup = () => {
-  const [emailDomain, setEmailDomain] = useState('');
   const [step, setStep] = useState(1);
   const [userType, setUserType] = useState<'individual' | 'corporate'>(
     'individual',
@@ -25,8 +24,9 @@ export const Signup = () => {
   const registers = IndividualMemberRegisters({ register, watch, setValue });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
-    const data = { ...payload, email: payload.email + '@' + emailDomain };
-    console.log(data);
+    // const data = { ...payload, email: payload.email + '@' + emailDomain };
+    // console.log(data);
+    console.log(payload);
   };
 
   const handleClickNextButton = () => {
@@ -37,44 +37,38 @@ export const Signup = () => {
     setUserType(userType);
   };
 
+  const REGISTERS = {
+    id: registers.id,
+    password: registers.password,
+    passwordCheck: registers.passwordCheck,
+    name: registers.name,
+    birth: registers.birth,
+    nickname: registers.nickname,
+    email: registers.email,
+  };
+
   return (
-    <div className={classNames(styles.container)}>
-      <div className={classNames(styles.contentContainer)}>
+    <div
+      className={classNames(styles.container)}
+      onSubmit={handleSubmit(handleSubmitHandler)}>
+      <form className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.logo)}>로고</div>
         {step === 1 && (
           <StepOne
             onClickUserTypeButton={handleClickUserTypeButton}
             onClickNext={handleClickNextButton}
             userType={userType}
+            registers={REGISTERS}
+            errors={errors}
           />
         )}
-        {step === 2 && <StepTwo />}
-        {/* <div>
-            <div className={classNames(styles.dividerWrapper)}>
-              <span>회원 정보</span>
-              <hr className={classNames(styles.divider)} />
-            </div>
-            <div className={classNames(styles.inputContainer)}>
-              <Input
-                label='이름'
-                {...registers.name}
-              />
-              <Input
-                label='생년월일'
-                placeholder='YYYY-MM-DD'
-                maxLength={10}
-                {...registers.birth}
-              />
-              <Input
-                label='이메일'
-                onChangeEmailDomain={(e) => handleChangeEmailDomain(e)}
-                setEmailDomain={setEmailDomain}
-                isEmail
-                {...registers.email}
-              />
-            </div>
-          </div> */}
-      </div>
+        {step === 2 && (
+          <StepTwo
+            registers={REGISTERS}
+            errors={errors}
+          />
+        )}
+      </form>
     </div>
   );
 };
