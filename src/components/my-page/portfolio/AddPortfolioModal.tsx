@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import styles from './addPortfolioModal.module.scss';
 import ReactQuill from 'react-quill-new';
 
-import IamgeInput from '../../../assets/icons/imageInput.svg?react';
+import ImageInput from '../../../assets/icons/imageInput.svg?react';
 import Dropdown from '../../common/dropdown/Dropdown';
 
 import 'react-quill-new/dist/quill.snow.css';
+import '../../../styles/quillStyles.css';
 import { QuillToolbar } from './QuillToolbar';
 
 interface AddPortfolioModalPropsType {
@@ -18,7 +19,7 @@ export const AddPortfolioModal = forwardRef<
   AddPortfolioModalPropsType
 >(({ onClose }, ref) => {
   const modules = {
-    toolbar: { container: '#toolbar', handlers: {} },
+    toolbar: { container: '#toolbar' },
   };
 
   const quillRef = useRef<ReactQuill>(null);
@@ -32,9 +33,9 @@ export const AddPortfolioModal = forwardRef<
       <form className={classNames(styles.contentContainer)}>
         <label htmlFor='imageInput'>
           <div className={classNames(styles.imageInputLabel)}>
-            <IamgeInput
-              width={54}
-              height={54}
+            <ImageInput
+              width={48}
+              height={48}
             />
             대표사진
           </div>
@@ -53,7 +54,7 @@ export const AddPortfolioModal = forwardRef<
         <div className={classNames(styles.infoInputWrapper)}>
           <div className={classNames(styles.categoryInputWrapper)}>
             <h3 className={classNames(styles.inputTitle)}>카테고리</h3>
-            <Dropdown />
+            <Dropdown customClassName={styles.categoryDropdown} />
           </div>
           <div>
             <h3 className={classNames(styles.inputTitle)}>프로젝트 기간</h3>
@@ -85,7 +86,7 @@ export const AddPortfolioModal = forwardRef<
           </button>
           <button
             type='submit'
-            className={classNames('buttonFilled-grey800', styles.uploadButton)}>
+            className={classNames('buttonFilled-primary', styles.uploadButton)}>
             업로드
           </button>
         </div>

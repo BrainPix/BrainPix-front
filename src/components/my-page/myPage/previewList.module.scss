@@ -1,10 +1,10 @@
 .container {
-  @include pretendard-20-500;
+  @include pretendard-18-500;
 
   width: 100%;
   border: 1px solid $grey-500;
-  padding: 21px 20px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
 }
@@ -27,6 +27,14 @@
   }
 }
 
+.moreButton {
+  @include pretendard-16-500;
+
+  border: none;
+  color: $primary;
+  background: none;
+}
+
 .isRead {
   background-color: $grey-200;
 }
@@ -45,7 +53,7 @@
 }
 
 .content {
-  margin-left: 45px;
+  margin-left: 20px;
   flex-grow: 2;
 }
 

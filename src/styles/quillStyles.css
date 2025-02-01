@@ -1,0 +1,137 @@
+.ql-font-arial {
+  font-family: Arial;
+}
+
+.ql-font-courier {
+  font-family: Courier;
+}
+
+.ql-font-georgia {
+  font-family: Georgia, serif;
+}
+
+.ql-font-roboto {
+  font-family: Roboto;
+}
+
+.ql-font-verdana {
+  font-family: Verdana;
+}
+
+.ql-font .ql-picker-options .ql-picker-item[data-value='Arial'] {
+  font-family: Arial;
+}
+
+.ql-font .ql-picker-options .ql-picker-item[data-value='Courier'] {
+  font-family: Courier;
+}
+
+.ql-font .ql-picker-options .ql-picker-item[data-value='Georgia'] {
+  font-family: Georgia, serif;
+}
+
+.ql-font .ql-picker-options .ql-picker-item[data-value='Roboto'] {
+  font-family: Roboto;
+}
+
+.ql-font .ql-picker-options .ql-picker-item[data-value='Verdana'] {
+  font-family: Verdana;
+}
+
+.ql-font .ql-picker-options .ql-picker-item[data-value='20px'] {
+  font-size: 20px;
+}
+
+.ql-size-10px {
+  font-size: 10px;
+}
+
+.ql-size-12px {
+  font-size: 12px;
+}
+
+.ql-size-14px {
+  font-size: 14px;
+}
+
+.ql-size-16px {
+  font-size: 16px;
+}
+
+.ql-size-18px {
+  font-size: 18px;
+}
+
+.ql-size-20px {
+  font-size: 20px;
+}
+
+.ql-size-22px {
+  font-size: 22px;
+}
+
+.ql-size-24px {
+  font-size: 24px;
+}
+
+.ql-size-26px {
+  font-size: 26px;
+}
+
+.ql-size-28px {
+  font-size: 28px;
+}
+
+.ql-size-30px {
+  font-size: 30px;
+}
+
+.ql-size .ql-picker-options {
+  height: 275px;
+  overflow: scroll;
+}
+
+/* === Quill 툴바 내 폰트 크기 개별 적용 === */
+.ql-size .ql-picker-options .ql-picker-item[data-value='10px'] {
+  font-size: 10px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='12px'] {
+  font-size: 12px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='14px'] {
+  font-size: 14px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='16px'] {
+  font-size: 16px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='18px'] {
+  font-size: 18px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='20px'] {
+  font-size: 20px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='22px'] {
+  font-size: 22px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='24px'] {
+  font-size: 24px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='26px'] {
+  font-size: 26px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='28px'] {
+  font-size: 28px;
+}
+
+.ql-size .ql-picker-options .ql-picker-item[data-value='30px'] {
+  font-size: 30px;
+}

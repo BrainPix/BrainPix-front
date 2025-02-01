@@ -1,0 +1,68 @@
+@mixin navigation-button-style($size) {
+  width: $size;
+  height: $size;
+  border-radius: 100px;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.arrow {
+  stroke: $grey-800;
+}
+
+.carouselContainer {
+  width: 100%;
+  height: max-content;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navigationControls {
+  margin-left: auto;
+  width: fit-content;
+  display: flex;
+  margin-bottom: 10px;
+
+  & > button {
+    @include navigation-button-style(24px);
+
+    border: none;
+  }
+
+  & > .disabled {
+    stroke: #bdbdbd;
+  }
+}
+
+.centerNavigationControls {
+  @include flex-space-between;
+
+  width: 120%;
+  position: absolute;
+  transform: translateY(200%) translateX(-10%);
+
+  & > button {
+    @include navigation-button-style(45px);
+
+    border: 1px solid $grey-800;
+  }
+
+  & > .disabled {
+    border-color: $grey-400;
+    stroke: $grey-400;
+  }
+}
+
+.left {
+  transform: rotate(180deg);
+}

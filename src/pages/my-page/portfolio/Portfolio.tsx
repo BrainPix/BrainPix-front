@@ -7,7 +7,7 @@ import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
 
 export const Portfolio = () => {
-  const PORTFOLIO_COUNT = 6;
+  const PORTFOLIO_COUNT = 8;
 
   const [isOpenAddPortfolioModal, setIsOpenAddPortfolioModal] = useState(false);
   const [isOpenPortfolioDetailModal, setIsOpenPortfolioDetailModal] =

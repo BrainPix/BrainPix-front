@@ -52,14 +52,14 @@ export const PortfolioDetailModal = forwardRef<
             />
           </div>
         </div>
-        <label htmlFor='imageInput'>
-          <div className={classNames(styles.imageInputLabel)}>
-            <ImageInput
-              width={107}
-              height={107}
-            />
-            대표사진
-          </div>
+        <label
+          htmlFor='imageInput'
+          className={classNames(styles.imageInputLabel)}>
+          <ImageInput
+            width={41}
+            height={41}
+          />
+          대표사진
         </label>
         <input
           id='imageInput'
@@ -67,6 +67,9 @@ export const PortfolioDetailModal = forwardRef<
           alt='이미지'
           className={classNames(styles.imageInput)}
         />
+        <div className={classNames(styles.titleWrapper)}>
+          <h1 className={classNames(styles.title)}>포트폴리오 내용</h1>
+        </div>
         <textarea
           disabled={!editMode}
           className={classNames(styles.contentInput)}
@@ -80,8 +83,8 @@ export const PortfolioDetailModal = forwardRef<
           </button>
           <button
             type='button'
-            className={classNames('buttonFilled-grey800', styles.deleteButton)}>
-            삭제
+            className={classNames('buttonFilled-primary', styles.deleteButton)}>
+            삭제하기
           </button>
         </div>
       </div>

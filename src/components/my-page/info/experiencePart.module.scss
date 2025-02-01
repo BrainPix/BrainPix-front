@@ -1,0 +1,99 @@
+@import './commonStyle.module';
+
+.experienceWrapper {
+  @include pretendard-18-500;
+
+  width: 100%;
+  color: $grey-600;
+  overflow: hidden;
+  border: 1px solid $grey-500;
+  border-radius: 5px;
+}
+
+.labelWrapper {
+  @include flex-space-between;
+
+  width: 100%;
+}
+
+.label {
+  @include pretendard-18-500;
+  @include flex-center;
+
+  width: 50%;
+  padding: 10px 0;
+  color: $grey-600;
+  border-bottom: 1px solid $grey-500;
+  line-height: normal;
+  letter-spacing: -0.18px;
+  background-color: $grey-100;
+}
+
+.list {
+  @include pretendard-16-500;
+  @include flex-space-between;
+
+  height: 34px;
+  color: $grey-800;
+
+  & > .experience,
+  .date {
+    @include flex-center;
+
+    width: 50%;
+  }
+}
+
+.experienceInput {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.input {
+  @include pretendard-18-400;
+
+  background-color: $grey-50;
+  color: $grey-600;
+  padding: 25px 20px;
+  height: 54px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.tableDivider {
+  width: 1px;
+  height: 15px;
+  background-color: $grey-500;
+  margin-bottom: 3px;
+}
+
+.dateInputWrapper {
+  @include flex-space-between;
+
+  width: 466px;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid $grey-500;
+  border-left: none;
+
+  & > * {
+    border: none;
+    width: 50%;
+    text-align: center;
+  }
+}
+
+.inputDivider {
+  width: 20px;
+  height: 2px;
+  background-color: $grey-500;
+}
+
+.contentInput {
+  width: 350px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid $grey-500;
+}

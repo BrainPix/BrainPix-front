@@ -1,8 +1,12 @@
 .dropdown {
   position: relative;
-  width: 240px;
   font-family: Arial, sans-serif;
   font-size: 15px;
+  z-index: 100;
+
+  & > * {
+    cursor: pointer;
+  }
 }
 
 .label {
@@ -14,7 +18,8 @@
 .selectBox {
   @include flex-space-between;
 
-  background: #fff;
+  width: 240px;
+  background: $grey-50;
   padding: 10px;
   border: 1px solid $grey-400;
   cursor: pointer;
@@ -38,8 +43,8 @@
 
 .optionsList {
   position: absolute;
-  width: 100%;
-  background: white; // option 1개 당 40px로 임의로 설정
+  width: auto;
+  background: $grey-50; // option 1개 당 40px로 임의로 설정
   border: 1px solid $grey-400;
   max-height: calc(5 * 40px); // option 1개 당 40px로 임의로 설정
   overflow-y: auto;
@@ -52,7 +57,6 @@
 
 .option {
   padding: 10px;
-  cursor: pointer;
   transition: background 0.3s;
 
   &:hover {
