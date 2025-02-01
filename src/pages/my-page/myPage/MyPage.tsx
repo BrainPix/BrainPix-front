@@ -25,13 +25,12 @@ export const MyPage = () => {
     <div>
       <MyProfileCard />
       <div className={classNames(styles.subInfoWrapper)}>
-        {Object.entries(SUB_INFO).map(([key, value], idx) => (
+        {Object.entries(SUB_INFO).map(([key, value]) => (
           <Fragment key={key}>
             <div>
               <p className={classNames(styles.subTitle)}>{key}</p>
               <p className={classNames(styles.content)}>{value}</p>
             </div>
-            {idx < 2 && <hr className={classNames(styles.divider)} />}
           </Fragment>
         ))}
       </div>

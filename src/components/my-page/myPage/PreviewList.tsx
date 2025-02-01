@@ -31,7 +31,7 @@ export const PreviewList = ({
         Roria님이 댓글을 남겼습니다.
       </span>
       {iconType === 'more' && (
-        <button className={classNames(styles.tag)}>자세히</button>
+        <button className={classNames(styles.moreButton)}>자세히</button>
       )}
       {iconType === 'trash' && (
         <Trash className={classNames(styles.trashIcon)} />

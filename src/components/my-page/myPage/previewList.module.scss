@@ -27,6 +27,14 @@
   }
 }
 
+.moreButton {
+  @include pretendard-16-500;
+
+  border: none;
+  color: $primary;
+  background: none;
+}
+
 .isRead {
   background-color: $grey-200;
 }
