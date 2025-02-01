@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
 import { IdeaMarket } from './pages/idea-market/IdeaMarket';
@@ -10,10 +9,8 @@ import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredP
 import { Collaboration } from './pages/collaboration/Collaboration';
 import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
-import { Signup } from './pages/sign-up/Signup';
-import { IndividualMember } from './pages/sign-up/individual/IndividualMember';
-import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
-import { CompleteSignup } from './components/sign-up/CompleteSignup';
+import { Main } from './pages/main/main';
+import { Signup } from './pages/sign-up/individual/Signup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my-page/myPage/MyPage';
@@ -28,10 +25,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route
-            path='/'
-            element={<Test />}
-          />
           <Route
             path='/idea-market'
             element={<IdeaMarket />}
@@ -96,24 +89,20 @@ function App() {
           </Route>
         </Route>
         <Route
+          path='/'
+          element={<Main />}
+        />
+        <Route
           path='/sign-up'
           element={<Signup />}
         />
         <Route
-          path='/sign-up/individual'
-          element={<IndividualMember />}
+          path='/login/individual'
+          element={<Login userType='individual' />}
         />
         <Route
-          path='/sign-up/corporate'
-          element={<CorporateMember />}
-        />
-        <Route
-          path='/sign-up/complete'
-          element={<CompleteSignup />}
-        />
-        <Route
-          path='/login'
-          element={<Login />}
+          path='/login/corparate'
+          element={<Login userType='corparate' />}
         />
       </Routes>
     </BrowserRouter>

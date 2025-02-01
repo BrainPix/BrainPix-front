@@ -49,7 +49,7 @@
   color: $grey-600;
   margin-top: 55px;
 
-  & > strong {
+  & > a {
     @include pretendard-16-500;
 
     cursor: pointer;

@@ -4,10 +4,12 @@ import classNames from 'classnames';
 import styles from './login.module.scss';
 import { loginRegisters } from '../../constants/registers';
 
-export const Login = () => {
-  const [member, setMember] = useState<'individual' | 'corparate'>(
-    'individual',
-  );
+interface LoginPropsType {
+  userType: 'individual' | 'corparate';
+}
+
+export const Login = ({ userType }: LoginPropsType) => {
+  const [member, setMember] = useState<'individual' | 'corparate'>(userType);
 
   const { register, handleSubmit } = useForm({ mode: 'onSubmit' });
 

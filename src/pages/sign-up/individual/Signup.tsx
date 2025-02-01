@@ -3,12 +3,13 @@ import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
 import { Input } from '../../../components/sign-up/Input';
-import styles from './individualMember.module.scss';
+import styles from './signup.module.scss';
 import { IndividualMemberRegisters } from '../../../constants/registers';
 
-export const IndividualMember = () => {
+export const Signup = () => {
   // const navigate = useNavigate();
   const [emailDomain, setEmailDomain] = useState('');
+  // const [step, setStep] = useState(0);
 
   const {
     register,

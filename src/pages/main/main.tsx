@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Individual from '../../assets/icons/individualMember.svg?react';
 import Corporate from '../../assets/icons/corporateMember.svg?react';
 
-import styles from './signUp.module.scss';
+import styles from './main.module.scss';
 
-export const Signup = () => {
+export const Main = () => {
   const navigate = useNavigate();
   return (
     <div className={classNames(styles.container)}>
@@ -17,20 +17,20 @@ export const Signup = () => {
       </h1>
       <div className={classNames(styles.buttonWrapper)}>
         <button
-          onClick={() => navigate('individual')}
+          onClick={() => navigate('/login/individual')}
           className={classNames(styles.memberButton, 'buttonFilled-grey800')}>
           <Individual stroke='#fafafa' />
           <span>개인회원 로그인하기</span>
         </button>
         <button
-          onClick={() => navigate('corporate')}
+          onClick={() => navigate('/login/corparate')}
           className={classNames(styles.memberButton, 'buttonOutlined-grey500')}>
           <Corporate />
           <span>기업회원 로그인하기</span>
         </button>
       </div>
       <p className={classNames(styles.signUpText)}>
-        아직 회원이 아니라면? <strong>회원가입하기</strong>
+        아직 회원이 아니라면? <a href='/sign-up'>회원가입하기</a>
       </p>
     </div>
   );
