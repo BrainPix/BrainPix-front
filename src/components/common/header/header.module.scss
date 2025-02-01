@@ -1,8 +1,8 @@
 .container {
   @include flex-center;
 
-  padding-top: 32px;
-  padding-bottom: 84px;
+  padding-top: 35px;
+  padding-bottom: 48px;
 }
 
 .optionWrapper {
@@ -12,22 +12,26 @@
 }
 
 .bottomPageWrapper {
-  padding-left: 360px;
-  border-bottom: 2px solid $grey-600;
+  padding-left: 270px;
+  border-bottom: 2px solid $grey-400;
   display: flex;
   gap: 45px;
-  font-size: 24px;
   cursor: pointer;
 
   & > * {
-    padding-bottom: 18px;
+    @include pretendard-20-500;
+
+    padding-bottom: 15px;
+    color: $grey-800;
+    text-decoration: none;
   }
 }
 
 .optionWrapper > * {
+  @include pretendard-16-500;
+
   color: $grey-800;
   text-decoration: none;
-  font-size: 20px;
 
   &:hover {
     color: $primary;
@@ -46,7 +50,7 @@
 .clickedPage::after {
   content: '';
   display: block;
-  width: 80px;
+  width: 60px;
   padding-bottom: 15px;
   border-bottom: 4px solid $grey-600;
 }

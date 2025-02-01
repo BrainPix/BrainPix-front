@@ -1,11 +1,15 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
-import { Carousel } from '../common/Carousel/Carousel';
+import { Carousel } from '../common/carousel/Carousel';
 import { PortfolioPopup } from './PortfolioPopup';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import styles from './portfolioCarousel.module.scss';
 
-export const PortfolioCarousel = () => {
+interface PortfolioCarouselPropsType {
+  size: number;
+}
+
+export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [openPopup, setOpenPopup] = useState(false);
   const handleClosePopup = () => {
@@ -22,11 +26,10 @@ export const PortfolioCarousel = () => {
           ref={popupRef}
         />
       )}
-      <h1 className={classNames(styles.title)}>포트폴리오</h1>
       <Carousel
-        gap={50}
-        cardWidth={199}
-        cardCount={4}
+        gap={33.3}
+        cardWidth={150}
+        cardCount={size}
         buttonPosition='top'
         dataLength={10}>
         {new Array(10).fill(0).map((_, idx) => (

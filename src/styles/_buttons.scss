@@ -30,6 +30,8 @@
 .button {
   @include flex-center;
 
+  cursor: pointer;
+
   &Small {
     font-size: $font-size-small;
   }
@@ -55,6 +57,10 @@
 
   &Outlined-primary {
     @include outline-button-style($primary);
+  }
+
+  &Filled-grey600 {
+    @include filled-button-style($grey-600);
   }
 
   &Filled-grey700 {

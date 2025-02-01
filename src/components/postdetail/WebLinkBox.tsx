@@ -1,5 +1,5 @@
 import styles from './webLinkBox.module.scss';
-import ShortcutArrow from '../../assets/icons/shortcut-arrow.svg?react';
+import ShortcutArrow from '../../assets/icons/shortcutArrow.svg?react';
 
 const WebLinkBox = () => {
   return (
