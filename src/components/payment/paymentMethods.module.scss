@@ -2,35 +2,36 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 800px;
 
   .title {
-    @include pretendard-32-600;
-
-    margin-top: 45px;
+    @include pretendard-24-500;
+    margin-top: 50px;
     color: $grey-900;
-    letter-spacing: -0.32px;
+    letter-spacing: -0.28px;
   }
 
   .buttonContainer {
-    margin-top: 45px;
+    margin-top: 20px;
     display: flex;
-    gap: 16px;
-    width: 950px;
-    height: 90px;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    height: 64px;
+    max-width: 100%;
     flex-shrink: 0;
+    justify-content: center;
   }
 
   .button {
     @include flex-center;
-    @include pretendard-28-600;
+    @include pretendard-20-400;
 
-    width: 300px;
-    height: 90px;
+    width: 250px;
+    height: 64px;
     flex-shrink: 0;
     border-radius: 5px;
     border: 1px solid $grey-400;
-
-    // background: #f0f0f0;
     background-color: white;
     color: $grey-500;
     letter-spacing: -0.28px;

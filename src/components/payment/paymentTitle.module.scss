@@ -3,27 +3,23 @@
 }
 
 .title {
-  @include pretendard-32-600;
-  margin-top: 45px;
-  margin-bottom: 16px;
+  @include pretendard-26-500;
+  margin-top: 40px;
 }
 
 .content {
-  margin-top: 45px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
-  margin-left: 30px;
   gap: 16px;
-  width: 920px;
-  height: 195px;
+  width: 800px;
+  height: 120px;
   flex-shrink: 0;
-  border-bottom: 1px solid $grey-500;
-  padding-bottom: 16px;
 }
 
 .image {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   background-color: #d9d9d9;
 }
 
@@ -35,12 +31,11 @@
 }
 
 .price {
-  @include pretendard-36-600;
+  @include pretendard-24-500;
 }
 
 .description {
-  font-size: 32px;
-  font-weight: 500;
+  @include pretendard-20-500;
 }
 
 .quantityContainer {
@@ -54,7 +49,7 @@
 .quantityLabel {
   color: $grey-500;
   text-align: center;
-  @include pretendard-28-500;
+  @include pretendard-18-500;
   letter-spacing: -0.28px;
 }
 
@@ -62,9 +57,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 150px;
-  height: 43px;
-  padding: 10px 15px;
+  width: 80px;
+  height: 33px;
+  padding: 10px 10px;
   border-radius: 5px;
   border: 1px solid $grey-400;
   background: $grey-50;
@@ -72,18 +67,16 @@
 
 .quantity {
   color: $grey-700;
-  @include pretendard-20-400;
+  @include pretendard-16-400;
   letter-spacing: -0.2px;
   display: inline-block;
   min-width: 30px; 
-  text-align: center; 
-  margin-left: 40%;
+  text-align: right; 
 }
 
 .buttonGroup {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 
 .upButton,
@@ -93,7 +86,7 @@
   cursor: pointer;
   padding: 0;
   @include flex-center;
-  width: 18px;
+  width: 12px;
   height: 18px;
 }
 

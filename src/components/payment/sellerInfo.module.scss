@@ -4,17 +4,17 @@
   gap: 16px;
 
   .title {
-    @include pretendard-32-600;
-
-    margin-top: 45px;
+    @include pretendard-24-500;
+    margin-top: 50px;
   }
 
   .infoBox {
     @include flex-space-between;
 
-    margin-top: 45px;
-    width: 950px;
-    padding: 30px 45px;
+    margin-top: 20px;
+    width: 800px;
+    height: 65px;
+    padding: 20px;
     border-radius: 5px;
     border: 1px solid $grey-400;
 
@@ -22,23 +22,23 @@
   }
 
   .profile {
-    width: 100px;
-    height: 100px;
+    width: 45px;
+    height: 45px;
     flex-shrink: 0;
     background-color: #d9d9d9;
     border-radius: 50%;
   }
 
   .name {
-    @include pretendard-32-600;
+    @include pretendard-20-400;
   }
 
   .email {
-    @include pretendard-32-400;
+    @include pretendard-20-400;
 
-    width: 399px;
+    width: 550px;
     flex-shrink: 0;
-    color: $grey-500;
+    color: $grey-900;
     text-align: right;
     letter-spacing: -0.32px;
     line-height: normal;
