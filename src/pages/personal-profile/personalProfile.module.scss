@@ -3,3 +3,7 @@
   margin: 0 auto;
   padding-bottom: 140px;
 }
+
+.title {
+  @include pretendard-28-500;
+}

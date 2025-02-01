@@ -6,7 +6,7 @@ import styles from './test.module.scss';
 import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 
 //드롭다운 버튼 test
-import Dropdown from '../../components/dropdown/Dropdown.tsx';
+import Dropdown from '../../components/common/dropdown/Dropdown.tsx';
 
 //라벨 test
 import Label from '../../components/common/label/Label.tsx';

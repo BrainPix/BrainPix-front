@@ -3,29 +3,29 @@
   margin-bottom: 45px;
 }
 
-.title {
-  @include pretendard-28-500;
-}
-
 .portfolio {
-  width: 199px;
+  width: 150px;
   cursor: pointer;
+  line-height: normal;
+  letter-spacing: -0.16px;
 
   & > .image {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background-color: #d9d9d9;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-bottom: 10px;
   }
 
   & > .title {
-    @include pretendard-20-500;
+    @include pretendard-16-500;
 
     margin-bottom: 5px;
   }
 
   & > .date {
-    @include pretendard-16-400;
+    @include pretendard-14-500;
+
+    color: $grey-600;
   }
 }

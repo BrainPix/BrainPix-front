@@ -1,0 +1,39 @@
+.container {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  & > .mainTitle {
+    @include pretendard-28-500;
+
+    color: $grey-900;
+    margin-bottom: 30px;
+  }
+
+  & > .subTitle {
+    @include pretendard-24-500;
+
+    color: $grey-900;
+    margin-bottom: 30px;
+  }
+}
+
+.menuWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  & > a {
+    @include pretendard-20-500;
+
+    color: $grey-600;
+    line-height: normal;
+    letter-spacing: -0.2px;
+    text-decoration: none;
+  }
+}

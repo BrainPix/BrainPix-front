@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Test } from './pages/test/Test';
 import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
-import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
-import { IdeaMarket } from './pages/idea-market/IdeaMarket';
+import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
+import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
@@ -18,6 +18,10 @@ import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my-page/myPage/MyPage';
+import { Info } from './pages/my-page/info/Info';
+import { RecentNews } from './pages/my-page/myPage/RecentNews';
+import { Portfolio } from './pages/my-page/portfolio/Portfolio';
+import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 
 function App() {
   return (
@@ -30,7 +34,11 @@ function App() {
           />
           <Route
             path='/idea-market'
-            element={<IdeaMarket />}
+            element={<IdeaMarketMain />}
+          />
+          <Route
+            path='/idea-market/register'
+            element={<IdeaMarketRegister />}
           />
           <Route
             path='/idea-market/registered'
@@ -69,12 +77,24 @@ function App() {
               path='/my'
               element={<MyPage />}
             />
+            <Route
+              path='/my/info'
+              element={<Info />}
+            />
+            <Route
+              path='/my/recent-news'
+              element={<RecentNews />}
+            />
+            <Route
+              path='/my/posts' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
+              element={<MyPagePosts />}
+            />
+            <Route
+              path='/my/portfolio'
+              element={<Portfolio />}
+            />
           </Route>
         </Route>
-        <Route
-          path='/my' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
-          element={<MyPagePosts />}
-        />
         <Route
           path='/sign-up'
           element={<Signup />}
