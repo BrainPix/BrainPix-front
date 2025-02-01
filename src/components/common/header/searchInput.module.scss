@@ -27,6 +27,7 @@ $rounded-top: 5px 5px 0 0;
   padding: 23px 0;
   color: $grey-600;
   display: flex;
+  z-index: 1000;
   flex-direction: column;
   gap: 20px;
   width: 100%;
