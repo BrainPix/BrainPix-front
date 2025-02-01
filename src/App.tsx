@@ -27,6 +27,7 @@ import { RequestAssignRegister } from './pages/my-page/postsRequestAssign/Reques
 //import { MyPage } from './pages/my-page/myPage/MyPage';
 import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
+import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 
 function App() {
   return (
@@ -101,6 +102,14 @@ function App() {
             <Route
               path='/my/recent-news'
               element={<RecentNews />}
+            />
+            <Route
+              path='/my/posts'
+              element={<MyPagePosts />}
+            />
+            <Route
+              path='/my/portfolio'
+              element={<Portfolio />}
             />
           </Route>
         </Route>

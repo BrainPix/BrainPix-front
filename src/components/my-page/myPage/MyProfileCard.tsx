@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import styles from './myProfileCard.module.scss';
+import Label from '../../common/label/Label';
 
 const USER_DATA = {
   name: 'SEO YEON',
@@ -20,7 +21,10 @@ export const MyProfileCard = () => {
         <div className={classNames(styles.profile)} />
       )}
       <div>
-        <div>{USER_DATA.type}</div>
+        <Label
+          type='personal'
+          text='개인'
+        />
         <h1 className={classNames(styles.name)}>{USER_DATA.name}</h1>
       </div>
     </div>

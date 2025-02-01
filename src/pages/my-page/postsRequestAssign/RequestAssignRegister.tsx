@@ -44,12 +44,6 @@ export const RequestAssignRegister = () => {
           onChange={(e) => setTitle(e.target.value)}
           className={styles.titleInput}
         />
-        <textarea
-          placeholder='내용을 입력하세요'
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className={styles.textArea}
-        />
         <div className={styles.editorOptions}>
           <span>기본서체</span>
           <span>15 pt</span>
@@ -57,6 +51,12 @@ export const RequestAssignRegister = () => {
           <span className={styles.link}>이미지 첨부</span>
           <span className={styles.link}>하이퍼링크</span>
         </div>
+        <textarea
+          placeholder='내용을 입력하세요'
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          className={styles.textArea}
+        />
       </div>
     </div>
   );

@@ -2,6 +2,11 @@
   position: relative;
   font-family: Arial, sans-serif;
   font-size: 15px;
+  z-index: 100;
+
+  & > * {
+    cursor: pointer;
+  }
 }
 
 .label {
@@ -37,7 +42,7 @@
 
 .optionsList {
   position: absolute;
-  width: 100%;
+  width: auto;
   background: $grey-50; // option 1개 당 40px로 임의로 설정
   border: 1px solid $grey-400;
   max-height: calc(5 * 40px); // option 1개 당 40px로 임의로 설정
@@ -51,7 +56,6 @@
 
 .option {
   padding: 10px;
-  cursor: pointer;
   transition: background 0.3s;
 
   &:hover {
