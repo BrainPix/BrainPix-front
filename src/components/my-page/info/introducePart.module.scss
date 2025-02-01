@@ -1,10 +1,10 @@
 @import './commonStyle.module';
 
 .introduceWrapper {
-  @include pretendard-18-500;
+  @include pretendard-18-400;
 
   width: 100%;
-  height: 150px;
+  height: 100px;
   color: $grey-800;
   padding: 25px 20px;
   border: 1px solid $grey-500;

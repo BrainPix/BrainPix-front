@@ -52,10 +52,12 @@
 }
 
 .input {
-  @include pretendard-24-400;
+  @include pretendard-18-400;
 
   background-color: $grey-50;
+  color: $grey-600;
   padding: 25px 20px;
+  height: 54px;
 
   &:focus {
     outline: none;
@@ -80,10 +82,7 @@
   & > * {
     border: none;
     width: 50%;
-  }
-
-  & > .endDate {
-    text-align: end;
+    text-align: center;
   }
 }
 

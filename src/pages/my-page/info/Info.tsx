@@ -78,7 +78,10 @@ export const Info = () => {
             userType={userType}
             {...register('introduce')}
           />
-          <div className={classNames(styles.rowContainer)}>
+          <div
+            className={classNames(
+              editMode ? styles.colContainer : styles.rowContainer,
+            )}>
             <IndividualInfoPart
               editMode={editMode}
               userData={USER_DATA}

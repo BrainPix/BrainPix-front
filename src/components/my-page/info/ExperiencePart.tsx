@@ -11,9 +11,19 @@ export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
       <div className={classNames(styles.title)}>
         경력 사항
         {editMode && (
-          <div className={classNames(styles.publicCheckboxWrapper)}>
-            <input type='checkbox' />
-            <span>공개여부</span>
+          <div>
+            <label htmlFor='checkbox'>
+              <div className={classNames(styles.publicCheckWrapper)}>
+                <div className={classNames(styles.checkboxLabel)} />
+                <span>공개</span>
+                {''}
+              </div>
+            </label>
+            <input
+              id='checkbox'
+              type='checkbox'
+              className={classNames(styles.checkboxInput)}
+            />
           </div>
         )}
       </div>
@@ -40,7 +50,7 @@ export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
         <div className={classNames(styles.editInputWrapper)}>
           <div className={classNames(styles.experienceInput)}>
             <input
-              placeholder='경력 내용'
+              placeholder='직무 내용'
               className={classNames(styles.input, styles.contentInput)}
             />
             <div className={classNames(styles.dateInputWrapper)}>
@@ -57,7 +67,7 @@ export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
           </div>
           <button
             type='button'
-            className={classNames('buttonFilled-grey800', styles.addButton)}>
+            className={classNames('buttonFilled-grey700', styles.addButton)}>
             추가하기
           </button>
         </div>

@@ -5,7 +5,6 @@
   height: max-content;
   border: 1px solid $grey-500;
   border-radius: 5px;
-  overflow: hidden;
 }
 
 .labelWrapper {
@@ -69,19 +68,19 @@
 .skillInput {
   display: flex;
   height: 70px;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .skillNameInput {
-  @include pretendard-24-400;
+  @include pretendard-18-400;
 
   color: $grey-500;
-  height: 100%;
+  height: 54px;
   flex-grow: 1;
   background-color: $grey-50;
   border-radius: 5px 0 0 5px;
   border: 1px solid $grey-500;
-  padding: 18px 20px;
+  padding: 15px 20px;
 
   &:focus {
     outline: none;
@@ -89,7 +88,7 @@
 }
 
 .levelCheckboxWrapper {
-  padding: 18px 20px;
+  height: 54px;
   border-radius: 0 5px 5px 0;
   border: 1px solid $grey-500;
   border-left: none;

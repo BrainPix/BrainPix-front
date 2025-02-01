@@ -102,17 +102,24 @@ export const IndividualInfoPart = forwardRef<
               className={classNames(styles.input)}
               {...handleRegister(selectedLabel)}
             />
-            <div className={classNames(styles.publicCheckWrapper)}>
+            <div>
+              <label htmlFor='checkbox'>
+                <div className={classNames(styles.publicCheckWrapper)}>
+                  <div className={classNames(styles.checkboxLabel)} />
+                  <span>공개</span>
+                  {''}
+                </div>
+              </label>
               <input
+                id='checkbox'
                 type='checkbox'
-                className={classNames(styles.checkbox)}
+                className={classNames(styles.checkboxInput)}
               />
-              공개여부
             </div>
           </div>
           <button
             type='button'
-            className={classNames('buttonFilled-grey800', styles.addButton)}>
+            className={classNames('buttonFilled-grey700', styles.addButton)}>
             추가하기
           </button>
         </div>

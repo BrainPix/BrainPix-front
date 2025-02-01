@@ -26,15 +26,14 @@
 }
 
 .profileEditButton {
-  @include pretendard-16-500;
+  @include pretendard-14-400;
 
   color: $grey-700;
   background: none;
   border: none;
   cursor: pointer;
   width: fit-content;
-  margin-left: 8px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .infoWrapper {
