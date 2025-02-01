@@ -54,9 +54,7 @@
 }
 
 .quantityBox {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-space-between;
   width: 80px;
   height: 33px;
   padding: 10px 10px;

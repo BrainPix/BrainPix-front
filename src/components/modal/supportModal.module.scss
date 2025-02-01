@@ -103,10 +103,8 @@
   }
 
   .tableHeader {
-    display: flex;
+    @include flex-space-between;
     padding: 15px 0;
-    justify-content: space-between;
-    align-items: center;
     text-align: center;
     background: $grey-200;
     border-radius: 5px 5px 0 0;
@@ -114,9 +112,7 @@
 
   .column {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
     text-align: center;
     position: relative;
     @include pretendard-18-500;
@@ -145,9 +141,7 @@
   .field,
   .status {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
     text-align: center;
     @include pretendard-18-400;
     color: $grey-900;
@@ -168,9 +162,7 @@
 
   .radioWrapper {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
   }
 
   .radio {
@@ -200,9 +192,7 @@
   }
   
   .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-space-between;
     padding-top: 10px;
   }
   
