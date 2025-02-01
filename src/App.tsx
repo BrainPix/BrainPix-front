@@ -10,7 +10,7 @@ import { Collaboration } from './pages/collaboration/Collaboration';
 import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
 import { Main } from './pages/main/main';
-import { Signup } from './pages/sign-up/individual/Signup';
+import { Signup } from './pages/sign-up/Signup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { MyPage } from './pages/my-page/myPage/MyPage';

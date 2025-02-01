@@ -1,0 +1,64 @@
+.headlineWrapper {
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-weight: 500;
+  line-height: normal;
+
+  & > .main {
+    @include pretendard-24-500;
+  }
+
+  & > .sub {
+    @include pretendard-20-400;
+
+    color: $grey-600;
+  }
+}
+
+.userTypeWrapper {
+  width: 100%;
+  display: flex;
+  padding: 20px 0 10px;
+}
+
+.userType {
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 1px solid $grey-400;
+  color: $grey-400;
+  padding-bottom: 10px;
+
+  &.clicked {
+    border-bottom: 1px solid $grey-700;
+    color: $grey-700;
+  }
+}
+
+.buttonWrapper {
+  @include flex-space-between;
+
+  padding: 30px 0 15px;
+  width: 100%;
+
+  & > * {
+    @include flex-center;
+    @include pretendard-20-500;
+
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  & > .left {
+    width: 135px;
+    height: 54px;
+  }
+
+  & > .right {
+    width: 235px;
+    height: 54px;
+  }
+}
