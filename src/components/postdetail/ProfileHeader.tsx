@@ -1,4 +1,3 @@
-import Label from '../common/label/Label';
 import styles from './profileHeader.module.scss';
 
 const ProfileHeader = () => {
@@ -7,10 +6,6 @@ const ProfileHeader = () => {
       <div className={styles.profileContainer}>
         <div className={styles.profileIcon}></div>
         <div className={styles.textContainer}>
-          <Label
-            text='자체 공모'
-            type='selfOffer'
-          />
           <span className={styles.name}>Soyeon</span>
         </div>
       </div>

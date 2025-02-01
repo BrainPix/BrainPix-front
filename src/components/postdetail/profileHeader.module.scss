@@ -1,53 +1,37 @@
 .container {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   width: 800px;
   position: relative;
+  padding: 30px 0px;
+  border-bottom: 1px solid $grey-500;
 }
 
 .profileContainer {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 45px;
-  margin-bottom: 45px;
 }
 
 .profileIcon {
   width: 45px;
   height: 45px;
   flex-shrink: 0;
-  margin-right: 28px;
+  margin-right: 20px;
   border-radius: 50%;
   background-color: #d9d9d9;
 }
 
-.textContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
 .name {
-  @include pretendard-32-500;
-
-  letter-spacing: -0.32px;
+  @include pretendard-20-500;
+  letter-spacing: -0.2px;
 }
 
 .viewProfile {
-  @include pretendard-26-500;
+  @include pretendard-16-400;
 
   position: absolute;
-  margin-top: 81px;
   right: 16px;
   color: $grey-500;
   letter-spacing: -0.24px;
-}
-
-.divider {
-  margin-top: 16px;
-  width: 100%;
-  height: 1px;
-  background: $grey-500;
 }
