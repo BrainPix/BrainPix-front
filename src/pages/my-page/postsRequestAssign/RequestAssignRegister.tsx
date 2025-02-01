@@ -1,4 +1,4 @@
-// 마이페이지 요청과제 등록 페이지
+import styles from './RequestAssignRegister.module.scss';
 
 // export const RequestAssignRegister = () => {
 
