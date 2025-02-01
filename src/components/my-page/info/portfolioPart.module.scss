@@ -1,5 +1,9 @@
 @import './commonStyle.module';
 
+.portfolioTitle {
+  @include pretendard-20-500;
+}
+
 .manageText {
   @include pretendard-20-500;
 
@@ -8,5 +12,5 @@
 }
 
 .portfolioWrapper {
-  width: 700px;
+  width: 100%;
 }

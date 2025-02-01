@@ -1,21 +1,27 @@
 @import './commonStyle.module';
 
 .individualInfoWrapper {
-  margin-top: 30px;
   margin-bottom: 30px;
+  width: 320px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .individualInfoWrapper > .list {
-  @include pretendard-28-500;
+  @include pretendard-18-500;
 
   color: $grey-800;
+  line-height: normal;
   letter-spacing: -0.28px;
   display: flex;
 
   & > .label {
     min-width: 75px;
+  }
+
+  & > .value {
+    font-weight: 400;
   }
 }
 

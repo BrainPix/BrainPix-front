@@ -23,16 +23,25 @@ export const SkillPart = ({ editMode }: SkillPartPropsType) => {
         )}
       </div>
       <div className={classNames(styles.skillInfoWrapper)}>
-        <div className={classNames(styles.list)}>
-          <span className={classNames(styles.label)}>파이썬</span>
-          <hr className={classNames(styles.divider)} />
-          <span className={classNames(styles.content)}>
-            파이썬을 이용한 2D 게임 개발 경험
-          </span>
-          <hr className={classNames(styles.divider)} />
-          <LevelCheckboxGroup onChangeLevel={handleClick} />
+        <div className={classNames(styles.labelWrapper)}>
+          <div className={classNames(styles.label)}>기술</div>
+          <hr className={classNames(styles.tableDivider)} />
+          <div className={classNames(styles.label)}>수준</div>
+        </div>
+        <div className={classNames(styles.contentContainer)}>
+          <div className={classNames(styles.list)}>
+            <div className={classNames(styles.skillName)}>파이썬</div>
+            <hr className={classNames(styles.tableDivider)} />
+            <div className={classNames(styles.skillLevel)}>상</div>
+          </div>
+          <div className={classNames(styles.list)}>
+            <div className={classNames(styles.skillName)}>액셀</div>
+            <hr className={classNames(styles.tableDivider)} />
+            <div className={classNames(styles.skillLevel)}>상</div>
+          </div>
         </div>
       </div>
+
       {editMode && (
         <div className={classNames(styles.editInputWrapper)}>
           <div className={classNames(styles.skillInput)}>

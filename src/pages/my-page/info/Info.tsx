@@ -78,15 +78,17 @@ export const Info = () => {
             userType={userType}
             {...register('introduce')}
           />
-          <IndividualInfoPart
-            editMode={editMode}
-            userData={USER_DATA}
-            userType={userType}
-            registers={individualInfoRegisters}
-          />
-          {editMode && <SpecializationPart userType={userType} />}
+          <div className={classNames(styles.rowContainer)}>
+            <IndividualInfoPart
+              editMode={editMode}
+              userData={USER_DATA}
+              userType={userType}
+              registers={individualInfoRegisters}
+            />
+            {editMode && <SpecializationPart userType={userType} />}
 
-          <SkillPart editMode={editMode} />
+            <SkillPart editMode={editMode} />
+          </div>
           <ExperiencePart editMode={editMode} />
           <PortfolioPart
             editMode={editMode}

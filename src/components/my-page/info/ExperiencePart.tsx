@@ -18,19 +18,22 @@ export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
         )}
       </div>
       <div className={classNames(styles.experienceWrapper)}>
-        <div className={classNames(styles.list)}>
-          <span className={classNames(styles.content)}>
-            삼성 소프트웨어 개발(서버) 인턴쉽
-          </span>
-          <hr className={classNames(styles.divider)} />
-          <span className={classNames(styles.date)}>2024/08 - 2024/12</span>
+        <div className={classNames(styles.labelWrapper)}>
+          <div className={classNames(styles.label)}>직무</div>
+          <hr className={classNames(styles.tableDivider)} />
+          <div className={classNames(styles.label)}>기간</div>
         </div>
         <div className={classNames(styles.list)}>
-          <span className={classNames(styles.content)}>
-            삼성 소프트웨어 개발(서버) 인턴쉽
-          </span>
-          <hr className={classNames(styles.divider)} />
-          <span className={classNames(styles.date)}>2024/08 - 2024/12</span>
+          <div className={classNames(styles.experience)}>
+            삼성 소프트웨어 개발(서버) 인턴십
+          </div>
+          <hr className={classNames(styles.tableDivider)} />
+          <div className={classNames(styles.date)}>2024/12 - 2024/12</div>
+        </div>
+        <div className={classNames(styles.list)}>
+          <div className={classNames(styles.experience)}>어쩌구 인턴쉽</div>
+          <hr className={classNames(styles.tableDivider)} />
+          <div className={classNames(styles.date)}>2024/12 - 2024/12</div>
         </div>
       </div>
       {editMode && (

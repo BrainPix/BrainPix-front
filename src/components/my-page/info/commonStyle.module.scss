@@ -1,10 +1,13 @@
 .title {
-  @include pretendard-32-500;
+  @include pretendard-20-500;
 
   color: $grey-900;
   display: flex;
   align-items: center;
   gap: 15px;
+  border-bottom: 1px solid $grey-400;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
 
   & > .subTitle {
     @include pretendard-20-500;

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
-import { Carousel } from '../common/Carousel/Carousel';
+import { Carousel } from '../common/carousel/Carousel';
 import { PortfolioPopup } from './PortfolioPopup';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import styles from './portfolioCarousel.module.scss';
@@ -27,8 +27,8 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
         />
       )}
       <Carousel
-        gap={50}
-        cardWidth={199}
+        gap={33.3}
+        cardWidth={150}
         cardCount={size}
         buttonPosition='top'
         dataLength={10}>

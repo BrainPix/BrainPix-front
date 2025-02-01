@@ -1,32 +1,69 @@
 @import './commonStyle.module';
 
 .skillInfoWrapper {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  width: 100%;
+  width: 320px;
   height: max-content;
+  border: 1px solid $grey-500;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-.skillInfoWrapper > .list {
+.labelWrapper {
+  @include flex-space-between;
+
   width: 100%;
-  height: auto;
-  display: flex;
-  align-items: center;
-  letter-spacing: -0.28px;
-  line-height: 45px;
+  border-bottom: 1px solid $grey-500;
+  background-color: $grey-100;
+  padding: 10px 0;
 
   & > .label {
-    @include pretendard-28-500;
+    @include pretendard-18-500;
 
-    min-width: 75px;
+    width: 50%;
+    text-align: center;
+    color: $grey-600;
+    line-height: normal;
+    letter-spacing: -0.18px;
+  }
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
+.list {
+  @include pretendard-16-500;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: normal;
+  letter-spacing: -0.18px;
+
+  & > * {
+    width: 160px;
+    padding: 10px 0 0;
+    line-height: normal;
+    letter-spacing: -0.18px;
+    text-align: center;
   }
 
-  & > .content {
-    @include pretendard-24-400;
-
-    width: 425px;
+  & > .skillName {
     height: max-content;
   }
+
+  & > .skillLevel {
+    color: $primary;
+  }
+}
+
+.tableDivider {
+  width: 1px;
+  height: 15px;
+  background-color: $grey-500;
+  margin-bottom: 3px;
 }
 
 .skillInput {

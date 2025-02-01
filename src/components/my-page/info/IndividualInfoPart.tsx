@@ -85,8 +85,7 @@ export const IndividualInfoPart = forwardRef<
             key={key}
             className={classNames(styles.list)}>
             <span className={classNames(styles.label)}>{key}</span>
-            <hr className={classNames(styles.divider)} />
-            <span>{value}</span>
+            <span className={classNames(styles.value)}>{value}</span>
           </div>
         ))}
       </div>

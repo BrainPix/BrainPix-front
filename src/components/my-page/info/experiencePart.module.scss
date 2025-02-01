@@ -1,26 +1,46 @@
 @import './commonStyle.module';
 
 .experienceWrapper {
-  @include pretendard-28-400;
+  @include pretendard-18-500;
 
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  color: $grey-600;
+  overflow: hidden;
+  border: 1px solid $grey-500;
+  border-radius: 5px;
 }
 
-.experienceWrapper > .list {
-  @include pretendard-24-400;
+.labelWrapper {
+  @include flex-space-between;
 
-  display: flex;
-  align-items: center;
-  line-height: 45px;
+  width: 100%;
+}
 
-  & > .content {
-    width: 374px;
-  }
+.label {
+  @include pretendard-18-500;
+  @include flex-center;
 
-  & > .date {
-    width: 236px;
+  width: 50%;
+  padding: 10px 0;
+  color: $grey-600;
+  border-bottom: 1px solid $grey-500;
+  line-height: normal;
+  letter-spacing: -0.18px;
+  background-color: $grey-100;
+}
+
+.list {
+  @include pretendard-16-500;
+  @include flex-space-between;
+
+  height: 34px;
+  color: $grey-800;
+
+  & > .experience,
+  .date {
+    @include flex-center;
+
+    width: 50%;
   }
 }
 
@@ -40,6 +60,13 @@
   &:focus {
     outline: none;
   }
+}
+
+.tableDivider {
+  width: 1px;
+  height: 15px;
+  background-color: $grey-500;
+  margin-bottom: 3px;
 }
 
 .dateInputWrapper {
