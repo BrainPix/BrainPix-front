@@ -1,0 +1,131 @@
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 45px;
+
+  & > .title {
+    @include pretendard-24-500;
+
+    color: $grey-800;
+    margin-right: 15px;
+  }
+
+  & > .readCount {
+    @include pretendard-18-500;
+
+    color: $grey-500;
+    margin-right: 10px;
+  }
+}
+
+.writeButton {
+  @include pretendard-14-400;
+
+  padding: 10px 20px;
+  border-radius: 29px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.menuContainer {
+  display: flex;
+
+  & > .menu {
+    @include pretendard-20-500;
+
+    width: 280px;
+    border: none;
+    border-bottom: 2px solid $grey-400;
+    color: $grey-500;
+    cursor: pointer;
+    padding-bottom: 15px;
+    background: none;
+  }
+
+  & > .menu.clicked {
+    border-bottom: 2px solid $grey-700;
+    color: $grey-800;
+  }
+}
+
+.contentContainer {
+  padding-top: 20px;
+}
+
+.messageCardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  & .isRead {
+    background-color: $grey-200;
+  }
+}
+
+.messageCardWrapper {
+  @include flex-space-between;
+
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid $grey-500;
+  padding: 20px 30px;
+  cursor: pointer;
+}
+
+.leftWrapper {
+  & > .rootWrapper {
+    @include pretendard-14-400;
+
+    color: $grey-600;
+    display: flex;
+    margin-bottom: 5px;
+  }
+
+  & > .name {
+    @include pretendard-16-500;
+
+    color: $grey-700;
+    margin-bottom: 5px;
+    line-height: 20px;
+  }
+
+  & > .content {
+    @include pretendard-18-500;
+
+    color: $grey-800;
+  }
+}
+
+.root {
+  & > .divider {
+    margin: 0 3px;
+  }
+}
+
+.rightWrapper {
+  @include pretendard-16-500;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 24px;
+  color: $grey-400;
+
+  & > .moreButton {
+    @include pretendard-14-500;
+
+    padding: 5px 15px;
+    border-radius: 29px;
+    cursor: pointer;
+  }
+}
+
+.noMessageTextContainer {
+  @include flex-center;
+  @include pretendard-16-500;
+
+  width: 100%;
+  min-height: 150px;
+  color: $grey-500;
+}
