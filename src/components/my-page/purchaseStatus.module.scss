@@ -42,7 +42,7 @@
 
 .cardDetails {
   display: grid;
-  grid-template-columns: 199px 200px 200px 254px;
+  grid-template-columns: 200px 200px 250px 200px;
   align-items: center;
 
   div {
@@ -61,7 +61,7 @@
 }
 
 .messageButton {
-  width: 80%;
+  width: 100%;
   height: 34px;
   border: none;
   border-radius: 4px;
