@@ -6,6 +6,7 @@ import styles from './signup.module.scss';
 import { IndividualMemberRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
+import { postSignUp } from '../../apis/auth';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
@@ -23,10 +24,22 @@ export const Signup = () => {
 
   const registers = IndividualMemberRegisters({ register, watch, setValue });
 
-  const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
-    // const data = { ...payload, email: payload.email + '@' + emailDomain };
-    // console.log(data);
+  const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
+    const { id, email, password, name, nickname, birth } = payload;
+    const requestBody = {
+      id,
+      email,
+      password,
+      name,
+      nickname,
+      birthday: birth,
+    };
     console.log(payload);
+    try {
+      postSignUp(requestBody);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleClickNextButton = () => {
