@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import styles from './login.module.scss';
+
 import { loginRegisters } from '../../constants/registers';
 
 interface LoginPropsType {
