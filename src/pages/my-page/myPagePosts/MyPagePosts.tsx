@@ -1,54 +1,66 @@
+import { useState } from 'react';
 import styles from './myPagePosts.module.scss';
-//import classNames from 'classnames';
-import PostCard from '../../../components/postcard/PostCard.tsx';
-
-// const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
+import { TabNavigation } from '../../../components/my-page/TabNavigation.tsx';
+import { PostCard } from '../../../components/postcard/PostCard.tsx';
+import { PostCategories } from '../../../types/postData.ts';
 
 export const MyPagePosts = () => {
+  const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
+  const [activeTab, setActiveTab] = useState(TABS[0]);
   const posts = [
     {
       id: 1,
-      category: 'ideaMarket',
+      category: PostCategories.IDEA_MARKET,
       user: 'yeonyyy',
+      profileImage: null,
       title: '노인층을 위한 키오스크 대체 로봇',
-      image: '',
-      price: '500,000원',
+      postImage: null,
+      price: 500000,
     },
     {
       id: 2,
-      category: 'requestTask',
+      category: PostCategories.REQUEST_ASSIGN,
       user: 'yeonyyy',
+      profileImage: null,
       title: 'Web 개발 부탁드립니다.',
-      deadline: '20',
+      postImage: null,
+      deadline: 20,
     },
     {
       id: 3,
-      category: 'collaboration',
+      category: PostCategories.COLLABORATION,
       user: 'yeonyyy',
+      profileImage: null,
       title: '제목 입니다.',
-      image: '/image3.png',
-      deadline: '20',
-      memberInfo: 'Member (현재인원)/(모집인원)',
+      postImage: '/image3.png',
+      deadline: 20,
+      current: 0,
+      total: 5,
     },
     {
       id: 4,
-      category: 'ideaMarket',
+      category: PostCategories.IDEA_MARKET,
       user: 'yeonyyy',
+      profileImage: '/image1.png',
       title: '테스트!!',
-      image: '/image3.png',
-      deadline: '20',
-      memberInfo: 'Member (현재인원)/(모집인원)',
+      postImage: '/image3.png',
+      deadline: 20,
+      current: 0,
+      total: 5,
+      saveCount: 17,
+      viewCount: 25,
     },
     {
       id: 5,
-      category: 'ideaMarket',
+      category: PostCategories.IDEA_MARKET,
       user: 'yeonyyy',
+      profileImage: '/image1234.png',
       title: '안뇽',
-      image: '/image3.png',
-      deadline: '20',
-      memberInfo: 'Member (현재인원)/(모집인원)',
+      postImage: '/image3.png',
+      deadline: 17,
+      saveCount: 17,
+      viewCount: 25,
     },
-    // 게시물 데이터 추가
   ];
 
   return (
@@ -56,9 +68,14 @@ export const MyPagePosts = () => {
       <div className={styles.contentWrapper}>
         <main className={styles.mainContent}>
           <h1 className={styles.title}>
-            게시물 관리 <span className={styles.count}>11</span>
+            게시물 관리{' '}
+            <span className={styles.count}>총 게시글 {posts.length}</span>
           </h1>
-
+          <TabNavigation
+            tabs={TABS}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
           {/* 게시물 리스트 */}
           <div className={styles.postList}>
             {posts
