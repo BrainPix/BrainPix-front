@@ -6,7 +6,7 @@ import styles from './signup.module.scss';
 import { IndividualMemberRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
-import { postSignUp } from '../../apis/auth';
+import { postPersonalSignUp } from '../../apis/auth';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
@@ -20,9 +20,15 @@ export const Signup = () => {
     watch,
     setValue,
     formState: { errors },
+    getFieldState,
+    trigger,
   } = useForm({ mode: 'onTouched' });
 
-  const registers = IndividualMemberRegisters({ register, watch, setValue });
+  const registers = IndividualMemberRegisters({
+    register,
+    watch,
+    setValue,
+  });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
     const { id, email, password, name, nickname, birth } = payload;
@@ -31,19 +37,32 @@ export const Signup = () => {
       email,
       password,
       name,
-      nickname,
+      userNickName: nickname,
       birthday: birth,
     };
-    console.log(payload);
     try {
-      postSignUp(requestBody);
+      if (userType === 'individual') {
+        const response = await postPersonalSignUp(requestBody);
+        console.log(response);
+      }
     } catch (error) {
       console.error(error);
     }
+    location.href = '/idea-market';
   };
 
-  const handleClickNextButton = () => {
-    setStep(2);
+  const handleClickNextButton = async () => {
+    await trigger();
+
+    if (
+      !(
+        getFieldState('id').invalid ||
+        getFieldState('password').invalid ||
+        getFieldState('passwordCheck').invalid
+      )
+    ) {
+      setStep(2);
+    }
   };
 
   const handleClickUserTypeButton = (userType: 'individual' | 'corporate') => {
