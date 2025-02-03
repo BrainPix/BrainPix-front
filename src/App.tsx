@@ -17,12 +17,18 @@ import { CorporateMember } from './pages/sign-up/corporate/CorporateMember';
 import { CompleteSignup } from './components/sign-up/CompleteSignup';
 import { Login } from './pages/login/Login';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
+import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
+import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
+import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
+import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsCollaboration';
+//import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
+//import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
+//import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
 import { MyPage } from './pages/my-page/myPage/MyPage';
 import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 import { Message } from './pages/my-page/message/Message';
-import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 
 function App() {
   return (
@@ -79,16 +85,28 @@ function App() {
               element={<MyPage />}
             />
             <Route
+              path='/my/posts'
+              element={<MyPagePosts />}
+            />
+            <Route
+              path='/my/posts/idea-market/:postId'
+              element={<PostsIdeaMarket />}
+            />
+            <Route
+              path='/my/posts/request-assign/:postId'
+              element={<PostsRequestAssign />}
+            />
+            <Route
+              path='/my/posts/collaboration/:postId'
+              element={<PostsCollaboration />}
+            />
+            <Route
               path='/my/info'
               element={<Info />}
             />
             <Route
               path='/my/recent-news'
               element={<RecentNews />}
-            />
-            <Route
-              path='/my/posts' // 마이페이지 - 게시물 관리 페이지로 임시 라우팅
-              element={<MyPagePosts />}
             />
             <Route
               path='/my/portfolio'

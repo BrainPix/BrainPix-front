@@ -1,0 +1,80 @@
+@import '../../styles/mixins';
+
+@mixin flex-center-postsIdeaMarket {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title{
+  @include font-mixin('Pretendard',32px, 500);
+  text-align: left;
+  color: $grey-900;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: $grey-500;
+  margin: 15px 0;
+}
+
+.cardHeader{
+  display: grid;
+  grid-template-columns: 199px 200px 200px 254px;
+  align-items: center;
+  padding: 15px 0;
+
+  span{
+    width: 100%;
+    height: 24px;
+    font-size: 20px;
+    letter-spacing: -1.5px;
+  }
+}
+
+.purchaseCard {
+  display: flex;
+  width: 847px;
+  height: 65px;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid $grey-500;
+  border-radius: 8px;
+}
+
+.cardDetails {
+  display: grid;
+  grid-template-columns: 199px 200px 200px 254px;
+  align-items: center;
+
+  div {
+    @include flex-center-postsIdeaMarket;
+    width: 100%;
+    height: 65px;
+    border-right: 1px solid $grey-500;
+    padding-left: 14px;
+    font-size: 24px;
+  }
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  margin-left: 14px;
+}
+
+.messageButton {
+  width: 106px;
+  height: 34px;
+  border: none;
+  border-radius: 4px;
+  background-color: $grey-700;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.messageButton:hover {
+  background-color: #29292a;
+}
