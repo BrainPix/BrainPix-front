@@ -11,9 +11,10 @@ import { Input } from './Input';
 interface StepTwoPropType {
   registers: Record<string, UseFormRegisterReturn>;
   errors: FieldErrors<FieldValues>;
+  isValid: boolean;
 }
 
-export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
+export const StepTwo = ({ registers, errors, isValid }: StepTwoPropType) => {
   return (
     <div>
       <div className={classNames(styles.headlineWrapper)}>
@@ -38,10 +39,14 @@ export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
                 {...registers.birth}
               />
             </div>
-            <p className={classNames(styles.errorMessage)}>
-              {errors.name?.message && String(errors.name?.message)} <br />
-              {errors.birth?.message && String(errors.birth?.message)}
-            </p>
+            <div className={classNames(styles.errorMessage)}>
+              <p className={classNames(styles.name)}>
+                {errors.name?.message && String(errors.name?.message)}
+              </p>
+              <p className={classNames(styles.birth)}>
+                {errors.birth?.message && String(errors.birth?.message)}
+              </p>
+            </div>
             <Input
               label='닉네임 입력'
               placeholder='닉네임 입력'
@@ -75,7 +80,11 @@ export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
           </div>
         </div>
         <button
-          className={classNames(styles.submitButton, 'buttonFilled-grey800')}
+          disabled={!isValid}
+          className={classNames(
+            styles.submitButton,
+            isValid ? 'buttonFilled-grey800' : 'buttonFilled-grey500',
+          )}
           type='submit'>
           완료
         </button>
