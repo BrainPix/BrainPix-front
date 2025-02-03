@@ -1,34 +1,87 @@
+import { useState } from 'react';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import styles from './signup.module.scss';
 
-import Individual from '../../assets/icons/individualMember.svg?react';
-import Corporate from '../../assets/icons/corporateMember.svg?react';
-
-import styles from './signUp.module.scss';
+import { IndividualMemberRegisters } from '../../constants/registers';
+import { StepOne } from '../../components/sign-up/StepOne';
+import { StepTwo } from '../../components/sign-up/StepTwo';
+import { postSignUp } from '../../apis/auth';
 
 export const Signup = () => {
-  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const [userType, setUserType] = useState<'individual' | 'corporate'>(
+    'individual',
+  );
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({ mode: 'onTouched' });
+
+  const registers = IndividualMemberRegisters({ register, watch, setValue });
+
+  const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
+    const { id, email, password, name, nickname, birth } = payload;
+    const requestBody = {
+      id,
+      email,
+      password,
+      name,
+      nickname,
+      birthday: birth,
+    };
+    console.log(payload);
+    try {
+      postSignUp(requestBody);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClickNextButton = () => {
+    setStep(2);
+  };
+
+  const handleClickUserTypeButton = (userType: 'individual' | 'corporate') => {
+    setUserType(userType);
+  };
+
+  const REGISTERS = {
+    id: registers.id,
+    password: registers.password,
+    passwordCheck: registers.passwordCheck,
+    name: registers.name,
+    birth: registers.birth,
+    nickname: registers.nickname,
+    email: registers.email,
+  };
+
   return (
-    <div className={classNames(styles.container)}>
-      <div className={classNames(styles.logo)}>로고</div>
-      <h1 className={classNames(styles.headline)}>
-        회원가입하고
-        <br /> 아이디어를 공유해보세요!
-      </h1>
-      <div className={classNames(styles.buttonWrapper)}>
-        <button
-          onClick={() => navigate('individual')}
-          className={classNames(styles.memberButton, styles.individual)}>
-          <Individual />
-          <span>개인회원</span>
-        </button>
-        <button
-          onClick={() => navigate('corporate')}
-          className={classNames(styles.memberButton)}>
-          <Corporate />
-          <span>기업회원</span>
-        </button>
-      </div>
+    <div
+      className={classNames(styles.container)}
+      onSubmit={handleSubmit(handleSubmitHandler)}>
+      <form className={classNames(styles.contentContainer)}>
+        <div className={classNames(styles.logo)}>로고</div>
+        {step === 1 && (
+          <StepOne
+            onClickUserTypeButton={handleClickUserTypeButton}
+            onClickNext={handleClickNextButton}
+            userType={userType}
+            registers={REGISTERS}
+            errors={errors}
+          />
+        )}
+        {step === 2 && (
+          <StepTwo
+            registers={REGISTERS}
+            errors={errors}
+          />
+        )}
+      </form>
     </div>
   );
 };

@@ -1,62 +1,43 @@
-import './postsIdeaMarket.module.scss';
+import { useParams, useLocation } from 'react-router-dom';
+import styles from './postsIdeaMarket.module.scss';
+import { PurchaseStatus } from '../../../components/my-page/PurchaseStatus';
+import { IdeaMarketPostHeader } from '../../../components/my-page/IdeaMarketPostHeader';
 
-interface PurchaseRecord {
-  id: string;
-  paymentMethod: string;
-  amount: number;
-}
+export const PostsIdeaMarket = () => {
+  const POST_DATA = [
+    {
+      id: 1,
+      user: 'SEO YEON',
+      title: '디자인 해드립니다',
+      postImage: '',
+      price: 200000000,
+      ideaMarketAuth: 'ALL',
+    },
+  ];
 
-interface PostIdeaMarketProps {
-  title: string;
-  price: number;
-  purchaseRecords: PurchaseRecord[];
-}
+  // 게시물 id 받아오기
+  const { postId } = useParams<{ postId: string }>();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get('category') || '카테고리 없음';
 
-function PostIdeaMarket({
-  title,
-  price,
-  purchaseRecords,
-}: PostIdeaMarketProps) {
+  // POST_DATA에서 postId에 맞는 데이터 찾기
+  const post = POST_DATA.find((post) => post.id === Number(postId));
+
+  if (!post) {
+    return <div>게시글을 찾을 수 없습니다.</div>;
+  }
+
   return (
-    <div className='postcard-details'>
-      <div className='postcard-header'>
-        <div className='image-placeholder'>이미지</div>
-        <div className='postcard-info'>
-          <h1>{title}</h1>
-          <p>{price.toLocaleString()} 원</p>
-        </div>
-      </div>
-
-      <h2>구매 현황</h2>
-      <table className='purchase-table'>
-        <thead>
-          <tr>
-            <th>아이디</th>
-            <th>거래 방식</th>
-            <th>지불 금액</th>
-            <th>액션</th>
-          </tr>
-        </thead>
-        <tbody>
-          {purchaseRecords.map((record) => (
-            <tr key={record.id}>
-              <td>{record.id}</td>
-              <td>{record.paymentMethod}</td>
-              <td>{record.amount.toLocaleString()}</td>
-              <td>
-                <button className='message-button'>메시지 보내기</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className='postcard-actions'>
-        <button className='edit-button'>수정하기</button>
-        <button className='delete-button'>삭제</button>
+    <div className={styles.postcardWrapper}>
+      <IdeaMarketPostHeader
+        category={category}
+        title={post.title}
+        price={post.price}
+      />
+      <div className={styles.purchaseCardWrapper}>
+        <PurchaseStatus />
       </div>
     </div>
   );
-}
-
-export default PostIdeaMarket;
+};

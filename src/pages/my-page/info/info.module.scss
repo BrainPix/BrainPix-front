@@ -1,6 +1,17 @@
 .contentContainer {
   display: flex;
   flex-direction: column;
-  gap: 90px;
-  margin-top: 45px;
+  gap: 80px;
+  margin-top: 40px;
+}
+
+.rowContainer {
+  display: flex;
+  gap: 60px;
+}
+
+.colContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }

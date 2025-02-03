@@ -1,0 +1,137 @@
+.container {
+  position: fixed;
+  top: 0;
+  right: 10px;
+  z-index: 10;
+  width: 650px;
+  background-color: $grey-50;
+  box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
+  padding: 40px;
+  border-radius: 50px;
+}
+
+.titleWrapper {
+  @include flex-space-between;
+
+  & > .title {
+    @include pretendard-24-500;
+
+    line-height: normal;
+  }
+
+  & > .editButton {
+    @include pretendard-16-500;
+
+    cursor: pointer;
+    border: none;
+  }
+}
+
+.titleDivider {
+  width: 100%;
+  height: 1px;
+  background-color: $grey-500;
+  margin: 20px 0 15px;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.infoWrapper {
+  @include pretendard-18-500;
+
+  display: flex;
+  align-items: center;
+  color: $grey-700;
+
+  & > input {
+    @include pretendard-18-400;
+
+    background-color: $grey-50;
+    border-radius: 5px;
+    border: 1px solid $grey-700;
+    padding: 4px;
+
+    &:disabled {
+      border: none;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.infoDivider {
+  width: 1px;
+  height: 20px;
+  background-color: $grey-500;
+  margin: 0 15px;
+}
+
+.imageInputLabel {
+  @include flex-center;
+  @include pretendard-14-400;
+
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  background-color: $grey-200;
+  color: $grey-600;
+  margin: 15px 0;
+}
+
+.imageInput {
+  display: none;
+}
+
+.contentInput {
+  @include pretendard-20-500;
+
+  width: 100%;
+  color: $grey-700;
+  height: 200px;
+  border-radius: 5px;
+  border-radius: 1px solid $grey-400;
+  background-color: $grey-50;
+  padding: 18px 20px;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.deleteButtonWrapper {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+  margin-left: auto;
+
+  & > * {
+    @include pretendard-20-400;
+
+    cursor: pointer;
+  }
+
+  & > .cancelButton {
+    border: none;
+    background: none;
+    color: $grey-600;
+  }
+
+  & > .deleteButton {
+    padding: 10px 20px;
+    border-radius: 34px;
+  }
+}
