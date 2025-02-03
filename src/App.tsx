@@ -24,8 +24,8 @@ import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsColl
 //import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 //import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 //import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
-import { RequestAssignRegister } from './pages/my-page/postsRequestAssign/RequestAssignRegister';
-//import { MyPage } from './pages/my-page/myPage/MyPage';
+//import { RequestAssignRegister } from './pages/my-page/postsRequestAssign/RequestAssignRegister';
+import { MyPage } from './pages/my-page/myPage/MyPage';
 import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
@@ -83,7 +83,7 @@ function App() {
           <Route element={<MyPageLayout />}>
             <Route
               path='/my'
-              element={<RequestAssignRegister />}
+              element={<MyPage />}
             />
             <Route
               path='/my/posts'
@@ -108,10 +108,6 @@ function App() {
             <Route
               path='/my/recent-news'
               element={<RecentNews />}
-            />
-            <Route
-              path='/my/posts'
-              element={<MyPagePosts />}
             />
             <Route
               path='/my/portfolio'
