@@ -1,5 +1,5 @@
 .title {
-  @include font-mixin('Pretendard', 32px, 500);
+  @include pretendard-32-500;
   color: $grey-900;
   letter-spacing: -0.01em;
   margin-bottom: 45px;
@@ -22,13 +22,13 @@
   flex: 1;
 
   .text {
-    @include font-mixin('Pretendard', 28px, 500);
+    @include pretendard-28-500;
     color: $grey-800;
   }
 }
 
 .required {
-  @include font-mixin('Pretendard', 20px, 400);
+  @include pretendard-20-400;
   color: #E85650;
   margin-left: 10px;
   //margin-bottom: 30px;
@@ -94,7 +94,7 @@
   padding: 20px;
   border: 1px solid $grey-400;
   border-radius: 5px;
-  @include font-mixin('Pretendard', 24px, 400);
+  @include pretendard-24-400;
   color: $grey-600;
   margin-bottom: 30px;
 }
@@ -114,7 +114,7 @@
   // align-items: center;
   // gap: 12px;
   // font-size: 14px;
-  @include font-mixin('Pretendard', 18px, 400);
+  @include pretendard-18-400;
   color: $grey-600;
   width: 100%;
   padding: 14px 20px 14px 20px;

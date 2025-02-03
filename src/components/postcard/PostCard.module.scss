@@ -44,11 +44,11 @@
     }
 
     .deadline {
-      width: 54px;
-      height: 29px;
       @include pretendard-14-500;
       color: $grey-50;
       background-color: $primary;
+      width: 54px;
+      height: 29px;
       border-radius: 17.5px;
       text-align: center;
       margin-bottom: 17px;

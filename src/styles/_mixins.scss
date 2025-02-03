@@ -15,3 +15,15 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin grid-center($columns: 200px 200px 250px 200px) {
+  display: grid;
+  grid-template-columns: $columns;
+  align-items: center;
+}
