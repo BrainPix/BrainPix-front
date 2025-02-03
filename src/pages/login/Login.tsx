@@ -4,18 +4,36 @@ import classNames from 'classnames';
 import styles from './login.module.scss';
 
 import { loginRegisters } from '../../constants/registers';
+import { postLogin } from '../../apis/auth';
+import { useMutation } from '@tanstack/react-query';
+import { LoginPayload } from '../../types/auth';
 
 interface LoginPropsType {
   userType: 'individual' | 'corparate';
 }
 
 export const Login = ({ userType }: LoginPropsType) => {
+  // const queryClient = useQueryClient();
+
   const [member, setMember] = useState<'individual' | 'corparate'>(userType);
+  const { register, handleSubmit } = useForm();
 
-  const { register, handleSubmit } = useForm({ mode: 'onSubmit' });
+  const { mutate: loginMutate } = useMutation({
+    mutationFn: (formData: LoginPayload) => postLogin(formData),
+    onSuccess: (response) => {
+      console.log(response);
+    },
+  });
 
-  const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
-    console.log(payload);
+  const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
+    const { id, password } = payload;
+    const requestBody = { id, password };
+    try {
+      const response = await postLogin(requestBody);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const registers = loginRegisters(register);
@@ -64,6 +82,7 @@ export const Login = ({ userType }: LoginPropsType) => {
               <input
                 className={classNames(styles.input)}
                 placeholder='비밀번호 입력'
+                type='password'
                 id='password'
                 {...registers.password}
               />

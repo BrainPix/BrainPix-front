@@ -1,7 +1,14 @@
 import axios from 'axios';
-import { PersonalSignUpPayload } from '../types/auth';
+import { LoginPayload, PersonalSignUpPayload } from '../types/auth';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+export const postLogin = async (payload: LoginPayload) => {
+  const url = `${BASE_URL}/users/login?userId=${payload.id}`;
+  const response = await axios.post(url, payload);
+  console.log(response);
+  return response;
+};
 
 export const postPersonalSignUp = async (payload: PersonalSignUpPayload) => {
   const url = `${BASE_URL}/users/signup/personal`;
@@ -18,6 +25,11 @@ export const postEmailCode = async (email: string) => {
 export const getDuplicateNickname = async (nickname: string) => {
   const url = `${BASE_URL}/users/signup/duplicate/nickname?nickName=${nickname}`;
   const response = await axios.get(url);
-  console.log(response);
+  return response;
+};
+
+export const getDuplicateId = async (id: string) => {
+  const url = `${BASE_URL}/users/signup/duplicate/id?id=${id}`;
+  const response = await axios.get(url);
   return response;
 };

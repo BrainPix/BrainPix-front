@@ -7,6 +7,8 @@ import { IndividualMemberRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
 import { postPersonalSignUp } from '../../apis/auth';
+import { useMutation } from '@tanstack/react-query';
+import { PersonalSignUpPayload } from '../../types/auth';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
@@ -14,12 +16,20 @@ export const Signup = () => {
     'individual',
   );
 
+  const { mutate: signupMutation } = useMutation({
+    mutationFn: (formData: PersonalSignUpPayload) =>
+      postPersonalSignUp(formData),
+    onSuccess: (response) => {
+      console.log(response);
+    },
+  });
+
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid },
     getFieldState,
     trigger,
   } = useForm({ mode: 'onTouched' });
@@ -37,18 +47,11 @@ export const Signup = () => {
       email,
       password,
       name,
-      userNickName: nickname,
+      nickName: nickname,
       birthday: birth,
     };
-    try {
-      if (userType === 'individual') {
-        const response = await postPersonalSignUp(requestBody);
-        console.log(response);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    location.href = '/idea-market';
+    signupMutation(requestBody);
+    // location.href = '/idea-market';
   };
 
   const handleClickNextButton = async () => {
@@ -98,6 +101,7 @@ export const Signup = () => {
           <StepTwo
             registers={REGISTERS}
             errors={errors}
+            isValid={isValid}
           />
         )}
       </form>

@@ -6,7 +6,8 @@ import {
 } from 'react-hook-form';
 import { SIGN_UP_ERROR_MESSAGE } from './errorMessage';
 import { formatBirth } from '../utils/formatBirth';
-import { getDuplicateNickname } from '../apis/auth';
+import { getDuplicateId, getDuplicateNickname } from '../apis/auth';
+import { useMutation } from '@tanstack/react-query';
 
 interface RegistersProps {
   register: UseFormRegister<FieldValues>;
@@ -28,6 +29,13 @@ export const IndividualMemberRegisters = ({
   watch,
   setValue,
 }: RegistersProps) => {
+  const { mutate: checkIdMutation } = useMutation({
+    mutationFn: (email: string) => getDuplicateId(email),
+    onSuccess: (response) => {
+      console.log(response);
+    },
+  });
+
   if (!watch || !setValue) {
     return {
       id: register('id'),
@@ -39,8 +47,10 @@ export const IndividualMemberRegisters = ({
       nickname: register('nickname'),
     };
   }
+
   const registers = {
     id: register('id', {
+      onBlur: () => checkIdMutation(watch('id')),
       required: SIGN_UP_ERROR_MESSAGE.id,
       minLength: { value: 6, message: SIGN_UP_ERROR_MESSAGE.id },
       maxLength: { value: 12, message: SIGN_UP_ERROR_MESSAGE.id },
