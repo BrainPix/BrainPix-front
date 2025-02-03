@@ -66,18 +66,21 @@ export const IndividualMemberRegisters = ({
         return true;
       },
     }),
-    name: register('name'),
+    name: register('name', {
+      required: SIGN_UP_ERROR_MESSAGE.name,
+    }),
     birth: register('birth', {
+      required: SIGN_UP_ERROR_MESSAGE.birth,
       onChange: (e) => {
         setValue('birth', formatBirth(e.target.value));
       },
     }),
     email: register('email', {
-      required: true,
+      required: SIGN_UP_ERROR_MESSAGE.email,
       pattern: {
         value:
           /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
-        message: '올바른 이메일 형식이 아닙니다.',
+        message: SIGN_UP_ERROR_MESSAGE.emailRegex,
       },
     }),
     nickname: register('nickname', {

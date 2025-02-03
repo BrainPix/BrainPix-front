@@ -6,7 +6,6 @@ import styles from './signup.module.scss';
 import { IndividualMemberRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
-import { postPersonalSignUp } from '../../apis/auth';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
@@ -31,18 +30,20 @@ export const Signup = () => {
   });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
-    const { id, email, password, name, nickname, birth } = payload;
-    const requestBody = {
-      id,
-      email,
-      password,
-      name,
-      userNickName: nickname,
-      birthday: birth,
-    };
+    console.log(errors);
+    // const { id, email, password, name, nickname, birth } = payload;
+    // const requestBody = {
+    //   id,
+    //   email,
+    //   password,
+    //   name,
+    //   userNickName: nickname,
+    //   birthday: birth,
+    // };
     try {
       if (userType === 'individual') {
-        return postPersonalSignUp(requestBody);
+        // const response = await postPersonalSignUp(requestBody);
+        location.href = '/idea-market';
       }
     } catch (error) {
       console.error(error);

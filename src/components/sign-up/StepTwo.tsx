@@ -28,7 +28,6 @@ export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
                 label='이름'
                 placeholder='이름 입력'
                 type='text'
-                errorMessage={errors?.name && String(errors.name)}
                 {...registers.name}
               />
               <Input
@@ -36,12 +35,13 @@ export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
                 placeholder='2025/01/01'
                 type='text'
                 maxLength={10}
-                errorMessage={
-                  errors.password?.message && String(errors.password?.message)
-                }
                 {...registers.birth}
               />
             </div>
+            <p className={classNames(styles.errorMessage)}>
+              {errors.name?.message && String(errors.name?.message)} <br />
+              {errors.birth?.message && String(errors.birth?.message)}
+            </p>
             <Input
               label='닉네임 입력'
               placeholder='닉네임 입력'

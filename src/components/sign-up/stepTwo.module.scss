@@ -17,6 +17,10 @@
   }
 }
 
+.rowContainer {
+  @include flex-space-between;
+}
+
 .submitButton {
   @include flex-center;
   @include pretendard-20-500;
