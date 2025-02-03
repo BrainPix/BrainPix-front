@@ -52,61 +52,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={classNames(styles.container)}>
         {label && <p className={classNames(styles.label)}>{label}</p>}
-
-        {isEmail ? (
-          <div>
-            <div className={classNames(styles.emailInputContainer)}>
-              <div className={classNames(styles.emailWrapper)}>
-                <input
-                  ref={ref}
-                  className={classNames(styles.defaultInput)}
-                  {...rest}
-                />
-                @
-                <input
-                  ref={emailDomainRef}
-                  value={
-                    selectedEmailDomain === '직접 입력'
-                      ? inputData
-                      : selectedEmailDomain
-                  }
-                  disabled={selectedEmailDomain !== '직접 입력'}
-                  className={classNames(styles.defaultInput)}
-                  onChange={handleChangeEmailDomainInput}
-                />
-              </div>
-              <select
-                className={classNames(styles.dropDown)}
-                onChange={(e) => handleChangeEmailDomainSelect(e)}>
-                <option value='직접 입력'>직접 입력</option>
-                <option value='naver.com'>naver.com</option>
-                <option value='google.com'>google.com</option>
-                <option value='hanmail.net'>hanmail.net</option>
-                <option value='nate.com'>nate.com</option>
-                <option value='kakao.com'>kakao.com</option>
-              </select>
-            </div>
-            <div className={classNames(styles.emailInputContainer)}>
-              <div className={classNames(styles.emailWrapper)}>
-                <input className={classNames(styles.defaultInput)} />
-              </div>
-              <button className={classNames(styles.requestButton)}>
-                인증요청
-              </button>
-            </div>
-          </div>
-        ) : (
-          <>
-            <input
-              className={classNames(styles.defaultInput)}
-              ref={ref}
-              {...rest}
-            />
-            {errorMessage && (
-              <p className={classNames(styles.errorMessage)}>{errorMessage}</p>
-            )}
-          </>
-        )}
+        <>
+          <input
+            className={classNames(styles.defaultInput)}
+            ref={ref}
+            {...rest}
+          />
+          {errorMessage && (
+            <p className={classNames(styles.errorMessage)}>{errorMessage}</p>
+          )}
+        </>
       </div>
     );
   },

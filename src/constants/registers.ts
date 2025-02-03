@@ -35,6 +35,7 @@ export const IndividualMemberRegisters = ({
       name: register('name'),
       birth: register('birth'),
       email: register('email'),
+      nickname: register('nickname'),
     };
   }
   const registers = {
@@ -66,6 +67,7 @@ export const IndividualMemberRegisters = ({
       },
     }),
     email: register('email'),
+    nickname: register('nickname'),
   };
 
   return registers;
