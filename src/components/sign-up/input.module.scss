@@ -34,6 +34,10 @@
   display: flex;
   width: 100%;
   gap: 20px;
+
+  & > div {
+    width: 100%;
+  }
 }
 
 .defaultInput {
@@ -44,7 +48,7 @@
 }
 
 .errorMessage {
-  @include pretendard-18-400;
+  @include pretendard-16-400;
 
   color: $red;
   margin-top: 10px;

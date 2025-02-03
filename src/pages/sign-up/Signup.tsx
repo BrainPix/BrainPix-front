@@ -20,6 +20,8 @@ export const Signup = () => {
     watch,
     setValue,
     formState: { errors },
+    getFieldState,
+    trigger,
   } = useForm({ mode: 'onTouched' });
 
   const registers = IndividualMemberRegisters({
@@ -47,8 +49,18 @@ export const Signup = () => {
     }
   };
 
-  const handleClickNextButton = () => {
-    setStep(2);
+  const handleClickNextButton = async () => {
+    await trigger();
+
+    if (
+      !(
+        getFieldState('id').invalid ||
+        getFieldState('password').invalid ||
+        getFieldState('passwordCheck').invalid
+      )
+    ) {
+      setStep(2);
+    }
   };
 
   const handleClickUserTypeButton = (userType: 'individual' | 'corporate') => {
@@ -78,6 +90,7 @@ export const Signup = () => {
             userType={userType}
             registers={REGISTERS}
             errors={errors}
+            fieldState={getFieldState}
           />
         )}
         {step === 2 && (

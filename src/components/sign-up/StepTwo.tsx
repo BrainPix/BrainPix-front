@@ -28,6 +28,7 @@ export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
                 label='이름'
                 placeholder='이름 입력'
                 type='text'
+                errorMessage={errors?.name && String(errors.name)}
                 {...registers.name}
               />
               <Input

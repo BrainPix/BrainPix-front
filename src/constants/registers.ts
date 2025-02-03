@@ -50,6 +50,7 @@ export const IndividualMemberRegisters = ({
       },
     }),
     password: register('password', {
+      required: SIGN_UP_ERROR_MESSAGE.passwordRegex,
       minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
       maxLength: { value: 20, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
       pattern: {
