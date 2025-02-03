@@ -91,7 +91,6 @@ export const Signup = () => {
             userType={userType}
             registers={REGISTERS}
             errors={errors}
-            fieldState={getFieldState}
           />
         )}
         {step === 2 && (

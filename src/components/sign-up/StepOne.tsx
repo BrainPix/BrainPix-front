@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import {
   FieldErrors,
   FieldValues,
-  UseFormGetFieldState,
   UseFormRegisterReturn,
 } from 'react-hook-form';
 import styles from './stepOne.module.scss';
@@ -15,7 +14,6 @@ interface StepOnePropsType {
   onClickUserTypeButton: (userType: 'individual' | 'corporate') => void;
   registers: Record<string, UseFormRegisterReturn>;
   errors: FieldErrors<FieldValues>;
-  fieldState: UseFormGetFieldState<FieldValues>;
 }
 
 export const StepOne = ({
@@ -24,7 +22,6 @@ export const StepOne = ({
   onClickUserTypeButton,
   registers,
   errors,
-  fieldState,
 }: StepOnePropsType) => {
   return (
     <div>
