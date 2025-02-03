@@ -17,27 +17,6 @@
   }
 }
 
-.rowContainer {
-  @include flex-space-between;
-
-  & > * {
-    width: 180px;
-  }
-}
-
-.emailInputContainer {
-  width: 265px;
-}
-
-.emailButton {
-  @include pretendard-18-500;
-
-  width: 106px;
-  height: 50px;
-  border-radius: 5px;
-  margin-top: 45px;
-}
-
 .submitButton {
   @include flex-center;
   @include pretendard-20-500;
@@ -47,4 +26,19 @@
   height: 50px;
   border-radius: 5px;
   margin-top: 30px;
+}
+
+.emailButton {
+  width: 106px;
+  height: 50px;
+  border-radius: 5px;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  @include pretendard-16-400;
+
+  color: $red;
+  margin-top: 10px;
 }

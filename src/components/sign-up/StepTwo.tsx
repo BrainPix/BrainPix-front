@@ -28,13 +28,13 @@ export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
                 label='이름'
                 placeholder='이름 입력'
                 type='text'
-                errorMessage={errors.id?.message && String(errors.id?.message)}
                 {...registers.name}
               />
               <Input
                 label='생년월일'
                 placeholder='2025/01/01'
                 type='text'
+                maxLength={10}
                 errorMessage={
                   errors.password?.message && String(errors.password?.message)
                 }
@@ -51,27 +51,25 @@ export const StepTwo = ({ registers, errors }: StepTwoPropType) => {
               }
               {...registers.nickname}
             />
-            <div className={classNames(styles.rowContainer)}>
-              <div className={classNames(styles.emailInputContainer)}>
-                <Input
-                  label='이메일 인증'
-                  placeholder='이메일 입력'
-                  type='email'
-                  errorMessage={
-                    errors.passwordCheck?.message &&
-                    String(errors.passwordCheck?.message)
-                  }
-                  {...registers.email}
-                />
-              </div>
-              <button
-                type='button'
-                className={classNames(
-                  styles.emailButton,
-                  'buttonFilled-grey400',
-                )}>
-                인증
-              </button>
+            <div className={classNames(styles.emailInputContainer)}>
+              <Input
+                label='이메일 인증'
+                placeholder='이메일 입력'
+                type='email'
+                isEmail
+                errorMessage={
+                  errors.email?.message && String(errors.email?.message)
+                }
+                {...registers.email}>
+                <button
+                  type='button'
+                  className={classNames(
+                    styles.emailButton,
+                    'buttonFilled-grey800',
+                  )}>
+                  인증
+                </button>
+              </Input>
             </div>
           </div>
         </div>

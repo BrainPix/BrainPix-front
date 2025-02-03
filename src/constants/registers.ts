@@ -51,6 +51,10 @@ export const IndividualMemberRegisters = ({
     password: register('password', {
       minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
       maxLength: { value: 20, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
+      pattern: {
+        value: /^(?=(.*[A-Za-z].*){1,})(?=(.*\d.*){1,}|(.*\W.*){1,}).+$/,
+        message: SIGN_UP_ERROR_MESSAGE.passwordRegex,
+      },
     }),
     passwordCheck: register('passwordCheck', {
       validate: (value) => {
@@ -66,7 +70,14 @@ export const IndividualMemberRegisters = ({
         setValue('birth', formatBirth(e.target.value));
       },
     }),
-    email: register('email'),
+    email: register('email', {
+      required: true,
+      pattern: {
+        value:
+          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+        message: '올바른 이메일 형식이 아닙니다.',
+      },
+    }),
     nickname: register('nickname'),
   };
 
