@@ -22,14 +22,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={classNames(styles.container)}>
         {label && <p className={classNames(styles.label)}>{label}</p>}
         <div className={classNames(styles.rowContainer)}>
-          <input
-            className={classNames(styles.defaultInput)}
-            ref={ref}
-            {...rest}
-          />
-          {errorMessage && (
-            <p className={classNames(styles.errorMessage)}>{errorMessage}</p>
-          )}
+          <div>
+            <input
+              className={classNames(styles.defaultInput)}
+              ref={ref}
+              {...rest}
+            />
+            {errorMessage && (
+              <p className={classNames(styles.errorMessage)}>{errorMessage}</p>
+            )}
+          </div>
           {isEmail && <> {children}</>}
         </div>
       </div>

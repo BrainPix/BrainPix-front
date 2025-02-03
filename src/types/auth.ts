@@ -1,8 +1,13 @@
-export interface SignUpPayload {
+export interface PersonalSignUpPayload {
   id: string;
   password: string;
   name: string;
   birthday: string;
-  nickname: string;
   email: string;
+  userNickName: string;
+}
+
+export interface CompanySignUpPayload extends PersonalSignUpPayload {
+  companyName: string;
+  position: string;
 }

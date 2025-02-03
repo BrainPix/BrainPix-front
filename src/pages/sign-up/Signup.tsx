@@ -6,7 +6,7 @@ import styles from './signup.module.scss';
 import { IndividualMemberRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
-import { postSignUp } from '../../apis/auth';
+import { postPersonalSignUp } from '../../apis/auth';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
@@ -19,7 +19,6 @@ export const Signup = () => {
     handleSubmit,
     watch,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({ mode: 'onTouched' });
 
@@ -27,7 +26,6 @@ export const Signup = () => {
     register,
     watch,
     setValue,
-    getValues,
   });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
@@ -37,12 +35,13 @@ export const Signup = () => {
       email,
       password,
       name,
-      nickname,
+      userNickName: nickname,
       birthday: birth,
     };
-    console.log(payload);
     try {
-      postSignUp(requestBody);
+      if (userType === 'individual') {
+        return postPersonalSignUp(requestBody);
+      }
     } catch (error) {
       console.error(error);
     }

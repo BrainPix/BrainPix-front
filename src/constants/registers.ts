@@ -1,6 +1,5 @@
 import {
   FieldValues,
-  UseFormGetValues,
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
@@ -13,7 +12,6 @@ interface RegistersProps {
   register: UseFormRegister<FieldValues>;
   watch?: UseFormWatch<FieldValues>;
   setValue?: UseFormSetValue<FieldValues>;
-  getValues: UseFormGetValues<FieldValues>;
 }
 
 export const loginRegisters = (register: UseFormRegister<FieldValues>) => {
@@ -29,7 +27,6 @@ export const IndividualMemberRegisters = ({
   register,
   watch,
   setValue,
-  getValues,
 }: RegistersProps) => {
   if (!watch || !setValue) {
     return {
@@ -83,7 +80,7 @@ export const IndividualMemberRegisters = ({
       },
     }),
     nickname: register('nickname', {
-      onBlur: async () => getDuplicateNickname(getValues('nickname')),
+      onBlur: async () => getDuplicateNickname(watch('nickname')),
     }),
   };
 

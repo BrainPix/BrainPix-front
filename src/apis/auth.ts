@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { SignUpPayload } from '../types/auth';
+import { PersonalSignUpPayload } from '../types/auth';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export const postSignUp = async (payload: SignUpPayload) => {
+export const postPersonalSignUp = async (payload: PersonalSignUpPayload) => {
   const url = `${BASE_URL}/users/signup/personal`;
   const response = await axios.post(url, payload);
   return response;

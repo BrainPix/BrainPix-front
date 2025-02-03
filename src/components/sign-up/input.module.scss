@@ -42,3 +42,10 @@
   width: 100%;
   height: 50px;
 }
+
+.errorMessage {
+  @include pretendard-18-400;
+
+  color: $red;
+  margin-top: 10px;
+}
