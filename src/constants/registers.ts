@@ -1,16 +1,19 @@
 import {
   FieldValues,
+  UseFormGetValues,
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
 import { SIGN_UP_ERROR_MESSAGE } from './errorMessage';
 import { formatBirth } from '../utils/formatBirth';
+import { getDuplicateNickname } from '../apis/auth';
 
 interface RegistersProps {
   register: UseFormRegister<FieldValues>;
   watch?: UseFormWatch<FieldValues>;
   setValue?: UseFormSetValue<FieldValues>;
+  getValues: UseFormGetValues<FieldValues>;
 }
 
 export const loginRegisters = (register: UseFormRegister<FieldValues>) => {
@@ -26,6 +29,7 @@ export const IndividualMemberRegisters = ({
   register,
   watch,
   setValue,
+  getValues,
 }: RegistersProps) => {
   if (!watch || !setValue) {
     return {
@@ -78,7 +82,9 @@ export const IndividualMemberRegisters = ({
         message: '올바른 이메일 형식이 아닙니다.',
       },
     }),
-    nickname: register('nickname'),
+    nickname: register('nickname', {
+      onBlur: async () => getDuplicateNickname(getValues('nickname')),
+    }),
   };
 
   return registers;

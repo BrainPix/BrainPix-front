@@ -19,10 +19,16 @@ export const Signup = () => {
     handleSubmit,
     watch,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({ mode: 'onTouched' });
 
-  const registers = IndividualMemberRegisters({ register, watch, setValue });
+  const registers = IndividualMemberRegisters({
+    register,
+    watch,
+    setValue,
+    getValues,
+  });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
     const { id, email, password, name, nickname, birth } = payload;
