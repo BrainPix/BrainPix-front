@@ -1,0 +1,161 @@
+.container {
+  width: 620px;
+  position: fixed;
+  top: 10%;
+  right: 10px;
+  z-index: 10;
+  background-color: $grey-50;
+  box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
+  padding: 40px;
+  border-radius: 15px;
+}
+
+.title {
+  @include pretendard-24-500;
+
+  color: $grey-800;
+}
+
+.titleDivider {
+  width: 100%;
+  height: 1px;
+  background-color: $grey-500;
+  margin-top: 15px;
+}
+
+.contentContainer {
+  @include pretendard-18-500;
+
+  color: $grey-800;
+  margin-top: 15px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 45px;
+}
+
+.inputWrapper {
+  display: flex;
+  gap: 62px;
+  position: relative;
+
+  & > span {
+    width: 90px;
+  }
+}
+
+.nameTag {
+  @include pretendard-16-400;
+
+  padding: 5px 20px;
+  border-radius: 43px;
+  color: $grey-800;
+  line-height: normal;
+  letter-spacing: -0.16px;
+
+  &.sender {
+    border: 1px solid $grey-500;
+  }
+
+  &.receiver {
+    background-color: $grey-800;
+    color: $grey-50;
+  }
+}
+
+.textInput {
+  @include pretendard-16-400;
+
+  color: $grey-800;
+  flex-grow: 2;
+  border: none;
+  border-bottom: 1px solid $grey-500;
+  background: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.reply {
+    padding-left: 30px;
+  }
+}
+
+.replyTag {
+  @include pretendard-16-400;
+
+  color: $grey-600;
+  position: absolute;
+  padding: 2px 10px;
+  top: 1px;
+  border-radius: 5px;
+  left: 140px;
+}
+
+.contentInputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contentInput {
+  @include pretendard-16-400;
+
+  color: $grey-800;
+  width: 100%;
+  height: 200px;
+  resize: none;
+  background: none;
+  border-radius: 5px;
+  padding: 20px;
+  border: 1px solid $grey-400;
+  margin: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    @include pretendard-16-400;
+
+    color: $grey-500;
+  }
+}
+
+.sendButtonWrapper {
+  display: flex;
+  gap: 15px;
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 25px;
+
+  & > * {
+    @include pretendard-20-400;
+
+    cursor: pointer;
+  }
+
+  & > .cancelButton {
+    border: none;
+    background: none;
+    color: $grey-500;
+  }
+
+  & > .sendButton {
+    padding: 10px 20px;
+    border-radius: 50px;
+  }
+}
+
+.replyTop {
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 0;
+}
+
+.replyBottom {
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+}

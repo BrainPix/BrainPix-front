@@ -28,6 +28,7 @@ import { MyPage } from './pages/my-page/myPage/MyPage';
 import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
+import { Message } from './pages/my-page/message/Message';
 
 function App() {
   return (
@@ -110,6 +111,10 @@ function App() {
             <Route
               path='/my/portfolio'
               element={<Portfolio />}
+            />
+            <Route
+              path='/my/message'
+              element={<Message />}
             />
           </Route>
         </Route>
