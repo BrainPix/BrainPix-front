@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
-import { IdeaMarket } from './pages/idea-market/IdeaMarket';
+import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
+import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { RequestAssign } from './pages/request-assign/RequestAssign';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
@@ -27,7 +28,11 @@ function App() {
         <Route element={<Layout />}>
           <Route
             path='/idea-market'
-            element={<IdeaMarket />}
+            element={<IdeaMarketMain />}
+          />
+          <Route
+            path='/idea-market/register'
+            element={<IdeaMarketRegister />}
           />
           <Route
             path='/idea-market/registered'
