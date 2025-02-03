@@ -12,7 +12,7 @@ export const RequestAssignRegister = () => {
   // const [pageSetting, setPageSetting] = useState('Open Idea');
   // const [techZone, setTechZone] = useState('Tech Zone');
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  //const [content, setContent] = useState('');
   const quillRef = useRef<ReactQuill>(null);
 
   const modules = {
