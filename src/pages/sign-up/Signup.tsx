@@ -2,12 +2,12 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styles from './signup.module.scss';
+import { useMutation } from '@tanstack/react-query';
 
 import { SignupRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
 import { postCompanySignUp, postPersonalSignUp } from '../../apis/auth';
-import { useMutation } from '@tanstack/react-query';
 import { CompanySignUpPayload, PersonalSignUpPayload } from '../../types/auth';
 
 export const Signup = () => {
