@@ -11,10 +11,16 @@ import { Input } from './Input';
 interface StepTwoPropType {
   registers: Record<string, UseFormRegisterReturn>;
   errors: FieldErrors<FieldValues>;
+  userType: 'individual' | 'corporate';
   isValid: boolean;
 }
 
-export const StepTwo = ({ registers, errors, isValid }: StepTwoPropType) => {
+export const StepTwo = ({
+  registers,
+  errors,
+  isValid,
+  userType,
+}: StepTwoPropType) => {
   return (
     <div>
       <div className={classNames(styles.headlineWrapper)}>
@@ -26,7 +32,7 @@ export const StepTwo = ({ registers, errors, isValid }: StepTwoPropType) => {
           <div className={classNames(styles.inputContainer)}>
             <div className={classNames(styles.rowContainer)}>
               <Input
-                label='이름'
+                label={userType === 'individual' ? '이름' : '담당자 이름'}
                 placeholder='이름 입력'
                 type='text'
                 {...registers.name}
@@ -47,16 +53,45 @@ export const StepTwo = ({ registers, errors, isValid }: StepTwoPropType) => {
                 {errors.birth?.message && String(errors.birth?.message)}
               </p>
             </div>
-            <Input
-              label='닉네임 입력'
-              placeholder='닉네임 입력'
-              type='text'
-              errorMessage={
-                errors.passwordCheck?.message &&
-                String(errors.passwordCheck?.message)
-              }
-              {...registers.nickname}
-            />
+            {userType === 'individual' ? (
+              <Input
+                label='닉네임 입력'
+                placeholder='닉네임 입력'
+                type='text'
+                errorMessage={
+                  errors.nickname?.message && String(errors.nickname?.message)
+                }
+                {...registers.nickname}
+              />
+            ) : (
+              <div className={classNames(styles.inputContainer)}>
+                <div className={classNames(styles.rowContainer)}>
+                  <Input
+                    label='기업명'
+                    placeholder='기업 명 입력'
+                    type='text'
+                    {...registers.nickname}
+                  />
+                  <Input
+                    label='직책'
+                    placeholder='직책 입력'
+                    type='text'
+                    maxLength={10}
+                    {...registers.position}
+                  />
+                </div>
+                <div className={classNames(styles.errorMessage)}>
+                  <p className={classNames(styles.name)}>
+                    {errors.nickname?.message &&
+                      String(errors.nickname?.message)}
+                  </p>
+                  <p className={classNames(styles.birth)}>
+                    {errors.position?.message &&
+                      String(errors.position?.message)}
+                  </p>
+                </div>
+              </div>
+            )}
             <div className={classNames(styles.emailInputContainer)}>
               <Input
                 label='이메일 인증'

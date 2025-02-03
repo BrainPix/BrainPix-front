@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styles from './signup.module.scss';
 
-import { IndividualMemberRegisters } from '../../constants/registers';
+import { SignupRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
-import { postPersonalSignUp } from '../../apis/auth';
+import { postCompanySignUp, postPersonalSignUp } from '../../apis/auth';
 import { useMutation } from '@tanstack/react-query';
-import { PersonalSignUpPayload } from '../../types/auth';
+import { CompanySignUpPayload, PersonalSignUpPayload } from '../../types/auth';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
@@ -16,9 +16,16 @@ export const Signup = () => {
     'individual',
   );
 
-  const { mutate: signupMutation } = useMutation({
+  const { mutate: signupPersonalMutation } = useMutation({
     mutationFn: (formData: PersonalSignUpPayload) =>
       postPersonalSignUp(formData),
+    onSuccess: (response) => {
+      console.log(response);
+    },
+  });
+
+  const { mutate: signupCompanyMutation } = useMutation({
+    mutationFn: (formData: CompanySignUpPayload) => postCompanySignUp(formData),
     onSuccess: (response) => {
       console.log(response);
     },
@@ -32,26 +39,47 @@ export const Signup = () => {
     formState: { errors, isValid },
     getFieldState,
     trigger,
+    setError,
   } = useForm({ mode: 'onTouched' });
 
-  const registers = IndividualMemberRegisters({
+  const registers = SignupRegisters({
     register,
     watch,
     setValue,
+    setError,
   });
 
+  console.log(registers);
+
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
-    const { id, email, password, name, nickname, birth } = payload;
-    const requestBody = {
-      id,
-      email,
-      password,
-      name,
-      nickName: nickname,
-      birthday: birth,
-    };
-    signupMutation(requestBody);
-    // location.href = '/idea-market';
+    if (userType === 'individual') {
+      const { id, email, password, name, nickname, birth } = payload;
+      const requestBody = {
+        id,
+        email,
+        password,
+        name,
+        nickName: nickname,
+        birthday: birth,
+      };
+      return signupPersonalMutation(requestBody);
+      // location.href = '/idea-market';
+    }
+
+    if (userType === 'corporate') {
+      const { id, email, password, name, nickname, birth, position } = payload;
+      const requestBody = {
+        id,
+        email,
+        password,
+        name,
+        companyName: nickname,
+        position: position,
+        birthday: birth,
+      };
+      console.log(requestBody);
+      return signupCompanyMutation(requestBody);
+    }
   };
 
   const handleClickNextButton = async () => {
@@ -80,6 +108,7 @@ export const Signup = () => {
     birth: registers.birth,
     nickname: registers.nickname,
     email: registers.email,
+    position: registers.position,
   };
 
   return (
@@ -102,6 +131,7 @@ export const Signup = () => {
             registers={REGISTERS}
             errors={errors}
             isValid={isValid}
+            userType={userType}
           />
         )}
       </form>

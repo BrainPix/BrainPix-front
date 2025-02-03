@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { LoginPayload, PersonalSignUpPayload } from '../types/auth';
+import {
+  CompanySignUpPayload,
+  LoginPayload,
+  PersonalSignUpPayload,
+} from '../types/auth';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -11,6 +15,12 @@ export const postLogin = async (payload: LoginPayload) => {
 };
 
 export const postPersonalSignUp = async (payload: PersonalSignUpPayload) => {
+  const url = `${BASE_URL}/users/signup/personal`;
+  const response = await axios.post(url, payload);
+  return response;
+};
+
+export const postCompanySignUp = async (payload: CompanySignUpPayload) => {
   const url = `${BASE_URL}/users/signup/personal`;
   const response = await axios.post(url, payload);
   return response;
