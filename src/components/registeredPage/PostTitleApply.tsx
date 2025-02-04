@@ -6,6 +6,8 @@ import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
 import RequestSupportModal from '../modal/RequestSupportModal';
+import { DeadlineLabel } from '../common/label/DeadlineLabel';
+
 const PostTitleApply = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +35,7 @@ const PostTitleApply = () => {
           <ArrowIcon className={styles.arrowIcon} />
           <span className={styles.text}>디자인</span>
         </div>
+        <DeadlineLabel deadline={5} />
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>디자인 해드립니다</h1>
           <Label
