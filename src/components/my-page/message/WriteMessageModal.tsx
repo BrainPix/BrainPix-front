@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './writeMessageModal.module.scss';
-import { PreviousMessageType } from '../../../types/message';
+import { PreviousMessageType } from '../../../types/messageType';
 
 interface WriteMessageModalPropsType {
   onClose: () => void;

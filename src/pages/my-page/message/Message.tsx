@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './message.module.scss';
 
-import { MessagesKeyType } from '../../../types/message';
+import { MessagesKeyType } from '../../../types/messageType';
 import { noMessage } from '../../../constants/noMessageText';
 import { WriteMessageModal } from '../../../components/my-page/message/WriteMessageModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';

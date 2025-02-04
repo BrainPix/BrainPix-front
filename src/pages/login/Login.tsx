@@ -2,20 +2,30 @@ import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import styles from './login.module.scss';
+import { useMutation } from '@tanstack/react-query';
 
 import { loginRegisters } from '../../constants/registers';
+import { postLogin } from '../../apis/authAPI';
+import { LoginPayload } from '../../types/authType';
 
 interface LoginPropsType {
   userType: 'individual' | 'corparate';
 }
 
 export const Login = ({ userType }: LoginPropsType) => {
+  // const queryClient = useQueryClient();
+
   const [member, setMember] = useState<'individual' | 'corparate'>(userType);
+  const { register, handleSubmit } = useForm();
 
-  const { register, handleSubmit } = useForm({ mode: 'onSubmit' });
+  const { mutate: loginMutate } = useMutation({
+    mutationFn: (formData: LoginPayload) => postLogin(formData),
+  });
 
-  const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
-    console.log(payload);
+  const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
+    const { id, password } = payload;
+    const requestBody = { id, password };
+    loginMutate(requestBody);
   };
 
   const registers = loginRegisters(register);
@@ -64,6 +74,7 @@ export const Login = ({ userType }: LoginPropsType) => {
               <input
                 className={classNames(styles.input)}
                 placeholder='비밀번호 입력'
+                type='password'
                 id='password'
                 {...registers.password}
               />

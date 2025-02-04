@@ -43,6 +43,19 @@
 .errorMessage {
   @include pretendard-16-400;
 
+  position: relative;
   color: $red;
-  margin-top: 10px;
+  display: flex;
+  margin-bottom: 10px;
+
+  & > .name {
+    top: 0;
+    position: absolute;
+  }
+
+  & > .birth {
+    top: 0;
+    left: 220px;
+    position: absolute;
+  }
 }
