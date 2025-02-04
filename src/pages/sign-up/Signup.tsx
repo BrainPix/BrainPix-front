@@ -2,11 +2,16 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styles from './signup.module.scss';
+import { useMutation } from '@tanstack/react-query';
 
-import { IndividualMemberRegisters } from '../../constants/registers';
+import { SignupRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
-import { postPersonalSignUp } from '../../apis/auth';
+import { postCompanySignUp, postPersonalSignUp } from '../../apis/authAPI';
+import {
+  CompanySignUpPayload,
+  PersonalSignUpPayload,
+} from '../../types/authType';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
@@ -14,41 +19,61 @@ export const Signup = () => {
     'individual',
   );
 
+  const { mutate: signupPersonalMutation } = useMutation({
+    mutationFn: (formData: PersonalSignUpPayload) =>
+      postPersonalSignUp(formData),
+  });
+
+  const { mutate: signupCompanyMutation } = useMutation({
+    mutationFn: (formData: CompanySignUpPayload) => postCompanySignUp(formData),
+  });
+
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid },
     getFieldState,
     trigger,
+    setError,
   } = useForm({ mode: 'onTouched' });
 
-  const registers = IndividualMemberRegisters({
+  const registers = SignupRegisters({
     register,
     watch,
     setValue,
+    setError,
   });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
-    const { id, email, password, name, nickname, birth } = payload;
-    const requestBody = {
-      id,
-      email,
-      password,
-      name,
-      userNickName: nickname,
-      birthday: birth,
-    };
-    try {
-      if (userType === 'individual') {
-        const response = await postPersonalSignUp(requestBody);
-        console.log(response);
-      }
-    } catch (error) {
-      console.error(error);
+    if (userType === 'individual') {
+      const { id, email, password, name, nickname, birth } = payload;
+      const requestBody = {
+        id,
+        email,
+        password,
+        name,
+        nickName: nickname,
+        birthday: birth,
+      };
+      return signupPersonalMutation(requestBody);
+      // location.href = '/idea-market';
     }
-    location.href = '/idea-market';
+
+    if (userType === 'corporate') {
+      const { id, email, password, name, nickname, birth, position } = payload;
+      const requestBody = {
+        id,
+        email,
+        password,
+        name,
+        companyName: nickname,
+        position: position,
+        birthday: birth,
+      };
+      return signupCompanyMutation(requestBody);
+    }
   };
 
   const handleClickNextButton = async () => {
@@ -77,6 +102,7 @@ export const Signup = () => {
     birth: registers.birth,
     nickname: registers.nickname,
     email: registers.email,
+    position: registers.position,
   };
 
   return (
@@ -98,6 +124,8 @@ export const Signup = () => {
           <StepTwo
             registers={REGISTERS}
             errors={errors}
+            isValid={isValid}
+            userType={userType}
           />
         )}
       </form>

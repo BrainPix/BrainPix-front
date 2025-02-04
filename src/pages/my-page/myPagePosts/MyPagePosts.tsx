@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './myPagePosts.module.scss';
 import { TabNavigation } from '../../../components/my-page/TabNavigation.tsx';
 import { PostCard } from '../../../components/postcard/PostCard.tsx';
-import { PostCategories } from '../../../types/postData.ts';
+import { PostCategories } from '../../../types/postDataType.ts';
 
 export const MyPagePosts = () => {
   const TABS = ['아이디어 마켓', '요청과제', '협업광장'];

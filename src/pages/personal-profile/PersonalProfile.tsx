@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
 import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
-import { userProfileData } from '../../types/userData';
+import { userProfileData } from '../../types/userDataType';
 import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
 import styles from './personalProfile.module.scss';
 

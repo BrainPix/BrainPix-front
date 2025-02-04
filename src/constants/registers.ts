@@ -1,17 +1,20 @@
 import {
   FieldValues,
   UseFormRegister,
+  UseFormSetError,
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
 import { SIGN_UP_ERROR_MESSAGE } from './errorMessage';
 import { formatBirth } from '../utils/formatBirth';
-import { getDuplicateNickname } from '../apis/auth';
+import { getDuplicateId, getDuplicateNickname } from '../apis/authAPI';
+import { useMutation } from '@tanstack/react-query';
 
 interface RegistersProps {
   register: UseFormRegister<FieldValues>;
   watch?: UseFormWatch<FieldValues>;
   setValue?: UseFormSetValue<FieldValues>;
+  setError?: UseFormSetError<FieldValues>;
 }
 
 export const loginRegisters = (register: UseFormRegister<FieldValues>) => {
@@ -23,11 +26,34 @@ export const loginRegisters = (register: UseFormRegister<FieldValues>) => {
   return registers;
 };
 
-export const IndividualMemberRegisters = ({
+export const SignupRegisters = ({
   register,
   watch,
   setValue,
+  setError,
 }: RegistersProps) => {
+  const { mutate: checkIdMutation } = useMutation({
+    mutationFn: (id: string) => getDuplicateId(id),
+    onError: () => {
+      if (setError) {
+        setError('id', {
+          message: SIGN_UP_ERROR_MESSAGE.idDuplicate,
+        });
+      }
+    },
+  });
+
+  const { mutate: checkNickNameMutation } = useMutation({
+    mutationFn: (nickname: string) => getDuplicateNickname(nickname),
+    onError: () => {
+      if (setError) {
+        setError('nickname', {
+          message: SIGN_UP_ERROR_MESSAGE.nicknameDuplicate,
+        });
+      }
+    },
+  });
+
   if (!watch || !setValue) {
     return {
       id: register('id'),
@@ -37,16 +63,19 @@ export const IndividualMemberRegisters = ({
       birth: register('birth'),
       email: register('email'),
       nickname: register('nickname'),
+      position: register('position'),
     };
   }
+
   const registers = {
     id: register('id', {
-      required: SIGN_UP_ERROR_MESSAGE.id,
-      minLength: { value: 6, message: SIGN_UP_ERROR_MESSAGE.id },
-      maxLength: { value: 12, message: SIGN_UP_ERROR_MESSAGE.id },
+      onBlur: () => checkIdMutation(watch('id')),
+      required: SIGN_UP_ERROR_MESSAGE.noId,
+      minLength: { value: 6, message: SIGN_UP_ERROR_MESSAGE.idRegex },
+      maxLength: { value: 12, message: SIGN_UP_ERROR_MESSAGE.idRegex },
       pattern: {
         value: /^[a-z0-9]+$/,
-        message: SIGN_UP_ERROR_MESSAGE.id,
+        message: SIGN_UP_ERROR_MESSAGE.idRegex,
       },
     }),
     password: register('password', {
@@ -67,16 +96,16 @@ export const IndividualMemberRegisters = ({
       },
     }),
     name: register('name', {
-      required: SIGN_UP_ERROR_MESSAGE.name,
+      required: SIGN_UP_ERROR_MESSAGE.noName,
     }),
     birth: register('birth', {
-      required: SIGN_UP_ERROR_MESSAGE.birth,
+      required: SIGN_UP_ERROR_MESSAGE.noBirth,
       onChange: (e) => {
         setValue('birth', formatBirth(e.target.value));
       },
     }),
     email: register('email', {
-      required: SIGN_UP_ERROR_MESSAGE.email,
+      required: SIGN_UP_ERROR_MESSAGE.noEmail,
       pattern: {
         value:
           /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
@@ -84,42 +113,12 @@ export const IndividualMemberRegisters = ({
       },
     }),
     nickname: register('nickname', {
-      onBlur: async () => getDuplicateNickname(watch('nickname')),
+      required: SIGN_UP_ERROR_MESSAGE.noNickname,
+      onBlur: () => checkNickNameMutation(watch('nickname')),
     }),
-  };
-
-  return registers;
-};
-
-export const CorporateMemberRegisters = ({
-  register,
-  setValue,
-}: RegistersProps) => {
-  if (!setValue) {
-    return {
-      id: register('id'),
-      password: register('password'),
-      passwordCheck: register('passwordCheck'),
-      name: register('name'),
-      companyName: register('companyName'),
-      birth: register('birth'),
-      email: register('email'),
-      position: register('position'),
-    };
-  }
-  const registers = {
-    id: register('id'),
-    password: register('password'),
-    passwordCheck: register('passwordCheck'),
-    name: register('name'),
-    companyName: register('companyName'),
-    birth: register('birth', {
-      onChange: (e) => {
-        setValue('birth', formatBirth(e.target.value));
-      },
+    position: register('position', {
+      required: SIGN_UP_ERROR_MESSAGE.noPosition,
     }),
-    email: register('email'),
-    position: register('position'),
   };
 
   return registers;
