@@ -46,7 +46,7 @@ const PaymentTitle = () => {
           <div className={styles.description}>디자인 해드립니다</div>
         </div>
         <div className={styles.quantityContainer}>
-          <span className={styles.quantityLabel}>수량</span>
+          <span className={styles.quantityLabel}>구매 수량</span>
           <div className={styles.quantityBox}>
             <span className={styles.quantity}>{quantity} 개</span>
             <div className={styles.buttonGroup}>

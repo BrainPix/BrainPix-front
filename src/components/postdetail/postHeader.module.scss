@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 800px;
 }
 
 .navigation {
@@ -10,20 +11,20 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 15px;
-  margin-top: 45px;
+  margin-top: 40px;
 }
 
 .text {
-  @include pretendard-20-400;
+  @include pretendard-18-400;
 
   color: $grey-500;
   letter-spacing: -0.2px;
 }
 
 .arrowIcon {
-  width: 28px;
-  height: 28px;
-  transform: rotate(-180deg);
+  width: 18px;
+  height: 18px;
+  transform: rotate(360deg);
   flex-shrink: 0;
 }
 
@@ -31,18 +32,19 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  position: relative;
 }
 
 .title {
-  @include pretendard-36-600;
+  @include pretendard-26-500;
 
   color: $grey-800;
-  letter-spacing: -0.36px;
+  letter-spacing: -0.26px;
 }
 
 .badge {
-  @include pretendard-16-500;
+  @include pretendard-16-400;
 
   display: inline-flex;
   padding: 8px 15px;
@@ -64,35 +66,34 @@
 
 .date,
 .info {
-  @include pretendard-18-400;
+  @include pretendard-16-400;
 
   color: $grey-600;
   letter-spacing: -0.18px;
 }
 
 .dotIcon {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   fill: $grey-400;
 }
 
 .bookmarkButton {
   @include flex-center;
-
   position: absolute;
-  margin-bottom: 135px;
-  right: 16px;
+  margin-bottom: 250px;
+  right: 0;
   background: none;
   border: none;
   cursor: pointer;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
 }
 
 .outerCircle {
   position: absolute;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   z-index: 1;
 }
 
