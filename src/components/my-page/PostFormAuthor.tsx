@@ -4,8 +4,8 @@ import styles from './postFormAuthor.module.scss';
 interface PostFormAuthorProps {
   userName: string;
   profileImage?: string | null;
-  postId: number;
-  editPath: string;
+  postId?: number;
+  editPath?: string;
 }
 
 export const PostFormAuthor = ({

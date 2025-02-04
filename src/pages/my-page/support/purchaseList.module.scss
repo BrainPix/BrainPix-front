@@ -23,19 +23,23 @@
 
 .purchaseCard {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  border-radius: 5px;
+  border : 1px solid $grey-500;
+  padding: 0 30px;
   margin-bottom: 20px;
 }
 
 .cardHeader {
-  display: flex;
-  justify-content: space-between;
+  @include flex-space-between;
   height: 70px;
   font-size: 14px;
   color: #666;
   border-bottom: 1px solid $grey-500;
+}
+
+.date {
+  @include pretendard-18-500;
+  color: $grey-800;
 }
 
 .cardTitle {
@@ -45,32 +49,161 @@
   height: 60px;
   padding : 15px 0;
   border-bottom: 1px solid $grey-500;
+  letter-spacing: -1px;
 }
 
 .cardContent {
   margin-top: 10px;
 }
 
+.sellerInfoAndMessage {
+  @include flex-space-between;
+  padding : 30px 10px;
+  border-bottom: 1px solid $grey-300;
+}
+
 .sellerInfo {
-  @include flex-start;
-  padding: 10px;
-  width: Fixed (820px)px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 70%;
 }
 
 .sellerInfoTitle {
   @include pretendard-16-400;
   color: $grey-700;
-  text-align: left;
 }
 
-.iteDetails {
-  margin: 10px 0;
-  font-size: 16px;
+.sellerAndLabel {
+  @include flex-center;
+  gap: 10px;
 }
 
-.priceInfo {
-  margin-top: 10px;
-  padding: 10px;
-  background: #f9f9f9;
-  border-radius: 6px;
+.seller {
+  @include pretendard-24-500;
+  color: $grey-800;
+}
+
+.messageButtonContainer {
+  @include flex-center;
+  width: 30%;
+  gap: 15px;
+}
+
+.messageButton {
+  @include pretendard-20-500;
+  color: $grey-700;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+}
+
+.arrowIcon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.itemDetails {
+  @include flex-space-between;
+  padding : 30px 10px;
+  gap: 30px;
+}
+
+.mainImage {
+  width: 90px;
+  height: 90px;
+  background-color:#d9d9d9;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  width: 70%;
+}
+
+.route {
+  @include pretendard-16-400;
+  color: $grey-600;
+}
+
+.itemName {
+  @include pretendard-20-500;
+  color: $grey-800;
+}
+
+.price {
+  @include pretendard-24-500;
+  color: $grey-800;
+}
+
+.quantityBox {
+  @include flex-column;
+  width: 65px;
+  height: 55px;
+}
+
+.quantityText {
+  @include pretendard-16-400;
+  color: $grey-600;
+}
+
+.quantityValue {
+  @include pretendard-24-500;
+  color: $grey-800;
+}
+
+.itemDetailsButtonContainer {
+  @include flex-center;
+  width: 60px;
+  height: 60px;
+  gap: 25px;
+}
+
+.itemDetailsButton {
+  background-color: transparent;
+  border-style: none;
+}
+
+// .priceInfo {
+  
+// }
+
+.toalPriceInfo {
+  @include flex-space-between;
+  padding : 30px 10px;
+  gap: 30px;
+  border-bottom: 1px solid $grey-300;
+}
+
+.priceInfoTitle {
+  @include pretendard-24-500;
+  color: $grey-800;
+  width: 80%;
+}
+
+// .totalPriceAndPayment {
+
+// }
+
+.totalPrice {
+  @include pretendard-24-500;
+  color: $grey-800;
+}
+
+.payment {
+  @include pretendard-20-500;
+  color: $grey-700;
+}
+
+.priceInfoDetails {
+  @include flex-space-between;
+  padding : 10px;
+  gap: 30px;
+}
+
+.priceInfoDetailsText {
+  @include pretendard-20-500;
+  color: $grey-500;
 }
