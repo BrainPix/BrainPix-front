@@ -1,4 +1,4 @@
-import { ChangeEvent, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './businessInfoPart.module.scss';
 
@@ -10,8 +10,8 @@ export const BusinessInfoPart = forwardRef<
   HTMLTextAreaElement,
   BusinessInfoPartPropsType
 >(({ editMode, ...rest }, ref) => {
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value);
+  const handleChange = () => {
+    // console.log(e.target.value);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { MessagesType } from '../types/message';
+import { MessagesType } from '../types/messageType';
 
 export const MESSAGES_TEMP: MessagesType = {
   all: [

@@ -1,4 +1,4 @@
-import { ChangeEvent, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './introducePart.module.scss';
 
@@ -11,8 +11,8 @@ export const IntroducePart = forwardRef<
   HTMLTextAreaElement,
   IntroducePartPropsType
 >(({ editMode, userType, ...rest }, ref) => {
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value);
+  const handleChange = () => {
+    // console.log(e.target.value);
   };
   return (
     <div>
