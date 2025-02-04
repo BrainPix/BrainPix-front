@@ -1,4 +1,4 @@
-import ProfileHeader from '../../components/postdetail/ProfileHeader';
+import ProfileHeader from '../../components/registeredPage/ProfileHeader';
 import PostTitleApply from '../../components/registeredPage/PostTitleApply';
 import AssignmentDescription from '../../components/registeredPage/AssignmentDescription';
 import QnASection from '../../components/postdetail/QnASection';

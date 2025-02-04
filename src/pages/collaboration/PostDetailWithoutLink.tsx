@@ -19,9 +19,7 @@ export const PostDetailWithoutLink = () => {
         <RecruitmentStatus />
       </div>
       <div className={styles.buttonMargin}>
-        <div className={styles.button}>
-          <TeamBuildingButton />
-        </div>
+        <TeamBuildingButton />
       </div>
       <div className={styles.margin}>
         <QnASection />

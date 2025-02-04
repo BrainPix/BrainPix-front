@@ -1,17 +1,21 @@
 .paymentButton {
-  @include pretendard-32-600;
+  @include pretendard-24-500;
 
   margin-top: 45px;
   margin-bottom: 45px;
-  width: 950px;
-  height: 75px;
+  width: 800px;
+  height: 69px;
   flex-shrink: 0;
-  border-radius: 10px;
-  letter-spacing: -0.32px;
+  border-radius: 5px;
   text-align: center;
   cursor: pointer;
   border: none;
   transition: background 0.3s;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  letter-spacing: -0.24px;
 
   &.active {
     background: $primary;

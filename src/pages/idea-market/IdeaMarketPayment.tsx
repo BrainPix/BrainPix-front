@@ -8,10 +8,8 @@ import styles from './ideaMarketPayment.module.scss';
 export const IdeaMarketPayment = () => {
   return (
     <>
-      <div className={styles.ideaMarketPayment}>
-        <PaymentTitle />
-      </div>
       <div className={styles.ideaMarketPaymentLayout}>
+        <PaymentTitle />
         <SellerInfo />
         <PaymentMethods />
         <PaymentSummary />
