@@ -5,12 +5,9 @@ const ProfileHeader = () => {
     <div className={styles.container}>
       <div className={styles.profileContainer}>
         <div className={styles.profileIcon}></div>
-        <div className={styles.textContainer}>
-          <span className={styles.name}>Soyeon</span>
-        </div>
+        <span className={styles.name}>SEO YEON</span>
       </div>
       <span className={styles.viewProfile}>프로필 보기</span>
-      <div className={styles.divider} />
     </div>
   );
 };

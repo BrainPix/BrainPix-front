@@ -24,7 +24,6 @@ const QnASection = () => {
           <p className={styles.question}>연락드려도 될까요?</p>
           <div className={styles.actions}>
             <button className={styles.actionButton}>답글쓰기</button>
-            <button className={styles.actionButton}>공감해요</button>
           </div>
         </div>
       </div>

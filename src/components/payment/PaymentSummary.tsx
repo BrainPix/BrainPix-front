@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styles from './paymentSummary.module.scss';
 import EllipseGray from '../../assets/icons/ellipseGray.svg?react';
 import EllipseBlue from '../../assets/icons/ellipseBlue.svg?react';
-import EllipseWhite from '../../assets/icons/ellipseWhite.svg?react';
 import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import CheckLightGray from '../../assets/icons/checkLightGray.svg?react';
 import CheckLightBlue from '../../assets/icons/checkLightBlue.svg?react';
@@ -90,7 +89,6 @@ const PaymentSummary = () => {
             key={item.id}
             className={styles.agreementRow}
             onClick={() => handleAgreementClick(item.id)}>
-            <EllipseWhite className={styles.noneCheckBackground} />
             {item.agreed ? (
               <CheckLightBlue className={styles.checkIcon} />
             ) : (

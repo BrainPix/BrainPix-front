@@ -5,15 +5,15 @@
     gap: 16px;
     align-items: flex-start;
     position: relative;
+    width: 800px;
   }
   
   .leftSection {
-    width: 350px;
-    height: 350px;
+    width: 210px;
+    height: 210px;  
     flex-shrink: 0;
     background: $grey-300;
     @include flex-center;
-    @include pretendard-18-500;
     color: $grey-700;
   }
   
@@ -23,45 +23,45 @@
   
   .rightSection {
     flex-grow: 1;
-    margin-left: 50px;
+    margin-left: 40px;
   }
   
   .navigation {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 4px;
+    margin-bottom: 4px;
   }
   
   .text {
     color: $grey-500;
-    @include pretendard-20-400;
+    @include pretendard-18-400;
     letter-spacing: -0.2px;
   }
   
   .arrowIcon {
-    width: 28px;
-    height: 28px;
-    transform: rotate(-180deg);
+    width: 16px;
+    height: 16px;
+    transform: rotate(360deg);
   }
   
   .titleContainer {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
   }
   
   .title {
     color: $grey-800;
-    @include pretendard-36-600;
+    @include pretendard-26-500;
     letter-spacing: -0.36px;
   }
   
   .price {
     color: $grey-800;
-    @include pretendard-32-600;
-    margin-bottom: 20px;
+    @include pretendard-24-600;
+    margin-bottom: 4px;
   }
   
   .details {
@@ -74,31 +74,30 @@
   .date,
   .info {
     color: $grey-600;
-    @include pretendard-18-400;
+    @include pretendard-16-400;
   }
   
   .dotIcon {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     fill: $grey-400;
   }
   
   .bookmarkButton {
     position: absolute;
-    right: 16px;
-    top: 16px;
+    right: 19px;
+    top: -5px;
     background: none;
     border: none;
     cursor: pointer;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     @include flex-center;
-    margin-top: 30px;
   }
   
   .outerCircle {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
   }
   
   .bookmarkIcon {
@@ -108,21 +107,25 @@
   }
   
   .purchaseButton {
-    width: 260px;
-    height: 75px;
+    width: 149px;
+    height: 54px;
     flex-shrink: 0;
-    border-radius: 10px;
+    border-radius: 5px;
     background: $primary;
     color: $grey-50;
-    @include pretendard-26-500;
+    @include pretendard-20-500;
     font-style: normal;
     line-height: normal;
     letter-spacing: -0.26px;
-    @include flex-center;
     position: absolute;
-    bottom: 16px;
+    bottom: -9px;
     right: 16px;
     cursor: pointer;
     border: none;
+    display: inline-flex;
+    padding: 15px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
   }
   
