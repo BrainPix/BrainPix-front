@@ -35,3 +35,21 @@
     background: #8A8A8A;
     color: #000;
 }
+
+//구매 완료
+.purchaseCompleted {
+    background: $grey-700;
+    color: $grey-50;
+}
+
+//수락
+.accept {
+    background: $primary;
+    color: $grey-50;
+}
+
+//거절
+.reject {
+    background: $red;
+    color: $grey-50;
+}
