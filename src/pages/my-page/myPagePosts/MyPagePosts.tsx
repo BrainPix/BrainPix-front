@@ -7,6 +7,13 @@ import { PostCategories } from '../../../types/postData.ts';
 export const MyPagePosts = () => {
   const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
   const [activeTab, setActiveTab] = useState(TABS[0]);
+
+  const categoryMap: { [key: string]: PostCategories } = {
+    [TABS[0]]: PostCategories.IDEA_MARKET,
+    [TABS[1]]: PostCategories.REQUEST_ASSIGN,
+    [TABS[2]]: PostCategories.COLLABORATION,
+  };
+
   const posts = [
     {
       id: 1,
@@ -43,7 +50,7 @@ export const MyPagePosts = () => {
       user: 'yeonyyy',
       profileImage: '/image1.png',
       title: '테스트!!',
-      postImage: '/image3.png',
+      postImage: null,
       deadline: 20,
       current: 0,
       total: 5,
@@ -56,12 +63,16 @@ export const MyPagePosts = () => {
       user: 'yeonyyy',
       profileImage: '/image1234.png',
       title: '안뇽',
-      postImage: '/image3.png',
+      postImage: null,
       deadline: 17,
       saveCount: 17,
       viewCount: 25,
     },
   ];
+
+  const filteredPosts = posts.filter(
+    (post) => post.category === categoryMap[activeTab],
+  );
 
   return (
     <div className={styles.container}>
@@ -69,7 +80,9 @@ export const MyPagePosts = () => {
         <main className={styles.mainContent}>
           <h1 className={styles.title}>
             게시물 관리{' '}
-            <span className={styles.count}>총 게시글 {posts.length}</span>
+            <span className={styles.count}>
+              총 게시글 {filteredPosts.length}
+            </span>
           </h1>
           <TabNavigation
             tabs={TABS}
@@ -78,19 +91,12 @@ export const MyPagePosts = () => {
           />
           {/* 게시물 리스트 */}
           <div className={styles.postList}>
-            {posts
-              .filter(
-                (post) =>
-                  post.category === 'ideaMarket' ||
-                  post.category === 'requestTask' ||
-                  post.category === 'collaboration',
-              )
-              .map((post) => (
-                <PostCard
-                  key={post.id}
-                  {...post}
-                />
-              ))}
+            {filteredPosts.map((post) => (
+              <PostCard
+                key={post.id}
+                {...post}
+              />
+            ))}
           </div>
         </main>
       </div>

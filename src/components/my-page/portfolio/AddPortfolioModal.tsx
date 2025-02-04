@@ -4,7 +4,7 @@ import styles from './addPortfolioModal.module.scss';
 import ReactQuill from 'react-quill-new';
 
 import ImageInput from '../../../assets/icons/imageInput.svg?react';
-import Dropdown from '../../common/dropdown/Dropdown';
+import { Dropdown } from '../../common/dropdown/Dropdown';
 
 import 'react-quill-new/dist/quill.snow.css';
 import '../../../styles/quillStyles.css';

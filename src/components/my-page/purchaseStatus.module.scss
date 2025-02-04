@@ -1,13 +1,5 @@
-@import '../../styles/mixins';
-
-@mixin flex-center-postsIdeaMarket {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .title{
-  @include font-mixin('Pretendard',32px, 500);
+  @include pretendard-32-500;
   color: $grey-900;
 }
 
@@ -19,9 +11,7 @@
 }
 
 .cardHeader{
-  display: grid;
-  grid-template-columns: 199px 200px 200px 254px;
-  align-items: center;
+  @include grid-center;
   padding: 15px 0;
 
   span{
@@ -33,20 +23,16 @@
 }
 
 .purchaseCard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-space-between;
   border: 1px solid #9e9e9e;
   border-radius: 8px;
 }
 
 .cardDetails {
-  display: grid;
-  grid-template-columns: 199px 200px 200px 254px;
-  align-items: center;
+  @include grid-center;
 
   div {
-    @include flex-center-postsIdeaMarket;
+    @include flex-start;
     width: 100%;
     height: 65px;
     border-right: 1px solid #9e9e9e;
@@ -61,7 +47,7 @@
 }
 
 .messageButton {
-  width: 80%;
+  width: 100%;
   height: 34px;
   border: none;
   border-radius: 4px;

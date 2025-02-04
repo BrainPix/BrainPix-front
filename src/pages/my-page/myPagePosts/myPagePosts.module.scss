@@ -10,10 +10,9 @@
 }
 
 .postList {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  gap: 20px;
+  @include grid-center(250px 250px 250px);
+  gap: 48px;
+  margin-top: 45px;
 }
 
 .clickablePost {

@@ -10,7 +10,7 @@
 }
 
 .mainImage {
-  @include font-mixin('Pretendard', 32px, 500);
+  @include pretendard-32-500;
   @include flex-center;
   width: 350px;
   height: 350px;
@@ -29,7 +29,7 @@
 }
 
 .title {
-  @include font-mixin('Pretendard', 36px, 600);
+  @include pretendard-36-600;
   font-weight: bold;
   margin-top: 17px;
   margin-bottom: 20px;
