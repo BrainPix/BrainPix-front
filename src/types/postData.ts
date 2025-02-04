@@ -7,6 +7,7 @@ export enum PostCategories {
 export interface PostProps {
   id: number;
   category: PostCategories;
+  fieldOfPost?: string;
   user: string;
   profileImage: string | null;
   title: string;

@@ -1,11 +1,3 @@
-@import '../../../styles/mixins';
-
-@mixin flex-center-postsIdeaMarket {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .postcardWrapper {
   @include flex-center;
   flex-direction: column;
@@ -16,7 +8,7 @@
 .purchaseCardWrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 847px;
   gap: 20px;
 
   h2 {

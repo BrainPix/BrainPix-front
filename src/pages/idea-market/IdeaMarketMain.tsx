@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './ideaMarketMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
-import Dropdown from '../../components/common/dropdown/Dropdown';
+import { Dropdown } from '../../components/common/dropdown/Dropdown';
 import { Carousel } from '../../components/common/carousel/Carousel';
 
 import Category from '../../assets/icons/category.svg?react';

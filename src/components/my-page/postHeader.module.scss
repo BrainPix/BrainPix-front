@@ -41,7 +41,7 @@
     gap: 10px;
 
     .postTitle {
-      @include font-mixin('Pretendard', 24px, 600);
+      @include pretendard-24-600;
       color: $grey-900;
     }
     
