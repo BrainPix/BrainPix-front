@@ -3,7 +3,7 @@ import {
   CompanySignUpPayload,
   LoginPayload,
   PersonalSignUpPayload,
-} from '../types/auth';
+} from '../types/authType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 

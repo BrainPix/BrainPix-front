@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form';
 import { SIGN_UP_ERROR_MESSAGE } from './errorMessage';
 import { formatBirth } from '../utils/formatBirth';
-import { getDuplicateId, getDuplicateNickname } from '../apis/auth';
+import { getDuplicateId, getDuplicateNickname } from '../apis/authAPI';
 import { useMutation } from '@tanstack/react-query';
 
 interface RegistersProps {

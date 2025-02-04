@@ -1,5 +1,5 @@
 import styles from './ideaMarketPostCard.module.scss';
-import { PostProps, PostCategories } from '../../types/postData';
+import { PostProps, PostCategories } from '../../types/postDataType';
 
 export const IdeaMarketPostCard = ({
   category,

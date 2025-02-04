@@ -7,8 +7,11 @@ import { useMutation } from '@tanstack/react-query';
 import { SignupRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
-import { postCompanySignUp, postPersonalSignUp } from '../../apis/auth';
-import { CompanySignUpPayload, PersonalSignUpPayload } from '../../types/auth';
+import { postCompanySignUp, postPersonalSignUp } from '../../apis/authAPI';
+import {
+  CompanySignUpPayload,
+  PersonalSignUpPayload,
+} from '../../types/authType';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);

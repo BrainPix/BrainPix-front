@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { userProfileData } from '../../types/userData';
+import { userProfileData } from '../../types/userDataType';
 import styles from './descriptionTable.module.scss';
 
 interface DescriptionTablePropsType {
