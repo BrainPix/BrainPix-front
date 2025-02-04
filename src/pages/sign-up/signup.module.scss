@@ -1,0 +1,24 @@
+.logo {
+  @include flex-center;
+  @include pretendard-18-500;
+
+  width: 100px;
+  height: 46px;
+  background-color: #d9d9d9;
+}
+
+.container {
+  @include flex-center;
+
+  width: 100vw;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding-top: 15px;
+  flex-direction: column;
+  font-style: normal;
+  line-height: normal;
+}
+
+.contentContainer {
+  width: 400px;
+}

@@ -1,75 +1,63 @@
 .container {
-  padding-top: 75px;
+  @include flex-center;
+
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  @include pretendard-28-500;
+
+  color: $grey-800;
 }
 
 .logo {
   @include flex-center;
 
-  width: 293px;
-  height: 102px;
+  width: 200px;
+  height: 75px;
   background-color: #d9d9d9;
   border-radius: 5px;
-  margin: 0 auto;
+  margin-bottom: 40px;
 }
 
 .loginContainer {
-  width: 575px;
-  height: 404px;
-  background-color: #d9d9d9;
+  width: 400px;
   border-radius: 15px;
-  position: relative;
   margin: 0 auto;
   margin-top: 33px;
-  animation: shadow-drop-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .buttonWrapper {
-  background-color: #d9d9d9;
-  border-radius: 15px;
-  position: absolute;
+  border-bottom: 1px solid $grey-400;
   width: 100%;
 }
 
 .memberButton {
-  @include pretendard-26-600;
+  @include pretendard-20-500;
 
   width: 50%;
-  background-color: #d9d9d9;
-  border-bottom: none;
-  color: #515151;
   border: none;
-  text-align: center;
+  background: none;
+  padding-bottom: 10px;
+  color: $grey-400;
   cursor: pointer;
-  border-radius: 15px 15px 0 0;
 }
 
 .clicked {
-  position: relative;
-  color: $grey-900;
-  background-color: white;
-  border: 1px solid black;
-  border-bottom: none;
-  height: 67px;
-  z-index: 10;
+  border-bottom: 1px solid $grey-700;
+  color: $grey-800;
 }
 
 .inputContainer {
   @include flex-center;
 
-  position: absolute;
-  top: 66px;
+  margin-top: 46px;
   width: 100%;
-  height: 338px;
-  background-color: white;
-  border: 1px solid black;
-
-  &.right {
-    border-radius: 15px 0 15px 15px;
-  }
-
-  &.left {
-    border-radius: 0 15px 15px;
-  }
+  border: 1px solid $grey-500;
+  border-radius: 5px;
+  background: none;
 }
 
 .form {
@@ -77,73 +65,65 @@
 
   flex-direction: column;
   width: 100%;
-  padding: 40px 37px 30px;
+  padding: 15px 20px;
+
+  & > * {
+    width: 100%;
+  }
+
+  & > div {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .label {
   @include pretendard-16-400;
 
   width: 100%;
-  color: #333;
-  text-align: left;
-  margin-bottom: 8px;
-  position: relative;
-}
-
-.iconWrapper {
-  height: 17px;
-  position: absolute;
-  right: 12px;
-  top: 40px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .input {
+  @include pretendard-14-400;
+
   width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #7a7a7a;
-  border-radius: 2px;
+  padding: 3px 20px;
+  height: 50px;
+  border: 1px solid $grey-500;
+  border-radius: 5px;
+  background: none;
 
   &:focus {
     outline: none;
   }
 
   &::placeholder {
-    @include pretendard-13-400;
+    @include pretendard-14-400;
 
-    color: #898989;
+    color: $grey-500;
   }
 }
 
 .loginButton {
-  @include pretendard-16-500;
+  @include pretendard-18-500;
 
-  width: 260px;
-  height: 40px;
-  border-radius: 2px;
-  background-color: black;
-  color: white;
+  width: 100%;
+  border-radius: 5px;
+  padding: 15px 20px;
+  background-color: $grey-800;
+  color: $grey-50;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .signUpText {
-  color: #898989;
-  font-size: 13px;
-  font-weight: 400;
+  @include pretendard-16-400;
+
+  color: $grey-600;
+  width: fit-content;
   text-decoration: none;
-}
-
-@keyframes shadow-drop-center {
-  0% {
-    box-shadow: 0 0 0 0 rgb(0 0 0 / 0%);
-  }
-
-  100% {
-    box-shadow: 0 0 20px 0 rgb(0 0 0 / 35%);
-  }
+  margin: 0 auto;
+  margin-top: 15px;
 }

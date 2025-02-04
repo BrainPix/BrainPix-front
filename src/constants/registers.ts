@@ -6,6 +6,7 @@ import {
 } from 'react-hook-form';
 import { SIGN_UP_ERROR_MESSAGE } from './errorMessage';
 import { formatBirth } from '../utils/formatBirth';
+import { getDuplicateNickname } from '../apis/auth';
 
 interface RegistersProps {
   register: UseFormRegister<FieldValues>;
@@ -35,6 +36,7 @@ export const IndividualMemberRegisters = ({
       name: register('name'),
       birth: register('birth'),
       email: register('email'),
+      nickname: register('nickname'),
     };
   }
   const registers = {
@@ -48,8 +50,13 @@ export const IndividualMemberRegisters = ({
       },
     }),
     password: register('password', {
+      required: SIGN_UP_ERROR_MESSAGE.passwordRegex,
       minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
       maxLength: { value: 20, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
+      pattern: {
+        value: /^(?=(.*[A-Za-z].*){1,})(?=(.*\d.*){1,}|(.*\W.*){1,}).+$/,
+        message: SIGN_UP_ERROR_MESSAGE.passwordRegex,
+      },
     }),
     passwordCheck: register('passwordCheck', {
       validate: (value) => {
@@ -59,13 +66,26 @@ export const IndividualMemberRegisters = ({
         return true;
       },
     }),
-    name: register('name'),
+    name: register('name', {
+      required: SIGN_UP_ERROR_MESSAGE.name,
+    }),
     birth: register('birth', {
+      required: SIGN_UP_ERROR_MESSAGE.birth,
       onChange: (e) => {
         setValue('birth', formatBirth(e.target.value));
       },
     }),
-    email: register('email'),
+    email: register('email', {
+      required: SIGN_UP_ERROR_MESSAGE.email,
+      pattern: {
+        value:
+          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+        message: SIGN_UP_ERROR_MESSAGE.emailRegex,
+      },
+    }),
+    nickname: register('nickname', {
+      onBlur: async () => getDuplicateNickname(watch('nickname')),
+    }),
   };
 
   return registers;

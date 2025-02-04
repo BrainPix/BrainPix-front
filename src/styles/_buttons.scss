@@ -59,6 +59,14 @@
     @include outline-button-style($primary);
   }
 
+  &Filled-grey400 {
+    @include filled-button-style($grey-400);
+  }
+
+  &Filled-grey500 {
+    @include filled-button-style($grey-500);
+  }
+
   &Filled-grey600 {
     @include filled-button-style($grey-600);
   }
