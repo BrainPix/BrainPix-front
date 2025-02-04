@@ -31,6 +31,7 @@ export const PostHeader = ({
 
     navigate(editPath);
   };
+
   return (
     <>
       <div className={styles.sectionWrapper}>
