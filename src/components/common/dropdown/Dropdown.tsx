@@ -27,7 +27,7 @@ const defaultOptions = [
   '기타',
 ];
 
-const Dropdown = ({
+export const Dropdown = ({
   label = '',
   options,
   max_visible_options = 5,
@@ -89,5 +89,3 @@ const Dropdown = ({
     </div>
   );
 };
-
-export default Dropdown;

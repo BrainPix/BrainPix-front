@@ -2,10 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import styles from './PostCard.module.scss';
 import classNames from 'classnames';
 import { PostProps, PostCategories } from '../../types/postDataType';
+import PostDefaultImage from '../../assets/images/postCardImage.png';
+import Label from '../common/label/Label';
 
 export const PostCard = ({
   id,
   category,
+  fieldOfPost,
   user,
   profileImage,
   title,
@@ -35,76 +38,70 @@ export const PostCard = ({
     <div
       className={classNames(styles.postCard, styles[category])}
       onClick={handleCardClick}>
-      {/* 카테고리별 조건부 렌더링 */}
-      {/* 공통 헤더 */}
+      {/* 공통 요소 : 게시물 이미지, 프로필 */}
       <div className={styles.postHeader}>
-        {profileImage ? (
-          <img
-            src={profileImage}
-            alt='프로필 사진'
-            className={styles.profileImage}
+        <img
+          src={postImage || PostDefaultImage}
+          alt='게시물 사진'
+          className={styles.postImage}
+        />
+        <div className={styles.InfoOnPostImage}>
+          <Label
+            text='기업 공개'
+            type='corporatePublic'
           />
-        ) : (
-          <div className={styles.profileImage} />
-        )}
-        <span className={styles.username}>{user}</span>
+          <span>{fieldOfPost}</span>
+          <p className={styles.title}>{title}</p>
+        </div>
       </div>
+
       {/* 게시글 이미지 아래 게시글 정보(프로필 사진, 이름, 가격, 저장, 조회) */}
       <div className={styles.postContent}>
+        {/* 공통 요소: 유저 프로필 */}
+        <div className={styles.userInfo}>
+          {profileImage ? (
+            <img
+              src={profileImage}
+              alt='프로필 사진'
+              className={styles.profileImage}
+            />
+          ) : (
+            <div className={styles.profileImage} />
+          )}
+          <span className={styles.username}>{user}</span>
+        </div>
+
+        {/* 카테고리별 조건부 렌더링 */}
         {category === PostCategories.IDEA_MARKET && (
-          <div>
-            <div>
-              {profileImage ? (
-                <img
-                  src={profileImage}
-                  alt='프로필 사진'
-                  className={styles.profileImage}
-                />
-              ) : (
-                <div className={styles.profileImage} />
-              )}
-              <span className={styles.username}>{user}</span>
-            </div>
-            {price && <div className={styles.price}>{price}</div>}
+          <>
+            {price && <div className={styles.price}>{price} 원</div>}
             <p>
               저장 {viewCount} • 조회 {saveCount}
             </p>
-          </div>
+          </>
         )}
 
         {category === PostCategories.REQUEST_ASSIGN && (
           <>
-            <p>{title}</p>
-            {postImage ? (
-              <img
-                src={postImage}
-                alt='게시글 사진'
-                className={styles.postImage}
-              />
-            ) : (
-              <div className={styles.postImage} />
-            )}
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
+            <p>
+              저장 {viewCount} • 조회 {saveCount}
+            </p>
           </>
         )}
 
         {category === PostCategories.COLLABORATION && (
           <>
-            <p>{title}</p>
-            {postImage ? (
-              <img
-                src={postImage}
-                alt='게시글 사진'
-                className={styles.postImage}
-              />
-            ) : (
-              <div className={styles.postImage} />
-            )}
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
             {current && total && (
-              <p className={styles.memberInfo}>
-                저장 {saveCount} · 조회 {viewCount}
-              </p>
+              <>
+                <p className={styles.memberInfo}>
+                  {current}/{total} 명 모집
+                </p>
+                <p className={styles.memberInfo}>
+                  저장 {saveCount} · 조회 {viewCount}
+                </p>
+              </>
             )}
           </>
         )}

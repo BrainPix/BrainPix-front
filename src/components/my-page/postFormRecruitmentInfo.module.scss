@@ -16,22 +16,18 @@
 }
 
 .recruitTableHeader {
-  display: grid;
-  grid-template-columns: 300px 300px 300px;
+  @include grid-center(300px 300px 300px);
   height: 60px;
-  align-items: center;
   padding-left: 15px;
 }
 
 .headerValue {
+  @include pretendard-26-500;
   color: $grey-600;
-  @include font-mixin('Pretendard', 26px, 500);
 }
 
 .recruitRecord {
-  display: grid;
-  grid-template-columns: 300px 300px 300px;
-  align-items: center;
+  @include grid-center(300px 300px 300px);
   height: 80px;
   border: 1px solid $grey-500;
   border-radius: 10px;
@@ -40,9 +36,9 @@
 }
 
 .recordValue {
+  @include pretendard-24-500;
   display: flex;
   align-items: center;
   text-align: left;
-  @include font-mixin('Pretendard', 24px, 500);
   color: $grey-800;
 }
