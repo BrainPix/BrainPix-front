@@ -1,5 +1,5 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './postHeader.module.scss';
-import arrowButton from '../../assets/icons/arrow-button.svg';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 
 interface PostHeaderProps {
@@ -8,6 +8,7 @@ interface PostHeaderProps {
   title: string;
   deadline: number;
   postImage?: string | null;
+  postId: number;
 }
 
 export const PostHeader = ({
@@ -16,7 +17,20 @@ export const PostHeader = ({
   title,
   deadline,
   postImage,
+  postId,
 }: PostHeaderProps) => {
+  const navigate = useNavigate();
+
+  const handleEditNavigate = () => {
+    let editPath = '/';
+    if (tab === '요청과제') {
+      editPath = `/my/posts/request-assign/edit/${postId}`;
+    } else if (tab === '협업 광장') {
+      editPath = `/my/posts/collaboration/edit/${postId}`;
+    }
+
+    navigate(editPath);
+  };
   return (
     <>
       <div className={styles.sectionWrapper}>
@@ -40,10 +54,10 @@ export const PostHeader = ({
           <DeadlineLabel deadline={deadline} />
           <p className={styles.postTitle}>{title}</p>
         </div>
-        <img
-          src={arrowButton}
-          alt='화살표 버튼'
-          className={styles.arrowButton}></img>
+        <button
+          className={styles.arrowButton}
+          onClick={handleEditNavigate}
+        />
       </div>
     </>
   );

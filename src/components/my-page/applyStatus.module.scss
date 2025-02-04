@@ -33,7 +33,7 @@
 }
 
 .cardDetails {
-  @include grid-center;
+  @include grid-center(200px 200px 200px 254px);
 
   div {
     @include flex-start;

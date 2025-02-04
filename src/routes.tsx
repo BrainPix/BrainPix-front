@@ -17,6 +17,9 @@ import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
 import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
 import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsCollaboration';
+import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
+import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
+import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 import { Message } from './pages/my-page/message/Message';
 import { Main } from './pages/main/main';
@@ -110,6 +113,18 @@ export const routes = createBrowserRouter([
           {
             path: '/my/posts/collaboration/:postId',
             element: <PostsCollaboration />,
+          },
+          {
+            path: '/my/posts/idea-market/edit/:postId',
+            element: <IdeaMarketEdit />,
+          },
+          {
+            path: '/my/posts/request-assign/edit/:postId',
+            element: <RequestAssignEdit />,
+          },
+          {
+            path: '/my/posts/collaboration/edit/:postId',
+            element: <CollaborationEdit />,
           },
           {
             path: '/my/portfolio',

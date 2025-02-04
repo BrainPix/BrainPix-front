@@ -34,6 +34,7 @@ export const PostsIdeaMarket = () => {
         category={category}
         title={post.title}
         price={post.price}
+        postId={post.id}
       />
       <div className={styles.purchaseCardWrapper}>
         <PurchaseStatus />
