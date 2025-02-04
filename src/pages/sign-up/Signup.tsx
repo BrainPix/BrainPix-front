@@ -19,16 +19,10 @@ export const Signup = () => {
   const { mutate: signupPersonalMutation } = useMutation({
     mutationFn: (formData: PersonalSignUpPayload) =>
       postPersonalSignUp(formData),
-    onSuccess: (response) => {
-      console.log(response);
-    },
   });
 
   const { mutate: signupCompanyMutation } = useMutation({
     mutationFn: (formData: CompanySignUpPayload) => postCompanySignUp(formData),
-    onSuccess: (response) => {
-      console.log(response);
-    },
   });
 
   const {
@@ -48,8 +42,6 @@ export const Signup = () => {
     setValue,
     setError,
   });
-
-  console.log(registers);
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
     if (userType === 'individual') {
@@ -77,7 +69,6 @@ export const Signup = () => {
         position: position,
         birthday: birth,
       };
-      console.log(requestBody);
       return signupCompanyMutation(requestBody);
     }
   };

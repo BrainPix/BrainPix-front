@@ -20,9 +20,6 @@ export const Login = ({ userType }: LoginPropsType) => {
 
   const { mutate: loginMutate } = useMutation({
     mutationFn: (formData: LoginPayload) => postLogin(formData),
-    onSuccess: (response) => {
-      console.log(response);
-    },
   });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {

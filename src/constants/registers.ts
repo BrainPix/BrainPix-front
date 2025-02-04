@@ -45,9 +45,6 @@ export const SignupRegisters = ({
 
   const { mutate: checkNickNameMutation } = useMutation({
     mutationFn: (nickname: string) => getDuplicateNickname(nickname),
-    onSuccess: (response) => {
-      console.log(response);
-    },
     onError: () => {
       if (setError) {
         setError('nickname', {
