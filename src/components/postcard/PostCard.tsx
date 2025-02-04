@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './PostCard.module.scss';
 import classNames from 'classnames';
-import { PostProps, PostCategories } from '../../types/postData';
+import { PostProps, PostCategories } from '../../types/postDataType';
 
 export const PostCard = ({
   id,

@@ -5,8 +5,8 @@ import styles from './login.module.scss';
 import { useMutation } from '@tanstack/react-query';
 
 import { loginRegisters } from '../../constants/registers';
-import { postLogin } from '../../apis/auth';
-import { LoginPayload } from '../../types/auth';
+import { postLogin } from '../../apis/authAPI';
+import { LoginPayload } from '../../types/authType';
 
 interface LoginPropsType {
   userType: 'individual' | 'corparate';
