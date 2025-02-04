@@ -28,12 +28,7 @@ export const Login = ({ userType }: LoginPropsType) => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
     const { id, password } = payload;
     const requestBody = { id, password };
-    try {
-      const response = await postLogin(requestBody);
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    loginMutate(requestBody);
   };
 
   const registers = loginRegisters(register);
