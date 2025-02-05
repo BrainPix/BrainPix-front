@@ -5,10 +5,27 @@
   padding-bottom: 48px;
 }
 
+.optionContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alarmWrapper {
+  @include flex-center;
+
+  width: 24px;
+  height: 24px;
+  border: 1px solid $grey-400;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
 .optionWrapper {
   display: flex;
   gap: 30px;
   margin-left: 48px;
+  line-height: 19px;
 }
 
 .bottomPageWrapper {
@@ -17,6 +34,7 @@
   display: flex;
   gap: 45px;
   cursor: pointer;
+  position: relative;
 
   & > * {
     @include pretendard-20-500;
@@ -53,4 +71,25 @@
   width: 60px;
   padding-bottom: 15px;
   border-bottom: 4px solid $grey-600;
+}
+
+.hoverMenu {
+  @include pretendard-18-400;
+
+  color: $grey-800;
+  position: absolute;
+  padding: 15px 20px;
+  flex-direction: column;
+  display: flex;
+  gap: 15px;
+  top: 52px;
+  left: 252px;
+  border-radius: 5px;
+  border: 1px solid $grey-500;
+  background-color: $grey-50;
+  z-index: 100;
+
+  & > a:hover {
+    color: $primary;
+  }
 }
