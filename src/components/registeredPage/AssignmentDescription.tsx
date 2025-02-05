@@ -1,8 +1,25 @@
 import styles from './assignmentDescription.module.scss';
 
-const AssignmentDescription = () => {
-  const handleOpenClick = () => {};
-  const handleDownloadClick = () => {};
+interface AssignmentDescriptionProps {
+  content: string;
+  attachments: string[];
+}
+
+const AssignmentDescription = ({
+  content,
+  attachments,
+}: AssignmentDescriptionProps) => {
+  const handleOpenClick = (url: string) => {
+    window.open(url, '_blank');
+  };
+  const handleDownloadClick = (url: string) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = url.split('/').pop() || 'attachment';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className={styles.container}>
@@ -10,28 +27,34 @@ const AssignmentDescription = () => {
         <h1 className={styles.title}>과제 설명</h1>
         <div className={styles.divider}></div>
       </div>
-      <p className={styles.description}>과제 설명입니다...</p>
-      <div className={styles.attachment}>
-        <h1 className={styles.attachmentTitle}>
-          첨부파일 <span className={styles.pdf}>(PDF)</span>
-        </h1>
-        <div className={styles.attachmentBox}>
-          <span className={styles.fileName}>첨부파일입니다... .pdf</span>
-          <div className={styles.actions}>
-            <button
-              className={styles.open}
-              onClick={handleOpenClick}>
-              열기
-            </button>
-            <span className={styles.separator}>|</span>
-            <button
-              className={styles.download}
-              onClick={handleDownloadClick}>
-              다운로드
-            </button>
-          </div>
+      <p className={styles.description}>{content}</p>
+      {attachments.length > 0 && (
+        <div className={styles.attachment}>
+          <h1 className={styles.attachmentTitle}>
+            첨부파일 <span className={styles.pdf}>(PDF)</span>
+          </h1>
+          {attachments.map((url, index) => (
+            <div
+              key={index}
+              className={styles.attachmentBox}>
+              <span className={styles.fileName}>{url.split('/').pop()}</span>
+              <div className={styles.actions}>
+                <button
+                  className={styles.open}
+                  onClick={() => handleOpenClick(url)}>
+                  열기
+                </button>
+                <span className={styles.separator}>|</span>
+                <button
+                  className={styles.download}
+                  onClick={() => handleDownloadClick(url)}>
+                  다운로드
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };
