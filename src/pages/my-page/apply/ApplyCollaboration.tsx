@@ -1,9 +1,9 @@
-import styles from './applyDetails.module.scss';
+import styles from './applyCollaboration.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetailsInfo';
 
-export const ApplyDetails = () => {
+export const ApplyCollaboration = () => {
   const FORM_DATA = {
     cardTitle: '요청 과제 지원 상세',
   };
@@ -36,7 +36,7 @@ export const ApplyDetails = () => {
   const rejectedApplications = APPLY_DATA.filter(apply => apply.statusType === 'reject');
 
   return (
-    <div className={styles.container}>
+<div className={styles.container}>
       <div className={styles.sectionTitle}>
         <span className={styles.sectionMainTitle}>지원 현황</span>
         <span className={styles.sectionSubTitle}>지원 내역</span>
