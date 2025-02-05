@@ -2,7 +2,23 @@ import styles from './authorInfo.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
 
-const AuthorInfo = () => {
+interface AuthorInfoProps {
+  name: string;
+  profileImageUrl: string;
+  role: string;
+  specialization: string;
+  totalIdeas: number;
+  totalCollaborations: number;
+}
+
+const AuthorInfo = ({
+  name,
+  profileImageUrl,
+  role,
+  specialization,
+  totalIdeas,
+  totalCollaborations,
+}: AuthorInfoProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -14,13 +30,25 @@ const AuthorInfo = () => {
       <div className={styles.divider}></div>
       <div className={styles.content}>
         <div className={styles.profile}>
-          <div className={styles.profileIcon} />
+          <img
+            src={profileImageUrl || '/default-profile.png'}
+            alt='프로필 이미지'
+            className={styles.profileIcon}
+          />
           <div className={styles.textContainer}>
-            <span className={styles.name}>SEO YEON</span>
-            <Label
-              text='기업'
-              type='corporate'
-            />
+            <span className={styles.name}>{name}</span>
+            {role === 'COMPANY' && (
+              <Label
+                text='기업'
+                type='corporate'
+              />
+            )}
+            {role === 'INDIVIDUAL' && (
+              <Label
+                text='개인'
+                type='personal'
+              />
+            )}
           </div>
         </div>
         <button className={styles.messageButton}>
@@ -30,17 +58,17 @@ const AuthorInfo = () => {
       <div className={styles.infoBox}>
         <div className={styles.infoItem}>
           <span className={styles.infoTitle}>분야</span>
-          <span className={styles.infoValue}>기획/디자인</span>
+          <span className={styles.infoValue}>{specialization}</span>
         </div>
         <div className={styles.dividerLine}></div>
         <div className={styles.infoItem}>
           <span className={styles.infoTitle}>아이디어</span>
-          <span className={styles.infoValue}>2</span>
+          <span className={styles.infoValue}>{totalIdeas}</span>
         </div>
         <div className={styles.dividerLine}></div>
         <div className={styles.infoItem}>
           <span className={styles.infoTitle}>협업 경험</span>
-          <span className={styles.infoValue}>4</span>
+          <span className={styles.infoValue}>{totalCollaborations}</span>
         </div>
       </div>
     </div>

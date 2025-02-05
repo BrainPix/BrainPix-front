@@ -7,12 +7,36 @@ import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
 
-const PostTitlePay = () => {
+interface PostTitlePayProps {
+  thumbnailImageUrl: string;
+  category: string;
+  ideaMarketType: string;
+  auth: string;
+  title: string;
+  price: number;
+  viewCount: number;
+  saveCount: number;
+  createdDate: string;
+}
+
+const PostTitlePay = ({
+  thumbnailImageUrl,
+  category,
+  ideaMarketType,
+  auth,
+  title,
+  price,
+  viewCount,
+  saveCount,
+  createdDate,
+}: PostTitlePayProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
   const navigate = useNavigate();
 
   const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
+    setIsBookmarked((prev) => !prev);
+    setCurrentSaveCount((prev) => (isBookmarked ? prev - 1 : prev + 1));
   };
 
   const handlePurchaseClick = () => {
@@ -22,20 +46,26 @@ const PostTitlePay = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <div className={styles.placeholderBox}></div>
+        <img
+          src={thumbnailImageUrl || '/default-thumbnail.png'}
+          alt='썸네일'
+          className={styles.thumbnail}
+        />
       </div>
       <div className={styles.rightSection}>
         <div className={styles.navigation}>
-          <span className={styles.text}>아이디어 마켓</span>
+          <span className={styles.text}>{category}</span>
           <ArrowIcon className={styles.arrowIcon} />
-          <span className={styles.text}>디자인</span>
+          <span className={styles.text}>{ideaMarketType}</span>
         </div>
         <div className={styles.titleContainer}>
-          <h1 className={styles.title}>디자인 해드립니다</h1>
-          <Label
-            text='기업 공개'
-            type='corporatePublic'
-          />
+          <h1 className={styles.title}>{title}</h1>
+          {auth === 'COMPANY' && (
+            <Label
+              text='기업 공개'
+              type='corporatePublic'
+            />
+          )}
           <button
             className={styles.bookmarkButton}
             onClick={toggleBookmark}>
@@ -51,13 +81,13 @@ const PostTitlePay = () => {
             />
           </button>
         </div>
-        <div className={styles.price}>2,000,000원</div>
+        <div className={styles.price}>{price.toLocaleString()}원</div>
         <div className={styles.details}>
-          <span className={styles.date}>2024/12/28</span>
+          <span className={styles.date}>{createdDate}</span>
           <DotIcon className={styles.dotIcon} />
-          <span className={styles.info}>조회 120</span>
+          <span className={styles.info}>조회 {viewCount}</span>
           <DotIcon className={styles.dotIcon} />
-          <span className={styles.info}>저장 12</span>
+          <span className={styles.info}>저장 {currentSaveCount}</span>
         </div>
       </div>
       <button
