@@ -21,7 +21,8 @@ import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
 import { RequestAssignRegister } from './pages/my-page/postsRequestAssign/RequestAssignRegister';
-import { PurchaseList } from './pages/my-page/support/PurchaseList';
+import { PurchaseList } from './pages/my-page/apply/PurchaseList';
+import { ApplyDetails } from './pages/my-page/apply/ApplyDetails';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 import { Message } from './pages/my-page/message/Message';
 import { Main } from './pages/main/main';
@@ -137,7 +138,11 @@ export const routes = createBrowserRouter([
             element: <Portfolio />,
           },
           {
-            path: '/my/support',
+            path: '/my/apply',
+            element: <ApplyDetails />,
+          },
+          {
+            path: '/my/apply/apply-details',
             element: <PurchaseList />,
           },
           {

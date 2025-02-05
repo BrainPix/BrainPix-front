@@ -2,10 +2,10 @@ import styles from './purchaseList.module.scss';
 //import Label from '../../../components/common/label/Label';
 //import arrowItemDetailsButtonIcon from '../../../assets/icons/arrowButton.svg';
 //import arrowMessageButtonIcon from '../../../assets/icons/messageArrowButton.svg';
-import { CardHeader } from '../../../components/my-page/supportStatus/CardHeader';
-import { PostAuthorInfo } from '../../../components/my-page/supportStatus/PostAuthorInfo';
-import { ItemDetailsInfo } from '../../../components/my-page/supportStatus/ItemDetailsInfo';
-import { PayInfo } from '../../../components/my-page/supportStatus/PayInfo';
+import { CardHeader } from '../../../components/my-page/apply/CardHeader';
+import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
+import { PurchaseDetailsInfo } from '../../../components/my-page/apply/PurchaseDetailsInfo';
+import { PayInfo } from '../../../components/my-page/apply/PayInfo';
 
 export const PurchaseList = () => {
   const PURCHASE_DATA = [
@@ -46,7 +46,7 @@ export const PurchaseList = () => {
           <CardHeader date={purchase.date} />
           <div className={styles.cardContent}>
             <PostAuthorInfo seller={purchase.seller} />
-            <ItemDetailsInfo
+            <PurchaseDetailsInfo
               tab={purchase.tab}
               category={purchase.category}
               itemName={purchase.itemName}

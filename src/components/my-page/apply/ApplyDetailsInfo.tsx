@@ -1,19 +1,19 @@
 import styles from './itemDetailsInfo.module.scss';
 import arrowItemDetailsButtonIcon from '../../../assets/icons/arrowButton.svg';
 
-interface ItemDetailsInfoProps {
+interface ApplyDetailsInfoProps {
   tab: string;
   category: string;
   itemName: string;
-  price: number;
+  part: string;
 }
 
-export const ItemDetailsInfo = ({
+export const ApplyDetailsInfo = ({
   tab,
   category,
   itemName,
-  price,
-}: ItemDetailsInfoProps) => {
+  part,
+}: ApplyDetailsInfoProps) => {
   return (
     <>
       <div className={styles.itemDetails}>
@@ -23,11 +23,10 @@ export const ItemDetailsInfo = ({
             {tab} &gt; {category}
           </div>
           <div className={styles.itemName}>{itemName}</div>
-          <div className={styles.price}>{price.toLocaleString()}</div>
         </div>
         <div className={styles.quantityBox}>
-          <span className={styles.quantityText}>수량</span>
-          <span className={styles.quantityValue}>1개</span>
+          <span className={styles.quantityText}>지원파트</span>
+          <span className={styles.quantityValue}>{part}</span>
         </div>
         <div className={styles.itemDetailsButtonContainer}>
           <button className={styles.itemDetailsButton}>
