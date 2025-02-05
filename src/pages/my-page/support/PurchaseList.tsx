@@ -96,7 +96,7 @@ export const PurchaseList = () => {
                 </button>
               </div>
             </div>
-            <div className={styles.cardTitle}>결제 정보</div>
+            <div className={styles.payInfoTitle}>결제 정보</div>
             <div className={styles.priceInfo}>
               <div className={styles.toalPriceInfo}>
                 <div className={styles.priceInfoTitle}>최종 결제 금액</div>
