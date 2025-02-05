@@ -8,9 +8,18 @@ import {
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const postLogin = async (payload: LoginPayload) => {
-  const url = `${BASE_URL}/users/login?userId=${payload.id}`;
-  const response = await axios.post(url, payload);
-  return response;
+  const url = `${BASE_URL}/users/login`;
+
+  const response = await axios.post(url, payload, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+  });
+  if (response.status === 200) {
+    console.log(response.headers);
+    return response;
+  }
 };
 
 export const postPersonalSignUp = async (payload: PersonalSignUpPayload) => {

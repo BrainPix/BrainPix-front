@@ -20,9 +20,15 @@ export const Login = ({ userType }: LoginPropsType) => {
 
   const { mutate: loginMutate } = useMutation({
     mutationFn: (formData: LoginPayload) => postLogin(formData),
+    onSuccess: (response) => {
+      console.log(response);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
-  const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
+  const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
     const { id, password } = payload;
     const requestBody = { id, password };
     loginMutate(requestBody);
