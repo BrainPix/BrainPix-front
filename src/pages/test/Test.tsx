@@ -10,6 +10,7 @@ import { Dropdown } from '../../components/common/dropdown/Dropdown.tsx';
 
 //라벨 test
 import Label from '../../components/common/label/Label.tsx';
+import { Toast } from '../../components/common/toast/Toast.tsx';
 
 export const Test = () => {
   const [clicked, setClicked] = useState(false);
@@ -55,6 +56,14 @@ export const Test = () => {
           type='selfOffer'
         />
       </div>
+      <Toast
+        text='로그인에 실패하였습니다.'
+        type='error'
+      />
+      {/* <Toast
+        text='로그인에 실패하였습니다.'
+        type='error'
+      /> */}
     </div>
   );
 };

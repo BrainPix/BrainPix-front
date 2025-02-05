@@ -1,0 +1,53 @@
+@mixin toast-style($backgroundColor, $mainColor) {
+  background-color: $backgroundColor;
+  border-left: 5px solid $mainColor;
+}
+
+.toastContainer {
+  @include flex-space-between;
+  @include toast-style($primary-100, $primary);
+
+  min-width: 400px;
+  position: fixed;
+  top: 10px;
+  left: calc(50% - 200px);
+  color: $grey-800;
+  padding: 5px 15px;
+  border-radius: 5px;
+
+  &.error {
+    @include toast-style(#ffc3c3, $red);
+  }
+
+  &.success {
+    @include toast-style(#b5ebb5, $green);
+  }
+}
+
+.rowContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.content {
+  @include pretendard-14-400;
+
+  margin-left: 35px;
+}
+
+.title {
+  @include pretendard-20-500;
+
+  line-height: normal;
+  padding-top: 2px;
+}
+
+.deleteIcon {
+  cursor: pointer;
+}
+
+.errorIcon {
+  transform: scale(0.7);
+  width: 25px;
+}
