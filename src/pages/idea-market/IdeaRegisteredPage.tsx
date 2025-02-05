@@ -6,7 +6,7 @@ import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './ideaRegisteredPage.module.scss';
 
 import { useParams } from 'react-router-dom';
-import { useIdeaMarketDetail } from '../../constants/useIdeaMarketDetail';
+import { useIdeaMarketDetail } from '../../constants/useDetailPage';
 
 export const IdeaRegisteredPage = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
