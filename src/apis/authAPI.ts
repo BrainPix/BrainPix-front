@@ -3,6 +3,7 @@ import {
   CompanySignUpPayload,
   LoginPayload,
   PersonalSignUpPayload,
+  IdeaMarketDetail,
 } from '../types/authType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -41,4 +42,12 @@ export const getDuplicateId = async (id: string) => {
   const url = `${BASE_URL}/users/signup/duplicate/id?id=${id}`;
   const response = await axios.get(url);
   return response;
+};
+
+export const getIdeaMarketDetail = async (
+  ideaId: number,
+): Promise<IdeaMarketDetail> => {
+  const url = `${BASE_URL}/idea-markets/${ideaId}`;
+  const response = await axios.get<{ data: IdeaMarketDetail }>(url);
+  return response.data.data;
 };
