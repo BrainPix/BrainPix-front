@@ -58,7 +58,7 @@ export const routes = createBrowserRouter([
         element: <IdeaMarketPayment />,
       },
       {
-        path: '/request-assign',
+        path: '/request-assign/registered',
         element: <RequestRegisteredPage />,
       },
       {
