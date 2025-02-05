@@ -7,6 +7,8 @@ import { ApplyTable } from '../../../components/my-page/apply/ApplyTable';
 export const ApplyCollaboration = () => {
   const FORM_DATA = {
     cardTitle: '협업 광장 지원 상세',
+    labelText: '기업',
+    labelType: 'corporate',
   };
   const APPLY_DATA = [
     {
@@ -68,7 +70,7 @@ export const ApplyCollaboration = () => {
             />
           </div>
 
-          <PostAuthorInfo seller={apply.seller} />
+          <PostAuthorInfo seller={apply.seller} labelText={FORM_DATA.labelText} labelType={FORM_DATA.labelType}/>
 
           <ApplyDetailsInfo
             tab={apply.tab}

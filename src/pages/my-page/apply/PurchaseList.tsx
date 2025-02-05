@@ -10,6 +10,8 @@ import { PayInfo } from '../../../components/my-page/apply/PayInfo';
 export const PurchaseList = () => {
   const FORM_DATA = {
     cardTitle: '구매 상세 내역',
+    labelText: '기업',
+    labelType: 'corporate',
   };
   const PURCHASE_DATA = [
     {
@@ -57,7 +59,7 @@ export const PurchaseList = () => {
             cardTitle={FORM_DATA.cardTitle}
           />
           <div className={styles.cardContent}>
-            <PostAuthorInfo seller={purchase.seller} />
+            <PostAuthorInfo seller={purchase.seller} labelText={FORM_DATA.labelText} labelType={FORM_DATA.labelType}/>
             <PurchaseDetailsInfo
               tab={purchase.tab}
               category={purchase.category}

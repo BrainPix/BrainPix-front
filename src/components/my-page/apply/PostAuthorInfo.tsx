@@ -1,12 +1,15 @@
 import styles from './postAuthorInfo.module.scss';
 import Label from '../../common/label/Label';
 import arrowMessageButtonIcon from '../../../assets/icons/messageArrowButton.svg';
+import { isValidLabelType } from '../../../utils/isValidLabelType';
 
 interface PostAuthorInfoProps {
   seller: string;
+  labelText: string;
+  labelType: string;
 }
 
-export const PostAuthorInfo = ({ seller }: PostAuthorInfoProps) => {
+export const PostAuthorInfo = ({ seller, labelText, labelType }: PostAuthorInfoProps) => {
   return (
     <>
       <div className={styles.sellerInfoAndMessage}>
@@ -15,8 +18,8 @@ export const PostAuthorInfo = ({ seller }: PostAuthorInfoProps) => {
           <div className={styles.sellerAndLabel}>
             <span className={styles.seller}>{seller}</span>
             <Label
-              text='개인'
-              type='personal'
+              text={labelText}
+              type={isValidLabelType(labelType) ? labelType : 'personal'}
             />
           </div>
         </div>

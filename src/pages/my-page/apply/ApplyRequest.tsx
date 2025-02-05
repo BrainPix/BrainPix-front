@@ -6,6 +6,8 @@ import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetails
 export const ApplyRequest = () => {
   const FORM_DATA = {
     cardTitle: '요청 과제 지원 상세',
+    labelText: '개인',
+    labelType: 'personal',
   };
   const APPLY_DATA = [
     {
@@ -53,7 +55,7 @@ export const ApplyRequest = () => {
             />
           </div>
 
-          <PostAuthorInfo seller={apply.seller} />
+          <PostAuthorInfo seller={apply.seller} labelText={FORM_DATA.labelText} labelType={FORM_DATA.labelType}/>
 
           <ApplyDetailsInfo
             tab={apply.tab}
