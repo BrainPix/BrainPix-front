@@ -8,6 +8,11 @@ import Label from '../common/label/Label';
 import RequestSupportModal from '../modal/RequestSupportModal';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 
+import {
+  getCategoryLabel,
+  getTaskTypeLabel,
+} from '../../constants/categoryMapper';
+
 interface PostTitleApplyProps {
   thumbnailImageUrl: string;
   category: string;
@@ -61,9 +66,9 @@ const PostTitleApply = ({
       </div>
       <div className={styles.rightSection}>
         <div className={styles.navigation}>
-          <span className={styles.text}>{category}</span>
+          <span className={styles.text}>{getCategoryLabel(category)}</span>
           <ArrowIcon className={styles.arrowIcon} />
-          <span className={styles.text}>{taskType}</span>
+          <span className={styles.text}>{getTaskTypeLabel(taskType)}</span>
         </div>
         <DeadlineLabel deadline={deadline} />
         <div className={styles.titleContainer}>

@@ -7,6 +7,11 @@ import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
 
+import {
+  getCategoryLabel,
+  getTaskTypeLabel,
+} from '../../constants/categoryMapper';
+
 interface PostTitlePayProps {
   thumbnailImageUrl: string;
   category: string;
@@ -54,9 +59,11 @@ const PostTitlePay = ({
       </div>
       <div className={styles.rightSection}>
         <div className={styles.navigation}>
-          <span className={styles.text}>{category}</span>
+          <span className={styles.text}>{getCategoryLabel(category)}</span>
           <ArrowIcon className={styles.arrowIcon} />
-          <span className={styles.text}>{ideaMarketType}</span>
+          <span className={styles.text}>
+            {getTaskTypeLabel(ideaMarketType)}
+          </span>
         </div>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>{title}</h1>
