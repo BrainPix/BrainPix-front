@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +9,14 @@ import styles from './main.module.scss';
 
 export const Main = () => {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem('accessToken');
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/idea-market', { replace: true });
+    }
+  }, [navigate, accessToken]);
+
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.logo)}>로고</div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import classNames from 'classnames';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styles from './signup.module.scss';
@@ -12,16 +12,23 @@ import {
   CompanySignUpPayload,
   PersonalSignUpPayload,
 } from '../../types/authType';
+import { ToastContext } from '../../contexts/toastContext';
 
 export const Signup = () => {
   const [step, setStep] = useState(1);
   const [userType, setUserType] = useState<'individual' | 'corporate'>(
     'individual',
   );
+  const { errorToast, successToast } = useContext(ToastContext);
 
   const { mutate: signupPersonalMutation } = useMutation({
     mutationFn: (formData: PersonalSignUpPayload) =>
       postPersonalSignUp(formData),
+    onError: () => errorToast('회원가입에 실패하였습니다.'),
+    onSuccess: () => {
+      successToast('회원가입에 성공하였습니다.');
+      setTimeout(() => (location.href = '/idea-market'), 2000);
+    },
   });
 
   const { mutate: signupCompanyMutation } = useMutation({
@@ -47,6 +54,7 @@ export const Signup = () => {
   });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
+    console.log(localStorage.getItem('signupToken'));
     if (userType === 'individual') {
       const { id, email, password, name, nickname, birth } = payload;
       const requestBody = {
@@ -56,6 +64,7 @@ export const Signup = () => {
         name,
         nickName: nickname,
         birthday: birth,
+        emailToken: localStorage.getItem('signupToken'),
       };
       return signupPersonalMutation(requestBody);
       // location.href = '/idea-market';
@@ -71,6 +80,7 @@ export const Signup = () => {
         companyName: nickname,
         position: position,
         birthday: birth,
+        emailToken: localStorage.getItem('signupToken'),
       };
       return signupCompanyMutation(requestBody);
     }

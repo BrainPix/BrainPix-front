@@ -53,7 +53,11 @@ export const StepTwo = ({
   const { mutate: emailCheckCodeMutation } = useMutation({
     mutationFn: (payload: EmailCodePayload) => postEmailCodeNumber(payload),
     onError: () => setEmailCheckResult('실패'),
-    onSuccess: () => setEmailCheckResult('성공'),
+    onSuccess: (response) => {
+      setEmailCheckResult('성공');
+      console.log(response);
+      localStorage.setItem('signupToken', response.data.token);
+    },
   });
 
   const handleClickEmailCodeCheckButton = () => {

@@ -33,7 +33,8 @@ export const Login = ({ userType }: LoginPropsType) => {
     mutationFn: (formData: LoginPayload) => postLogin(formData),
     onSuccess: (response) => {
       localStorage.setItem('accessToken', response.data.accessToken);
-      errorToast('로그인에 성공하였습니다.');
+      successToast('로그인에 성공하였습니다.');
+      setTimeout(() => (location.href = '/idea-market'), 2000);
     },
     onError: () => {
       errorToast('로그인에 실패하였습니다.');

@@ -2,9 +2,9 @@ import { createContext, useState, PropsWithChildren } from 'react';
 import { Toast } from '../components/common/toast/Toast';
 
 const initValue = {
-  errorToast: (text: string) => {},
-  successToast: (text: string) => {},
-  toast: (text: string) => {},
+  errorToast: (_text: string) => {},
+  successToast: (_text: string) => {},
+  toast: (_text: string) => {},
   closeToast: () => {},
 };
 
