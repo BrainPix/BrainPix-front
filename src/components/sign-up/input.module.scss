@@ -22,6 +22,10 @@
   padding: 15px 0;
 }
 
+.noPadding {
+  padding-bottom: 15px;
+}
+
 .label {
   @include pretendard-20-500;
 
@@ -51,6 +55,13 @@
   @include pretendard-16-400;
 
   color: $red;
+  margin-top: 10px;
+}
+
+.successMessage {
+  @include pretendard-16-400;
+
+  color: $primary-400;
   margin-top: 10px;
 }
 

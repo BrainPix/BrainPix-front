@@ -33,6 +33,8 @@
 }
 
 .emailButton {
+  @include pretendard-18-500;
+
   width: 106px;
   height: 50px;
   border-radius: 5px;

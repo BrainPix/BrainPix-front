@@ -3,16 +3,23 @@ import styles from './stepTwo.module.scss';
 import {
   FieldErrors,
   FieldValues,
+  UseFormGetFieldState,
   UseFormRegisterReturn,
+  UseFormWatch,
 } from 'react-hook-form';
 
 import { Input } from './Input';
+import { useMutation } from '@tanstack/react-query';
+import { postEmailCode } from '../../apis/authAPI';
+import { useState } from 'react';
 
 interface StepTwoPropType {
   registers: Record<string, UseFormRegisterReturn>;
   errors: FieldErrors<FieldValues>;
   userType: 'individual' | 'corporate';
   isValid: boolean;
+  fieldState: UseFormGetFieldState<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
 }
 
 export const StepTwo = ({
@@ -20,7 +27,27 @@ export const StepTwo = ({
   errors,
   isValid,
   userType,
+  fieldState,
+  watch,
 }: StepTwoPropType) => {
+  const [emailCheckResult, setEmailCheckResult] = useState<
+    '성공' | '실패' | null
+  >(null);
+  const [sendEmailButtonText, setSendEmailButtonText] = useState<
+    '인증' | '재전송'
+  >('인증');
+
+  const { mutate: emailCheckMutation } = useMutation({
+    mutationFn: (email: string) => postEmailCode(email),
+    onError: () => handleEmailFailed(),
+    onSuccess: () => setEmailCheckResult('성공'),
+  });
+
+  const handleEmailFailed = () => {
+    setEmailCheckResult('실패');
+    setSendEmailButtonText('재전송');
+  };
+
   return (
     <div>
       <div className={classNames(styles.headlineWrapper)}>
@@ -92,25 +119,54 @@ export const StepTwo = ({
                 </div>
               </div>
             )}
+
             <div className={classNames(styles.emailInputContainer)}>
               <Input
                 label='이메일 인증'
                 placeholder='이메일 입력'
                 type='email'
                 isEmail
-                errorMessage={
-                  errors.email?.message && String(errors.email?.message)
-                }
                 {...registers.email}>
                 <button
+                  onClick={() => {
+                    emailCheckMutation(watch('email'));
+                  }}
+                  disabled={
+                    fieldState('email').invalid || emailCheckResult === '성공'
+                  }
                   type='button'
                   className={classNames(
                     styles.emailButton,
-                    'buttonFilled-grey800',
+                    fieldState('email').invalid || emailCheckResult === '성공'
+                      ? 'buttonFilled-grey400'
+                      : 'buttonFilled-grey800',
                   )}>
-                  인증
+                  {sendEmailButtonText}
                 </button>
               </Input>
+              {!!emailCheckResult && (
+                <Input
+                  placeholder='인증 코드 입력'
+                  type='text'
+                  isEmail
+                  errorMessage={
+                    (errors.email?.message && String(errors.email?.message)) ||
+                    (emailCheckResult === '실패' && '인증에 실패하였습니다.') ||
+                    ''
+                  }
+                  successMessage={
+                    emailCheckResult === '성공' ? '인증되었습니다.' : ''
+                  }>
+                  <button
+                    type='button'
+                    className={classNames(
+                      styles.emailButton,
+                      'buttonFilled-grey800',
+                    )}>
+                    인증
+                  </button>
+                </Input>
+              )}
             </div>
           </div>
         </div>

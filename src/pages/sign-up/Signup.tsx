@@ -126,6 +126,8 @@ export const Signup = () => {
             errors={errors}
             isValid={isValid}
             userType={userType}
+            fieldState={getFieldState}
+            watch={watch}
           />
         )}
       </form>
