@@ -1,9 +1,10 @@
 ---
-name: "\U0001F4DDDOCS"
-about: Docs 작업 사항을 입력해주세요.
+name: "✨FEATURE"
+about: Feature 작업 사항을 입력해주세요.
 title: ''
-labels: docs
+labels: feature
 assignees: ''
+
 ---
 
 ## #️⃣연관된 이슈
@@ -17,7 +18,3 @@ assignees: ''
 ### 스크린샷 (선택)
 
 ## 💬리뷰 요구사항(선택)
-
-> 리뷰어가 특별히 봐주었으면 하는 부분이 있다면 작성해주세요
->
-> ex) 메서드 XXX의 이름을 더 잘 짓고 싶은데 혹시 좋은 명칭이 있을까요?
