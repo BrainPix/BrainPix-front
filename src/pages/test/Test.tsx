@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import classNames from 'classnames';
 import styles from './test.module.scss';
@@ -10,13 +10,19 @@ import { Dropdown } from '../../components/common/dropdown/Dropdown.tsx';
 
 //라벨 test
 import Label from '../../components/common/label/Label.tsx';
-import { Toast } from '../../components/common/toast/Toast.tsx';
+import { ToastContext } from '../../contexts/toastContext.tsx';
 
 export const Test = () => {
   const [clicked, setClicked] = useState(false);
   const handleClickButton = () => {
     setClicked(!clicked);
   };
+  const { errorToast } = useContext(ToastContext);
+
+  const handleClickToast = () => {
+    errorToast('로그인 실패임');
+  };
+
   return (
     <div className={classNames(styles.container)}>
       테스트 페이지입니다.
@@ -56,14 +62,7 @@ export const Test = () => {
           type='selfOffer'
         />
       </div>
-      <Toast
-        text='로그인에 실패하였습니다.'
-        type='error'
-      />
-      {/* <Toast
-        text='로그인에 실패하였습니다.'
-        type='error'
-      /> */}
+      <button onClick={handleClickToast}>토스트 열어보자</button>
     </div>
   );
 };

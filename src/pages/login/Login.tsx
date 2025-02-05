@@ -91,7 +91,11 @@ export const Login = ({ userType }: LoginPropsType) => {
                 <button
                   className={classNames(styles.deleteIconWrapper)}
                   onClick={() => setValue('id', '')}>
-                  <Delete className={classNames(styles.icon)} />
+                  <Delete
+                    width={8}
+                    className={classNames(styles.icon)}
+                    stroke='#424242'
+                  />
                 </button>
               )}
             </div>
@@ -124,7 +128,12 @@ export const Login = ({ userType }: LoginPropsType) => {
                   <button
                     className={classNames(styles.deleteIconWrapper)}
                     onClick={() => setValue('password', '')}>
-                    <Delete className={classNames(styles.icon)} />
+                    <Delete
+                      width={8}
+                      height={8}
+                      className={classNames(styles.icon)}
+                      stroke='#424242'
+                    />
                   </button>
                 </>
               )}

@@ -5,6 +5,8 @@ import Delete from '../../../assets/icons/delete.svg?react';
 import Error from '../../../assets/icons/error.svg?react';
 import Check from '../../../assets/icons/checkInCicle.svg?react';
 import Info from '../../../assets/icons/infoInCircle.svg?react';
+import { useContext } from 'react';
+import { ToastContext } from '../../../contexts/toastContext';
 
 interface ToastPropsType {
   text: string;
@@ -12,6 +14,7 @@ interface ToastPropsType {
 }
 
 export const Toast = ({ text, type = 'default' }: ToastPropsType) => {
+  const { closeToast } = useContext(ToastContext);
   return (
     <div className={classNames(styles.toastContainer, [styles[type]])}>
       <div>
@@ -36,6 +39,7 @@ export const Toast = ({ text, type = 'default' }: ToastPropsType) => {
         <p className={classNames(styles.content)}>{text}</p>
       </div>
       <Delete
+        onClick={closeToast}
         stroke='#424242'
         width={15}
         height={15}
