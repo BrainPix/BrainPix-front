@@ -53,10 +53,7 @@ export const StepTwo = ({
   const { mutate: emailCheckCodeMutation } = useMutation({
     mutationFn: (payload: EmailCodePayload) => postEmailCodeNumber(payload),
     onError: () => setEmailCheckResult('실패'),
-    onSuccess: (response) => {
-      setEmailCheckResult('성공');
-      console.log(response);
-    },
+    onSuccess: () => setEmailCheckResult('성공'),
   });
 
   const handleClickEmailCodeCheckButton = () => {
@@ -148,19 +145,22 @@ export const StepTwo = ({
                 placeholder='이메일 입력'
                 type='email'
                 isEmail
+                errorMessage={
+                  errors.email?.message && String(errors.email?.message)
+                }
                 {...registers.email}>
                 <button
                   onClick={() => {
                     emailCheckMutation(watch('email'));
                   }}
                   disabled={
-                    fieldState('email').invalid ||
+                    fieldState('email').invalid &&
                     !(emailCheckResult === '실패')
                   }
                   type='button'
                   className={classNames(
                     styles.emailButton,
-                    fieldState('email').invalid ||
+                    fieldState('email').invalid &&
                       !(emailCheckResult === '실패')
                       ? 'buttonFilled-grey400'
                       : 'buttonFilled-grey800',
@@ -175,7 +175,6 @@ export const StepTwo = ({
                   type='text'
                   isEmail
                   errorMessage={
-                    (errors.email?.message && String(errors.email?.message)) ||
                     (emailCheckResult === '실패' && '인증에 실패하였습니다.') ||
                     ''
                   }
@@ -197,10 +196,12 @@ export const StepTwo = ({
           </div>
         </div>
         <button
-          disabled={!isValid}
+          disabled={!(isValid && emailCheckResult === '성공')}
           className={classNames(
             styles.submitButton,
-            isValid ? 'buttonFilled-grey800' : 'buttonFilled-grey500',
+            isValid && emailCheckResult === '성공'
+              ? 'buttonFilled-grey800'
+              : 'buttonFilled-grey500',
           )}
           type='submit'>
           완료

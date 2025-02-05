@@ -42,7 +42,7 @@ export const postEmailCode = async (email: string) => {
 };
 
 export const postEmailCodeNumber = async (payload: EmailCodePayload) => {
-  const url = `${BASE_URL}/users/login/email`;
+  const url = `${BASE_URL}/users/login/email/auth`;
   const { data } = await axios.post(url, payload);
   return data;
 };

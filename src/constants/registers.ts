@@ -120,9 +120,7 @@ export const SignupRegisters = ({
       onBlur: () =>
         watch('nickname') !== '' && checkNickNameMutation(watch('nickname')),
     }),
-    position: register('position', {
-      required: SIGN_UP_ERROR_MESSAGE.noPosition,
-    }),
+    position: register('position'),
   };
 
   return registers;
