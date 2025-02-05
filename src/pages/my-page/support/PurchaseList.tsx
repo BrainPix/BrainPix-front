@@ -1,6 +1,7 @@
 import styles from './purchaseList.module.scss';
 import Label from '../../../components/common/label/Label';
-import arrowIcon from '../../../assets/icons/arrow-button.svg';
+import arrowItemDetailsButtonIcon from '../../../assets/icons/arrowButton.svg';
+import arrowMessageButtonIcon from '../../../assets/icons/messageArrowButton.svg';
 
 export const PurchaseList = () => {
   const PURCHASE_DATA = [
@@ -10,7 +11,7 @@ export const PurchaseList = () => {
       seller: 'SEO YEON',
       tab: '아이디어 마켓',
       category: '디자인',
-      itemName: '디자인해 주세요',
+      itemName: '디자인 해드립니다',
       price: 200000,
       payment: '카카오페이',
       fee: 500,
@@ -21,7 +22,7 @@ export const PurchaseList = () => {
       seller: 'SEO YEON',
       tab: '아이디어 마켓',
       category: '디자인',
-      item: '디자인해주세요',
+      item: '디자인 해드립니다',
       price: 200000,
       payment: '카카오페이',
       fee: 500,
@@ -65,9 +66,9 @@ export const PurchaseList = () => {
               <div className={styles.messageButtonContainer}>
                 <button className={styles.messageButton}>메신저 보내기</button>
                 <img
-                  src={arrowIcon}
+                  src={arrowMessageButtonIcon}
                   alt='화살표'
-                  className='arrowIcon'
+                  className='arrowMessageButton'
                 />
               </div>
             </div>
@@ -89,9 +90,9 @@ export const PurchaseList = () => {
               <div className={styles.itemDetailsButtonContainer}>
                 <button className={styles.itemDetailsButton}>
                   <img
-                    src={arrowIcon}
+                    src={arrowItemDetailsButtonIcon}
                     alt='화살표'
-                    className='arrowIcon'
+                    className='arrowItemDetailsButton'
                   />
                 </button>
               </div>

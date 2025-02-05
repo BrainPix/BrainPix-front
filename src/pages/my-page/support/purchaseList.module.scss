@@ -22,7 +22,8 @@
 }
 
 .purchaseCard {
-  background: #fff;
+  background: $grey-50;
+  border: 1px solid $grey-500;
   border-radius: 5px;
   padding: 0 30px;
   margin-bottom: 20px;
@@ -64,7 +65,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 70%;
+  width: 80%;
 }
 
 .sellerInfoTitle {
@@ -84,7 +85,7 @@
 
 .messageButtonContainer {
   @include flex-center;
-  width: 30%;
+  width: 20%;
   gap: 15px;
 }
 
@@ -96,9 +97,15 @@
   cursor: pointer;
 }
 
-.arrowIcon {
-  width: 28px;
-  height: 28px;
+.arrowItemDetailsButton {
+  width: 25px;
+  height: 12.5px;
+  cursor: pointer;
+}
+
+.arrowMessageButton {
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }
 
@@ -132,7 +139,7 @@
 }
 
 .price {
-  @include pretendard-24-500;
+  @include pretendard-16-500;
   color: $grey-800;
 }
 
@@ -143,12 +150,12 @@
 }
 
 .quantityText {
-  @include pretendard-16-400;
+  @include pretendard-14-400;
   color: $grey-600;
 }
 
 .quantityValue {
-  @include pretendard-24-500;
+  @include pretendard-18-500;
   color: $grey-800;
 }
 
