@@ -17,8 +17,8 @@ export const postLogin = async (payload: LoginPayload) => {
     withCredentials: true,
   });
   if (response.status === 200) {
-    console.log(response.headers);
-    return response;
+    const { data } = response;
+    return data;
   }
 };
 

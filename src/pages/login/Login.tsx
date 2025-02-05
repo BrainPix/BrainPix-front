@@ -13,18 +13,16 @@ interface LoginPropsType {
 }
 
 export const Login = ({ userType }: LoginPropsType) => {
-  // const queryClient = useQueryClient();
-
   const [member, setMember] = useState<'individual' | 'corparate'>(userType);
   const { register, handleSubmit } = useForm();
 
   const { mutate: loginMutate } = useMutation({
     mutationFn: (formData: LoginPayload) => postLogin(formData),
     onSuccess: (response) => {
-      console.log(response);
+      localStorage.setItem('accessToken', response.data.accessToken);
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      alert('로그인에 실패하였습니다.\n다시 시도해주세요.');
     },
   });
 
