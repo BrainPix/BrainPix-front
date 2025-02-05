@@ -5,7 +5,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
-import { SIGN_UP_ERROR_MESSAGE } from './errorMessage';
+import { SIGN_IN_ERROR_MESSAGE, SIGN_UP_ERROR_MESSAGE } from './errorMessage';
 import { formatBirth } from '../utils/formatBirth';
 import { getDuplicateId, getDuplicateNickname } from '../apis/authAPI';
 import { useMutation } from '@tanstack/react-query';
@@ -19,8 +19,12 @@ interface RegistersProps {
 
 export const loginRegisters = (register: UseFormRegister<FieldValues>) => {
   const registers = {
-    id: register('id'),
-    password: register('password'),
+    id: register('id', {
+      required: SIGN_IN_ERROR_MESSAGE.id,
+    }),
+    password: register('password', {
+      required: SIGN_IN_ERROR_MESSAGE.password,
+    }),
   };
 
   return registers;

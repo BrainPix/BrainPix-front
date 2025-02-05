@@ -104,6 +104,14 @@
 
     color: $grey-500;
   }
+
+  &.error {
+    border: 1px solid $red;
+  }
+
+  &.error::placeholder {
+    color: $red;
+  }
 }
 
 .loginButton {
@@ -126,4 +134,29 @@
   text-decoration: none;
   margin: 0 auto;
   margin-top: 15px;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.deleteIconWrapper {
+  @include flex-center;
+
+  width: 18px;
+  height: 18px;
+  border: 1px solid $grey-400;
+  border-radius: 50px;
+  position: absolute;
+  bottom: 31px;
+  right: 20px;
+  cursor: pointer;
+  background: none;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 45px;
+  bottom: 31px;
+  cursor: pointer;
 }

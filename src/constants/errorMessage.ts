@@ -14,3 +14,8 @@ export const SIGN_UP_ERROR_MESSAGE = {
   noCompanyName: '기업명을 입력하세요.',
   noPosition: '직책을 입력하세요',
 };
+
+export const SIGN_IN_ERROR_MESSAGE = {
+  id: '아이디를 입력해주세요.',
+  password: '비밀번호를 입력해주세요.',
+};
