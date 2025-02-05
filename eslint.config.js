@@ -45,6 +45,7 @@ export default tseslint.config(
       'jsx-a11y/no-static-element-interactions': 'off', // <button> 태그가 아니어도 onClick 속성 추가가 가능하도록
       'jsx-a11y/click-events-have-key-events': 'off',
       'unused-imports/no-unused-imports': 'error', // 사용하지않는 import 문은 error가 나도록
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }], // 사용하지 않는 매개변수는 앞에 '_' 붙일 시 경고 안남
     },
   },
 );
