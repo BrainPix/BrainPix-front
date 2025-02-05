@@ -84,8 +84,7 @@ export const SignupRegisters = ({
     }),
     password: register('password', {
       required: SIGN_UP_ERROR_MESSAGE.passwordRegex,
-      minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
-      maxLength: { value: 20, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
+      minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordRegex },
       pattern: {
         value: /^(?=(.*[A-Za-z].*){1,})(?=(.*\d.*){1,}|(.*\W.*){1,}).+$/,
         message: SIGN_UP_ERROR_MESSAGE.passwordRegex,
