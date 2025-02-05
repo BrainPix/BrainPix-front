@@ -17,7 +17,7 @@ export const Test = () => {
   const handleClickButton = () => {
     setClicked(!clicked);
   };
-  const { errorToast } = useContext(ToastContext);
+  const { errorToast, successToast } = useContext(ToastContext);
 
   const handleClickToast = () => {
     errorToast('로그인 실패임');
@@ -63,6 +63,9 @@ export const Test = () => {
         />
       </div>
       <button onClick={handleClickToast}>토스트 열어보자</button>
+      <button onClick={() => successToast('성공 토스트다')}>
+        성공 토스트 열어보자
+      </button>
     </div>
   );
 };

@@ -17,24 +17,25 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
     'default',
   );
 
-  const errorToast = (text: string) => {
+  const commonToast = (text: string) => {
     setText(text);
     setIsVisibleToast(true);
-    setToastType('error');
-
     setTimeout(() => setIsVisibleToast(false), 3000);
   };
 
+  const errorToast = (text: string) => {
+    setToastType('error');
+    commonToast(text);
+  };
+
   const successToast = (text: string) => {
-    setText(text);
-    setIsVisibleToast(true);
     setToastType('success');
+    commonToast(text);
   };
 
   const toast = (text: string) => {
-    setText(text);
-    setIsVisibleToast(true);
     setToastType('default');
+    commonToast(text);
   };
 
   const closeToast = () => {

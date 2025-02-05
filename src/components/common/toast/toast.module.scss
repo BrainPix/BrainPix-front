@@ -10,10 +10,12 @@
   min-width: 400px;
   position: fixed;
   top: 10px;
+  height: 70px;
   left: calc(50% - 200px);
   color: $grey-800;
   padding: 5px 15px;
   border-radius: 5px;
+  animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 
   &.error {
     @include toast-style(#ffc3c3, $red);
@@ -37,10 +39,11 @@
 }
 
 .title {
-  @include pretendard-20-500;
+  @include pretendard-20-600;
 
   line-height: normal;
   padding-top: 2px;
+  height: 30px;
 }
 
 .deleteIcon {
@@ -50,4 +53,16 @@
 .errorIcon {
   transform: scale(0.7);
   width: 25px;
+}
+
+@keyframes scale-in-center {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
