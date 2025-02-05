@@ -124,6 +124,10 @@
   color: $grey-50;
   cursor: pointer;
   margin-top: 20px;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .signUpText {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import styles from './login.module.scss';
@@ -10,6 +10,7 @@ import { LoginPayload } from '../../types/authType';
 import Delete from '../../assets/icons/delete.svg?react';
 import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
 import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
+import { ToastContext } from '../../contexts/toastContext';
 
 interface LoginPropsType {
   userType: 'individual' | 'corparate';
@@ -18,6 +19,7 @@ interface LoginPropsType {
 export const Login = ({ userType }: LoginPropsType) => {
   const [member, setMember] = useState<'individual' | 'corparate'>(userType);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const { errorToast, successToast } = useContext(ToastContext);
 
   const {
     register,
@@ -31,9 +33,10 @@ export const Login = ({ userType }: LoginPropsType) => {
     mutationFn: (formData: LoginPayload) => postLogin(formData),
     onSuccess: (response) => {
       localStorage.setItem('accessToken', response.data.accessToken);
+      errorToast('로그인에 성공하였습니다.');
     },
     onError: () => {
-      alert('로그인에 실패하였습니다.\n다시 시도해주세요.');
+      errorToast('로그인에 실패하였습니다.');
     },
   });
 

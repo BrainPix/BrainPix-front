@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   CompanySignUpPayload,
+  EmailCodePayload,
   LoginPayload,
   PersonalSignUpPayload,
 } from '../types/authType';
@@ -35,9 +36,15 @@ export const postCompanySignUp = async (payload: CompanySignUpPayload) => {
 };
 
 export const postEmailCode = async (email: string) => {
-  const url = `${BASE_URL}/email/send-code?${email}`;
-  const response = await axios.post(url, {});
+  const url = `${BASE_URL}/users/login/email`;
+  const response = await axios.post(url, { email });
   return response;
+};
+
+export const postEmailCodeNumber = async (payload: EmailCodePayload) => {
+  const url = `${BASE_URL}/users/login/email`;
+  const { data } = await axios.post(url, payload);
+  return data;
 };
 
 export const getDuplicateNickname = async (nickname: string) => {
