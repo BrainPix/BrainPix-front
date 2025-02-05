@@ -1,23 +1,37 @@
 import styles from './cardHeader.module.scss';
 import Label from '../../common/label/Label';
+import { isValidLabelType } from '../../../utils/isValidLabelType';
 
 interface CardHeaderProps {
   date: string;
+  status: string;
+  statusType: string;
+  cardTitle?: string;
+  showDeleteButton?: boolean;
 }
 
-export const CardHeader = ({ date }: CardHeaderProps) => {
+export const CardHeader = ({ date, status, statusType, cardTitle, showDeleteButton }: CardHeaderProps) => {
   return (
     <>
       <div className={styles.cardHeader}>
         <span>
           <Label
-            text='구매 완료'
-            type='purchaseCompleted'
+            text={status}
+            type={isValidLabelType(statusType) ? statusType : 'reject'}
           />
         </span>
-        <span className={styles.date}>{date}</span>
+        <div className={styles.dateContainer}>
+          <span className={styles.date}>{date}</span>
+          {showDeleteButton &&
+            <>
+              <div className={styles.divider} />
+              <button className={styles.deleteButton}>삭제</button>
+            </>
+          }
+        </div>
       </div>
-      <div className={styles.cardTitle}>구매 상세 내역</div>
+      
+      {cardTitle && <div className={styles.cardTitle}>{cardTitle}</div>}
     </>
   );
 };

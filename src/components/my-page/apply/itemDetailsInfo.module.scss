@@ -1,7 +1,8 @@
 .itemDetails {
   @include flex-space-between;
   padding : 30px 10px;
-  gap: 30px;
+  gap: 20px;
+  border-top: 1px solid $grey-400;
 }
 
 .mainImage {
@@ -14,7 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: baseline;
-  width: 70%;
+  width: 60%;
 }
 
 .route {
@@ -34,8 +35,7 @@
 
 .quantityBox {
   @include flex-column;
-  width: 65px;
-  height: 55px;
+  width: 15%;
 }
 
 .quantityText {

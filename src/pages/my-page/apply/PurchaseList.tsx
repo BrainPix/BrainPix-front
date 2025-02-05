@@ -8,9 +8,14 @@ import { PurchaseDetailsInfo } from '../../../components/my-page/apply/PurchaseD
 import { PayInfo } from '../../../components/my-page/apply/PayInfo';
 
 export const PurchaseList = () => {
+  const FORM_DATA = {
+    cardTitle: '구매 상세 내역',
+  };
   const PURCHASE_DATA = [
     {
       id: 1,
+      status: '구매 완료',
+      statusType: 'purchaseCompleted',
       date: '2024/12/24',
       seller: 'SEO YEON',
       tab: '아이디어 마켓',
@@ -22,6 +27,8 @@ export const PurchaseList = () => {
     },
     {
       id: 2,
+      status: '구매 완료',
+      statusType: 'purchaseCompleted',
       date: '2024/12/24',
       seller: 'SEO YEON',
       tab: '아이디어 마켓',
@@ -43,7 +50,12 @@ export const PurchaseList = () => {
         <div
           className={styles.purchaseCard}
           key={purchase.id}>
-          <CardHeader date={purchase.date} />
+          <CardHeader
+            date={purchase.date}
+            status={purchase.status}
+            statusType={purchase.statusType}
+            cardTitle={FORM_DATA.cardTitle}
+          />
           <div className={styles.cardContent}>
             <PostAuthorInfo seller={purchase.seller} />
             <PurchaseDetailsInfo

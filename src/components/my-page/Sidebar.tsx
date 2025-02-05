@@ -7,7 +7,7 @@ export const Sidebar = () => {
   const MENU_LOCATION = {
     포트폴리오: '/my/portfolio',
     '게시물 관리': '/my/posts',
-    지원현황: '/my/support',
+    지원현황: '/my/apply',
     메신저: '/my/message',
     저장: '/my/save',
   };

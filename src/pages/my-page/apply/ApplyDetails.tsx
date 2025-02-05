@@ -1,10 +1,12 @@
 import styles from './applyDetails.module.scss';
-import Label from '../../../components/common/label/Label';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetailsInfo';
 
 export const ApplyDetails = () => {
+  const FORM_DATA = {
+    cardTitle: '요청 과제 지원 상세',
+  };
   const APPLY_DATA = [
     {
       id: 1,
@@ -29,22 +31,26 @@ export const ApplyDetails = () => {
       part: '디자이너',
     },
   ];
+
+  const acceptedApplications = APPLY_DATA.filter(apply => apply.statusType === 'accept');
+  const rejectedApplications = APPLY_DATA.filter(apply => apply.statusType === 'reject');
+
   return (
     <div className={styles.container}>
       <div className={styles.sectionTitle}>
         <span className={styles.sectionMainTitle}>지원 현황</span>
         <span className={styles.sectionSubTitle}>지원 내역</span>
       </div>
-      {APPLY_DATA.map((apply) => (
-        <div
-          key={apply.id}
-          className={styles.applyCard}>
+
+      {acceptedApplications.map((apply) => (
+        <div key={apply.id} className={styles.applyCard}>
           <div className={styles.cardHeaderContainer}>
-            <Label
-              text={apply.status}
-              type={apply.statusType}
+            <CardHeader
+              date={apply.date}
+              status={apply.status}
+              statusType={apply.statusType}
+              cardTitle={FORM_DATA.cardTitle}
             />
-            <CardHeader date={apply.date} />
           </div>
 
           <PostAuthorInfo seller={apply.seller} />
@@ -53,7 +59,27 @@ export const ApplyDetails = () => {
             tab={apply.tab}
             category={apply.category}
             itemName={apply.itemName}
-            price={apply.price}
+            part={apply.part}
+          />
+        </div>
+      ))}
+
+      {rejectedApplications.map((apply) => (
+        <div key={apply.id} className={styles.applyCard}>
+          <div className={styles.cardHeaderContainer}>
+            <CardHeader
+              date={apply.date}
+              status={apply.status}
+              statusType={apply.statusType}
+              showDeleteButton={true}
+            />
+          </div>
+
+          <ApplyDetailsInfo
+            tab={apply.tab}
+            category={apply.category}
+            itemName={apply.itemName}
+            part={apply.part}
           />
         </div>
       ))}
