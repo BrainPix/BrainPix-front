@@ -16,7 +16,7 @@ const RecruitmentStatus = () => {
         <div className={styles.tableHeader}>
           <span className={styles.column}>아이디</span>
           <span className={styles.column}>역할</span>
-          <span className={styles.column}>포트폴리오</span>
+          <span className={styles.column}>프로필</span>
         </div>
         {members.map((member) => (
           <div
