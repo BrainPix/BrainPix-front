@@ -5,10 +5,14 @@ import { MyPageLayout } from './pages/layout/MyPageLayout';
 import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
+import { IdeaMarketRegisterComplete } from './pages/idea-market/IdeaMarketRegisterComplete';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
-import { RequestAssign } from './pages/request-assign/RequestAssign';
+import { RequestAssignMain } from './pages/request-assign/RequestAssignMain';
+import { RequestAssignRegister } from './pages/request-assign/RequestAssignRegister';
+import { RequestAssignRegisterComplete } from './pages/request-assign/RequestAssignRegisterComplete';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
-import { Collaboration } from './pages/collaboration/Collaboration';
+import { CollaborationMain } from './pages/collaboration/CollaborationMain';
+import { CollaborationRegister } from './pages/collaboration/CollaborationRegister';
 import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
 import { Signup } from './pages/sign-up/Signup';
@@ -41,6 +45,10 @@ function App() {
             element={<IdeaMarketRegister />}
           />
           <Route
+            path='/idea-market/register-complete'
+            element={<IdeaMarketRegisterComplete />}
+          />
+          <Route
             path='/idea-market/registered'
             element={<IdeaRegisteredPage />}
           />
@@ -50,7 +58,15 @@ function App() {
           />
           <Route
             path='/request-assign'
-            element={<RequestAssign />}
+            element={<RequestAssignMain />}
+          />
+          <Route
+            path='/request-assign/register'
+            element={<RequestAssignRegister />}
+          />
+          <Route
+            path='/request-assign/register-complete'
+            element={<RequestAssignRegisterComplete />}
           />
           <Route
             path='/request-assign/registered'
@@ -58,7 +74,11 @@ function App() {
           />
           <Route
             path='/collaboration'
-            element={<Collaboration />}
+            element={<CollaborationMain />}
+          />
+          <Route
+            path='/collaboration/register'
+            element={<CollaborationRegister />}
           />
           <Route
             path='/personal-profile/:id'

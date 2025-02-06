@@ -2,27 +2,24 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
-import styles from './ideaMarketRegister.module.scss';
+import styles from './collaborationRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react';
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
-import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
-interface IdeaMarketRegisterProps {
+interface CollaborationRegisterProps {
   // Add any props if needed
 }
 
-export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
+export const CollaborationRegister: React.FC<
+  CollaborationRegisterProps
+> = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [pageType, setPageType] = useState<'Idea Solution' | 'Market Place'>(
-    'Idea Solution',
-  );
-  const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [content, setContent] = useState<string>('');
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
@@ -42,7 +39,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     const file = event.target.files?.[0];
     if (file) {
       setAttachedFile(file);
-      // 이미지 URL 생성
       const imageUrl = URL.createObjectURL(file);
       setPreviewImageUrl(imageUrl);
     }
@@ -87,21 +83,19 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
   };
 
   const handleEditClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 상위 컴포넌트로의 이벤트 전파 방지
-    // Edit 버튼 클릭 시 처리할 로직
+    e.stopPropagation();
   };
 
   const handleCancel = () => {
-    navigate(-1); // Goes back to the previous page
+    navigate(-1);
   };
 
   const handleSubmit = () => {
-    navigate('/idea-market/register-complete');
+    navigate('/idea-market/registered');
   };
 
   useEffect(() => {
     return () => {
-      // 컴포넌트가 언마운트될 때 URL 정리
       if (previewImageUrl) {
         URL.revokeObjectURL(previewImageUrl);
       }
@@ -143,17 +137,16 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     [],
   );
 
-  // Quill 에디터 스타일 설정
   const formats = ['font', 'size', 'align', 'link', 'image'];
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>아이디어 등록하기</div>
+      <div className={styles.title}>팀 빌딩</div>
       <div className={styles.horizontalContainer}>
         <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
           <div className={styles.labelWrapper}>
             <label htmlFor='category'>
-              카테고리
+              주제 분야 설정
               <span className={styles.required}>(필수)</span>
             </label>
           </div>
@@ -192,86 +185,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
               </div>
             )}
           </div>
-        </div>
-
-        <div className={`${styles.formGroup} ${styles.pageTypeGroup}`}>
-          <div className={styles.labelWrapper}>
-            <span id='pageTypeLabel'>
-              페이지 설정
-              <span className={styles.required}>(필수)</span>
-            </span>
-          </div>
-          <div
-            className={styles.pageTypeWrapper}
-            role='group'
-            aria-labelledby='pageTypeLabel'>
-            <button
-              className={`${styles.pageTypeButton} ${pageType === 'Idea Solution' ? styles.active : ''}`}
-              onClick={() => setPageType('Idea Solution')}>
-              Idea Solution
-            </button>
-            <button
-              className={`${styles.pageTypeButton} ${pageType === 'Market Place' ? styles.active : ''}`}
-              onClick={() => setPageType('Market Place')}>
-              Market Place
-            </button>
-          </div>
-
-          {pageType === 'Idea Solution' && (
-            <div
-              className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
-              onClick={() => setShowDetail(!showDetail)}>
-              <div className={styles.header}>
-                <span className={styles.descriptionText}>
-                  Idea Solution이란?
-                </span>
-                <InfoDropdown
-                  className={styles.infoIcon}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDetail(!showDetail);
-                  }}
-                />
-              </div>
-              {showDetail && (
-                <div className={styles.detailDescription}>
-                  <span className={styles.mainText}>
-                    전문가가 제공하는 과제 제작 서비스
-                  </span>
-                  <span className={styles.subText}>
-                    {`ex) '블로그 제작을 도와드립니다.' / '로고 제작 서비스를 제공합니다.'`}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
-
-          {pageType === 'Market Place' && (
-            <div
-              className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
-              onClick={() => setShowDetail(!showDetail)}>
-              <div className={styles.header}>
-                <span className={styles.descriptionText}>Market Place란?</span>
-                <InfoDropdown
-                  className={styles.infoIcon}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDetail(!showDetail);
-                  }}
-                />
-              </div>
-              {showDetail && (
-                <div className={styles.detailDescription}>
-                  <span className={styles.mainText}>
-                    완성된 과제물과 창의적인 제품을 거래하는 공간
-                  </span>
-                  <span className={styles.subText}>
-                    {`ex) '어르신 맞춤형 키오스크 로봇' / '다이어트 식단 관리 앱 개발'`}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </div>
 
@@ -313,7 +226,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         <div className={styles.ideaNameWrapper}>
           <input
             type='text'
-            placeholder='아이디어명 입니다'
+            placeholder='팀 주제를 입력하세요. (필수)'
             className={styles.ideaNameInput}
           />
         </div>
@@ -379,36 +292,34 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
           </div>
         </div>
 
-        {pageType === 'Market Place' && (
-          <div className={styles.quantityGroup}>
-            <div className={styles.quantityLabel}>
-              수량 설정
-              <span className={styles.required}>(필수)</span>
-            </div>
-            <div className={styles.inputWrapper}>
-              <input
-                type='text'
-                value={quantity}
-                onChange={handleQuantityChange}
-                className={styles.input}
-              />
-              <span className={styles.unit}>개</span>
-              <div className={styles.quantityControlWrapper}>
-                <button
-                  onClick={handleIncrement}
-                  className={styles.quantityButton}>
-                  <UpButton />
-                </button>
-                <button
-                  onClick={handleDecrement}
-                  className={styles.quantityButton}
-                  disabled={quantity === 0}>
-                  {quantity === 0 ? <DisabledDownButton /> : <DownButton />}
-                </button>
-              </div>
+        <div className={styles.quantityGroup}>
+          <div className={styles.quantityLabel}>
+            수량 설정
+            <span className={styles.required}>(필수)</span>
+          </div>
+          <div className={styles.inputWrapper}>
+            <input
+              type='text'
+              value={quantity}
+              onChange={handleQuantityChange}
+              className={styles.input}
+            />
+            <span className={styles.unit}>개</span>
+            <div className={styles.quantityControlWrapper}>
+              <button
+                onClick={handleIncrement}
+                className={styles.quantityButton}>
+                <UpButton />
+              </button>
+              <button
+                onClick={handleDecrement}
+                className={styles.quantityButton}
+                disabled={quantity === 0}>
+                {quantity === 0 ? <DisabledDownButton /> : <DownButton />}
+              </button>
             </div>
           </div>
-        )}
+        </div>
       </div>
 
       <div className={styles.formGroup}>

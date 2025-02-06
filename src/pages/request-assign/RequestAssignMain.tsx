@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import styles from './ideaMarketMain.module.scss';
+import styles from './requestAssignMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import Dropdown from '../../components/common/dropdown/Dropdown';
 import { Carousel } from '../../components/common/carousel/Carousel';
@@ -15,7 +15,7 @@ interface CardData {
   views: number;
 }
 
-export const IdeaMarketMain = () => {
+export const RequestAssignMain = () => {
   const navigate = useNavigate();
   const [cardsData, setCardsData] = useState<CardData[]>(
     Array(9)
@@ -46,19 +46,19 @@ export const IdeaMarketMain = () => {
     <>
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
-          <span className={styles.mainTitle}>아이디어 마켓</span>
-          <span className={styles.subtitle}>Idea Solution</span>
+          <span className={styles.mainTitle}>요청 과제</span>
+          <span className={styles.subtitle}>Open Idea</span>
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/idea-market/register')}>
-          아이디어 등록하기
+          onClick={() => navigate('/request-assign/register')}>
+          요청 과제 등록하기
         </button>
       </div>
       <div className={styles.carouselWrapper}>
         <div className={styles.ideaMarketMain}>
           <div className={styles.subTitle}>
-            <span>전문가의 손길로 완성되는 아이디어</span>
+            <span>누구나 참여할 수 있는 창의적인 아이디어 과제</span>
             <span className={styles.highlight}></span>
           </div>
           <Carousel

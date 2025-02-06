@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './previewThumbnail.module.scss';
+import classNames from 'classnames';
 import Bookmark from '../../assets/icons/bookmark.svg?react';
-import Profile from '../../assets/icons/profile.svg?react';
+import styles from './PreviewThumbnail.module.scss';
 
 interface PreviewThumbnailProps {
   imageUrl?: string;
@@ -25,16 +25,16 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
   verified = false,
 }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.profileSection}>
+    <div className={classNames(styles.container)}>
+      <div className={classNames(styles.profileSection)}>
         <div className={styles.profileImage}>
           {profileImage ? (
             <img
-              src={profileImage} // 나중에 API 나오면 profile.svg 지우고 여기에 api 넣으면 됩니다.
-              alt={username} // yeonyny 부분에 해당합니다.
+              src={profileImage}
+              alt={username}
             />
           ) : (
-            <Profile className={styles.defaultProfileIcon} />
+            <div className={styles.defaultProfile}>{username[0]}</div>
           )}
         </div>
         <div className={styles.userInfo}>
@@ -51,19 +51,23 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
           />
         ) : (
           <img
-            src='/api/placeholder/312/372'
-            alt='썸네일 API 받아오는 공간'
+            src='/api/placeholder/120/120'
+            alt='썸네일 이미지'
           />
         )}
       </div>
 
       <div className={styles.contentSection}>
-        <p>{description}</p>
+        <p className={styles.description}>{description}</p>
         <div className={styles.priceSection}>
           <span>{price?.toLocaleString() ?? 0}원</span>
-          <button onClick={onBookmarkClick}>
+          <button
+            onClick={onBookmarkClick}
+            className={styles.bookmarkButton}>
             <Bookmark
-              className={`${styles.bookmarkIcon} ${isBookmarked ? styles.bookmarked : ''}`}
+              className={classNames(styles.bookmarkIcon, {
+                [styles.bookmarked]: isBookmarked,
+              })}
             />
           </button>
         </div>
