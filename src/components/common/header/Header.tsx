@@ -20,6 +20,7 @@ export const Header = () => {
   const location = window.location.pathname;
 
   const [hoverIdeaMarket, setHoverIdeaMarket] = useState(false);
+  const [hoverRequest, setHoverRequest] = useState(false);
 
   return (
     <div>
@@ -45,8 +46,15 @@ export const Header = () => {
       <div className={classNames(styles.bottomPageWrapper)}>
         {Object.entries(PAGE_MENU).map(([page, link]) => (
           <a
-            onMouseEnter={() => setHoverIdeaMarket(page === '아이디어 마켓')}
-            onMouseLeave={() => setHoverIdeaMarket(false)}
+            onMouseEnter={() => {
+              setHoverIdeaMarket(page === '아이디어 마켓');
+              setHoverRequest(page === '요청 과제');
+              console.log(page);
+            }}
+            onMouseLeave={() => {
+              setHoverIdeaMarket(false);
+              setHoverRequest(false);
+            }}
             href={link}
             className={classNames({ [styles.clickedPage]: link === location })}
             key={page}>
@@ -55,11 +63,20 @@ export const Header = () => {
         ))}
         {hoverIdeaMarket && (
           <div
-            className={classNames(styles.hoverMenu)}
+            className={classNames(styles.hoverMenu, styles.ideaMarket)}
             onMouseEnter={() => setHoverIdeaMarket(true)}
             onMouseLeave={() => setHoverIdeaMarket(false)}>
             <a href='/idea-market/idea-solution'>Idea Solution</a>
             <a href='/idea-market/market-place'>Market Place</a>
+          </div>
+        )}
+        {hoverRequest && (
+          <div
+            className={classNames(styles.hoverMenu, styles.request)}
+            onMouseEnter={() => setHoverRequest(true)}
+            onMouseLeave={() => setHoverRequest(false)}>
+            <a href='/request-assign/open-idea'>Open Idea</a>
+            <a href='/request-assign/tech-zone'>Tech Zone</a>
           </div>
         )}
       </div>

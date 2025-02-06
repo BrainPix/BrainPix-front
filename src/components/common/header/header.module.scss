@@ -82,14 +82,21 @@
   flex-direction: column;
   display: flex;
   gap: 15px;
-  top: 52px;
-  left: 252px;
   border-radius: 5px;
   border: 1px solid $grey-500;
   background-color: $grey-50;
   z-index: 100;
+  top: 52px;
 
   & > a:hover {
     color: $grey-800;
+  }
+
+  &.ideaMarket {
+    left: 252px;
+  }
+
+  &.request {
+    left: 399px;
   }
 }
