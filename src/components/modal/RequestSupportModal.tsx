@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './supportModal.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
-import EllipseGray from '../../assets/icons/ellipseGray.svg?react';
-import EllipseBlue from '../../assets/icons/ellipseBlue.svg?react';
 import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
-
 interface RequestSupportModalProps {
   onClose: () => void;
 }
@@ -83,18 +80,12 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
             <div
               className={styles.checkbox}
               onClick={toggleCheckbox}>
-              <div className={styles.circle}>
-                <EllipseGray
-                  className={styles.checkBackground}
-                  style={{ display: isChecked ? 'none' : 'block' }}
-                />
-                <EllipseBlue
-                  className={styles.checkBackground}
-                  style={{ display: isChecked ? 'block' : 'none' }}
-                />
+              <div
+                className={`${styles.circle} ${isChecked ? styles.checked : ''}`}>
                 <CheckLightIcon className={styles.checkIcon} />
               </div>
-              <div className={styles.checkboxLabel}>
+              <div
+                className={`${styles.checkboxLabel} ${isChecked ? styles.checkedLabel : ''}`}>
                 자기소개 및 포트폴리오 공개
               </div>
             </div>
