@@ -22,6 +22,10 @@
   padding: 15px 0;
 }
 
+.noPadding {
+  padding-bottom: 15px;
+}
+
 .label {
   @include pretendard-20-500;
 
@@ -52,4 +56,41 @@
 
   color: $red;
   margin-top: 10px;
+}
+
+.successMessage {
+  @include pretendard-16-400;
+
+  color: $primary-400;
+  margin-top: 10px;
+}
+
+.shake {
+  animation: shake 0.3s both;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  20% {
+    transform: translate(-2px, 2px) rotate(-1deg);
+  }
+
+  40% {
+    transform: translate(2px, -2px) rotate(1deg);
+  }
+
+  60% {
+    transform: translate(-2px, -2px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(2px, 2px) rotate(1deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
 }
