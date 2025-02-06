@@ -51,13 +51,15 @@ export const PostHeader = ({
           <div className={styles.sectionCategory}>
             {tab} {'>'} {category}
           </div>
-          <DeadlineLabel deadline={deadline} />
           <p className={styles.postTitle}>{title}</p>
+          <DeadlineLabel deadline={deadline} />
         </div>
-        <button
-          className={styles.arrowButton}
-          onClick={handleEditNavigate}
-        />
+        <div className={styles.buttonContainer}>
+          <button
+            className={styles.arrowButton}
+            onClick={handleEditNavigate}
+          />
+        </div>
       </div>
     </>
   );
