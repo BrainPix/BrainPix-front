@@ -206,16 +206,14 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #9E9E9E;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: $grey-500;
+    @include flex-center;
     transition: background-color 0.3s ease;
     position: relative;
   }
 
   .checked {
-    background-color: #424242;
+    background-color: $grey-800;
   }
   
   .checkBackground {
@@ -239,7 +237,7 @@
   }
 
   .checkedLabel {
-    color: #424242;
+    color: $grey-800;
   }
   
   .footerButtons {
