@@ -3,27 +3,3 @@
   flex-direction: column;
   width: 100%;
 }
-
-.tableContainer {
-  width: 700px;
-  margin-bottom: 20px;
-}
-
-.tableTitle {
-  @include pretendard-24-500;
-  color: $grey-800;
-  margin-bottom: 20px;
-}
-
-.titleDivider {
-  border: 1px solid $grey-400;
-  width: 100%;
-}
-
-.purchaseCardWrapper {
-  width: 700px;
-  background: $grey-50;
-  border: 1px solid $grey-500;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}

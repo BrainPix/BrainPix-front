@@ -41,22 +41,22 @@
     align-items: flex-start;
     width: 70%;
     gap: 5px;
+  }
 
-    .postcardCategory {
-      @include pretendard-14-400;
-      color: $grey-600;
-    }
+  .postCardCategory {
+    @include pretendard-14-400;
+    color: $grey-600;
+  }
 
-    p {
-      @include pretendard-18-500;
-      color: $grey-800;
-    }
+  .postCardTitle {
+    @include pretendard-18-500;
+    color: $grey-800;
+  }
 
-    h2 {
-      @include pretendard-16-500;
-      color: $grey-800;
-      margin: 0;
-    }
+  .price {
+    @include pretendard-16-500;
+    color: $grey-800;
+    margin: 0;
   }
 
   .ButtonContainer {

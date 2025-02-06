@@ -38,14 +38,7 @@ export const PostsIdeaMarket = () => {
         price={post.price}
         postId={post.id}
       />
-
-      <div className={styles.tableContainer}>
-        <div className={styles.tableTitle}>구매 현황</div>
-        <div className={styles.titleDivider}/>
-      </div>
-      <div className={styles.purchaseCardWrapper}>
-        <PurchaseStatus />
-      </div>
+      <PurchaseStatus />
     </div>
   );
 };
