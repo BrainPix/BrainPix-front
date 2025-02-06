@@ -1,9 +1,10 @@
 ---
-name: "\U0001F3A8STYLE"
-about: Style 작업 사항을 입력해주세요.
+name: "\U0001F4DDDOCS"
+about: Docs 작업 사항을 입력해주세요.
 title: ''
-labels: style
+labels: docs
 assignees: ''
+
 ---
 
 ## #️⃣연관된 이슈

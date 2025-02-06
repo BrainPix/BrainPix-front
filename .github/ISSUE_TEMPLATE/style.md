@@ -1,9 +1,10 @@
 ---
-name: "\U0001F41BFIX"
-about: Fix 작업 사항을 입력해주세요.
+name: "\U0001F3A8STYLE"
+about: Style 작업 사항을 입력해주세요.
 title: ''
-labels: fix
+labels: style
 assignees: ''
+
 ---
 
 ## #️⃣연관된 이슈
