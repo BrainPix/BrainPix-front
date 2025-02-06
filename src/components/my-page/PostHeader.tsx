@@ -48,7 +48,7 @@ export const PostHeader = ({
           <div className={styles.imagePlaceholder}></div>
         )}
         <div className={styles.postcardInfo}>
-          <div className={styles.sectionCategory}>
+          <div className={styles.postcardCategory}>
             {tab} {'>'} {category}
           </div>
           <p className={styles.postTitle}>{title}</p>
