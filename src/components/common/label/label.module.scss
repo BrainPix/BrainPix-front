@@ -4,7 +4,6 @@
     justify-content: center;
     border-radius: 17.5px;
     padding: 5px 10px;
-    @include pretendard-16-500;
     line-height: normal;
     letter-spacing: -0.16px;
     gap: 10px;
@@ -12,26 +11,52 @@
 
 //기업
 .corporate {
-    background-color: $primary-300;
+    background-color: $orange;
     color: $grey-50;
+    @include pretendard-14-500;
 }
 
 //기업 공개
 .corporatePublic {
-    color: $grey-800;
-    border: 1px solid $grey-600;
-    background: $grey-50;
-    
+    color: $grey-50;
+    background: $grey-800;
+    @include pretendard-16-400;
 }
 
 //개인
 .personal {
-    background: $green;
+    background: $primary;
     color: $grey-50;
+    @include pretendard-14-500;
 }
+
 
 //자체 공모
 .selfOffer {
     background: #8A8A8A;
     color: #000;
+    @include pretendard-16-400;
+}
+
+//전체 공개
+.entire {
+    background: $grey-800;
+    color: $grey-50;
+    @include pretendard-16-400;
+}
+
+//수락됨
+.accepted {
+    border-radius: 17.5px;
+    background: $primary;
+    color: $grey-50;
+    @include pretendard-14-500;
+}
+
+//거절됨
+.rejected {
+    border-radius: 17.5px;
+    background: $red;
+    color: $grey-50;
+    @include pretendard-14-500;
 }

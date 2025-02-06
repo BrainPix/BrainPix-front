@@ -2,7 +2,14 @@ import styles from './label.module.scss';
 
 interface LabelProps {
   text: string; // 라벨에 표시할 텍스트
-  type: 'corporate' | 'corporatePublic' | 'personal' | 'selfOffer'; // 라벨 타입
+  type:
+    | 'corporate'
+    | 'corporatePublic'
+    | 'personal'
+    | 'selfOffer'
+    | 'entire'
+    | 'accepted'
+    | 'rejected'; // 라벨 타입
 }
 
 const Label = ({ text, type }: LabelProps) => {
