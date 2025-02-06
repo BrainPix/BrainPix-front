@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   CompanySignUpPayload,
+  EmailCodePayload,
   LoginPayload,
   PersonalSignUpPayload,
 } from '../types/authType';
@@ -8,9 +9,18 @@ import {
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const postLogin = async (payload: LoginPayload) => {
-  const url = `${BASE_URL}/users/login?userId=${payload.id}`;
-  const response = await axios.post(url, payload);
-  return response;
+  const url = `${BASE_URL}/users/login`;
+
+  const response = await axios.post(url, payload, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+  });
+  if (response.status === 200) {
+    const { data } = response;
+    return data;
+  }
 };
 
 export const postPersonalSignUp = async (payload: PersonalSignUpPayload) => {
@@ -26,9 +36,15 @@ export const postCompanySignUp = async (payload: CompanySignUpPayload) => {
 };
 
 export const postEmailCode = async (email: string) => {
-  const url = `${BASE_URL}/email/send-code?${email}`;
-  const response = await axios.post(url, {});
+  const url = `${BASE_URL}/users/login/email`;
+  const response = await axios.post(url, { email });
   return response;
+};
+
+export const postEmailCodeNumber = async (payload: EmailCodePayload) => {
+  const url = `${BASE_URL}/users/login/email/auth`;
+  const { data } = await axios.post(url, payload);
+  return data;
 };
 
 export const getDuplicateNickname = async (nickname: string) => {
