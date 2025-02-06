@@ -9,7 +9,7 @@
     z-index: 1000;
     justify-content: flex-end;
     align-items: flex-end;
-    padding: 20px 50px;
+    padding: 10px 10px;
 }
 
 .modal {
@@ -18,7 +18,7 @@
     max-height: 90%;
     border-radius: 15px;
     background: $grey-50;
-    padding: 30px;
+    padding: 0px 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     overflow-y: auto;
 }
@@ -32,22 +32,22 @@
     color: $grey-800;
     @include pretendard-24-500;
     letter-spacing: -0.36px;
-    margin-top: 45px;
+    margin-top: 25px;
   }
   
   .divider {
     width: 100%;
     height: 1px;
     background: $grey-500;
-    margin: 20px 0 45px;;
+    margin: 5px 0 15px;;
   }
   
   .content {
     display: flex;
     flex-direction: column;
     align-items: left;
-    gap: 20px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 20px;
   }
   
   .titleSection {
@@ -56,7 +56,6 @@
     padding: 15px 20px;
     border-radius: 5px;
     background: $grey-100;
-    margin-bottom: 45px;
   }
   
   .breadcrumb {
@@ -76,7 +75,6 @@
   .companyInfo h2 {
     color: $grey-800;
     @include pretendard-18-500;
-    margin-bottom: 7px;
   }
   
   .companyInfo h1 {
@@ -91,7 +89,6 @@
   
   .supportSection {
     width: 100%;
-    margin-top: 20px;
   }
 
   .supportTable {
@@ -194,6 +191,7 @@
   .footer {
     @include flex-space-between;
     padding-top: 10px;
+    width: 100%;
   }
   
   .checkbox {
@@ -204,9 +202,19 @@
   }
   
   .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #9E9E9E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
     position: relative;
-    width: 18px;
-    height: 18px;
+  }
+
+  .checked {
+    background-color: #424242;
   }
   
   .checkBackground {
@@ -227,6 +235,10 @@
   .checkboxLabel {
     color: $grey-600;
     @include pretendard-14-400;
+  }
+
+  .checkedLabel {
+    color: #424242;
   }
   
   .footerButtons {
