@@ -19,7 +19,7 @@ const PAGE_MENU = {
 export const Header = () => {
   const location = window.location.pathname;
 
-  const [openMenu, setOpenMenu] = useState(false);
+  const [hoverIdeaMarket, setHoverIdeaMarket] = useState(false);
 
   return (
     <div>
@@ -45,19 +45,19 @@ export const Header = () => {
       <div className={classNames(styles.bottomPageWrapper)}>
         {Object.entries(PAGE_MENU).map(([page, link]) => (
           <a
-            onMouseEnter={() => setOpenMenu(page === '아이디어 마켓')}
-            onMouseLeave={() => setOpenMenu(false)}
+            onMouseEnter={() => setHoverIdeaMarket(page === '아이디어 마켓')}
+            onMouseLeave={() => setHoverIdeaMarket(false)}
             href={link}
             className={classNames({ [styles.clickedPage]: link === location })}
             key={page}>
             {page}
           </a>
         ))}
-        {openMenu && (
+        {hoverIdeaMarket && (
           <div
             className={classNames(styles.hoverMenu)}
-            onMouseEnter={() => setOpenMenu(true)}
-            onMouseLeave={() => setOpenMenu(false)}>
+            onMouseEnter={() => setHoverIdeaMarket(true)}
+            onMouseLeave={() => setHoverIdeaMarket(false)}>
             <a href='/idea-market/idea-solution'>Idea Solution</a>
             <a href='/idea-market/market-place'>Market Place</a>
           </div>

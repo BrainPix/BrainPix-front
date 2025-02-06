@@ -76,7 +76,7 @@
 .hoverMenu {
   @include pretendard-18-400;
 
-  color: $grey-800;
+  color: $grey-600;
   position: absolute;
   padding: 15px 20px;
   flex-direction: column;
@@ -90,6 +90,6 @@
   z-index: 100;
 
   & > a:hover {
-    color: $primary;
+    color: $grey-800;
   }
 }
