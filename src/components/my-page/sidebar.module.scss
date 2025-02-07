@@ -40,3 +40,43 @@
     font-weight: 700;
   }
 }
+
+.menuItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nonClickable {
+  cursor: default;
+}
+
+.hasSubMenu {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.subMenu {
+  display: none;
+  flex-direction: column;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.hasSubMenu:hover .subMenu {
+  display: block;
+}
+
+.subMenuItem {
+  @include pretendard-18-500;
+  transition: background 0.2s;
+  color: $grey-400;
+  text-decoration: none;
+  display: block;
+  margin: 10px 0;
+}
+
+.active {
+  color: $grey-700;
+}

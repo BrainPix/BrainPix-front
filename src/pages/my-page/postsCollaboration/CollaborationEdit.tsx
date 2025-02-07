@@ -21,6 +21,7 @@ export const CollaborationEdit = () => {
     profileImage: null,
   };
   const POST_DATA = {
+    postId: 3,
     tab: '협업 광장',
     category: '디자인',
     title: 'Web 서비스 제안',
@@ -38,6 +39,8 @@ export const CollaborationEdit = () => {
         <PostFormAuthor
           userName={USER_DATA.userName}
           profileImage={USER_DATA.profileImage}
+          postId={POST_DATA.postId}
+          editPath='/my/posts/collaboration/register'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <CollaboPostHeader

@@ -76,29 +76,23 @@ export const MyPagePosts = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.contentWrapper}>
-        <main className={styles.mainContent}>
-          <h1 className={styles.title}>
-            게시물 관리{' '}
-            <span className={styles.count}>
-              총 게시글 {filteredPosts.length}
-            </span>
-          </h1>
-          <TabNavigation
-            tabs={TABS}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
-          {/* 게시물 리스트 */}
-          <div className={styles.postList}>
-            {filteredPosts.map((post) => (
-              <PostCard
-                key={post.id}
-                {...post}
-              />
-            ))}
-          </div>
-        </main>
+      <div className={styles.postListWrapper}>
+        <div className={styles.title}>게시물 관리</div>
+        <TabNavigation
+          tabs={TABS}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
+        <div className={styles.count}>총 게시글 {filteredPosts.length}</div>
+        {/* 게시물 리스트 */}
+        <div className={styles.postList}>
+          {filteredPosts.map((post) => (
+            <PostCard
+              key={post.id}
+              {...post}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
