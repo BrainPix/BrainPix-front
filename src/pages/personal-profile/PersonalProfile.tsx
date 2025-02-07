@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
 import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
-import { userProfileData } from '../../types/userData';
+import { userProfileData } from '../../types/userDataType';
 import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
 import styles from './personalProfile.module.scss';
 
@@ -45,7 +45,6 @@ export const PersonalProfile = () => {
     <div className={classNames(styles.container)}>
       <ProfileCard />
       <DescriptionTable userData={USER_DATA} />
-      <h1 className={classNames(styles.title)}>포트폴리오</h1>
       <PortfolioCarousel size={4} />
       <PostsCarousel />
     </div>

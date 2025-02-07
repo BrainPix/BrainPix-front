@@ -107,7 +107,10 @@ export const SearchInput = () => {
                   <Clock />
                   {searches}
                 </div>
-                <Delete onClick={() => handleDeleteKeyword(searches)} />
+                <Delete
+                  onClick={() => handleDeleteKeyword(searches)}
+                  stroke='#424242'
+                />
               </div>
             ))}
           </div>

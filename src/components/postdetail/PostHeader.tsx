@@ -4,7 +4,8 @@ import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import DotIcon from '../../assets/icons/dot.svg?react';
 import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
-
+import { DeadlineLabel } from '../common/label/DeadlineLabel';
+import Label from '../common/label/Label';
 const PostHeader = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -19,9 +20,13 @@ const PostHeader = () => {
         <ArrowIcon className={styles.arrowIcon} />
         <span className={styles.text}>디자인</span>
       </div>
+      <DeadlineLabel deadline={5} />
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>저랑 프로젝트 같이 하실 분</h1>
-        <div className={styles.badge}>모집 마감 (D-21)</div>
+        <Label
+          text='기업 공개'
+          type='corporatePublic'
+        />
       </div>
       <div className={styles.details}>
         <span className={styles.date}>2024/12/28</span>

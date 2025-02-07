@@ -1,81 +1,111 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './PostCard.module.scss';
 import classNames from 'classnames';
+import { PostProps, PostCategories } from '../../types/postDataType';
+import PostDefaultImage from '../../assets/images/postCardImage.png';
+import Label from '../common/label/Label';
 
-interface PostCardProps {
-  category: string;
-  user: string;
-  title: string;
-  image?: string;
-  price?: string;
-  deadline?: string;
-  memberInfo?: string;
-}
-
-function PostCard({
+export const PostCard = ({
+  id,
   category,
+  fieldOfPost,
   user,
+  profileImage,
   title,
-  image,
+  postImage,
   price,
   deadline,
-  memberInfo,
-}: PostCardProps) {
+  current,
+  total,
+  saveCount,
+  viewCount,
+}: PostProps) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    let categoryPath = '';
+    if (category === PostCategories.IDEA_MARKET) categoryPath = 'idea-market';
+    else if (category === PostCategories.REQUEST_ASSIGN)
+      categoryPath = 'request-assign';
+    else if (category === PostCategories.COLLABORATION)
+      categoryPath = 'collaboration';
+
+    if (categoryPath) {
+      navigate(`/my/posts/${categoryPath}/${id}`);
+    }
+  };
   return (
-    <div className={classNames(styles.postCard, styles[category])}>
-      {/* 공통 헤더 */}
+    <div
+      className={classNames(styles.postCard, styles[category])}
+      onClick={handleCardClick}>
+      {/* 공통 요소 : 게시물 이미지, 프로필 */}
       <div className={styles.postHeader}>
         <img
-          src={image || ''}
-          alt=''
-          className={styles.profileImage}
+          src={postImage || PostDefaultImage}
+          alt='게시물 사진'
+          className={styles.postImage}
         />
-        <span className={styles.username}>{user}</span>
+        <div className={styles.InfoOnPostImage}>
+          <Label
+            text='기업 공개'
+            type='corporatePublic'
+          />
+          <span>{fieldOfPost}</span>
+          <p className={styles.title}>{title}</p>
+        </div>
       </div>
 
-      {/* 카테고리별 조건부 렌더링 */}
+      {/* 게시글 이미지 아래 게시글 정보(프로필 사진, 이름, 가격, 저장, 조회) */}
       <div className={styles.postContent}>
-        {category === 'ideaMarket' && (
+        {/* 공통 요소: 유저 프로필 */}
+        <div className={styles.userInfo}>
+          {profileImage ? (
+            <img
+              src={profileImage}
+              alt='프로필 사진'
+              className={styles.profileImage}
+            />
+          ) : (
+            <div className={styles.profileImage} />
+          )}
+          <span className={styles.username}>{user}</span>
+        </div>
+
+        {/* 카테고리별 조건부 렌더링 */}
+        {category === PostCategories.IDEA_MARKET && (
           <>
-            <div className={styles.postImage}>
-              <img
-                src={image || ''}
-                alt={''}
-              />
-            </div>
-            <p>{title}</p>
-            {price && <p className={styles.price}>{price}</p>}
+            {price && <div className={styles.price}>{price} 원</div>}
+            <p>
+              저장 {viewCount} • 조회 {saveCount}
+            </p>
           </>
         )}
 
-        {category === 'requestTask' && (
+        {category === PostCategories.REQUEST_ASSIGN && (
           <>
-            <p>{title}</p>
-            <div className={styles.postImage}>
-              <img
-                src={image || ''}
-                alt=''
-              />
-            </div>
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
+            <p>
+              저장 {viewCount} • 조회 {saveCount}
+            </p>
           </>
         )}
 
-        {category === 'collaboration' && (
+        {category === PostCategories.COLLABORATION && (
           <>
-            <p>{title}</p>
-            <div className={styles.postImage}>
-              <img
-                src={image || ''}
-                alt=''
-              />
-            </div>
             {deadline && <p className={styles.deadline}>D-{deadline}</p>}
-            {memberInfo && <p className={styles.memberInfo}>{memberInfo}</p>}
+            {current && total && (
+              <>
+                <p className={styles.memberInfo}>
+                  {current}/{total} 명 모집
+                </p>
+                <p className={styles.memberInfo}>
+                  저장 {saveCount} · 조회 {viewCount}
+                </p>
+              </>
+            )}
           </>
         )}
       </div>
     </div>
   );
-}
-
-export default PostCard;
+};

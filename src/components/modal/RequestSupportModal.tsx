@@ -34,11 +34,6 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
         onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <h1 className={styles.title}>요청과제 지원</h1>
-          <button
-            className={styles.closeButton}
-            onClick={onClose}>
-            ✕
-          </button>
         </div>
         <hr className={styles.divider} />
         <div className={styles.content}>
@@ -49,66 +44,70 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
               <span>디자인</span>
             </div>
             <div className={styles.companyInfo}>
-              <h2>(주) 어쩌구저쩌구</h2>
+              <h2>SY TECH</h2>
               <h1>Web 서비스 제안</h1>
             </div>
           </div>
           <h2 className={styles.sectionTitle}>지원 부문</h2>
           <hr className={styles.divider} />
-          <div className={styles.supportSection}>
-            <div className={`${styles.row} ${styles.headerRow}`}>
-              <span className={styles.columnTitle}>지원분야</span>
-              <span className={styles.columnTitle}>인원 현황</span>
-              <span className={styles.columnTitle}>지원</span>
+          <div className={styles.supportTable}>
+            <div className={styles.tableHeader}>
+              <span className={styles.column}>지원 분야</span>
+              <span className={styles.column}>인원 현황</span>
+              <span className={styles.column}>지원</span>
             </div>
-            <div className={styles.row}>
-              <span className={styles.field}>PM</span>
-              <span className={styles.status}>1 / 1</span>
-              <div className={styles.radioWrapper}>
-                <input
-                  type='radio'
-                  name='support'
-                  className={styles.radio}
-                />
+            {[
+              { id: 'PM', field: 'PM', status: '1 / 1' },
+              { id: '디자이너', field: '디자이너', status: '1 / 2' },
+            ].map((support) => (
+              <div
+                key={support.id}
+                className={styles.supportRow}>
+                <span className={styles.field}>{support.field}</span>
+                <span className={styles.status}>{support.status}</span>
+                <div className={styles.radioWrapper}>
+                  <input
+                    type='radio'
+                    name='support'
+                    value={support.id}
+                    className={styles.radio}
+                  />
+                </div>
               </div>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.field}>디자이너</span>
-              <span className={styles.status}>1 / 2</span>
-              <div className={styles.radioWrapper}>
-                <input
-                  type='radio'
-                  name='support'
-                  className={styles.radio}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={styles.checkbox}
-            onClick={toggleCheckbox}>
-            <div className={styles.circle}>
-              <EllipseGray
-                className={styles.checkBackground}
-                style={{ display: isChecked ? 'none' : 'block' }}
-              />
-              <EllipseBlue
-                className={styles.checkBackground}
-                style={{ display: isChecked ? 'block' : 'none' }}
-              />
-              <CheckLightIcon className={styles.checkIcon} />
-            </div>
-            <label
-              htmlFor='portfolio'
-              className={styles.checkboxLabel}>
-              자기소개 및 포트폴리오 공개
-            </label>
+            ))}
           </div>
 
           <h2 className={styles.sectionTitle}>추가 메시지</h2>
           <textarea className={styles.textarea} />
-          <button className={styles.submitButton}>지원하기</button>
+          <div className={styles.footer}>
+            <div
+              className={styles.checkbox}
+              onClick={toggleCheckbox}>
+              <div className={styles.circle}>
+                <EllipseGray
+                  className={styles.checkBackground}
+                  style={{ display: isChecked ? 'none' : 'block' }}
+                />
+                <EllipseBlue
+                  className={styles.checkBackground}
+                  style={{ display: isChecked ? 'block' : 'none' }}
+                />
+                <CheckLightIcon className={styles.checkIcon} />
+              </div>
+              <div className={styles.checkboxLabel}>
+                자기소개 및 포트폴리오 공개
+              </div>
+            </div>
+
+            <div className={styles.footerButtons}>
+              <button
+                className={styles.cancelButton}
+                onClick={onClose}>
+                닫기
+              </button>
+              <button className={styles.submitButton}>지원하기</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -11,29 +11,28 @@
   gap: 16px;
 
   .title {
-    @include pretendard-32-600;
-
-    margin-top: 45px;
+    @include pretendard-24-500;
+    margin-top: 50px;
     align-self: flex-start;
     color: $grey-900;
-    letter-spacing: -0.32px;
+    letter-spacing: -0.24px;
   }
 
   .summaryBox {
-    margin-top: 45px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    width: 950px;
+    gap: 20px;
+    width: 800px;
+    height: 202px;
     padding: 30px 45px;
     border-radius: 5px;
     border: 1px solid $grey-400;
   }
 
   .line {
-    width: 100%;
-    height: 1px;
-    background: $grey-500;
+    width: 710px;
+    border-bottom: 1px solid $grey-900;
   }
 
   .row {
@@ -43,14 +42,14 @@
   }
 
   .label {
-    @include pretendard-28-500;
+    @include pretendard-20-400;
 
     color: $grey-700;
     letter-spacing: -0.28px;
   }
 
   .value {
-    @include pretendard-28-500;
+    @include pretendard-20-400;
 
     width: 200px;
     text-align: right;
@@ -66,7 +65,7 @@
 
   .totalLabel {
     // color: $grey-700;
-    @include pretendard-28-500;
+    @include pretendard-20-400;
 
     letter-spacing: -0.28px;
 
@@ -76,84 +75,80 @@
   }
 
   .totalValue {
-    @include pretendard-28-500;
+    @include pretendard-20-400;
 
     color: $primary;
     letter-spacing: -0.28px;
   }
 
   .agreementBox {
-    width: 950px;
-    background: #fff;
-    padding: 16px;
+    width: 800px;
+    padding: 20px 0px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
+    align-self: stretch;
   }
 
   .agreementTitle,
   .agreementRow {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 13px;
   }
 
   .agreementTitle {
-    @include pretendard-28-600;
+    @include pretendard-20-500;
 
-    margin-top: 45px;
+    margin-top: 30px;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     color: $grey-900;
     letter-spacing: -0.28px;
   }
 
   .agreementRow {
     @include flex-space-between;
-
-    padding: 8px 0;
+    padding: 4px 0;
+    width: 800px;
   }
 
   .agreementLabel {
-    @include pretendard-24-400;
+    @include pretendard-16-400;
 
     flex: 1;
     color: $grey-600;
-    letter-spacing: -0.24px;
+    letter-spacing: -0.12px;
+    margin-left: 25px;
   }
 
   .details {
-    @include pretendard-24-400;
-
-    flex-shrink: 0;
+    @include pretendard-16-400;
     color: $grey-700;
-    letter-spacing: -0.24px;
-    margin-left: 16px;
+    letter-spacing: -0.16px;
   }
 
   .checkBackground {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
   }
 
   .noneCheckBackground {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
   }
 
   .checkIcon {
     position: absolute;
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    margin-right: 12px;
+    width: 21px;
+    height: 21px;
     cursor: pointer;
-    margin-left: 4px;
-    margin-top: 4px;
+    margin-right: 10px;
   }
 
   .checkIcon.active {
@@ -162,8 +157,8 @@
 }
 
 .checkButton {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   border: none;
   background: none;
   padding: 0;

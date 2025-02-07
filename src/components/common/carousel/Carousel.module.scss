@@ -27,10 +27,20 @@
   transition: transform 0.3s ease-in-out;
 }
 
+.labelContainer {
+  @include flex-space-between;
+
+  margin-bottom: 15px;
+  width: 100%;
+
+  & > .label {
+    @include pretendard-20-500;
+  }
+}
+
 .navigationControls {
-  margin-left: auto;
-  width: fit-content;
   display: flex;
+  width: fit-content;
   margin-bottom: 10px;
 
   & > button {

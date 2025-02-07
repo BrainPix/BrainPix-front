@@ -1,34 +1,146 @@
+import { useContext, useState } from 'react';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import styles from './signup.module.scss';
+import { useMutation } from '@tanstack/react-query';
 
-import Individual from '../../assets/icons/individualMember.svg?react';
-import Corporate from '../../assets/icons/corporateMember.svg?react';
-
-import styles from './signUp.module.scss';
+import { SignupRegisters } from '../../constants/registers';
+import { StepOne } from '../../components/sign-up/StepOne';
+import { StepTwo } from '../../components/sign-up/StepTwo';
+import { postCompanySignUp, postPersonalSignUp } from '../../apis/authAPI';
+import {
+  CompanySignUpPayload,
+  PersonalSignUpPayload,
+} from '../../types/authType';
+import { ToastContext } from '../../contexts/toastContext';
 
 export const Signup = () => {
-  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const [userType, setUserType] = useState<'individual' | 'corporate'>(
+    'individual',
+  );
+  const { errorToast, successToast } = useContext(ToastContext);
+
+  const { mutate: signupPersonalMutation } = useMutation({
+    mutationFn: (formData: PersonalSignUpPayload) =>
+      postPersonalSignUp(formData),
+    onError: () => errorToast('회원가입에 실패하였습니다.'),
+    onSuccess: () => {
+      successToast('회원가입에 성공하였습니다.');
+      setTimeout(() => (location.href = '/idea-market'), 2000);
+    },
+  });
+
+  const { mutate: signupCompanyMutation } = useMutation({
+    mutationFn: (formData: CompanySignUpPayload) => postCompanySignUp(formData),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+    getFieldState,
+    trigger,
+    setError,
+  } = useForm({ mode: 'onTouched' });
+
+  const registers = SignupRegisters({
+    register,
+    watch,
+    setValue,
+    setError,
+  });
+
+  const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
+    console.log(localStorage.getItem('signupToken'));
+    if (userType === 'individual') {
+      const { id, email, password, name, nickname, birth } = payload;
+      const requestBody = {
+        id,
+        email,
+        password,
+        name,
+        nickName: nickname,
+        birthday: birth,
+        emailToken: localStorage.getItem('signupToken'),
+      };
+      return signupPersonalMutation(requestBody);
+      // location.href = '/idea-market';
+    }
+
+    if (userType === 'corporate') {
+      const { id, email, password, name, nickname, birth, position } = payload;
+      const requestBody = {
+        id,
+        email,
+        password,
+        name,
+        companyName: nickname,
+        position: position,
+        birthday: birth,
+        emailToken: localStorage.getItem('signupToken'),
+      };
+      return signupCompanyMutation(requestBody);
+    }
+  };
+
+  const handleClickNextButton = async () => {
+    await trigger();
+
+    if (
+      !(
+        getFieldState('id').invalid ||
+        getFieldState('password').invalid ||
+        getFieldState('passwordCheck').invalid
+      )
+    ) {
+      setStep(2);
+    }
+  };
+
+  const handleClickUserTypeButton = (userType: 'individual' | 'corporate') => {
+    setUserType(userType);
+  };
+
+  const REGISTERS = {
+    id: registers.id,
+    password: registers.password,
+    passwordCheck: registers.passwordCheck,
+    name: registers.name,
+    birth: registers.birth,
+    nickname: registers.nickname,
+    email: registers.email,
+    position: registers.position,
+  };
+
   return (
-    <div className={classNames(styles.container)}>
-      <div className={classNames(styles.logo)}>로고</div>
-      <h1 className={classNames(styles.headline)}>
-        회원가입하고
-        <br /> 아이디어를 공유해보세요!
-      </h1>
-      <div className={classNames(styles.buttonWrapper)}>
-        <button
-          onClick={() => navigate('individual')}
-          className={classNames(styles.memberButton, styles.individual)}>
-          <Individual />
-          <span>개인회원</span>
-        </button>
-        <button
-          onClick={() => navigate('corporate')}
-          className={classNames(styles.memberButton)}>
-          <Corporate />
-          <span>기업회원</span>
-        </button>
-      </div>
+    <div
+      className={classNames(styles.container)}
+      onSubmit={handleSubmit(handleSubmitHandler)}>
+      <form className={classNames(styles.contentContainer)}>
+        <div className={classNames(styles.logo)}>로고</div>
+        {step === 1 && (
+          <StepOne
+            onClickUserTypeButton={handleClickUserTypeButton}
+            onClickNext={handleClickNextButton}
+            userType={userType}
+            registers={REGISTERS}
+            errors={errors}
+          />
+        )}
+        {step === 2 && (
+          <StepTwo
+            registers={REGISTERS}
+            errors={errors}
+            isValid={isValid}
+            userType={userType}
+            fieldState={getFieldState}
+            watch={watch}
+          />
+        )}
+      </form>
     </div>
   );
 };

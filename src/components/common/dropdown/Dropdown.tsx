@@ -27,7 +27,7 @@ const defaultOptions = [
   '기타',
 ];
 
-const Dropdown = ({
+export const Dropdown = ({
   label = '',
   options,
   max_visible_options = 5,
@@ -35,7 +35,6 @@ const Dropdown = ({
   onSelect,
 }: DropdownProps) => {
   const finalOptions = options && options.length > 0 ? options : defaultOptions;
-  // console.log(finalOptions[0], finalOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(options?.[0] || '분야별');
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -90,5 +89,3 @@ const Dropdown = ({
     </div>
   );
 };
-
-export default Dropdown;

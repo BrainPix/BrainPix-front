@@ -31,6 +31,22 @@ const IdeaDescription = () => {
             </button>
           </div>
         </div>
+        <div className={styles.attachmentBox}>
+          <span className={styles.fileName}>첨부파일입니다... .pdf</span>
+          <div className={styles.actions}>
+            <button
+              className={styles.open}
+              onClick={handleOpenClick}>
+              열기
+            </button>
+            <span className={styles.separator}>|</span>
+            <button
+              className={styles.download}
+              onClick={handleDownloadClick}>
+              다운로드
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

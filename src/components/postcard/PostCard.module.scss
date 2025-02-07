@@ -1,69 +1,85 @@
 .postCard {
-  width: 250px;
-  padding: 16px;
-  border: 1px solid #ddd;
+  width: 100%;
+  //padding: 16px;
   border-radius: 12px;
-  background: #d9d9d9;
   box-shadow: 0 4px 6px rgb(0 0 0 / 5%);
+}
 
-  // &.ideaMarket {
-  //   border-color: #007aff;
-  // }
-
-  // &.requestTask {
-  //   border-color: #ff9500;
-  // }
-
-  // &.collaboration {
-  //   border-color: #34c759;
-  // }
-
-  .postHeader {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-
-    .profileImage {
-      background-color: #bbb;
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-
-    .username {
-      font-size: 16px;
-    }
-  }
+.postHeader {
+  width: 250px;
+  // @include flex-space-between;
+  width: 100%;
+  margin-bottom: 12px;
 
   .postImage {
-    width: 190px;
-    height: 190px;
-    background: #f0f0f0;
-    border-radius: 8px;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    background: $grey-50;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .price {
+    position: absolute;
+    color: $grey-900;
+    @include pretendard-20-500;
+    line-height: 23.87px;
+  }
+
+  .title{
+    position: absolute;
+    @include pretendard-18-600;
+    color: $grey-50;
+    margin-bottom: 10px;
+    top: 50%;
+    left: 50%;
+    //transform: translate(-50%, -50%);
+  }
+}
+
+.postContent {
+  //flex: 1;
+  width: 100%; 
+
+  .profileImage {
+    background-color: #d9d9d9;
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  .userInfo{
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
   }
 
-  .postContent {
-    p {
-      margin: 4px 0;
-    }
+  .username {
+    font-size: 16px;
+  }
 
-    .price {
-      font-size: 16px;
-      color: #007aff;
-      font-weight: bold;
-    }
+  p {
+    margin: 4px 0;
+  }
 
-    .deadline {
-      font-size: 14px;
-      color: #ff9500;
-    }
 
-    .memberInfo {
-      font-size: 14px;
-      color: #34c759;
-    }
+  .deadline {
+    @include pretendard-14-500;
+    color: $grey-50;
+    background-color: $primary;
+    width: 54px;
+    height: 29px;
+    border-radius: 17.5px;
+    text-align: center;
+    margin-bottom: 17px;
+  }
+
+  .memberInfo {
+    font-size: 14px;
+    color: $grey-600;
   }
 }

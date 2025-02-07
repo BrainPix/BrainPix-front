@@ -1,6 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
+  width: 600px;
 }
 
 .header {
@@ -10,8 +12,7 @@
 }
 
 .title {
-  @include pretendard-32-500;
-
+  @include pretendard-24-500;
   color: $grey-900;
   letter-spacing: -0.32px;
   margin-bottom: 15px;
@@ -21,74 +22,83 @@
   width: 100%;
   height: 1px;
   background: $grey-500;
+  margin-bottom: 15px;
 }
 
 .tableHeader {
   @include flex-space-between;
-  @include pretendard-26-500;
+  padding: 15px 0;
+  text-align: center;
+  align-self: stretch;
+  border-radius: 5px 5px 0px 0px;
+  border: 1px solid $grey-500;
+  background: $grey-200;
+}
 
-  width: 450px;
-  color: $grey-600;
-  letter-spacing: -0.26px;
-  margin-bottom: 15px;
-  gap: 160px;
+.recruitmentTable {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  border-radius: 0px 0px 5px 5px;
+  border-right: 1px solid $grey-500;
+  border-bottom: 1px solid $grey-500;
+  border-left: 1px solid $grey-500;
+  background: $grey-50;
 }
 
 .column {
-  width: 300px;
-  text-align: left;
+  flex: 1;
+  @include flex-center;
+  text-align: center;
+  position: relative;
+  @include pretendard-18-500;
+  color: $grey-700;
+}
+
+.column:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 18px;
+  background: $grey-500;
 }
 
 .recruitmentRow {
   display: flex;
   align-items: center;
-  width: 950px;
-  height: 80px;
-}
-
-.leftBox {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 300px;
-  height: 80px;
-  padding: 0 25px;
-  flex-shrink: 0;
-  border-radius: 10px 0 0 10px;
-  border: 1px solid $grey-500;
-}
-
-.rightBox {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 300px;
-  height: 80px;
-  padding: 0 25px;
-  flex-shrink: 0;
-  border-radius: 0 10px 10px 0;
-  border: 1px solid $grey-500;
+  padding: 15px 0;
+  width: 100%;
+  border-top: 1px solid $grey-500;
 }
 
 .role {
-  @include pretendard-24-500;
+  flex: 1;
+  @include flex-center;
+  text-align: center;
+  @include pretendard-18-400;
+  color: $grey-900;
+  position: relative;
+}
 
-  color: $grey-800;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.24px;
+.role::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 18px;
+  background: $grey-500;
 }
 
 .count {
-  @include pretendard-24-500;
-
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: $grey-800;
-  letter-spacing: -0.24px;
-}
-
-.separator {
-  color: $grey-500;
+  flex: 1;
+  @include flex-center;
+  text-align: center;
+  @include pretendard-18-500;
+  color: $grey-900;
 }
