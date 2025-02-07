@@ -1,4 +1,4 @@
-import styles from './RequestAssignRegister.module.scss';
+import styles from './requestAssignRegister.module.scss';
 import { useState, useRef } from 'react';
 import { Dropdown } from '../../../components/common/dropdown/Dropdown';
 import ReactQuill from 'react-quill-new';
