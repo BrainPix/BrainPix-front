@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
+//버튼그룹
+import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
+
 import styles from './collaborationRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
@@ -152,7 +155,7 @@ export const CollaborationRegister: React.FC<
           </div>
           <div
             className={styles.select}
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+            onClick={() => setIsDropdownOpen((prev) => !prev)}>
             <span>{category || '분야별'}</span>
             {isDropdownOpen ? <UpButton /> : <DownButton />}
             {isDropdownOpen && (

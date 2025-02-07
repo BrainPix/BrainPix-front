@@ -159,7 +159,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
           </div>
           <div
             className={styles.select}
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+            onClick={() => setIsDropdownOpen((prev) => !prev)}>
             <span>{category || '분야별'}</span>
             {isDropdownOpen ? <UpButton /> : <DownButton />}
             {isDropdownOpen && (

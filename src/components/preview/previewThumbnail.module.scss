@@ -38,19 +38,15 @@
   gap: 4px;
 
   span:not(.verifiedBadge) {
-    color: var(--grey-800);
-    font-size: 14px;
-    font-weight: 500;
+    @include pretendard-14-500
   }
 }
 
 .verifiedBadge {
-  display: flex;
+  @include flex-center;
   width: 48px;
   height: 12px;
   padding: 2px 8px;
-  justify-content: center;
-  align-items: center;
   border-radius: 17.5px;
   background: #474747;
   color: #fafafa;
@@ -93,9 +89,7 @@
 }
 
 .priceSection {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-space-between;
   width: 100%;
 
   span {
