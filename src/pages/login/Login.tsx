@@ -33,6 +33,7 @@ export const Login = ({ userType }: LoginPropsType) => {
     mutationFn: (formData: LoginPayload) => postLogin(formData),
     onSuccess: (response) => {
       localStorage.setItem('accessToken', response.data.accessToken);
+      localStorage.setItem('myType', userType);
       successToast('로그인에 성공하였습니다.');
       setTimeout(() => (location.href = '/idea-market'), 2000);
     },
