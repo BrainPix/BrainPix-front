@@ -13,6 +13,7 @@ export const RequestAssignEdit = () => {
     attachmentFileName: '첨부파일입니다... .pdf',
   };
   const USER_DATA = {
+    postId: 2,
     userName: 'SY TECH',
     profileImage: null,
   };
@@ -22,6 +23,8 @@ export const RequestAssignEdit = () => {
       <PostFormAuthor
         userName={USER_DATA.userName}
         profileImage={USER_DATA.profileImage}
+        postId={USER_DATA.postId}
+        editPath='/my/posts/request-assign/register'
       />
       <PostFormRequestTitle />
 

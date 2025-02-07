@@ -12,6 +12,7 @@ export const IdeaMarketEdit = () => {
     attachmentFileName: '첨부파일 제목 입니다... .pdf',
   };
   const USER_DATA = {
+    postId: 2,
     userName: 'SEO YEON',
     profileImage: null,
   };

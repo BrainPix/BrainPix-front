@@ -1,0 +1,51 @@
+.sectionTitle {
+  @include flex-start;
+  gap: 15px;
+  margin-bottom: 45px;
+}
+
+.sectionMainTitle {
+  @include pretendard-36-500;
+  color: $grey-800;
+}
+
+.sectionSubTitle {
+  @include pretendard-28-400;
+  color: $grey-700;
+}
+
+.applyCard {
+  width: 700px;
+  background: $grey-50;
+  border: 1px solid $grey-500;
+  border-radius: 5px;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.tableContainer {
+  display: grid;
+  width: fit-content;
+  width: 660px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid $grey-500;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.tableHeader {
+  @include grid-center(164px 1px 164px 1px 164px 1px 165px);
+  @include pretendard-18-500;
+  background: $grey-100;
+  color: $grey-600;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid $grey-500;
+}
+
+.divider {
+  border: 1px solid $grey-400;
+  width: 1px;
+  height: 15px;
+}

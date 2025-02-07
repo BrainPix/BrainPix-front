@@ -1,14 +1,14 @@
 .tabs {
   @include flex-center;
-  width: 845px;
+  width: 100%;
   height: 48px;
   margin-bottom: 20px;
 }
 
 .tabItem {
-  @include pretendard-28-500;
+  @include pretendard-20-500;
   text-align: center;
-  color: $grey-500;
+  color: $grey-600;
   flex: 1;
   cursor: pointer;
   transition:
@@ -18,7 +18,7 @@
   border-bottom: 2px solid $grey-500;
 
   &.activeTab {
-    @include pretendard-28-500;
+    @include pretendard-20-500;
     color: $grey-800;
     border-bottom: 2px solid $grey-700;
     font-weight: bold;

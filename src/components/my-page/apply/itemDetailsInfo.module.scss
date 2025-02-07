@@ -1,0 +1,67 @@
+.itemDetails {
+  @include flex-space-between;
+  padding : 30px 10px;
+  gap: 20px;
+  border-top: 1px solid $grey-400;
+}
+
+.mainImage {
+  width: 90px;
+  height: 90px;
+  background-color:#d9d9d9;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  width: 60%;
+}
+
+.route {
+  @include pretendard-16-400;
+  color: $grey-600;
+}
+
+.itemName {
+  @include pretendard-20-500;
+  color: $grey-800;
+}
+
+.price {
+  @include pretendard-16-500;
+  color: $grey-800;
+}
+
+.quantityBox {
+  @include flex-column;
+  width: 15%;
+}
+
+.quantityText {
+  @include pretendard-14-400;
+  color: $grey-600;
+}
+
+.quantityValue {
+  @include pretendard-18-500;
+  color: $grey-800;
+}
+
+.itemDetailsButtonContainer {
+  @include flex-center;
+  width: 60px;
+  height: 60px;
+  gap: 25px;
+}
+
+.itemDetailsButton {
+  background-color: transparent;
+  border-style: none;
+}
+
+.arrowItemDetailsButton {
+  width: 25px;
+  height: 12.5px;
+  cursor: pointer;
+}
