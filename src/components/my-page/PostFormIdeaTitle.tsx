@@ -1,5 +1,7 @@
 import styles from './postFormIdeaTitle.module.scss';
 import CorporatePublicLabel from '../../components/common/label/Label.tsx';
+//import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
+//import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 
 export const PostFormIdeaTitle = () => {
   const POST_DATA = {
@@ -14,6 +16,12 @@ export const PostFormIdeaTitle = () => {
     deadline: 21,
   };
 
+  //const [isBookmarked, setIsBookmarked] = useState(false);
+
+  // const toggleBookmark = () => {
+  //   setIsBookmarked(!isBookmarked);
+  // };
+
   const FORMATTEDPRICE = POST_DATA.price.toLocaleString();
 
   return (
@@ -27,7 +35,7 @@ export const PostFormIdeaTitle = () => {
               alt='대표사진'
             />
           ) : (
-            <div className={styles.mainImage}>대표사진</div>
+            <div className={styles.mainImage} />
           )}
         </div>
         <div className={styles.details}>
@@ -46,7 +54,7 @@ export const PostFormIdeaTitle = () => {
             {POST_DATA.date} · 조회 {POST_DATA.viewCount} · 저장{' '}
             {POST_DATA.saveCount}
           </p>
-          <button className={styles.applyButton}>지원하기</button>
+          <button className={styles.applyButton}>구매하기</button>
         </div>
       </div>
     </div>

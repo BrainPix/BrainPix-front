@@ -132,6 +132,10 @@ export const routes = createBrowserRouter([
             element: <RequestAssignEdit />,
           },
           {
+            path: '/my/posts/request-assign/register/:postId',
+            element: <RequestAssignRegister />,
+          },
+          {
             path: '/my/posts/collaboration/edit/:postId',
             element: <CollaborationEdit />,
           },

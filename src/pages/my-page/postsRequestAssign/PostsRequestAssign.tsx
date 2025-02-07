@@ -10,8 +10,8 @@ export const PostsRequestAssign = () => {
       tab: '요청과제',
       category: '기획',
       postImage: null,
-      title: 'Web 서비스 제안',
-      deadline: 21,
+      title: '디자인 해드립니다',
+      deadline: 16,
     },
   ];
 

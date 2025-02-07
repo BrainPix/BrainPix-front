@@ -49,16 +49,18 @@ export const PostHeader = ({
           <div className={styles.imagePlaceholder}></div>
         )}
         <div className={styles.postcardInfo}>
-          <div className={styles.sectionCategory}>
+          <div className={styles.postcardCategory}>
             {tab} {'>'} {category}
           </div>
-          <DeadlineLabel deadline={deadline} />
           <p className={styles.postTitle}>{title}</p>
+          <DeadlineLabel deadline={deadline} />
         </div>
-        <button
-          className={styles.arrowButton}
-          onClick={handleEditNavigate}
-        />
+        <div className={styles.buttonContainer}>
+          <button
+            className={styles.arrowButton}
+            onClick={handleEditNavigate}
+          />
+        </div>
       </div>
     </>
   );

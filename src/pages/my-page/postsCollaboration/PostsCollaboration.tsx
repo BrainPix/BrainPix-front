@@ -8,10 +8,10 @@ export const PostsCollaboration = () => {
     {
       id: 3,
       tab: '협업 광장',
-      category: '기획',
+      category: '디자인',
       postImage: null,
-      title: 'Web 서비스 제안',
-      deadline: 21,
+      title: '디자인 해드립니다',
+      deadline: 16,
     },
   ];
 

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './ideaMarketPostHeader.module.scss';
 
 interface PostHeaderProps {
+  tab: string;
   category: string;
   title: string;
   price: number;
@@ -9,6 +10,7 @@ interface PostHeaderProps {
 }
 
 export const IdeaMarketPostHeader = ({
+  tab,
   category,
   title,
   price,
@@ -29,19 +31,23 @@ export const IdeaMarketPostHeader = ({
     <>
       <div className={styles.sectionWrapper}>
         <div className={styles.sectionTitle}>게시물 관리</div>
-        <div className={styles.sectionCateogry}>{category}</div>
+        <div className={styles.sectionCateogry}>{tab}</div>
       </div>
       <div className={styles.postcardHeader}>
-        <div className={styles.imagePlaceholder}>이미지</div>
+        <div className={styles.imagePlaceholder} />
         <div className={styles.postcardInfo}>
-          <div className={styles.postCardCategory}>아이디어 마켓 &gt;</div>
-          <p>{title}</p>
-          <h2>{FORMATTEDPRICE} 원</h2>
+          <div className={styles.postCardCategory}>
+            {tab} &gt; {category}
+          </div>
+          <div className={styles.postCardTitle}>{title}</div>
+          <div className={styles.price}>{FORMATTEDPRICE} 원</div>
         </div>
-        <button
-          className={styles.arrowButton}
-          onClick={handleEditNavigate}
-        />
+        <div className={styles.ButtonContainer}>
+          <button
+            className={styles.arrowButton}
+            onClick={handleEditNavigate}
+          />
+        </div>
       </div>
     </>
   );
