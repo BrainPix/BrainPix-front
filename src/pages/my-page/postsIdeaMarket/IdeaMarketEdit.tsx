@@ -7,9 +7,9 @@ import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 export const IdeaMarketEdit = () => {
   const FORM_DATA = {
     descriptionTitle: '아이디어 설명',
-    description: '아이디어 설명입니다...',
+    description: '아이디어 설명입니다롱',
     attachmentTitle: '첨부파일',
-    attachmentFileName: '첨부파일입니다... .pdf',
+    attachmentFileName: '첨부파일 제목 입니다... .pdf',
   };
   const USER_DATA = {
     userName: 'SEO YEON',

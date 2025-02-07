@@ -10,15 +10,12 @@ export const PostsRequestAssign = () => {
       tab: '요청과제',
       category: '기획',
       postImage: null,
-      title: 'Web 서비스 제안',
-      deadline: 21,
+      title: '디자인 해드립니다',
+      deadline: 16,
     },
   ];
 
   const { postId } = useParams<{ postId: string }>();
-  // const location = useLocation();
-  // const queryParams = new URLSearchParams(location.search);
-  // const category = queryParams.get('category') || '카테고리 없음';
 
   // POST_DATA에서 postId에 맞는 데이터 찾기
   const post = POST_DATA.find((p) => p.id === Number(postId));
@@ -34,6 +31,7 @@ export const PostsRequestAssign = () => {
         title={post.title}
         deadline={post.deadline}
         postImage={post.postImage}
+        postId={post.id}
       />
       <ApplyStatus />
       <CurrentPeople />
