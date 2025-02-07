@@ -11,6 +11,7 @@ export const PortfolioPart = ({
   editMode,
   userType,
 }: PortfolioParttPropsType) => {
+  console.log(editMode);
   return (
     <div className={classNames(styles.portfolioWrapper)}>
       <div className={classNames(styles.portfolioTitle)}>
