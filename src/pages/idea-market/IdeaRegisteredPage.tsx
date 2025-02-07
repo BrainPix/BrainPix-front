@@ -6,13 +6,20 @@ import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './ideaRegisteredPage.module.scss';
 
 import { useParams } from 'react-router-dom';
-import { useIdeaMarketDetail } from '../../constants/useDetailPage';
+import { useQuery } from '@tanstack/react-query';
+import { getIdeaMarketDetail } from '../../apis/detailPageAPI';
+import { IdeaMarketDetail } from '../../types/detailPageType';
 
 export const IdeaRegisteredPage = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
-  const validIdeaId = ideaId ? Number(ideaId) : undefined;
+  //const validIdeaId = ideaId ? Number(ideaId) : undefined;
 
-  const { data, isLoading, error } = useIdeaMarketDetail(validIdeaId as number);
+  const { data, isLoading, error } = useQuery<IdeaMarketDetail, Error>({
+    queryKey: ['ideaMarketDetail', ideaId],
+    queryFn: () => getIdeaMarketDetail(Number(ideaId)),
+    enabled: !!ideaId,
+    staleTime: 1000 * 60 * 5, //5분
+  });
 
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>오류 발생!</div>;

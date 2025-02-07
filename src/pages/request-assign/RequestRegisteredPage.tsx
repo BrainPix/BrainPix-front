@@ -6,13 +6,20 @@ import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './requestRegisteredPage.module.scss';
 
 import { useParams } from 'react-router-dom';
-import { useRequestDetail } from '../../constants/useDetailPage';
+import { useQuery } from '@tanstack/react-query';
+import { RequsetDetail } from '../../types/detailPageType';
+import { getRequestDetail } from '../../apis/detailPageAPI';
 
 export const RequestRegisteredPage = () => {
-  const { ideaId } = useParams<{ ideaId: string }>();
-  const validIdeaId = ideaId ? Number(ideaId) : undefined;
+  const { taskId } = useParams<{ taskId: string }>();
+  //const validIdeaId = ideaId ? Number(taskId) : undefined;
 
-  const { data, isLoading, error } = useRequestDetail(validIdeaId as number);
+  const { data, isLoading, error } = useQuery<RequsetDetail, Error>({
+    queryKey: ['requsetDetaill', taskId],
+    queryFn: () => getRequestDetail(Number(taskId)),
+    enabled: !!taskId,
+    staleTime: 1000 * 60 * 5, //5분
+  });
 
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>오류 발생!</div>;
