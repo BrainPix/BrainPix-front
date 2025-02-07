@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Bookmark from '../../assets/icons/bookmark.svg?react';
-import styles from './PreviewThumbnail.module.scss';
+import styles from './previewThumbnail.module.scss';
 
 interface PreviewThumbnailProps {
   imageUrl?: string;
