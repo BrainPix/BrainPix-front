@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styles from './myProfileCard.module.scss';
 import Label from '../../common/label/Label';
 import { formatToLabelText } from '../../../utils/formatToLabelText';
+import { MyBaseInfoType } from '../../../types/myPageType';
 
 const USER_DATA = {
   name: 'SEO YEON',
@@ -10,12 +11,14 @@ const USER_DATA = {
 };
 
 interface MyProfileCardPropsType {
-  name: string;
+  userData: MyBaseInfoType;
 }
 
-export const MyProfileCard = ({ name }: MyProfileCardPropsType) => {
+export const MyProfileCard = ({ userData }: MyProfileCardPropsType) => {
   type LabelType = 'corporate' | 'corporatePublic' | 'personal' | 'selfOffer';
   const userType = localStorage.getItem('myType');
+
+  const { name } = userData;
 
   return (
     <div className={classNames(styles.container)}>

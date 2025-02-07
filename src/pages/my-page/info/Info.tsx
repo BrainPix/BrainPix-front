@@ -11,6 +11,9 @@ import { ExperiencePart } from '../../../components/my-page/info/ExperiencePart'
 import { PortfolioPart } from '../../../components/my-page/info/PortfolioPart';
 import { SpecializationPart } from '../../../components/my-page/info/SpecializationPart';
 import { BusinessInfoPart } from '../../../components/my-page/info/BusinessInfoPart';
+import { useQuery } from '@tanstack/react-query';
+import { getProfilePersonal } from '../../../apis/profileAPI';
+import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
 
 const USER_DATA = {
   연락처: '01023451234',
@@ -20,7 +23,10 @@ const USER_DATA = {
 
 export const Info = () => {
   const [editMode, setEditMode] = useState(false);
-  const [userType, setUserType] = useState<'개인' | '기업'>('기업');
+  type userTypetype = '개인' | '기업';
+
+  const userType: userTypetype =
+    localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
 
   const defaultInputValues = {
     introduce: '',
@@ -30,6 +36,21 @@ export const Info = () => {
     homepage: '홈페이지 주소',
     email: '이메일 주소',
   };
+
+  const { data: personalData } = useQuery({
+    queryKey: ['userData'],
+    queryFn: getProfilePersonal,
+    enabled: userType === '기업',
+  });
+
+  const { data: companyData } = useQuery({
+    queryKey: ['userData'],
+    queryFn: getProfilePersonal,
+    enabled: userType === '개인',
+  });
+
+  console.log(personalData);
+  console.log(companyData);
 
   const { register, handleSubmit } = useForm({
     defaultValues: defaultInputValues,
@@ -58,22 +79,17 @@ export const Info = () => {
     email: register('email'),
     phone: register('phone'),
   };
-
   return (
     <div className={classNames(styles.container)}>
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
-        <button
-          type='button'
-          onClick={() => setUserType(userType === '기업' ? '개인' : '기업')}>
-          {userType}
-        </button>
         <MyProfileCard
+          userData={personalData ?? PERSONAL_RPOFILE_INIT}
           status={editMode ? 'save' : 'edit'}
           onClickButton={
             editMode ? handleClickSaveButton : handleClickEditButton
           }
         />
-        {userType === '개인' ? (
+        {userType === '개인' && personalData && (
           <div className={classNames(styles.contentContainer)}>
             <IntroducePart
               editMode={editMode}
@@ -100,7 +116,8 @@ export const Info = () => {
               userType={userType}
             />
           </div>
-        ) : (
+        )}
+        {userType === '기업' && companyData && (
           <div className={classNames(styles.contentContainer)}>
             <IntroducePart
               editMode={editMode}
