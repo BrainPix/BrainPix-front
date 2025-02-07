@@ -60,64 +60,68 @@ export const Info = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleSubmitHandler)}>
-      <button
-        type='button'
-        onClick={() => setUserType(userType === '기업' ? '개인' : '기업')}>
-        {userType}
-      </button>
-      <MyProfileCard
-        status={editMode ? 'save' : 'edit'}
-        onClickButton={editMode ? handleClickSaveButton : handleClickEditButton}
-      />
-      {userType === '개인' ? (
-        <div className={classNames(styles.contentContainer)}>
-          <IntroducePart
-            editMode={editMode}
-            userType={userType}
-            {...register('introduce')}
-          />
-          <div
-            className={classNames(
-              editMode ? styles.colContainer : styles.rowContainer,
-            )}>
+    <div className={classNames(styles.container)}>
+      <form onSubmit={handleSubmit(handleSubmitHandler)}>
+        <button
+          type='button'
+          onClick={() => setUserType(userType === '기업' ? '개인' : '기업')}>
+          {userType}
+        </button>
+        <MyProfileCard
+          status={editMode ? 'save' : 'edit'}
+          onClickButton={
+            editMode ? handleClickSaveButton : handleClickEditButton
+          }
+        />
+        {userType === '개인' ? (
+          <div className={classNames(styles.contentContainer)}>
+            <IntroducePart
+              editMode={editMode}
+              userType={userType}
+              {...register('introduce')}
+            />
+            <div
+              className={classNames(
+                editMode ? styles.colContainer : styles.rowContainer,
+              )}>
+              <IndividualInfoPart
+                editMode={editMode}
+                userData={USER_DATA}
+                userType={userType}
+                registers={individualInfoRegisters}
+              />
+              {editMode && <SpecializationPart userType={userType} />}
+
+              <SkillPart editMode={editMode} />
+            </div>
+            <ExperiencePart editMode={editMode} />
+            <PortfolioPart
+              editMode={editMode}
+              userType={userType}
+            />
+          </div>
+        ) : (
+          <div className={classNames(styles.contentContainer)}>
+            <IntroducePart
+              editMode={editMode}
+              userType={userType}
+              {...register('introduce')}
+            />
             <IndividualInfoPart
               editMode={editMode}
               userData={USER_DATA}
               userType={userType}
-              registers={individualInfoRegisters}
+              registers={enterpriseInfoRegisters}
             />
             {editMode && <SpecializationPart userType={userType} />}
-
-            <SkillPart editMode={editMode} />
+            <BusinessInfoPart editMode={editMode} />
+            <PortfolioPart
+              editMode={editMode}
+              userType={userType}
+            />
           </div>
-          <ExperiencePart editMode={editMode} />
-          <PortfolioPart
-            editMode={editMode}
-            userType={userType}
-          />
-        </div>
-      ) : (
-        <div className={classNames(styles.contentContainer)}>
-          <IntroducePart
-            editMode={editMode}
-            userType={userType}
-            {...register('introduce')}
-          />
-          <IndividualInfoPart
-            editMode={editMode}
-            userData={USER_DATA}
-            userType={userType}
-            registers={enterpriseInfoRegisters}
-          />
-          {editMode && <SpecializationPart userType={userType} />}
-          <BusinessInfoPart editMode={editMode} />
-          <PortfolioPart
-            editMode={editMode}
-            userType={userType}
-          />
-        </div>
-      )}
-    </form>
+        )}
+      </form>
+    </div>
   );
 };

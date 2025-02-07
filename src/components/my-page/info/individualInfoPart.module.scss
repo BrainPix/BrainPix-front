@@ -40,10 +40,17 @@
 }
 
 .dropdown {
-  width: 200px;
-  padding: 15px 20px;
-  border-radius: 5px 0 0 5px;
-  height: 54px;
+  & > * {
+    @include pretendard-18-400;
+
+    width: 150px;
+    padding: 15px 20px;
+    border-radius: 5px 0 0 5px;
+  }
+
+  & > .optionsList {
+    height: 54px;
+  }
 }
 
 .input {

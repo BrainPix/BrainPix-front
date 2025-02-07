@@ -20,9 +20,6 @@ export const IntroducePart = forwardRef<
       <textarea
         className={classNames(styles.introduceWrapper)}
         onChange={handleChange}
-        placeholder={
-          userType === '기업' ? '기업 소개를 입력하세요(텍스트)' : ''
-        }
         disabled={!editMode}
         ref={ref}
         {...rest}

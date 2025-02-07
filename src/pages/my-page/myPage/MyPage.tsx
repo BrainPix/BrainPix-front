@@ -7,6 +7,7 @@ import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard';
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 import { MyBaseInfoType } from '../../../types/myPageType';
+import { getAlarms } from '../../../apis/alarmAPI';
 
 const INIT_DATA = {
   name: '',
@@ -23,7 +24,14 @@ export const MyPage = () => {
     queryFn: getMyBasicInfo,
   });
 
-  const myBaseInfo: MyBaseInfoType = myBaseInfoData.data ?? INIT_DATA;
+  const { data: alarms } = useQuery({
+    queryKey: ['alarms'],
+    queryFn: getAlarms,
+  });
+
+  console.log(alarms);
+
+  const myBaseInfo: MyBaseInfoType = myBaseInfoData?.data ?? INIT_DATA;
 
   const {
     name,

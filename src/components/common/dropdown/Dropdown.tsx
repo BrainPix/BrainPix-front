@@ -54,15 +54,11 @@ export const Dropdown = ({
 
   return (
     <div
-      className={styles.dropdown}
+      className={classNames(styles.dropdown, customClassName)}
       ref={dropdownRef}>
       {label && <label className={styles.label}>{label}</label>}
       <div
-        className={classNames(
-          styles.selectBox,
-          { [styles.open]: isOpen },
-          customClassName,
-        )}
+        className={classNames(styles.selectBox, { [styles.open]: isOpen })}
         onClick={() => setIsOpen(!isOpen)}>
         {selected}
         <span className={styles.arrow}>&#9662;</span>
