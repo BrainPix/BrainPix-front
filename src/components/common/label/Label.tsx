@@ -8,8 +8,10 @@ interface LabelProps {
     | 'personal'
     | 'selfOffer'
     | 'entire'
-    | 'accepted'
-    | 'rejected'; // 라벨 타입
+    | 'accept'
+    | 'reject'
+    | 'purchaseCompleted';
+  // 라벨 타입
 }
 
 const Label = ({ text, type }: LabelProps) => {

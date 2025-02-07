@@ -46,7 +46,7 @@
 }
 
 //수락됨
-.accepted {
+.accept {
     border-radius: 17.5px;
     background: $primary;
     color: $grey-50;
@@ -54,9 +54,15 @@
 }
 
 //거절됨
-.rejected {
+.reject {
     border-radius: 17.5px;
     background: $red;
     color: $grey-50;
     @include pretendard-14-500;
+}
+
+//구매 완료
+.purchaseCompleted {
+    background: $grey-700;
+    color: $grey-50;
 }

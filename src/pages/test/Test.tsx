@@ -67,11 +67,15 @@ export const Test = () => {
         />
         <Label
           text='등록됨'
-          type='accepted'
+          type='accept'
         />
         <Label
           text='거절됨'
-          type='rejected'
+          type='reject'
+        />
+        <Label
+          text='구매완료'
+          type='purchaseCompleted'
         />
       </div>
       <button onClick={handleClickToast}>토스트 열어보자</button>
