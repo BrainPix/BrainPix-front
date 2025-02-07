@@ -2,6 +2,8 @@ import styles from './authorInfo.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
 
+import { getCategoryLabel } from '../../constants/categoryMapper';
+
 interface AuthorInfoProps {
   name: string;
   profileImageUrl: string;
@@ -58,7 +60,9 @@ const AuthorInfo = ({
       <div className={styles.infoBox}>
         <div className={styles.infoItem}>
           <span className={styles.infoTitle}>분야</span>
-          <span className={styles.infoValue}>{specialization}</span>
+          <span className={styles.infoValue}>
+            {getCategoryLabel(specialization)}
+          </span>
         </div>
         <div className={styles.dividerLine}></div>
         <div className={styles.infoItem}>
