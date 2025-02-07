@@ -12,7 +12,7 @@ import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?reac
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
 interface RequestAssignRegisterProps {
-  // Add any props if needed
+  [key: string]: never;
 }
 
 export const RequestAssignRegister: React.FC<
@@ -27,7 +27,7 @@ export const RequestAssignRegister: React.FC<
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [content, setContent] = useState<string>('');
-  const [attachedFile, setAttachedFile] = useState<File | null>(null);
+  const [, setAttachedFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [visibility, setVisibility] = useState<
     '전체공개' | '기업공개' | '비공개'

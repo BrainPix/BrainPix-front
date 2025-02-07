@@ -3,7 +3,6 @@ import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
 //버튼그룹
-import ButtonGroup from '../../components/common/button/ButtonGroup.tsx';
 
 import styles from './collaborationRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
@@ -13,9 +12,9 @@ import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react'
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 
-interface CollaborationRegisterProps {
-  // Add any props if needed
-}
+type CollaborationRegisterProps = {
+  [key: string]: never;
+};
 
 export const CollaborationRegister: React.FC<
   CollaborationRegisterProps
@@ -25,7 +24,7 @@ export const CollaborationRegister: React.FC<
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [content, setContent] = useState<string>('');
-  const [attachedFile, setAttachedFile] = useState<File | null>(null);
+  const [, setAttachedFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [visibility, setVisibility] = useState<
     '전체공개' | '기업공개' | '비공개'

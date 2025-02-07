@@ -12,7 +12,7 @@ import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?reac
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
 interface IdeaMarketRegisterProps {
-  // Add any props if needed
+  [key: string]: never;
 }
 
 export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
@@ -25,7 +25,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [content, setContent] = useState<string>('');
-  const [attachedFile, setAttachedFile] = useState<File | null>(null);
+  const [, setAttachedFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [visibility, setVisibility] = useState<
     '전체공개' | '기업공개' | '비공개'

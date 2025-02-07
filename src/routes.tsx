@@ -5,7 +5,7 @@ import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
-import { Collaboration } from './pages/collaboration/Collaboration';
+import { CollaborationMain } from './pages/collaboration/CollaborationMain';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
@@ -68,7 +68,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: 'collaboration',
-        element: <Collaboration />,
+        element: <CollaborationMain />,
       },
       {
         path: '/personal-profile/:id',

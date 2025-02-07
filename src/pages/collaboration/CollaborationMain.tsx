@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './collaborationMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
-import Dropdown from '../../components/common/dropdown/Dropdown';
+import { Dropdown } from '../../components/common/dropdown/Dropdown';
 
 export const CollaborationMain = () => {
   const navigate = useNavigate();
