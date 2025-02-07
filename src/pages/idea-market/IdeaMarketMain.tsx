@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './ideaMarketMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
-import Dropdown from '../../components/common/dropdown/Dropdown';
+import { Dropdown } from '../../components/common/dropdown/Dropdown';
 import Card from '../../components/common/card/Card';
 import { Carousel } from '../../components/common/carousel/Carousel';
 
