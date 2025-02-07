@@ -1,13 +1,12 @@
-import React from 'react';
-import styles from './buttonGroup.module.scss';
 import { useNavigate } from 'react-router-dom';
+import styles from './buttonGroup.module.scss';
 
 interface ButtonGroupProps {
   onCancel?: () => void;
   onSubmit?: () => void;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({ onCancel, onSubmit }) => {
+const ButtonGroup = ({ onCancel, onSubmit }: ButtonGroupProps) => {
   const navigate = useNavigate();
 
   const handleCancel = () => {
@@ -16,7 +15,6 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ onCancel, onSubmit }) => {
       return;
     }
     navigate(-1); // 기본 동작 -> 이전 페이지 이동
-    // console.log('취소 버튼 클릭');
   };
 
   const handleSubmit = () => {
@@ -26,7 +24,6 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ onCancel, onSubmit }) => {
     }
     // 등록 완료 페이지로 이동
     // navigate('/success'); // 등록 완료 페이지 경로 설정 필요
-    // console.log('등록 완료 페이지로 이동');
   };
 
   return (

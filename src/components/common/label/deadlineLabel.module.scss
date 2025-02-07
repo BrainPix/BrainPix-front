@@ -1,13 +1,14 @@
 .label {
-  @include flex-center;
-  width: 93x;
-  height: 24px;
-  background-color: $grey-50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary-dark;
   border-radius: 35px;
-  border: 1px solid $grey-400;
+  padding: 5px 10px;
+  //margin-bottom: 17px;
 }
 
 .text {
-  @include pretendard-12-500;
-  color: $grey-800;
+  @include pretendard-14-500;
+  color: $grey-50;
 }

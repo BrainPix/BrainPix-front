@@ -8,12 +8,43 @@ import Label from '../common/label/Label';
 import RequestSupportModal from '../modal/RequestSupportModal';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 
-const PostTitleApply = () => {
+import {
+  getCategoryLabel,
+  getTaskTypeLabel,
+} from '../../constants/categoryMapper';
+
+interface PostTitleApplyProps {
+  thumbnailImageUrl: string;
+  category: string;
+  taskType: string;
+  deadline: number;
+  auth: string;
+  title: string;
+  price: number;
+  viewCount: number;
+  saveCount: number;
+  createdDate: string;
+}
+
+const PostTitleApply = ({
+  thumbnailImageUrl,
+  category,
+  taskType,
+  deadline,
+  auth,
+  title,
+  price,
+  viewCount,
+  saveCount,
+  createdDate,
+}: PostTitleApplyProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
+    setIsBookmarked((prev) => !prev);
+    setCurrentSaveCount((prev) => (isBookmarked ? prev - 1 : prev + 1));
   };
 
   const openModal = () => {
@@ -27,21 +58,33 @@ const PostTitleApply = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <div className={styles.placeholderBox}></div>
+        <img
+          src={thumbnailImageUrl || '/default-thumbnail.png'}
+          alt='썸네일'
+          className={styles.thumbnail}
+        />
       </div>
       <div className={styles.rightSection}>
         <div className={styles.navigation}>
-          <span className={styles.text}>아이디어 마켓</span>
+          <span className={styles.text}>{getCategoryLabel(category)}</span>
           <ArrowIcon className={styles.arrowIcon} />
-          <span className={styles.text}>디자인</span>
+          <span className={styles.text}>{getTaskTypeLabel(taskType)}</span>
         </div>
-        <DeadlineLabel deadline={5} />
+        <DeadlineLabel deadline={deadline} />
         <div className={styles.titleContainer}>
-          <h1 className={styles.title}>디자인 해드립니다</h1>
-          <Label
-            text='기업 공개'
-            type='corporatePublic'
-          />
+          <h1 className={styles.title}>{title}</h1>
+          {auth === 'COMPANY' && (
+            <Label
+              text='기업 공개'
+              type='corporatePublic'
+            />
+          )}
+          {auth === 'ALL' && (
+            <Label
+              text='전체 공개'
+              type='entire'
+            />
+          )}
           <button
             className={styles.bookmarkButton}
             onClick={toggleBookmark}>
@@ -57,13 +100,13 @@ const PostTitleApply = () => {
             />
           </button>
         </div>
-        <div className={styles.price}>2,000,000원</div>
+        <div className={styles.price}>{price.toLocaleString()}원</div>
         <div className={styles.details}>
-          <span className={styles.date}>2024/12/28</span>
+          <span className={styles.date}>{createdDate}</span>
           <DotIcon className={styles.dotIcon} />
-          <span className={styles.info}>조회 120</span>
+          <span className={styles.info}>조회 {viewCount}</span>
           <DotIcon className={styles.dotIcon} />
-          <span className={styles.info}>저장 12</span>
+          <span className={styles.info}>저장 {currentSaveCount}</span>
         </div>
       </div>
       <button

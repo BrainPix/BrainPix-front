@@ -7,10 +7,12 @@ interface LabelProps {
     | 'corporatePublic'
     | 'personal'
     | 'selfOffer'
-    | 'purchaseCompleted'
+    | 'entire'
     | 'accept'
-    | 'reject';
-} // 라벨 타입
+    | 'reject'
+    | 'purchaseCompleted';
+  // 라벨 타입
+}
 
 const Label = ({ text, type }: LabelProps) => {
   return <div className={`${styles.label} ${styles[type]}`}>{text}</div>;

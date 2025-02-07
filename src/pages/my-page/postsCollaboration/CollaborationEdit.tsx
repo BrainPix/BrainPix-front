@@ -6,7 +6,7 @@ import RecruitmentInfo from '../../../components/postdetail/RecruitmentInfo';
 import RecruitmentStatus from '../../../components/postdetail/RecruitmentStatus';
 import TeamBuildingButton from '../../../components/postdetail/TeamBuildingButton';
 import QnASection from '../../../components/postdetail/QnASection';
-import AuthorInfo from '../../../components/postdetail/AuthorInfo';
+//import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 import styles from '../../../pages/collaboration/postDetailWithLink.module.scss';
 
 export const CollaborationEdit = () => {
@@ -72,7 +72,7 @@ export const CollaborationEdit = () => {
       <div className={styles.margin}>
         {/* 담당자 Q&A, 작성자 정보 */}
         <QnASection />
-        <AuthorInfo />
+        {/*<AuthorInfo />*/}
       </div>
     </>
   );

@@ -5,9 +5,10 @@ import RecruitmentInfo from '../../components/postdetail/RecruitmentInfo';
 import RecruitmentStatus from '../../components/postdetail/RecruitmentStatus';
 import TeamBuildingButton from '../../components/postdetail/TeamBuildingButton';
 import QnASection from '../../components/postdetail/QnASection';
-import AuthorInfo from '../../components/postdetail/AuthorInfo';
+//import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './postDetailWithoutLink.module.scss';
 
+//        <AuthorInfo />
 export const PostDetailWithoutLink = () => {
   return (
     <>
@@ -23,7 +24,6 @@ export const PostDetailWithoutLink = () => {
       </div>
       <div className={styles.margin}>
         <QnASection />
-        <AuthorInfo />
       </div>
     </>
   );
