@@ -79,6 +79,12 @@ const PostTitleApply = ({
               type='corporatePublic'
             />
           )}
+          {auth === 'ALL' && (
+            <Label
+              text='전체 공개'
+              type='entire'
+            />
+          )}
           <button
             className={styles.bookmarkButton}
             onClick={toggleBookmark}>
