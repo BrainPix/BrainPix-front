@@ -14,7 +14,7 @@ export const PostFormRecruitmentInfo = () => {
   return (
     <div className={styles.container}>
       <div className={styles.tableTitle}>모집 정보</div>
-      <div className={styles.titleDivider}/>
+      <div className={styles.titleDivider} />
       <div className={styles.tableContainer}>
         <div className={styles.tableHeader}>
           <span>모집 단위</span>
@@ -24,12 +24,16 @@ export const PostFormRecruitmentInfo = () => {
           <span>보수 금액 (형태)</span>
         </div>
         {RECRUIT_INFO.map((recruit) => (
-          <div className={styles.tableRow}>
+          <div
+            key={recruit.id}
+            className={styles.tableRow}>
             <span>{recruit.id}</span>
             <span className={styles.divider} />
             <span>{recruit.role}</span>
             <span className={styles.divider} />
-            <span>{recruit.current} / {recruit.total}</span>
+            <span>
+              {recruit.current} / {recruit.total}
+            </span>
           </div>
         ))}
       </div>

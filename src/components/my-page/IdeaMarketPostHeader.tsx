@@ -34,11 +34,13 @@ export const IdeaMarketPostHeader = ({
         <div className={styles.sectionCateogry}>{tab}</div>
       </div>
       <div className={styles.postcardHeader}>
-        <div className={styles.imagePlaceholder}/>
+        <div className={styles.imagePlaceholder} />
         <div className={styles.postcardInfo}>
-          <div className={styles.postCardCategory}>{tab} &gt; {category}</div>
+          <div className={styles.postCardCategory}>
+            {tab} &gt; {category}
+          </div>
           <div className={styles.postCardTitle}>{title}</div>
-          <div className = {styles.price}>{FORMATTEDPRICE} 원</div>
+          <div className={styles.price}>{FORMATTEDPRICE} 원</div>
         </div>
         <div className={styles.ButtonContainer}>
           <button

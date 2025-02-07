@@ -8,7 +8,7 @@ export const ApplyStatus = () => {
   return (
     <div className={styles.container}>
       <div className={styles.tableTitle}>지원 현황</div>
-      <div className={styles.titleDivider}/>
+      <div className={styles.titleDivider} />
       <div className={styles.tableContainer}>
         <div className={styles.tableHeader}>
           <span>아이디</span>
@@ -17,21 +17,25 @@ export const ApplyStatus = () => {
           <span className={styles.divider} />
           <span>현재 / 모집</span>
           <span className={styles.divider} />
-          <span/>
+          <span />
         </div>
         {APPLY_RECORDS.map((apply) => (
-          <div className={styles.tableRow}>
+          <div
+            key={apply.id}
+            className={styles.tableRow}>
             <span>{apply.id}</span>
             <span className={styles.divider} />
             <span>{apply.role}</span>
             <span className={styles.divider} />
-            <span>{apply.current} / {apply.total}</span>
+            <span>
+              {apply.current} / {apply.total}
+            </span>
             <span className={styles.divider} />
             <div className={styles.buttonGroup}>
               <button className={styles.button}>수락</button>
               <button className={styles.button}>거절</button>
             </div>
-        </div>
+          </div>
         ))}
       </div>
     </div>

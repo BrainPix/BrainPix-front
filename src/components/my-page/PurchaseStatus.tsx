@@ -9,7 +9,7 @@ export const PurchaseStatus = () => {
   return (
     <div className={styles.container}>
       <div className={styles.tableTitle}>구매 현황</div>
-      <div className={styles.titleDivider}/>
+      <div className={styles.titleDivider} />
       <div className={styles.tableContainer}>
         <div className={styles.tableHeader}>
           <span>아이디</span>
@@ -21,7 +21,9 @@ export const PurchaseStatus = () => {
           <span>메신저</span>
         </div>
         {PURCHASE_RECORDS.map((record) => (
-          <div className={styles.tableRow}>
+          <div
+            key={record.id}
+            className={styles.tableRow}>
             <span>{record.id}</span>
             <span className={styles.divider} />
             <span>{record.payment}</span>

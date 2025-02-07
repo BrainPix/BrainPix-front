@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './postFormIdeaTitle.module.scss';
 import CorporatePublicLabel from '../../components/common/label/Label.tsx';
 //import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
@@ -22,7 +21,7 @@ export const PostFormIdeaTitle = () => {
   // const toggleBookmark = () => {
   //   setIsBookmarked(!isBookmarked);
   // };
-  
+
   const FORMATTEDPRICE = POST_DATA.price.toLocaleString();
 
   return (
@@ -36,7 +35,7 @@ export const PostFormIdeaTitle = () => {
               alt='대표사진'
             />
           ) : (
-            <div className={styles.mainImage}/>
+            <div className={styles.mainImage} />
           )}
         </div>
         <div className={styles.details}>

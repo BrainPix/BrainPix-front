@@ -26,14 +26,16 @@ export const PostFormRequestTitle = () => {
               alt='대표사진'
             />
           ) : (
-            <div className={styles.mainImage}/>
+            <div className={styles.mainImage} />
           )}
         </div>
         <div className={styles.details}>
           <div className={styles.route}>
             {POST_DATA.tab} {'>'} {POST_DATA.category}
           </div>
-          <div className={styles.deadlineLabel}><DeadlineLabel deadline={POST_DATA.deadline} /></div>
+          <div className={styles.deadlineLabel}>
+            <DeadlineLabel deadline={POST_DATA.deadline} />
+          </div>
           <div className={styles.titleAndLabel}>
             <p className={styles.title}>{POST_DATA.title}</p>
             <CorporatePublicLabel
