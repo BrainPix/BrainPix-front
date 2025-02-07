@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 800px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.title {
+  @include pretendard-24-500;
+  color: $grey-900;
+  letter-spacing: -0.32px;
+  margin-bottom: 15px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: $grey-500;
+  margin-bottom: 15px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  border-radius: 5px;
+  border: 1px solid $grey-600;
+  background: $grey-50;
+}
+
+.tableHeader {
+  @include flex-space-between;
+  padding: 15px 0;
+  text-align: center;
+  background: $grey-200;
+  border-radius: 5px 5px 0 0;
+}
+
+.column {
+  flex: 1;
+  @include flex-center;
+  text-align: center;
+  position: relative;
+  @include pretendard-18-500;
+  color: $grey-700;
+}
+
+.column:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 18px;
+  background: $grey-600;
+}
+
+.recruitmentRow {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  width: 100%;
+  border-top: 1px solid $grey-600;
+}
+
+.cell {
+  flex: 1;
+  @include flex-center;
+  text-align: center;
+  @include pretendard-18-400;
+  color: $grey-900;
+  position: relative;
+}
+
+.cell:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 18px;
+  background: $grey-600;
+}
+
+.portfolioLink {
+  @include pretendard-18-500;
+  color: $primary;
+  text-decoration: none;
+}
