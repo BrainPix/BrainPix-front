@@ -7,9 +7,7 @@ interface SkillPartPropsType {
 }
 
 export const SkillPart = ({ editMode }: SkillPartPropsType) => {
-  const handleClick = () => {
-    // console.log(value);
-  };
+  const handleClick = () => {};
 
   return (
     <div>

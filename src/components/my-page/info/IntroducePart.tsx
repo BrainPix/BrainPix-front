@@ -11,9 +11,7 @@ export const IntroducePart = forwardRef<
   HTMLTextAreaElement,
   IntroducePartPropsType
 >(({ editMode, userType, ...rest }, ref) => {
-  const handleChange = () => {
-    // console.log(e.target.value);
-  };
+  const handleChange = () => {};
   return (
     <div>
       <h1 className={classNames(styles.title)}>
