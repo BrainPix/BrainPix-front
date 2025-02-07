@@ -9,7 +9,7 @@ import {
 const BASE_URL = `${import.meta.env.VITE_BASE_URL}/users`;
 
 export const postLogin = async (payload: LoginPayload) => {
-  const url = `${BASE_URL}/users/login`;
+  const url = `${BASE_URL}/login`;
 
   const response = await axios.post(url, payload, {
     headers: {
@@ -36,13 +36,13 @@ export const postCompanySignUp = async (payload: CompanySignUpPayload) => {
 };
 
 export const postEmailCode = async (email: string) => {
-  const url = `${BASE_URL}/users/login/email`;
+  const url = `${BASE_URL}/login/email`;
   const response = await axios.post(url, { email });
   return response;
 };
 
 export const postEmailCodeNumber = async (payload: EmailCodePayload) => {
-  const url = `${BASE_URL}/users/login/email/auth`;
+  const url = `${BASE_URL}/login/email/auth`;
   const { data } = await axios.post(url, payload);
   return data;
 };
