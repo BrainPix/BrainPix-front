@@ -3,7 +3,7 @@ import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
 import { PostFormRequestTitle } from '../../../components/my-page/PostFormRequestTitle';
 import { PostFormRecruitmentInfo } from '../../../components/my-page/PostFormRecruitmentInfo';
 import QnASection from '../../../components/postdetail/QnASection';
-import AuthorInfo from '../../../components/postdetail/AuthorInfo';
+//import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 
 export const RequestAssignEdit = () => {
   const FORM_DATA = {
@@ -40,7 +40,7 @@ export const RequestAssignEdit = () => {
       <QnASection />
 
       {/* 작성자 정보 */}
-      <AuthorInfo />
+      {/*<AuthorInfo />*/}
     </div>
   );
 };

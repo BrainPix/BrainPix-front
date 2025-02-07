@@ -2,7 +2,7 @@ import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
 import { PostFormIdeaTitle } from '../../../components/my-page/PostFormIdeaTitle';
 import { PostFormContent } from '../../../components/my-page/PostFormContent';
 import QnASection from '../../../components/postdetail/QnASection';
-import AuthorInfo from '../../../components/postdetail/AuthorInfo';
+//import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 
 export const IdeaMarketEdit = () => {
   const FORM_DATA = {
@@ -35,7 +35,7 @@ export const IdeaMarketEdit = () => {
       <QnASection />
 
       {/* 작성자 정보 */}
-      <AuthorInfo />
+      {/*<AuthorInfo />*/}
     </div>
   );
 };
