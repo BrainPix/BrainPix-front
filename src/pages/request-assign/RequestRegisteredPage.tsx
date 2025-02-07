@@ -1,6 +1,7 @@
 import ProfileHeader from '../../components/registeredPage/ProfileHeader';
 import PostTitleApply from '../../components/registeredPage/PostTitleApply';
 import AssignmentDescription from '../../components/registeredPage/AssignmentDescription';
+import RecruitInfo from '../../components/registeredPage/RecruitInfo';
 import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './requestRegisteredPage.module.scss';
@@ -47,6 +48,7 @@ export const RequestRegisteredPage = () => {
           content={data?.content || ''}
           attachments={data?.attachments || []}
         />
+        <RecruitInfo />
         <QnASection />
         <AuthorInfo
           name={data?.writer?.name || ''}
