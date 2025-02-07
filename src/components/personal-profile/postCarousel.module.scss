@@ -2,27 +2,21 @@
   width: 100%;
 }
 
-.title {
-  @include pretendard-28-500;
-
-  margin-bottom: 0;
-}
-
 .postWrapper {
-  min-width: 290px;
+  min-width: 165px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 
   & > .image {
-    width: 290px;
-    height: 290px;
+    width: 165px;
+    height: 165px;
     background-color: #d9d9d9;
     border-radius: 5px;
   }
 
   & > .title {
-    @include pretendard-24-500;
+    @include pretendard-14-400;
 
     height: 100px;
     text-align: center;

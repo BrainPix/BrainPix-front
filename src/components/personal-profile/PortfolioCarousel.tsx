@@ -27,10 +27,11 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
         />
       )}
       <Carousel
-        gap={33.3}
-        cardWidth={150}
+        gap={46.67}
+        cardWidth={165}
         cardCount={size}
         buttonPosition='top'
+        label='포트폴리오'
         dataLength={10}>
         {new Array(10).fill(0).map((_, idx) => (
           <div
