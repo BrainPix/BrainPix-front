@@ -1,30 +1,47 @@
 import classNames from 'classnames';
 import { Fragment } from 'react/jsx-runtime';
 import styles from './myPage.module.scss';
+import { useQuery } from '@tanstack/react-query';
 
+import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard';
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
+import { MyBaseInfoType } from '../../../types/myPageType';
+
+const INIT_DATA = {
+  name: '',
+  userType: '',
+  specializations: [],
+  ideaCount: 0,
+  collaborationCount: 0,
+  selfIntroduction: '',
+};
 
 export const MyPage = () => {
-  const USER_DATA = {
-    name: 'SEO YEON',
-    profileImage: null,
-    type: '개인',
-    department: '기획/디자인',
-    ideaCount: 2,
-    collaborationCount: 4,
-    introduce: '자기소개임',
-  };
+  const { data: myBaseInfoData } = useQuery({
+    queryKey: ['myBasicInfo'],
+    queryFn: getMyBasicInfo,
+  });
+
+  const myBaseInfo: MyBaseInfoType = myBaseInfoData.data ?? INIT_DATA;
+
+  const {
+    name,
+    ideaCount,
+    specializations,
+    collaborationCount,
+    selfIntroduction,
+  } = myBaseInfo;
 
   const SUB_INFO = {
-    분야: USER_DATA.department,
-    아이디어: USER_DATA.ideaCount,
-    '협업 경험': USER_DATA.collaborationCount,
+    분야: specializations.length === 0 ? '없음' : specializations,
+    아이디어: ideaCount,
+    '협업 경험': collaborationCount,
   };
 
   return (
     <div>
-      <MyProfileCard />
+      <MyProfileCard name={name} />
       <div className={classNames(styles.subInfoWrapper)}>
         {Object.entries(SUB_INFO).map(([key, value]) => (
           <Fragment key={key}>
@@ -38,7 +55,7 @@ export const MyPage = () => {
       <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.title)}>자기소개</div>
         <p className={classNames(styles.introduceContent)}>
-          {USER_DATA.introduce}
+          {selfIntroduction}
         </p>
       </div>
       <div className={classNames(styles.contentContainer)}>
