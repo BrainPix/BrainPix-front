@@ -1,10 +1,10 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import classNames from 'classnames';
 import styles from './sidebar.module.scss';
 
 export const Sidebar = () => {
   const location = window.location.pathname;
-  const [activeSubMenu, setActiveSubMenu] = useState(location);
+  //const [activeSubMenu, setActiveSubMenu] = useState(location);
 
   const MENU_LOCATION = {
     포트폴리오: '/my/portfolio',
@@ -48,20 +48,17 @@ export const Sidebar = () => {
               })}>
               {name}
             </a>
-
             {name === '게시물 관리' && (
               <div className={classNames(styles.menuItem, styles.hasSubMenu)}>
                 <span className={styles.nonClickable}>지원 현황</span>
-                {/* 지원 현황의 서브 메뉴 */}
                 <div className={styles.subMenu}>
                   {SUB_MENU_LOCATION.map((subItem) => (
                     <a
                       key={subItem.name}
                       href={subItem.link}
                       className={classNames(styles.subMenuItem, {
-                        [styles.active]: activeSubMenu === subItem.link,
-                      })}
-                      onClick={() => setActiveSubMenu(subItem.link)}>
+                        [styles.active]: location === subItem.link,
+                      })}>
                       {subItem.name}
                     </a>
                   ))}

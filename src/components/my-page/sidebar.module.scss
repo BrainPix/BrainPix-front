@@ -45,11 +45,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .nonClickable {
   cursor: default;
-  font-weight: bold;
 }
 
 .hasSubMenu {
@@ -61,15 +61,11 @@
 .subMenu {
   display: none;
   flex-direction: column;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
-  gap: 10px;
-  margin: 15px 0;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .hasSubMenu:hover .subMenu {
-  display: flex;
+  display: block;
 }
 
 .subMenuItem {
@@ -77,6 +73,8 @@
   transition: background 0.2s;
   color: $grey-400;
   text-decoration: none;
+  display: block;
+  margin: 10px 0;
 }
 
 .active {
