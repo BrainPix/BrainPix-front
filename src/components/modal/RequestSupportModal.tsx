@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react';
 import styles from './supportModal.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
+import ApplyIcon from '../../assets/icons/apply.svg?react';
+import UnapplyIcon from '../../assets/icons/unapply.svg?react';
+
 interface RequestSupportModalProps {
   onClose: () => void;
 }
 
 const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [selectedSupport, setSelectedSupport] = useState<string | null>(null);
 
   useEffect(() => {
     // 모달이 열리면 body 스크롤 비활성화
@@ -20,6 +24,10 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
 
   const toggleCheckbox = () => {
     setIsChecked((prev) => !prev);
+  };
+
+  const handleSupportSelection = (id: string) => {
+    setSelectedSupport((prev) => (prev === id ? null : id));
   };
 
   return (
@@ -62,13 +70,14 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
                 className={styles.supportRow}>
                 <span className={styles.field}>{support.field}</span>
                 <span className={styles.status}>{support.status}</span>
-                <div className={styles.radioWrapper}>
-                  <input
-                    type='radio'
-                    name='support'
-                    value={support.id}
-                    className={styles.radio}
-                  />
+                <div
+                  className={styles.radioWrapper}
+                  onClick={() => handleSupportSelection(support.id)}>
+                  {selectedSupport === support.id ? (
+                    <ApplyIcon className={styles.radioIcon} />
+                  ) : (
+                    <UnapplyIcon className={styles.radioIcon} />
+                  )}
                 </div>
               </div>
             ))}
@@ -86,7 +95,7 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
               </div>
               <div
                 className={`${styles.checkboxLabel} ${isChecked ? styles.checkedLabel : ''}`}>
-                자기소개 및 포트폴리오 공개
+                프로필 공개
               </div>
             </div>
 
