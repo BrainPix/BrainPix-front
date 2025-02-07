@@ -5,11 +5,12 @@ import styles from './postCarousel.module.scss';
 export const PostsCarousel = () => {
   return (
     <div className={classNames(styles.container)}>
-      <h1 className={classNames(styles.title)}>게시글</h1>
       <Carousel
-        cardWidth={290}
+        cardWidth={165}
         dataLength={10}
-        gap={38}
+        cardCount={4}
+        gap={46.67}
+        label='게시글'
         buttonPosition='top'>
         {new Array(10).fill(0).map((_, idx) => (
           <div

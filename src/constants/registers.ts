@@ -5,7 +5,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
-import { SIGN_UP_ERROR_MESSAGE } from './errorMessage';
+import { SIGN_IN_ERROR_MESSAGE, SIGN_UP_ERROR_MESSAGE } from './errorMessage';
 import { formatBirth } from '../utils/formatBirth';
 import { getDuplicateId, getDuplicateNickname } from '../apis/authAPI';
 import { useMutation } from '@tanstack/react-query';
@@ -19,8 +19,12 @@ interface RegistersProps {
 
 export const loginRegisters = (register: UseFormRegister<FieldValues>) => {
   const registers = {
-    id: register('id'),
-    password: register('password'),
+    id: register('id', {
+      required: SIGN_IN_ERROR_MESSAGE.id,
+    }),
+    password: register('password', {
+      required: SIGN_IN_ERROR_MESSAGE.password,
+    }),
   };
 
   return registers;
@@ -69,7 +73,7 @@ export const SignupRegisters = ({
 
   const registers = {
     id: register('id', {
-      onBlur: () => checkIdMutation(watch('id')),
+      onBlur: () => watch('id') !== '' && checkIdMutation(watch('id')),
       required: SIGN_UP_ERROR_MESSAGE.noId,
       minLength: { value: 6, message: SIGN_UP_ERROR_MESSAGE.idRegex },
       maxLength: { value: 12, message: SIGN_UP_ERROR_MESSAGE.idRegex },
@@ -80,8 +84,7 @@ export const SignupRegisters = ({
     }),
     password: register('password', {
       required: SIGN_UP_ERROR_MESSAGE.passwordRegex,
-      minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
-      maxLength: { value: 20, message: SIGN_UP_ERROR_MESSAGE.passwordLength },
+      minLength: { value: 8, message: SIGN_UP_ERROR_MESSAGE.passwordRegex },
       pattern: {
         value: /^(?=(.*[A-Za-z].*){1,})(?=(.*\d.*){1,}|(.*\W.*){1,}).+$/,
         message: SIGN_UP_ERROR_MESSAGE.passwordRegex,
@@ -114,11 +117,10 @@ export const SignupRegisters = ({
     }),
     nickname: register('nickname', {
       required: SIGN_UP_ERROR_MESSAGE.noNickname,
-      onBlur: () => checkNickNameMutation(watch('nickname')),
+      onBlur: () =>
+        watch('nickname') !== '' && checkNickNameMutation(watch('nickname')),
     }),
-    position: register('position', {
-      required: SIGN_UP_ERROR_MESSAGE.noPosition,
-    }),
+    position: register('position'),
   };
 
   return registers;

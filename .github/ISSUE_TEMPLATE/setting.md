@@ -1,9 +1,10 @@
 ---
-name: '♻️REFACTOR'
-about: Refactor 작업 사항을 입력해주세요.
+name: "\U0001F527SETTING"
+about: Setting 작업 사항을 입력해주세요.
 title: ''
-labels: refactor
+labels: setting
 assignees: ''
+
 ---
 
 ## #️⃣연관된 이슈

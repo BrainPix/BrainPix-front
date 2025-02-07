@@ -1,37 +1,37 @@
 .label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 17.5px;
-    padding: 5px 10px;
-    @include pretendard-16-500;
-    line-height: normal;
-    letter-spacing: -0.16px;
-    gap: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17.5px;
+  padding: 5px 10px;
+  @include pretendard-16-500;
+
+  line-height: normal;
+  letter-spacing: -0.16px;
+  gap: 10px;
 }
 
-//기업
+// 기업
 .corporate {
-    background-color: $primary-300;
-    color: $grey-50;
+  background-color: $primary-300;
+  color: $grey-50;
 }
 
-//기업 공개
+// 기업 공개
 .corporatePublic {
-    color: $grey-800;
-    border: 1px solid $grey-600;
-    background: $grey-50;
-    
+  color: $grey-800;
+  border: 1px solid $grey-600;
+  background: $grey-50;
 }
 
-//개인
+// 개인
 .personal {
-    background: $green;
-    color: $grey-50;
+  background: $green;
+  color: $grey-50;
 }
 
-//자체 공모
+// 자체 공모
 .selfOffer {
-    background: #8A8A8A;
-    color: #000;
+  background: #8a8a8a;
+  color: #000;
 }

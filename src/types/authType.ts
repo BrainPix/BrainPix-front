@@ -20,9 +20,7 @@ export interface CompanySignUpPayload extends CommonSignUpPayload {
   position: string;
 }
 
-export interface ResponseType {
-  success: boolean;
-  code: string;
-  message: string;
-  data: object;
+export interface EmailCodePayload {
+  email: string;
+  authCode: string;
 }

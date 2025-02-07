@@ -67,8 +67,8 @@ export const StepOne = ({
             />
             <Input
               label='비밀번호 확인'
-              placeholder='비밀번호 확인'
               type='password'
+              maxLength={20}
               errorMessage={
                 errors.passwordCheck?.message &&
                 String(errors.passwordCheck?.message)
