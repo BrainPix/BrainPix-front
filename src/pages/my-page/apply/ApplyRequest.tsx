@@ -34,8 +34,12 @@ export const ApplyRequest = () => {
     },
   ];
 
-  const acceptedApplications = APPLY_DATA.filter(apply => apply.statusType === 'accept');
-  const rejectedApplications = APPLY_DATA.filter(apply => apply.statusType === 'reject');
+  const acceptedApplications = APPLY_DATA.filter(
+    (apply) => apply.statusType === 'accept',
+  );
+  const rejectedApplications = APPLY_DATA.filter(
+    (apply) => apply.statusType === 'reject',
+  );
 
   return (
     <div className={styles.container}>
@@ -45,7 +49,9 @@ export const ApplyRequest = () => {
       </div>
 
       {acceptedApplications.map((apply) => (
-        <div key={apply.id} className={styles.applyCard}>
+        <div
+          key={apply.id}
+          className={styles.applyCard}>
           <div className={styles.cardHeaderContainer}>
             <CardHeader
               date={apply.date}
@@ -55,7 +61,11 @@ export const ApplyRequest = () => {
             />
           </div>
 
-          <PostAuthorInfo seller={apply.seller} labelText={FORM_DATA.labelText} labelType={FORM_DATA.labelType}/>
+          <PostAuthorInfo
+            seller={apply.seller}
+            labelText={FORM_DATA.labelText}
+            labelType={FORM_DATA.labelType}
+          />
 
           <ApplyDetailsInfo
             tab={apply.tab}
@@ -67,7 +77,9 @@ export const ApplyRequest = () => {
       ))}
 
       {rejectedApplications.map((apply) => (
-        <div key={apply.id} className={styles.applyCard}>
+        <div
+          key={apply.id}
+          className={styles.applyCard}>
           <div className={styles.cardHeaderContainer}>
             <CardHeader
               date={apply.date}

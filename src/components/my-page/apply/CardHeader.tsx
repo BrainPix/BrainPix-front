@@ -10,7 +10,13 @@ interface CardHeaderProps {
   showDeleteButton?: boolean;
 }
 
-export const CardHeader = ({ date, status, statusType, cardTitle, showDeleteButton }: CardHeaderProps) => {
+export const CardHeader = ({
+  date,
+  status,
+  statusType,
+  cardTitle,
+  showDeleteButton,
+}: CardHeaderProps) => {
   return (
     <>
       <div className={styles.cardHeader}>
@@ -22,15 +28,15 @@ export const CardHeader = ({ date, status, statusType, cardTitle, showDeleteButt
         </span>
         <div className={styles.dateContainer}>
           <span className={styles.date}>{date}</span>
-          {showDeleteButton &&
+          {showDeleteButton && (
             <>
               <div className={styles.divider} />
               <button className={styles.deleteButton}>삭제</button>
             </>
-          }
+          )}
         </div>
       </div>
-      
+
       {cardTitle && <div className={styles.cardTitle}>{cardTitle}</div>}
     </>
   );

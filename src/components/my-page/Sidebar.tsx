@@ -16,7 +16,7 @@ export const Sidebar = () => {
   const SUB_MENU_LOCATION = [
     { name: '아이디어 마켓', link: '/my/apply-idea-market' },
     { name: '요청 과제', link: '/my/apply-request' },
-    { name: '협업 광장', link: '/my/apply-collaboration'},
+    { name: '협업 광장', link: '/my/apply-collaboration' },
   ];
 
   return (
@@ -38,8 +38,14 @@ export const Sidebar = () => {
 
       <div className={styles.menuWrapper}>
         {Object.entries(MENU_LOCATION).map(([name, menuLocation]) => (
-          <div key={name} className={styles.menuItem}>
-            <a href={menuLocation} className={classNames({ [styles.clicked]: location === menuLocation })}>
+          <div
+            key={name}
+            className={styles.menuItem}>
+            <a
+              href={menuLocation}
+              className={classNames({
+                [styles.clicked]: location === menuLocation,
+              })}>
               {name}
             </a>
 
@@ -49,11 +55,13 @@ export const Sidebar = () => {
                 {/* 지원 현황의 서브 메뉴 */}
                 <div className={styles.subMenu}>
                   {SUB_MENU_LOCATION.map((subItem) => (
-                    <a key={subItem.name} href={subItem.link} className={classNames(styles.subMenuItem, {
-                      [styles.active]: activeSubMenu === subItem.link,
-                    })}
-                    onClick={() => setActiveSubMenu(subItem.link)}
-                    >
+                    <a
+                      key={subItem.name}
+                      href={subItem.link}
+                      className={classNames(styles.subMenuItem, {
+                        [styles.active]: activeSubMenu === subItem.link,
+                      })}
+                      onClick={() => setActiveSubMenu(subItem.link)}>
                       {subItem.name}
                     </a>
                   ))}
