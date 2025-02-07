@@ -18,7 +18,7 @@ import { ToastContext } from '../../contexts/toastContext';
 interface StepTwoPropType {
   registers: Record<string, UseFormRegisterReturn>;
   errors: FieldErrors<FieldValues>;
-  userType: 'individual' | 'corporate';
+  userType: 'personal' | 'corporate';
   isValid: boolean;
   fieldState: UseFormGetFieldState<FieldValues>;
   watch: UseFormWatch<FieldValues>;
@@ -85,7 +85,7 @@ export const StepTwo = ({
           <div className={classNames(styles.inputContainer)}>
             <div className={classNames(styles.rowContainer)}>
               <Input
-                label={userType === 'individual' ? '이름' : '담당자 이름'}
+                label={userType === 'personal' ? '이름' : '담당자 이름'}
                 placeholder='이름 입력'
                 type='text'
                 {...registers.name}
@@ -106,7 +106,7 @@ export const StepTwo = ({
                 {errors.birth?.message && String(errors.birth?.message)}
               </p>
             </div>
-            {userType === 'individual' ? (
+            {userType === 'personal' ? (
               <Input
                 label='닉네임 입력'
                 placeholder='닉네임 입력'

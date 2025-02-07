@@ -13,11 +13,11 @@ import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
 import { ToastContext } from '../../contexts/toastContext';
 
 interface LoginPropsType {
-  userType: 'individual' | 'corparate';
+  userType: 'personal' | 'corparate';
 }
 
 export const Login = ({ userType }: LoginPropsType) => {
-  const [member, setMember] = useState<'individual' | 'corparate'>(userType);
+  const [member, setMember] = useState<'personal' | 'corparate'>(userType);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const { errorToast, successToast } = useContext(ToastContext);
 
@@ -58,9 +58,9 @@ export const Login = ({ userType }: LoginPropsType) => {
         <div className={classNames(styles.buttonWrapper)}>
           <button
             className={classNames(styles.memberButton, {
-              [styles.clicked]: member === 'individual',
+              [styles.clicked]: member === 'personal',
             })}
-            onClick={() => setMember('individual')}>
+            onClick={() => setMember('personal')}>
             개인 회원
           </button>
           <button

@@ -35,8 +35,8 @@ export const routes = createBrowserRouter([
     element: <Signup />,
   },
   {
-    path: '/login/individual',
-    element: <Login userType='individual' />,
+    path: '/login/personal',
+    element: <Login userType='personal' />,
   },
   {
     path: 'login/corparate',

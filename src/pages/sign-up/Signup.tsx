@@ -19,8 +19,8 @@ export const Signup = () => {
   const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
-  const [userType, setUserType] = useState<'individual' | 'corporate'>(
-    'individual',
+  const [userType, setUserType] = useState<'personal' | 'corporate'>(
+    'personal',
   );
   const { errorToast, successToast } = useContext(ToastContext);
 
@@ -57,7 +57,7 @@ export const Signup = () => {
   });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
-    if (userType === 'individual') {
+    if (userType === 'personal') {
       const { id, email, password, name, nickname, birth } = payload;
       const requestBody = {
         id,
@@ -102,7 +102,7 @@ export const Signup = () => {
     }
   };
 
-  const handleClickUserTypeButton = (userType: 'individual' | 'corporate') => {
+  const handleClickUserTypeButton = (userType: 'personal' | 'corporate') => {
     setUserType(userType);
   };
 
