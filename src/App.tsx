@@ -1,6 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { ToastProvider } from './contexts/toastContext';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
-        <RouterProvider router={routes} />
+        <RouterProvider router={routes}></RouterProvider>;
       </ToastProvider>
     </QueryClientProvider>
   );
