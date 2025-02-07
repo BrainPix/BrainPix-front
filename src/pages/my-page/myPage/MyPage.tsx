@@ -4,7 +4,6 @@ import styles from './myPage.module.scss';
 
 import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard';
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
-// import { getMyBasicInfo } from '../../../apis/myPageAPI';
 
 export const MyPage = () => {
   const USER_DATA = {
@@ -22,13 +21,6 @@ export const MyPage = () => {
     아이디어: USER_DATA.ideaCount,
     '협업 경험': USER_DATA.collaborationCount,
   };
-
-  // const { data: myBasicInfo } = useQuery({
-  //   queryKey: ['myBasicInfo'],
-  //   queryFn: getMyBasicInfo,
-  // });
-
-  // console.log(myBasicInfo);
 
   return (
     <div>

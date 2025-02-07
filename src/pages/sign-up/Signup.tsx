@@ -54,7 +54,6 @@ export const Signup = () => {
   });
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (payload) => {
-    console.log(localStorage.getItem('signupToken'));
     if (userType === 'individual') {
       const { id, email, password, name, nickname, birth } = payload;
       const requestBody = {
