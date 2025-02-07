@@ -9,6 +9,7 @@ interface CarouselProps {
   cardWidth: number;
   dataLength: number;
   gap: number;
+  label?: string;
   children: ReactNode;
 }
 
@@ -17,7 +18,9 @@ export const Carousel = ({
   cardWidth,
   cardCount = 3,
   gap,
+  label,
   dataLength,
+
   children,
 }: CarouselProps) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,32 +36,35 @@ export const Carousel = ({
   return (
     <div className={classNames(styles.container)}>
       {buttonPosition === 'top' ? (
-        <div className={classNames(styles.navigationControls)}>
-          <button
-            type='button'
-            disabled={currentPage <= 0}
-            className={classNames(styles.arrow, {
-              [styles.disabled]: currentPage === 0,
-            })}>
-            <Arrow
-              width={24}
-              height={24}
-              className={classNames(styles.left)}
-              onClick={handleClickPreviousButton}
-            />
-          </button>
-          <button
-            type='button'
-            onClick={handleClickNextButton}
-            disabled={currentPage > LAST_PAGE - 1}
-            className={classNames(styles.arrow, {
-              [styles.disabled]: currentPage > LAST_PAGE - 1,
-            })}>
-            <Arrow
-              width={24}
-              height={24}
-            />
-          </button>
+        <div className={classNames(styles.labelContainer)}>
+          <h1 className={classNames(styles.label)}>{label}</h1>
+          <div className={classNames(styles.navigationControls)}>
+            <button
+              type='button'
+              disabled={currentPage <= 0}
+              className={classNames(styles.arrow, {
+                [styles.disabled]: currentPage === 0,
+              })}>
+              <Arrow
+                width={24}
+                height={24}
+                className={classNames(styles.left)}
+                onClick={handleClickPreviousButton}
+              />
+            </button>
+            <button
+              type='button'
+              onClick={handleClickNextButton}
+              disabled={currentPage > LAST_PAGE - 1}
+              className={classNames(styles.arrow, {
+                [styles.disabled]: currentPage > LAST_PAGE - 1,
+              })}>
+              <Arrow
+                width={24}
+                height={24}
+              />
+            </button>
+          </div>
         </div>
       ) : (
         <div className={classNames(styles.centerNavigationControls)}>
