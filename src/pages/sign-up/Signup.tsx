@@ -13,8 +13,11 @@ import {
   PersonalSignUpPayload,
 } from '../../types/authType';
 import { ToastContext } from '../../contexts/toastContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Signup = () => {
+  const navigate = useNavigate();
+
   const [step, setStep] = useState(1);
   const [userType, setUserType] = useState<'individual' | 'corporate'>(
     'individual',
@@ -27,7 +30,7 @@ export const Signup = () => {
     onError: () => errorToast('회원가입에 실패하였습니다.'),
     onSuccess: () => {
       successToast('회원가입에 성공하였습니다.');
-      setTimeout(() => (location.href = '/idea-market'), 2000);
+      navigate('/');
     },
   });
 

@@ -11,8 +11,9 @@ import {
 import { Input } from './Input';
 import { useMutation } from '@tanstack/react-query';
 import { postEmailCode, postEmailCodeNumber } from '../../apis/authAPI';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { EmailCodePayload } from '../../types/authType';
+import { ToastContext } from '../../contexts/toastContext';
 
 interface StepTwoPropType {
   registers: Record<string, UseFormRegisterReturn>;
@@ -39,10 +40,13 @@ export const StepTwo = ({
     '인증' | '재전송'
   >('인증');
 
+  const { errorToast } = useContext(ToastContext);
+
   const { mutate: emailCheckMutation } = useMutation({
     mutationFn: (email: string) => postEmailCode(email),
     onError: () => {
       setSendEmailButtonText('재전송');
+      errorToast('오류가 발생하였습니다. 잠시후 다시 시도해주세요.');
     },
     onSuccess: () => {
       setEmailCheckResult('대기');
@@ -55,7 +59,6 @@ export const StepTwo = ({
     onError: () => setEmailCheckResult('실패'),
     onSuccess: (response) => {
       setEmailCheckResult('성공');
-      console.log(response);
       localStorage.setItem('signupToken', response.data.token);
     },
   });
