@@ -5,9 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import tseslint from 'typescript-eslint';
-import ts from '@typescript-eslint/eslint-plugin';
 import prettier from 'eslint-plugin-prettier';
-import unusedImports from 'eslint-plugin-unused-imports';
 
 export default tseslint.config(
   { ignores: ['dist', 'node_modules'] },
