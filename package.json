@@ -43,7 +43,7 @@
     "globals": "^15.14.0",
     "import-fresh": "^3.3.1",
     "prettier": "^3.4.2",
-    "sass": "^1.79.0",
+    "sass": "^1.55.0",
     "stylelint": "^16.12.0",
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-standard-scss": "^14.0.0",
