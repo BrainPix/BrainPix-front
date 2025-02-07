@@ -36,6 +36,13 @@ export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
       <div className={classNames(styles.descriptionWrapper)}>
         <h2 className={classNames(styles.title)}>보유 기술</h2>
         <div className={classNames(styles.skillsContainer)}>
+          <div className={classNames(styles.skillWrapper, styles.label)}>
+            <div className={classNames(styles.name)}>기술</div>
+            <hr className={classNames(styles.skillDivider)} />
+            <div className={classNames(styles.content)}>상세</div>
+            <hr className={classNames(styles.skillDivider)} />
+            <div className={classNames(styles.level)}>수준</div>
+          </div>
           {skills.map((skill) => (
             <div
               key={skill.name}
@@ -52,6 +59,11 @@ export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
       <div className={classNames(styles.descriptionWrapper)}>
         <h2 className={classNames(styles.title)}>경력 사항</h2>
         <div className={classNames(styles.careersContainer)}>
+          <div className={classNames(styles.careerWrapper, styles.label)}>
+            <div className={classNames(styles.name)}>직무</div>
+            <hr className={classNames(styles.careerDivider)} />
+            <div className={classNames(styles.date)}>기간</div>
+          </div>
           {careers.map((career) => (
             <div
               key={career.name}

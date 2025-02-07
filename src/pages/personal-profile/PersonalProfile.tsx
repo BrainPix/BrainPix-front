@@ -45,7 +45,6 @@ export const PersonalProfile = () => {
     <div className={classNames(styles.container)}>
       <ProfileCard />
       <DescriptionTable userData={USER_DATA} />
-      <h1 className={classNames(styles.title)}>포트폴리오</h1>
       <PortfolioCarousel size={4} />
       <PostsCarousel />
     </div>

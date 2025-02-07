@@ -9,21 +9,21 @@
     gap: 10px;
 }
 
-//기업
+// 기업
 .corporate {
     background-color: $orange;
     color: $grey-50;
     @include pretendard-14-500;
 }
 
-//기업 공개
+// 기업 공개
 .corporatePublic {
     color: $grey-50;
     background: $grey-800;
     @include pretendard-16-400;
 }
 
-//개인
+// 개인
 .personal {
     background: $primary;
     color: $grey-50;
@@ -31,7 +31,7 @@
 }
 
 
-//자체 공모
+// 자체 공모
 .selfOffer {
     background: #8A8A8A;
     color: #000;
