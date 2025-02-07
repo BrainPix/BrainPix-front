@@ -59,7 +59,11 @@ export const PurchaseList = () => {
             cardTitle={FORM_DATA.cardTitle}
           />
           <div className={styles.cardContent}>
-            <PostAuthorInfo seller={purchase.seller} labelText={FORM_DATA.labelText} labelType={FORM_DATA.labelType}/>
+            <PostAuthorInfo
+              seller={purchase.seller}
+              labelText={FORM_DATA.labelText}
+              labelType={FORM_DATA.labelType}
+            />
             <PurchaseDetailsInfo
               tab={purchase.tab}
               category={purchase.category}

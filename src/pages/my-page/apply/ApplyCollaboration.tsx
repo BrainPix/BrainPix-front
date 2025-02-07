@@ -49,8 +49,12 @@ export const ApplyCollaboration = () => {
     },
   ];
 
-  const acceptedApplications = APPLY_DATA.filter(apply => apply.statusType === 'accept');
-  const rejectedApplications = APPLY_DATA.filter(apply => apply.statusType === 'reject');
+  const acceptedApplications = APPLY_DATA.filter(
+    (apply) => apply.statusType === 'accept',
+  );
+  const rejectedApplications = APPLY_DATA.filter(
+    (apply) => apply.statusType === 'reject',
+  );
 
   return (
     <div className={styles.container}>
@@ -60,7 +64,9 @@ export const ApplyCollaboration = () => {
       </div>
 
       {acceptedApplications.map((apply) => (
-        <div key={apply.id} className={styles.applyCard}>
+        <div
+          key={apply.id}
+          className={styles.applyCard}>
           <div className={styles.cardHeaderContainer}>
             <CardHeader
               date={apply.date}
@@ -70,7 +76,11 @@ export const ApplyCollaboration = () => {
             />
           </div>
 
-          <PostAuthorInfo seller={apply.seller} labelText={FORM_DATA.labelText} labelType={FORM_DATA.labelType}/>
+          <PostAuthorInfo
+            seller={apply.seller}
+            labelText={FORM_DATA.labelText}
+            labelType={FORM_DATA.labelType}
+          />
 
           <ApplyDetailsInfo
             tab={apply.tab}
@@ -89,14 +99,22 @@ export const ApplyCollaboration = () => {
               <span></span>
             </div>
             {TABLE_DATA.map((data) => (
-              <ApplyTable id={data.id} role={data.role} current={data.current} total={data.total} />
+              <ApplyTable
+                key={data.id}
+                id={data.id}
+                role={data.role}
+                current={data.current}
+                total={data.total}
+              />
             ))}
           </div>
         </div>
       ))}
 
       {rejectedApplications.map((apply) => (
-        <div key={apply.id} className={styles.applyCard}>
+        <div
+          key={apply.id}
+          className={styles.applyCard}>
           <div className={styles.cardHeaderContainer}>
             <CardHeader
               date={apply.date}

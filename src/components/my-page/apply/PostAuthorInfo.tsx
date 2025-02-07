@@ -9,7 +9,11 @@ interface PostAuthorInfoProps {
   labelType: string;
 }
 
-export const PostAuthorInfo = ({ seller, labelText, labelType }: PostAuthorInfoProps) => {
+export const PostAuthorInfo = ({
+  seller,
+  labelText,
+  labelType,
+}: PostAuthorInfoProps) => {
   return (
     <>
       <div className={styles.sellerInfoAndMessage}>
