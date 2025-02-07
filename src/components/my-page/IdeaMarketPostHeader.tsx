@@ -1,18 +1,29 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './ideaMarketPostHeader.module.scss';
-import arrowButton from '../../assets/icons/arrow-button.svg';
 
 interface PostHeaderProps {
   category: string;
   title: string;
   price: number;
+  postId: number;
 }
 
 export const IdeaMarketPostHeader = ({
   category,
   title,
   price,
+  postId,
 }: PostHeaderProps) => {
+  const navigate = useNavigate();
   const FORMATTEDPRICE = price.toLocaleString();
+
+  const handleEditNavigate = () => {
+    if (postId) {
+      navigate(`/my/posts/idea-market/edit/${postId}`);
+    } else {
+      navigate('/my/posts//idea-market');
+    }
+  };
 
   return (
     <>
@@ -27,10 +38,10 @@ export const IdeaMarketPostHeader = ({
           <p>{title}</p>
           <h2>{FORMATTEDPRICE} 원</h2>
         </div>
-        <img
-          src={arrowButton}
-          alt='화살표 버튼'
-          className={styles.arrowButton}></img>
+        <button
+          className={styles.arrowButton}
+          onClick={handleEditNavigate}
+        />
       </div>
     </>
   );

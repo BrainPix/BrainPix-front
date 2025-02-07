@@ -1,0 +1,47 @@
+.sellerInfoAndMessage {
+  @include flex-space-between;
+  padding : 30px 10px;
+  border-top: 1px solid $grey-400;
+}
+
+.sellerInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 75%;
+}
+
+.sellerInfoTitle {
+  @include pretendard-16-400;
+  color: $grey-700;
+}
+
+.sellerAndLabel {
+  @include flex-center;
+  gap: 10px;
+}
+
+.seller {
+  @include pretendard-24-500;
+  color: $grey-800;
+}
+
+.messageButtonContainer {
+  @include flex-center;
+  width: 25%;
+  gap: 15px;
+}
+
+.messageButton {
+  @include pretendard-20-500;
+  color: $grey-700;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+}
+
+.arrowMessageButton {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}

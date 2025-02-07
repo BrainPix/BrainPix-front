@@ -1,0 +1,53 @@
+.payInfoTitle {
+  @include flex-start;
+  @include pretendard-24-500;
+  width: 100%;
+  height: 60px;
+  padding : 15px 0;
+  letter-spacing: -1px;
+  border-top : 1px solid $grey-400;
+}
+
+// .priceInfo {
+  
+// }
+
+.toalPriceInfo {
+  @include flex-space-between;
+  gap: 30px;
+  border-bottom: 1px solid $grey-400;
+}
+
+.priceInfoTitle {
+  @include pretendard-18-500;
+  color: $grey-800;
+  width: 80%;
+  margin: 20px 0;
+}
+
+.totalPriceAndPayment {
+  @include flex-column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.totalPrice {
+  @include pretendard-18-500;
+  color: $grey-800;
+}
+
+.payment {
+  @include pretendard-16-500;
+  color: $grey-700;
+}
+
+.priceInfoDetails {
+  @include flex-space-between;
+  padding : 10px;
+  gap: 30px;
+}
+
+.priceInfoDetailsText {
+  @include pretendard-20-500;
+  color: $grey-500;
+}

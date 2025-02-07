@@ -1,0 +1,28 @@
+.sectionTitle {
+  @include flex-start;
+  gap: 15px;
+  margin-bottom: 45px;
+}
+
+.sectionMainTitle {
+  @include pretendard-36-500;
+  color: $grey-800;
+}
+
+.sectionSubTitle {
+  @include pretendard-28-400;
+  color: $grey-700;
+}
+
+.purchaseCard {
+  width: 700px;
+  background: $grey-50;
+  border: 1px solid $grey-500;
+  border-radius: 5px;
+  padding: 0 30px;
+  margin-bottom: 20px;
+}
+
+.cardContent {
+  margin-top: 10px;
+}

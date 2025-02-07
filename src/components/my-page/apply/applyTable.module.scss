@@ -1,0 +1,31 @@
+.tableRow {
+  @include grid-center(164px 1px 164px 1px 164px 1px 165px);
+  text-align: center;
+  padding: 10px 0;
+  @include pretendard-18-500;
+  color: $grey-800;
+}
+
+.divider {
+  border: 1px solid $grey-400;
+  width: 1px;
+  height: 15px;
+}
+
+.buttonGroup {
+  @include flex-center;
+  width: 165px;
+  gap: 10px;
+}
+
+.profileButton,
+.messageButton {
+  @include pretendard-14-500;
+  width: 57px;
+  height: 27px;
+  background: $grey-800;
+  color: $grey-50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

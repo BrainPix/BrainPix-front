@@ -55,6 +55,12 @@
     @include flex-center;
     width: 37.5px;
     height: 18.75px;
+    background-image: url('../../assets/icons/arrow-button.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
   }
 }
