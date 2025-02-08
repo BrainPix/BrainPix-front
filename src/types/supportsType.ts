@@ -11,3 +11,15 @@ export interface Purchase {
   finalPrice: number;
   ideaMarketId: number;
 }
+
+export interface RequestTasks {
+  purchasingId: number;
+  firstImage: string;
+  postCreatedAt: string;
+  postTitle: string;
+  specialization: string;
+  domain: string;
+  writerName: string;
+  writerType: string;
+  requestTaskId: number;
+}
