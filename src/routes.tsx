@@ -5,7 +5,7 @@ import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
-import { Collaboration } from './pages/collaboration/Collaboration';
+import { CollaborationMain } from './pages/collaboration/CollaborationMain';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
@@ -14,6 +14,16 @@ import { MyPage } from './pages/my-page/myPage/MyPage';
 import { Info } from './pages/my-page/info/Info';
 import { RecentNews } from './pages/my-page/myPage/RecentNews';
 import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
+import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
+import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
+import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsCollaboration';
+import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
+import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
+import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
+import { RequestAssignRegister } from './pages/my-page/postsRequestAssign/RequestAssignRegister';
+import { PurchaseList } from './pages/my-page/apply/PurchaseList';
+import { ApplyRequest } from './pages/my-page/apply/ApplyRequest';
+import { ApplyCollaboration } from './pages/my-page/apply/ApplyCollaboration';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 import { Message } from './pages/my-page/message/Message';
 import { Main } from './pages/main/main';
@@ -55,7 +65,7 @@ export const routes = createBrowserRouter([
         element: <IdeaMarketRegister />,
       },
       {
-        path: '/idea-market/registered',
+        path: '/idea-market/registered/:ideaId',
         element: <IdeaRegisteredPage />,
       },
       {
@@ -63,12 +73,12 @@ export const routes = createBrowserRouter([
         element: <IdeaMarketPayment />,
       },
       {
-        path: '/request-assign',
+        path: '/request-assign/registered/:taskId',
         element: <RequestRegisteredPage />,
       },
       {
         path: 'collaboration',
-        element: <Collaboration />,
+        element: <CollaborationMain />,
       },
       {
         path: '/personal-profile/:id',
@@ -102,8 +112,52 @@ export const routes = createBrowserRouter([
             element: <MyPagePosts />,
           },
           {
+            path: '/my/posts/idea-market/:postId',
+            element: <PostsIdeaMarket />,
+          },
+          {
+            path: '/my/posts/request-assign/:postId',
+            element: <PostsRequestAssign />,
+          },
+          {
+            path: '/my/posts/collaboration/:postId',
+            element: <PostsCollaboration />,
+          },
+          {
+            path: '/my/posts/idea-market/edit/:postId',
+            element: <IdeaMarketEdit />,
+          },
+          {
+            path: '/my/posts/request-assign/edit/:postId',
+            element: <RequestAssignEdit />,
+          },
+          {
+            path: '/my/posts/request-assign/register/:postId',
+            element: <RequestAssignRegister />,
+          },
+          {
+            path: '/my/posts/collaboration/edit/:postId',
+            element: <CollaborationEdit />,
+          },
+          {
+            path: '/my/posts/request-assign/register/:postId',
+            element: <RequestAssignRegister />,
+          },
+          {
             path: '/my/portfolio',
             element: <Portfolio />,
+          },
+          {
+            path: '/my/apply-idea-market',
+            element: <PurchaseList />,
+          },
+          {
+            path: '/my/apply-request',
+            element: <ApplyRequest />,
+          },
+          {
+            path: '/my/apply-collaboration',
+            element: <ApplyCollaboration />,
           },
           {
             path: '/my/message',

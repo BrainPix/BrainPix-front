@@ -1,6 +1,6 @@
 import styles from './teamBuildingButton.module.scss';
 import { useState } from 'react';
-import CollaborationSupportModal from '../modal/CollaborationSupportModal';
+import { CollaborationSupportModal } from '../modal/CollaborationSupportModal';
 
 const TeamBuildingButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -6,7 +6,7 @@ import RecruitmentInfo from '../../../components/postdetail/RecruitmentInfo';
 import RecruitmentStatus from '../../../components/postdetail/RecruitmentStatus';
 import TeamBuildingButton from '../../../components/postdetail/TeamBuildingButton';
 import QnASection from '../../../components/postdetail/QnASection';
-import AuthorInfo from '../../../components/postdetail/AuthorInfo';
+//import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 import styles from '../../../pages/collaboration/postDetailWithLink.module.scss';
 
 export const CollaborationEdit = () => {
@@ -21,6 +21,7 @@ export const CollaborationEdit = () => {
     profileImage: null,
   };
   const POST_DATA = {
+    postId: 3,
     tab: '협업 광장',
     category: '디자인',
     title: 'Web 서비스 제안',
@@ -38,6 +39,8 @@ export const CollaborationEdit = () => {
         <PostFormAuthor
           userName={USER_DATA.userName}
           profileImage={USER_DATA.profileImage}
+          postId={POST_DATA.postId}
+          editPath='/my/posts/collaboration/register'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <CollaboPostHeader
@@ -69,7 +72,7 @@ export const CollaborationEdit = () => {
       <div className={styles.margin}>
         {/* 담당자 Q&A, 작성자 정보 */}
         <QnASection />
-        <AuthorInfo />
+        {/*<AuthorInfo />*/}
       </div>
     </>
   );

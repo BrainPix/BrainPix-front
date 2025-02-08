@@ -1,26 +1,26 @@
 .header {
   @include flex-space-between;
-  margin-bottom: 45px;
-  padding-bottom: 76px;
+  height: 105px;
+  margin-bottom: 40px;
   border-bottom: 1px solid $grey-500;
 }
 
 .companyInfo {
-  display: flex;
-  align-items: center;
+  @include flex-space-between;
+  gap: 20px;
 }
 
 .companyImage{
-  width: 100px;
-  height: 100px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   border-style: none;
   background-color: #d9d9d9;
-  margin-right: 29px;
 }
 
 .companyName {
-  font-size: 32px;
+  @include pretendard-20-500;
+  color: $grey-800;
 }
 
 .actions {
@@ -29,7 +29,7 @@
 }
 
 .actionButton {
-  font-size: 24px;
+  @include pretendard-16-500;
   border-style: none;
   background-color: transparent;
   color: $grey-600;
@@ -37,6 +37,7 @@
 }
 
 .buttonDivider {
-  border: 1px solid $grey-600;
-  margin: 0 27px;
+  border: 1px solid $grey-400;
+  height: 10px;
+  margin: auto 9px;
 }

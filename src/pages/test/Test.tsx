@@ -50,16 +50,32 @@ export const Test = () => {
           type='corporate'
         />
         <Label
-          text='기업 공개'
-          type='corporatePublic'
-        />
-        <Label
           text='개인'
           type='personal'
         />
         <Label
+          text='기업 공개'
+          type='corporatePublic'
+        />
+        <Label
+          text='전체 공개'
+          type='entire'
+        />
+        <Label
           text='자체 공모'
           type='selfOffer'
+        />
+        <Label
+          text='등록됨'
+          type='accept'
+        />
+        <Label
+          text='거절됨'
+          type='reject'
+        />
+        <Label
+          text='구매완료'
+          type='purchaseCompleted'
         />
       </div>
       <button onClick={handleClickToast}>토스트 열어보자</button>

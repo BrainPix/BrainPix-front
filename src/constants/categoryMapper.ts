@@ -1,3 +1,4 @@
+//카테고리 라벨, 작성자 분야도 사용 가능
 export const CATEGORY_LABELS: Record<string, string> = {
   ADVERTISING_PROMOTION: '광고 · 홍보',
   DESIGN: '디자인',

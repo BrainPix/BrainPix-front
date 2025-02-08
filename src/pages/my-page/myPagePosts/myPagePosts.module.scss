@@ -1,25 +1,31 @@
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 15px;
+.postListWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+}
 
-  .count {
-    font-size: 18px;
-    color: #007aff;
-  }
+.title {
+  @include pretendard-24-500;
+  color: $grey-800;
+  margin-bottom: 20px;
+}
+
+.count {
+  @include pretendard-18-500;
+  color: $grey-800;
+  margin-top: 20px;
+  margin-bottom: 25px;
 }
 
 .postList {
-  @include grid-center(250px 250px 250px);
-  gap: 48px;
-  margin-top: 45px;
+  @include grid-center(145px 145px 145px 145px);
+  gap: 40px;
 }
 
 .clickablePost {
   cursor: pointer;
 
   &:hover {
-    background-color: #f9f9f9;
     transition: background-color 0.3s ease;
   }
 }

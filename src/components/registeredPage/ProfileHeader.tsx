@@ -1,13 +1,31 @@
 import styles from './profileHeader.module.scss';
 
-const ProfileHeader = () => {
+interface ProfileHeaderProps {
+  name: string;
+  profileImageUrl: string;
+  openMyProfile: () => void; // 프로필 페이지로 이동하는 함수
+}
+
+const ProfileHeader = ({
+  name,
+  profileImageUrl,
+  openMyProfile,
+}: ProfileHeaderProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
-        <div className={styles.profileIcon}></div>
-        <span className={styles.name}>SEO YEON</span>
+        <img
+          src={profileImageUrl || '/default-profile.png'}
+          alt='프로필 이미지'
+          className={styles.profileIcon}
+        />
+        <span className={styles.name}>{name || '?'}</span>
       </div>
-      <span className={styles.viewProfile}>프로필 보기</span>
+      <span
+        className={styles.viewProfile}
+        onClick={openMyProfile}>
+        프로필 보기
+      </span>
     </div>
   );
 };

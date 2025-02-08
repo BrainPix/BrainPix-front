@@ -1,36 +1,53 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './ideaMarketPostHeader.module.scss';
-import arrowButton from '../../assets/icons/arrow-button.svg';
 
 interface PostHeaderProps {
+  tab: string;
   category: string;
   title: string;
   price: number;
+  postId: number;
 }
 
 export const IdeaMarketPostHeader = ({
+  tab,
   category,
   title,
   price,
+  postId,
 }: PostHeaderProps) => {
+  const navigate = useNavigate();
   const FORMATTEDPRICE = price.toLocaleString();
+
+  const handleEditNavigate = () => {
+    if (postId) {
+      navigate(`/my/posts/idea-market/edit/${postId}`);
+    } else {
+      navigate('/my/posts//idea-market');
+    }
+  };
 
   return (
     <>
       <div className={styles.sectionWrapper}>
         <div className={styles.sectionTitle}>게시물 관리</div>
-        <div className={styles.sectionCateogry}>{category}</div>
+        <div className={styles.sectionCateogry}>{tab}</div>
       </div>
       <div className={styles.postcardHeader}>
-        <div className={styles.imagePlaceholder}>이미지</div>
+        <div className={styles.imagePlaceholder} />
         <div className={styles.postcardInfo}>
-          <div className={styles.postCardCategory}>아이디어 마켓 &gt;</div>
-          <p>{title}</p>
-          <h2>{FORMATTEDPRICE} 원</h2>
+          <div className={styles.postCardCategory}>
+            {tab} &gt; {category}
+          </div>
+          <div className={styles.postCardTitle}>{title}</div>
+          <div className={styles.price}>{FORMATTEDPRICE} 원</div>
         </div>
-        <img
-          src={arrowButton}
-          alt='화살표 버튼'
-          className={styles.arrowButton}></img>
+        <div className={styles.ButtonContainer}>
+          <button
+            className={styles.arrowButton}
+            onClick={handleEditNavigate}
+          />
+        </div>
       </div>
     </>
   );
