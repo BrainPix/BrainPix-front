@@ -1,7 +1,7 @@
 import styles from './recruitInfo.module.scss';
 
 interface RecruitInfoProps {
-  recruimentId: number;
+  recruitmentId: number;
   domain: string;
   occupiedQuantity: number;
   totalQuantity: number;
@@ -28,7 +28,7 @@ const RecruitInfo = ({
         </div>
         {recruitments?.map((recruitment) => (
           <div
-            key={recruitment.recruimentId}
+            key={recruitment.recruitmentId}
             className={styles.recruitmentRow}>
             <div className={styles.cell}>{recruitment.domain}</div>
             <div className={styles.cell}>
