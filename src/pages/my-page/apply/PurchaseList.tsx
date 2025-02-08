@@ -1,7 +1,4 @@
 import styles from './purchaseList.module.scss';
-//import Label from '../../../components/common/label/Label';
-//import arrowItemDetailsButtonIcon from '../../../assets/icons/arrowButton.svg';
-//import arrowMessageButtonIcon from '../../../assets/icons/messageArrowButton.svg';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { PurchaseDetailsInfo } from '../../../components/my-page/apply/PurchaseDetailsInfo';
