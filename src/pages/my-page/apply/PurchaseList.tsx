@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Purchase } from '../../../types/purchaseType';
-import { getPurchases } from '../../../apis/purchaseAPI';
+import { Purchase } from '../../../types/supportsType';
+import { getPurchases } from '../../../apis/supportsAPI';
 import styles from './purchaseList.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';

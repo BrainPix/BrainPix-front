@@ -1,3 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
+import { RequestTasks } from '../../../types/supportsType';
+import {
+  getAcceptedRequestTasks,
+  getRejectedRequestTasks,
+} from '../../../apis/supportsAPI';
 import styles from './applyRequest.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
@@ -9,37 +15,60 @@ export const ApplyRequest = () => {
     labelText: '개인',
     labelType: 'personal',
   };
-  const APPLY_DATA = [
-    {
-      id: 1,
-      status: '수락됨',
-      statusType: 'accept',
-      date: '2024/12/24',
-      seller: 'SEO YEON',
-      tab: '요청 과제',
-      category: '디자인',
-      itemName: '앱 개발 해주실 분',
-      part: '디자이너',
-    },
-    {
-      id: 2,
-      status: '거절됨',
-      statusType: 'reject',
-      date: '2024/12/24',
-      seller: 'SEO YEON',
-      tab: '요청 과제',
-      category: '디자인',
-      itemName: '앱 개발 해주실 분',
-      part: '디자이너',
-    },
-  ];
+  // const APPLY_DATA = [
+  //   {
+  //     id: 1,
+  //     status: '수락됨',
+  //     statusType: 'accept',
+  //     date: '2024/12/24',
+  //     seller: 'SEO YEON',
+  //     tab: '요청 과제',
+  //     category: '디자인',
+  //     itemName: '앱 개발 해주실 분',
+  //     part: '디자이너',
+  //   },
+  //   {
+  //     id: 2,
+  //     status: '거절됨',
+  //     statusType: 'reject',
+  //     date: '2024/12/24',
+  //     seller: 'SEO YEON',
+  //     tab: '요청 과제',
+  //     category: '디자인',
+  //     itemName: '앱 개발 해주실 분',
+  //     part: '디자이너',
+  //   },
+  // ];
 
-  const acceptedApplications = APPLY_DATA.filter(
-    (apply) => apply.statusType === 'accept',
-  );
-  const rejectedApplications = APPLY_DATA.filter(
-    (apply) => apply.statusType === 'reject',
-  );
+  // accept된 요청 과제
+  const {
+    data: acceptedTasks = [],
+    isLoading: isLoadingAccepted,
+    isError: isAcceptedError,
+  } = useQuery({
+    queryKey: ['AcceptedRequestTasks', 0, 10],
+    queryFn: () => getAcceptedRequestTasks(0, 10),
+  });
+
+  // reject된 요청 과제
+  const {
+    data: rejectedTasks = [],
+    isLoading: isLoadingRejected,
+    isError: isErrorRejected,
+  } = useQuery({
+    queryKey: ['RejectedRequestTasks', 0, 10],
+    queryFn: () => getRejectedRequestTasks(0, 10),
+  });
+
+  if (isLoadingAccepted || isLoadingRejected) {
+    return <div className={styles.loading}>로딩 중...</div>;
+  }
+
+  if (isAcceptedError || isErrorRejected) {
+    return (
+      <div className={styles.error}>데이터를 불러오는 데 실패했습니다.</div>
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -48,55 +77,63 @@ export const ApplyRequest = () => {
         <span className={styles.sectionSubTitle}>지원 내역</span>
       </div>
 
-      {acceptedApplications.map((apply) => (
-        <div
-          key={apply.id}
-          className={styles.applyCard}>
-          <div className={styles.cardHeaderContainer}>
-            <CardHeader
-              date={apply.date}
-              status={apply.status}
-              statusType={apply.statusType}
-              cardTitle={FORM_DATA.cardTitle}
+      {acceptedTasks.length > 0 ? (
+        acceptedTasks.map((requestTask: RequestTasks) => (
+          <div
+            key={requestTask.requestTaskId}
+            className={styles.applyCard}>
+            <div className={styles.cardHeaderContainer}>
+              <CardHeader
+                date={requestTask.postCreatedAt}
+                status='수락됨'
+                statusType='accept'
+                cardTitle={FORM_DATA.cardTitle}
+              />
+            </div>
+
+            <PostAuthorInfo
+              seller={requestTask.writerName}
+              labelText={FORM_DATA.labelText}
+              labelType={FORM_DATA.labelType}
+            />
+
+            <ApplyDetailsInfo
+              tab='요청 과제'
+              category={requestTask.specialization}
+              itemName={requestTask.postTitle}
+              part={requestTask.domain}
             />
           </div>
+        ))
+      ) : (
+        <div className={styles.emptyMessage}>수락된 지원 내역이 없습니다.</div>
+      )}
 
-          <PostAuthorInfo
-            seller={apply.seller}
-            labelText={FORM_DATA.labelText}
-            labelType={FORM_DATA.labelType}
-          />
+      {rejectedTasks.length > 0 ? (
+        rejectedTasks.map((requestTask: RequestTasks) => (
+          <div
+            key={requestTask.requestTaskId}
+            className={styles.applyCard}>
+            <div className={styles.cardHeaderContainer}>
+              <CardHeader
+                date={requestTask.postCreatedAt}
+                status='거절됨'
+                statusType='reject'
+                showDeleteButton={true}
+              />
+            </div>
 
-          <ApplyDetailsInfo
-            tab={apply.tab}
-            category={apply.category}
-            itemName={apply.itemName}
-            part={apply.part}
-          />
-        </div>
-      ))}
-
-      {rejectedApplications.map((apply) => (
-        <div
-          key={apply.id}
-          className={styles.applyCard}>
-          <div className={styles.cardHeaderContainer}>
-            <CardHeader
-              date={apply.date}
-              status={apply.status}
-              statusType={apply.statusType}
-              showDeleteButton={true}
+            <ApplyDetailsInfo
+              tab='요청 과제'
+              category={requestTask.specialization}
+              itemName={requestTask.postTitle}
+              part={requestTask.domain}
             />
           </div>
-
-          <ApplyDetailsInfo
-            tab={apply.tab}
-            category={apply.category}
-            itemName={apply.itemName}
-            part={apply.part}
-          />
-        </div>
-      ))}
+        ))
+      ) : (
+        <div className={styles.emptyMessage}>거절된 지원 내역이 없습니다.</div>
+      )}
     </div>
   );
 };
