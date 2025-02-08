@@ -3,6 +3,7 @@ import { RequestTasks } from '../../../types/supportsType';
 import {
   getAcceptedRequestTasks,
   getRejectedRequestTasks,
+  //deleteRejectedRequestTask,
 } from '../../../apis/supportsAPI';
 import styles from './applyRequest.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
@@ -39,6 +40,19 @@ export const ApplyRequest = () => {
   //     part: '디자이너',
   //   },
   // ];
+
+  // const queryClient = useQueryClient();
+
+  // const { mutate: removeRejectedTask } = useMutation<void, Error, number>(
+  //   (purchasingId: number) => {
+  //     return deleteRejectedRequestTask(purchasingId);
+  //   },
+  //   {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries({ queryKey: ['RejectedRequestTasks'] });
+  //     },
+  //   },
+  // );
 
   // accept된 요청 과제
   const {
@@ -120,6 +134,7 @@ export const ApplyRequest = () => {
                 status='거절됨'
                 statusType='reject'
                 showDeleteButton={true}
+                //onDelete={() => removeRejectedTask(requestTask.purchasingId)}
               />
             </div>
 

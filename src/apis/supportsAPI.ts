@@ -10,7 +10,6 @@ export const getPurchases = async (
   size = 10,
 ): Promise<Purchase[]> => {
   const url = `${BASE_URL}/supports/idea-market/purchases`;
-
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
@@ -41,6 +40,7 @@ export const getAcceptedRequestTasks = async (
   page = 0,
   size = 10,
 ): Promise<RequestTasks[]> => {
+  const url = `${BASE_URL}/supports/request-tasks/accepted`;
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
@@ -48,8 +48,6 @@ export const getAcceptedRequestTasks = async (
     window.location.href = 'login/individual';
     return [];
   }
-
-  const url = `${BASE_URL}/supports/request-tasks/accepted`;
 
   try {
     const response = await axios.get(url, {
@@ -71,6 +69,7 @@ export const getRejectedRequestTasks = async (
   page = 0,
   size = 10,
 ): Promise<RequestTasks[]> => {
+  const url = `${BASE_URL}/supports/request-tasks/rejected`;
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
@@ -78,8 +77,6 @@ export const getRejectedRequestTasks = async (
     window.location.href = 'login/individual';
     return [];
   }
-
-  const url = `${BASE_URL}/supports/request-tasks/rejected`;
 
   try {
     const response = await axios.get(url, {
@@ -94,5 +91,30 @@ export const getRejectedRequestTasks = async (
   } catch (error) {
     console.error('API 요청 실패:', error);
     return [];
+  }
+};
+
+export const deleteRejectedRequestTask = async (
+  purchasingId: number,
+): Promise<void> => {
+  const url = `${BASE_URL}/supports/request-tasks/${purchasingId}`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    });
+
+    console.log(`요청 과제 게시글 ${purchasingId} 삭제 성공`);
+  } catch (error) {
+    console.error('삭제 요청 실패:', error);
+    throw error;
   }
 };
