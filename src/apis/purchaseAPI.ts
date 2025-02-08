@@ -19,12 +19,20 @@ export const getPurchases = async (
     return [];
   }
 
-  const response = await axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${API_TOKEN}`,
-    },
-    params: { page, size },
-  });
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+      params: { page, size },
+    });
 
-  return response.data.data.content;
+    console.log('API 응답 데이터:', response.data); // 🔹 응답 데이터 출력
+    console.log('API 응답 데이터 content:', response.data?.data?.content); // 🔹 실제 content 데이터 출력
+
+    return response.data?.data?.content ?? []; // 🔹 데이터가 undefined면 빈 배열 반환
+  } catch (error) {
+    console.error('API 요청 실패:', error);
+    return [];
+  }
 };
