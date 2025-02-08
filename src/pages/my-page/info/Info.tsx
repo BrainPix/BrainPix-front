@@ -35,26 +35,28 @@ export const Info = () => {
     github: '깃허브 주소임',
     homepage: '홈페이지 주소',
     email: '이메일 주소',
+    others: '',
   };
 
-  const { data: personalData } = useQuery({
+  const { register, handleSubmit, setValue, watch } = useForm({
+    defaultValues: defaultInputValues,
+  });
+
+  const { data: personalData, isLoading: isPersonalDataPending } = useQuery({
     queryKey: ['userData'],
     queryFn: getProfilePersonal,
     enabled: userType === '기업',
   });
 
-  const { data: companyData } = useQuery({
+  const { data: companyData, isLoading: isCompanyDataPending } = useQuery({
     queryKey: ['userData'],
     queryFn: getProfilePersonal,
     enabled: userType === '개인',
   });
 
-  console.log(personalData);
-  console.log(companyData);
-
-  const { register, handleSubmit } = useForm({
-    defaultValues: defaultInputValues,
-  });
+  if (isPersonalDataPending || isCompanyDataPending) {
+    return <div>로딩 중..</div>;
+  }
 
   const handleClickEditButton = () => {
     setEditMode(true);
@@ -72,12 +74,15 @@ export const Info = () => {
     phone: register('phone'),
     notion: register('notion'),
     github: register('github'),
+    email: register('email'),
+    others: register('others'),
   };
 
   const enterpriseInfoRegisters = {
     homepage: register('homepage'),
     email: register('email'),
     phone: register('phone'),
+    others: register('others'),
   };
   return (
     <div className={classNames(styles.container)}>
@@ -93,7 +98,8 @@ export const Info = () => {
           <div className={classNames(styles.contentContainer)}>
             <IntroducePart
               editMode={editMode}
-              userType={userType}
+              setValue={setValue}
+              watch={watch}
               {...register('introduce')}
             />
             <div
@@ -102,8 +108,6 @@ export const Info = () => {
               )}>
               <IndividualInfoPart
                 editMode={editMode}
-                userData={USER_DATA}
-                userType={userType}
                 registers={individualInfoRegisters}
               />
               {editMode && <SpecializationPart userType={userType} />}
@@ -121,13 +125,12 @@ export const Info = () => {
           <div className={classNames(styles.contentContainer)}>
             <IntroducePart
               editMode={editMode}
-              userType={userType}
+              setValue={setValue}
+              watch={watch}
               {...register('introduce')}
             />
             <IndividualInfoPart
               editMode={editMode}
-              userData={USER_DATA}
-              userType={userType}
               registers={enterpriseInfoRegisters}
             />
             {editMode && <SpecializationPart userType={userType} />}

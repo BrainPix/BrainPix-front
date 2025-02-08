@@ -20,3 +20,12 @@ export const TASK_TYPE_LABELS: Record<string, string> = {
   IDEA_SOLUTION: '아이디어 솔루션',
   MARKET_PLACE: '마켓 플레이스',
 };
+
+export const INFO_TYPE_MAPPER: Record<string, string> = {
+  PHONE: '연락처',
+  EMAIL: '이메일',
+  NOTION: '노션',
+  GITHUB: '깃허브',
+  OTHERS: '기타',
+  HOMEPAGE: '홈페이지',
+};

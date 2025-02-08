@@ -3,6 +3,12 @@ import classNames from 'classnames';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import styles from './individualInfoPart.module.scss';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
+import {
+  CompanyProfileType,
+  IndividualProfileType,
+} from '../../../types/profileType';
+import { INFO_TYPE_MAPPER } from '../../../constants/categoryMapper';
 
 interface IndividualInfoRegisters {
   phone: UseFormRegisterReturn;
@@ -18,23 +24,22 @@ interface EnterpriseInfoRegisters {
 
 interface IndividualInfoPartPropsType {
   editMode: boolean;
-  userData: {
-    연락처: string;
-    노션: string;
-    깃허브: string;
-  };
   registers: IndividualInfoRegisters | EnterpriseInfoRegisters;
-  userType: '개인' | '기업';
 }
 
 export const IndividualInfoPart = forwardRef<
   HTMLInputElement,
   IndividualInfoPartPropsType
->(({ editMode, userData, registers, userType }, ref) => {
+>(({ editMode, registers }, ref) => {
+  const queryClient = useQueryClient();
+  const userData = queryClient.getQueryData(['userData']);
+  const userType = localStorage.getItem('myType');
+
   const [selectedLabel, setSelectedLabel] = useState<string>('연락처');
-  const isIndividualRegisters = 'notion' in registers;
+  const isPersonalRegisters = 'notion' in registers;
+
   const LABEL_OPTIONS =
-    userType === '개인'
+    (userData as IndividualProfileType).userType === 'INDIVIDUAL'
       ? ['연락처', '노션', '깃허브']
       : ['홈페이지', '이메일', '전화번호', '기타'];
 
@@ -42,7 +47,7 @@ export const IndividualInfoPart = forwardRef<
     setSelectedLabel(option);
   };
 
-  const registerMap = isIndividualRegisters
+  const registerMap = isPersonalRegisters
     ? {
         노션: registers.notion,
         연락처: registers.phone,
@@ -71,20 +76,27 @@ export const IndividualInfoPart = forwardRef<
     }
   };
 
+  const info =
+    userType === 'personal'
+      ? (userData as IndividualProfileType).contacts
+      : (userData as CompanyProfileType).companyInformations;
+
   return (
     <div>
       <h1 className={classNames(styles.title)}>
-        {userType === '개인' ? '개별 정보' : '기업 정보'}
+        {userType === 'personal' ? '개별 정보' : '기업 정보'}
         {editMode && (
           <span className={classNames(styles.subTitle)}>{'(최대 500자)'}</span>
         )}
       </h1>
       <div className={classNames(styles.individualInfoWrapper)}>
-        {Object.entries(userData).map(([key, value]) => (
+        {info.map(({ type, value }) => (
           <div
-            key={key}
+            key={type}
             className={classNames(styles.list)}>
-            <span className={classNames(styles.label)}>{key}</span>
+            <span className={classNames(styles.label)}>
+              {INFO_TYPE_MAPPER[type]}
+            </span>
             <span className={classNames(styles.value)}>{value}</span>
           </div>
         ))}

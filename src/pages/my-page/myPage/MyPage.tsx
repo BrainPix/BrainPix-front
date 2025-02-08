@@ -28,15 +28,13 @@ export const MyPage = () => {
   });
 
   useEffect(() => {
-    if (specializationString === '') {
+    if (specializationString === '' && specializations) {
       specializations.map((specialization) => {
         setSpecializationString(
           (prev) => prev + getCategoryLabel(specialization),
         );
       });
     }
-
-    console.log(specializationString);
   }, [myBaseInfoData, specializationString]);
 
   const { data: alarms } = useQuery({

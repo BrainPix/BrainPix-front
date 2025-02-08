@@ -1,21 +1,59 @@
-import { forwardRef } from 'react';
+import { ChangeEvent, forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './introducePart.module.scss';
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
+import {
+  CompanyProfileType,
+  IndividualProfileType,
+} from '../../../types/profileType';
 
 interface IntroducePartPropsType {
   editMode: boolean;
-  userType: '개인' | '기업';
+  watch: UseFormWatch<{
+    introduce: string;
+    phone: string;
+    notion: string;
+    github: string;
+    homepage: string;
+    email: string;
+    others: string;
+  }>;
+  setValue: UseFormSetValue<{
+    introduce: string;
+    phone: string;
+    notion: string;
+    github: string;
+    homepage: string;
+    email: string;
+    others: string;
+  }>;
 }
 
 export const IntroducePart = forwardRef<
   HTMLTextAreaElement,
   IntroducePartPropsType
->(({ editMode, userType, ...rest }, ref) => {
-  const handleChange = () => {};
+>(({ editMode = false, setValue, watch, ...rest }, ref) => {
+  const queryClinet = useQueryClient();
+
+  const userData = queryClinet.getQueryData(['userData']);
+  const userType = localStorage.getItem('myType');
+
+  const introducingText =
+    userType === 'personal'
+      ? (userData as IndividualProfileType).selfIntroduction
+      : (userData as CompanyProfileType).selfIntroduction;
+
+  setValue('introduce', introducingText);
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue('introduce', e.target.value);
+  };
+
   return (
     <div>
       <h1 className={classNames(styles.title)}>
-        {userType === '개인' ? '자기 소개' : '기업 소개'}
+        {userType === 'personal' ? '자기 소개' : '기업 소개'}
       </h1>
       <textarea
         className={classNames(styles.introduceWrapper)}

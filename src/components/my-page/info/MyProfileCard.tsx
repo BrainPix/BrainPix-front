@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styles from './myProfileCard.module.scss';
 
 import Label from '../../common/label/Label';
+import { getCategoryLabel } from '../../../utils/categoryMapping';
 import {
   CompanyProfileType,
   IndividualProfileType,
@@ -45,7 +46,7 @@ export const MyProfileCard = ({
           <h1 className={classNames(styles.name)}>{userData.name}</h1>
           {(status === 'edit' || status === 'save') && (
             <span className={classNames(styles.position)}>
-              {userData.specializations}
+              {getCategoryLabel(userData.specializations)}
             </span>
           )}
         </div>
