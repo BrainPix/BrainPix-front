@@ -7,7 +7,9 @@ interface DropdownProps {
   label?: string;
   options?: string[];
   max_visible_options?: number;
-  customClassName?: string;
+  dropDownClassName?: string;
+  selectedBoxClassName?: string;
+  optionBoxClassName?: string;
   onSelect?: (value: string) => void;
 }
 
@@ -31,7 +33,9 @@ export const Dropdown = ({
   label = '',
   options,
   max_visible_options = 5,
-  customClassName,
+  dropDownClassName,
+  selectedBoxClassName,
+  optionBoxClassName,
   onSelect,
 }: DropdownProps) => {
   const finalOptions = options && options.length > 0 ? options : defaultOptions;
@@ -54,24 +58,28 @@ export const Dropdown = ({
 
   return (
     <div
-      className={classNames(styles.dropdown, customClassName)}
+      className={classNames(styles.dropdown, dropDownClassName)}
       ref={dropdownRef}>
       {label && <label className={styles.label}>{label}</label>}
       <div
-        className={classNames(styles.selectBox, { [styles.open]: isOpen })}
+        className={classNames(
+          styles.selectBox,
+          { [styles.open]: isOpen },
+          selectedBoxClassName,
+        )}
         onClick={() => setIsOpen(!isOpen)}>
         {selected}
         <span className={styles.arrow}>&#9662;</span>
       </div>
       {isOpen && (
         <ul
-          className={styles.optionsList}
+          className={classNames(styles.optionsList, optionBoxClassName)}
           ref={optionsListRef}
           style={{ maxHeight: `calc((40px) * ${max_visible_options})` }}>
           {finalOptions.map((option) => (
             <li
               key={option}
-              className={(classNames(styles.option), customClassName)}
+              className={classNames(styles.option)}
               role='option'
               aria-selected={selected === option}
               tabIndex={0}

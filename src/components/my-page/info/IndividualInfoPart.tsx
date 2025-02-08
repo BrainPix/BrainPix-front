@@ -40,7 +40,7 @@ export const IndividualInfoPart = forwardRef<
 
   const LABEL_OPTIONS =
     (userData as IndividualProfileType).userType === 'INDIVIDUAL'
-      ? ['연락처', '노션', '깃허브']
+      ? ['연락처', '노션', '깃허브', '기타']
       : ['홈페이지', '이메일', '전화번호', '기타'];
 
   const handleSelectLabel = (option: string) => {
@@ -105,8 +105,10 @@ export const IndividualInfoPart = forwardRef<
         <div className={classNames(styles.editInputWrapper)}>
           <div className={classNames(styles.inputContainer)}>
             <Dropdown
+              dropDownClassName={classNames(styles.dropdown)}
               options={LABEL_OPTIONS}
-              customClassName={classNames(styles.dropdown)}
+              selectedBoxClassName={classNames(styles.dropdownSelected)}
+              optionBoxClassName={classNames(styles.dropdownOptions)}
               onSelect={handleSelectLabel}
             />
             <input
@@ -131,7 +133,7 @@ export const IndividualInfoPart = forwardRef<
           </div>
           <button
             type='button'
-            className={classNames('buttonFilled-grey700', styles.addButton)}>
+            className={classNames('buttonFilled-grey800', styles.addButton)}>
             추가하기
           </button>
         </div>
