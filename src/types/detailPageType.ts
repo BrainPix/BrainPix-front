@@ -49,4 +49,13 @@ export interface RequsetDetail {
     totalCollaborations: number;
   };
   attachments: string[];
+  recruitments: {
+    recruitmentId: number;
+    domain: string;
+    occupiedQuantity: number;
+    totalQuantity: number;
+    price: number;
+    paymentDuration: string;
+  }[];
+  openMyProfile: boolean;
 }
