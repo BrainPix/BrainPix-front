@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Purchase } from '../types/purchaseType';
+import { Purchase, RequestTasks } from '../types/supportsType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -15,7 +15,7 @@ export const getPurchases = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'users/login';
+    window.location.href = 'login/individual';
     return [];
   }
 
@@ -27,10 +27,70 @@ export const getPurchases = async (
       params: { page, size },
     });
 
-    console.log('API 응답 데이터:', response.data); // 🔹 응답 데이터 출력
-    console.log('API 응답 데이터 content:', response.data?.data?.content); // 🔹 실제 content 데이터 출력
+    console.log('API 응답 데이터:', response.data);
+    console.log('API 응답 데이터 content:', response.data?.data?.content);
 
-    return response.data?.data?.content ?? []; // 🔹 데이터가 undefined면 빈 배열 반환
+    return response.data?.data?.content ?? [];
+  } catch (error) {
+    console.error('API 요청 실패:', error);
+    return [];
+  }
+};
+
+export const getAcceptedRequestTasks = async (
+  page = 0,
+  size = 10,
+): Promise<RequestTasks[]> => {
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+    return [];
+  }
+
+  const url = `${BASE_URL}/supports/request-tasks/accepted`;
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+      params: { page, size },
+    });
+
+    console.log('수락된 요청 과제 데이터:', response.data);
+    return response.data?.data?.content ?? [];
+  } catch (error) {
+    console.error('API 요청 실패:', error);
+    return [];
+  }
+};
+
+export const getRejectedRequestTasks = async (
+  page = 0,
+  size = 10,
+): Promise<RequestTasks[]> => {
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+    return [];
+  }
+
+  const url = `${BASE_URL}/supports/request-tasks/rejected`;
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+      params: { page, size },
+    });
+
+    console.log('거절된 요청 과제 데이터:', response.data);
+    return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);
     return [];
