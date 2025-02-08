@@ -14,28 +14,27 @@ import { BusinessInfoPart } from '../../../components/my-page/info/BusinessInfoP
 import { useQuery } from '@tanstack/react-query';
 import { getProfilePersonal } from '../../../apis/profileAPI';
 import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
-
-const USER_DATA = {
-  연락처: '01023451234',
-  노션: '노션 주소',
-  깃허브: '깃허브 주소',
-};
+import { IndividualContactType } from '../../../types/profileType';
 
 export const Info = () => {
-  const [editMode, setEditMode] = useState(false);
   type userTypetype = '개인' | '기업';
+
+  const [editMode, setEditMode] = useState(false);
+  const [addContacts, setAddContacts] = useState<IndividualContactType[]>([]);
 
   const userType: userTypetype =
     localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
 
   const defaultInputValues = {
     introduce: '',
-    phone: '01012345678',
-    notion: '노션 주소임',
-    github: '깃허브 주소임',
-    homepage: '홈페이지 주소',
-    email: '이메일 주소',
+    phone: '',
+    notion: '',
+    github: '',
+    homepage: '',
+    email: '',
     others: '',
+    contactOpen: false,
+    stackOpen: false,
   };
 
   const { register, handleSubmit, setValue, watch } = useForm({
@@ -70,20 +69,11 @@ export const Info = () => {
     setEditMode(false);
   };
 
-  const individualInfoRegisters = {
-    phone: register('phone'),
-    notion: register('notion'),
-    github: register('github'),
-    email: register('email'),
-    others: register('others'),
+  const handleClickAddInfoButton = (data: IndividualContactType) => {
+    setAddContacts((prev) => [...prev, data]);
+    console.log(addContacts);
   };
 
-  const enterpriseInfoRegisters = {
-    homepage: register('homepage'),
-    email: register('email'),
-    phone: register('phone'),
-    others: register('others'),
-  };
   return (
     <div className={classNames(styles.container)}>
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
@@ -108,7 +98,7 @@ export const Info = () => {
               )}>
               <IndividualInfoPart
                 editMode={editMode}
-                registers={individualInfoRegisters}
+                onClickAdd={handleClickAddInfoButton}
               />
               {editMode && <SpecializationPart userType={userType} />}
 
@@ -131,7 +121,7 @@ export const Info = () => {
             />
             <IndividualInfoPart
               editMode={editMode}
-              registers={enterpriseInfoRegisters}
+              onClickAdd={handleClickAddInfoButton}
             />
             {editMode && <SpecializationPart userType={userType} />}
             <BusinessInfoPart editMode={editMode} />

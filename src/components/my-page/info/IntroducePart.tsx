@@ -5,35 +5,20 @@ import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   CompanyProfileType,
+  FieldValuesType,
   IndividualProfileType,
 } from '../../../types/profileType';
 
 interface IntroducePartPropsType {
   editMode: boolean;
-  watch: UseFormWatch<{
-    introduce: string;
-    phone: string;
-    notion: string;
-    github: string;
-    homepage: string;
-    email: string;
-    others: string;
-  }>;
-  setValue: UseFormSetValue<{
-    introduce: string;
-    phone: string;
-    notion: string;
-    github: string;
-    homepage: string;
-    email: string;
-    others: string;
-  }>;
+  watch: UseFormWatch<FieldValuesType>;
+  setValue: UseFormSetValue<FieldValuesType>;
 }
 
 export const IntroducePart = forwardRef<
   HTMLTextAreaElement,
   IntroducePartPropsType
->(({ editMode = false, setValue, watch, ...rest }, ref) => {
+>(({ editMode = false, setValue, ...rest }, ref) => {
   const queryClinet = useQueryClient();
 
   const userData = queryClinet.getQueryData(['userData']);
