@@ -29,3 +29,9 @@ export const INFO_TYPE_MAPPER: Record<string, string> = {
   OTHERS: '기타',
   HOMEPAGE: '홈페이지',
 };
+
+export const SKILL_PROFICIENCY_MAPPER: Record<string, string> = {
+  HIGH: '상',
+  MIDIUM: '중',
+  LOW: '하',
+};
