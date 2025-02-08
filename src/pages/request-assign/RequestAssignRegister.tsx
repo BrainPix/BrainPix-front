@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
-import styles from './ideaMarketRegister.module.scss';
+import styles from './requestAssignRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
@@ -11,16 +11,18 @@ import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
-interface IdeaMarketRegisterProps {
+interface RequestAssignRegisterProps {
   [key: string]: never;
 }
 
-export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
+export const RequestAssignRegister: React.FC<
+  RequestAssignRegisterProps
+> = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [pageType, setPageType] = useState<'Idea Solution' | 'Market Place'>(
-    'Idea Solution',
+  const [pageType, setPageType] = useState<'Open Idea' | 'Tech Zone'>(
+    'Open Idea',
   );
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
@@ -92,11 +94,11 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
   };
 
   const handleCancel = () => {
-    navigate(-1); // Goes back to the previous page
+    navigate(-1);
   };
 
   const handleSubmit = () => {
-    navigate('/idea-market/register-complete');
+    navigate('/request-assign/register-complete');
   };
 
   useEffect(() => {
@@ -148,7 +150,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>아이디어 등록하기</div>
+      <div className={styles.title}>요청 과제 등록하기</div>
       <div className={styles.horizontalContainer}>
         <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
           <div className={styles.labelWrapper}>
@@ -206,25 +208,23 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
             role='group'
             aria-labelledby='pageTypeLabel'>
             <button
-              className={`${styles.pageTypeButton} ${pageType === 'Idea Solution' ? styles.active : ''}`}
-              onClick={() => setPageType('Idea Solution')}>
-              Idea Solution
+              className={`${styles.pageTypeButton} ${pageType === 'Open Idea' ? styles.active : ''}`}
+              onClick={() => setPageType('Open Idea')}>
+              Open Idea
             </button>
             <button
-              className={`${styles.pageTypeButton} ${pageType === 'Market Place' ? styles.active : ''}`}
-              onClick={() => setPageType('Market Place')}>
-              Market Place
+              className={`${styles.pageTypeButton} ${pageType === 'Tech Zone' ? styles.active : ''}`}
+              onClick={() => setPageType('Tech Zone')}>
+              Tech Zone
             </button>
           </div>
 
-          {pageType === 'Idea Solution' && (
+          {pageType === 'Open Idea' && (
             <div
               className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
               onClick={() => setShowDetail(!showDetail)}>
               <div className={styles.header}>
-                <span className={styles.descriptionText}>
-                  Idea Solution이란?
-                </span>
+                <span className={styles.descriptionText}>Open Idea란?</span>
                 <InfoDropdown
                   className={styles.infoIcon}
                   onClick={(e) => {
@@ -236,22 +236,23 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
               {showDetail && (
                 <div className={styles.detailDescription}>
                   <span className={styles.mainText}>
-                    전문가가 제공하는 과제 제작 서비스
+                    누구나 참여할 수 있는 창의적인 아이디어 과제
                   </span>
                   <span className={styles.subText}>
-                    {`ex) '블로그 제작을 도와드립니다.' / '로고 제작 서비스를 제공합니다.'`}
+                    {`ex) '새로운 카페 브랜드를 위한 세련되고 기억에 남는 이름을 제안해주세요.'
+                    '환경 보호를 주제로 한 캠페인을 위한 슬로건을 만들어주세요.'`}
                   </span>
                 </div>
               )}
             </div>
           )}
 
-          {pageType === 'Market Place' && (
+          {pageType === 'Tech Zone' && (
             <div
               className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
               onClick={() => setShowDetail(!showDetail)}>
               <div className={styles.header}>
-                <span className={styles.descriptionText}>Market Place란?</span>
+                <span className={styles.descriptionText}>Tech Zone이란?</span>
                 <InfoDropdown
                   className={styles.infoIcon}
                   onClick={(e) => {
@@ -263,10 +264,11 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
               {showDetail && (
                 <div className={styles.detailDescription}>
                   <span className={styles.mainText}>
-                    완성된 과제물과 창의적인 제품을 거래하는 공간
+                    전문 지식이 필요한 기술 중심 프로젝트
                   </span>
                   <span className={styles.subText}>
-                    {`ex) '어르신 맞춤형 키오스크 로봇' / '다이어트 식단 관리 앱 개발'`}
+                    {` ex) '판매 데이터를 분석하여 다음 분기의 매출 예측 모델을 개발해주세요.'
+                    '간단한 이커머스 웹사이트를 구축하고 결제 시스템을 연동해주세요.'`}
                   </span>
                 </div>
               )}
@@ -313,7 +315,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         <div className={styles.ideaNameWrapper}>
           <input
             type='text'
-            placeholder='아이디어명 입니다'
+            placeholder='과제명이에용..'
             className={styles.ideaNameInput}
           />
         </div>
@@ -379,7 +381,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
           </div>
         </div>
 
-        {pageType === 'Market Place' && (
+        {pageType === 'Tech Zone' && (
           <div className={styles.quantityGroup}>
             <div className={styles.quantityLabel}>
               수량 설정
