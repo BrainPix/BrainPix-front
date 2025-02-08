@@ -1,16 +1,19 @@
 import styles from './recruitInfo.module.scss';
 
-const RecruitmentStatus = () => {
-  const members = [
-    {
-      id: '1',
-      role: '디자이너',
-      recruit: '1',
-      recruitfull: '5',
-      pay: '100,000원 (건당)',
-    },
-  ];
+interface RecruitInfoProps {
+  recruimentId: number;
+  domain: string;
+  occupiedQuantity: number;
+  totalQuantity: number;
+  price: number;
+  paymentDuration: string;
+}
 
+const RecruitInfo = ({
+  recruitments,
+}: {
+  recruitments?: RecruitInfoProps[];
+}) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -23,15 +26,18 @@ const RecruitmentStatus = () => {
           <span className={styles.column}>모집 인원</span>
           <span className={styles.column}>보수 금액 (형태)</span>
         </div>
-        {members.map((member) => (
+        {recruitments?.map((recruitment) => (
           <div
-            key={member.id}
+            key={recruitment.recruimentId}
             className={styles.recruitmentRow}>
-            <div className={styles.cell}>{member.role}</div>
+            <div className={styles.cell}>{recruitment.domain}</div>
             <div className={styles.cell}>
-              {member.recruit} / {member.recruitfull}
+              {recruitment.occupiedQuantity} / {recruitment.totalQuantity}
             </div>
-            <div className={styles.cell}> {member.pay}</div>
+            <div className={styles.cell}>
+              {recruitment.price.toLocaleString()}원 (
+              {recruitment.paymentDuration})
+            </div>
           </div>
         ))}
       </div>
@@ -39,4 +45,4 @@ const RecruitmentStatus = () => {
   );
 };
 
-export default RecruitmentStatus;
+export default RecruitInfo;

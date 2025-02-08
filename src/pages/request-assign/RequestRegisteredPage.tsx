@@ -48,7 +48,7 @@ export const RequestRegisteredPage = () => {
           content={data?.content || ''}
           attachments={data?.attachments || []}
         />
-        <RecruitInfo />
+        <RecruitInfo recruitments={data?.recruitments} />
         <QnASection />
         <AuthorInfo
           name={data?.writer?.name || ''}
