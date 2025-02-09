@@ -1,4 +1,5 @@
 import styles from './recruitInfo.module.scss';
+import { getPaymentDurationLabel } from '../../constants/categoryMapper';
 
 interface RecruitInfoProps {
   recruitmentId: number;
@@ -36,7 +37,7 @@ const RecruitInfo = ({
             </div>
             <div className={styles.cell}>
               {recruitment.price.toLocaleString()}원 (
-              {recruitment.paymentDuration})
+              {getPaymentDurationLabel(recruitment.paymentDuration)})
             </div>
           </div>
         ))}
