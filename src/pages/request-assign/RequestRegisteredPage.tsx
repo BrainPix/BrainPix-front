@@ -40,6 +40,7 @@ export const RequestRegisteredPage = () => {
   };
 
   const writerData = {
+    writerId: data.writer?.writerId ?? 0,
     name: data.writer?.name ?? '',
     profileImageUrl: data.writer?.profileImageUrl ?? '',
     role: data.writer?.role ?? '',
@@ -55,10 +56,7 @@ export const RequestRegisteredPage = () => {
 
   return (
     <div className={styles.margin}>
-      <ProfileHeader
-        {...writerData}
-        openMyProfile={() => console.log('프로필 페이지로 이동')}
-      />
+      <ProfileHeader {...writerData} />
       <PostTitleApply {...postData} />
       <AssignmentDescription
         content={descriptionData.content}
