@@ -13,52 +13,60 @@ import { getRequestDetail } from '../../apis/detailPageAPI';
 
 export const RequestRegisteredPage = () => {
   const { taskId } = useParams<{ taskId: string }>();
-  //const validIdeaId = ideaId ? Number(taskId) : undefined;
 
   const { data, isLoading, error } = useQuery<RequsetDetail, Error>({
-    queryKey: ['requsetDetaill', taskId],
+    queryKey: ['requestDetail', taskId],
     queryFn: () => getRequestDetail(Number(taskId)),
     enabled: !!taskId,
-    staleTime: 1000 * 60 * 5, //5분
+    staleTime: 1000 * 60 * 5, // 5분
   });
 
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>오류 발생!</div>;
+
+  if (!data) return null; // 데이터가 없을 경우 안전하게 처리
+
+  const postData = {
+    thumbnailImageUrl: data.thumbnailImageUrl ?? '',
+    category: data.category ?? '',
+    taskType: data.taskType ?? '',
+    deadline: data.deadline ?? 0,
+    auth: data.auth ?? '',
+    title: data.title ?? '',
+    price: data.price ?? 0,
+    viewCount: data.viewCount ?? 0,
+    saveCount: data.saveCount ?? 0,
+    createdDate: data.createdDate ?? '',
+  };
+
+  const writerData = {
+    name: data.writer?.name ?? '',
+    profileImageUrl: data.writer?.profileImageUrl ?? '',
+    role: data.writer?.role ?? '',
+    specialization: data.writer?.specialization ?? '',
+    totalIdeas: data.writer?.totalIdeas ?? 0,
+    totalCollaborations: data.writer?.totalCollaborations ?? 0,
+  };
+
+  const descriptionData = {
+    content: data.content ?? '',
+    attachments: data.attachments ?? [],
+  };
+
   return (
-    <>
-      <div className={styles.margin}>
-        <ProfileHeader
-          name={data?.writer?.name || ''}
-          profileImageUrl={data?.writer?.profileImageUrl || ''}
-          openMyProfile={() => console.log('프로필 페이지로 이동')} // 임시 지정
-        />
-        <PostTitleApply
-          thumbnailImageUrl={data?.thumbnailImageUrl || ''}
-          category={data?.category || ''}
-          taskType={data?.taskType || ''}
-          deadline={data?.deadline || 0}
-          auth={data?.auth || ''}
-          title={data?.title || ''}
-          price={data?.price || 0}
-          viewCount={data?.viewCount || 0}
-          saveCount={data?.saveCount || 0}
-          createdDate={data?.createdDate || ''}
-        />
-        <AssignmentDescription
-          content={data?.content || ''}
-          attachments={data?.attachments || []}
-        />
-        <RecruitInfo recruitments={data?.recruitments} />
-        <QnASection />
-        <AuthorInfo
-          name={data?.writer?.name || ''}
-          profileImageUrl={data?.writer?.profileImageUrl || ' '}
-          role={data?.writer?.role || ''}
-          specialization={data?.writer?.specialization || ' '}
-          totalIdeas={data?.writer?.totalIdeas || 0}
-          totalCollaborations={data?.writer?.totalCollaborations || 0}
-        />
-      </div>
-    </>
+    <div className={styles.margin}>
+      <ProfileHeader
+        {...writerData}
+        openMyProfile={() => console.log('프로필 페이지로 이동')}
+      />
+      <PostTitleApply {...postData} />
+      <AssignmentDescription
+        content={descriptionData.content}
+        attachments={descriptionData.attachments}
+      />
+      <RecruitInfo recruitments={data.recruitments} />
+      <QnASection />
+      <AuthorInfo {...writerData} />
+    </div>
   );
 };
