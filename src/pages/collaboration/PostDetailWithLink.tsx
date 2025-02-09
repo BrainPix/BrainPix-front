@@ -56,11 +56,13 @@ export const PostDetailWithLink = () => {
   };
 
   const recruitmentInfoData = {
-    recruitments: data.recruitments.map((r) => ({
-      domain: r.domain,
-      occupiedQuantity: r.occupiedQuantity,
-      totalQuantity: r.totalQuantity,
-    })),
+    recruitments:
+      data.recruitments?.map((r) => ({
+        recruitmentId: r.recruitmentId,
+        domain: r.domain,
+        occupiedQuantity: r.occupiedQuantity,
+        totalQuantity: r.totalQuantity,
+      })) || [],
   };
 
   const recruitmentStatusData = {
@@ -92,7 +94,12 @@ export const PostDetailWithLink = () => {
         <RecruitmentStatus {...recruitmentStatusData} />
       </div>
       <div className={styles.buttonMargin}>
-        <TeamBuildingButton />
+        <TeamBuildingButton
+          recruitments={recruitmentInfoData.recruitments}
+          category={postHeaderData.category}
+          writerName={profileData.name}
+          title={postHeaderData.title}
+        />
       </div>
       <div className={styles.margin}>
         <QnASection />
