@@ -4,20 +4,34 @@ import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import ApplyIcon from '../../assets/icons/apply.svg?react';
 import UnapplyIcon from '../../assets/icons/unapply.svg?react';
+import { getCategoryLabel } from '../../constants/categoryMapper';
 
 interface RequestSupportModalProps {
   onClose: () => void;
+  recruitments: {
+    recruitmentId: number;
+    domain: string;
+    occupiedQuantity: number;
+    totalQuantity: number;
+  }[];
+  category: string;
+  writerName: string;
+  title: string;
 }
 
-const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
+const RequestSupportModal = ({
+  onClose,
+  recruitments,
+  category,
+  writerName,
+  title,
+}: RequestSupportModalProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [selectedSupport, setSelectedSupport] = useState<string | null>(null);
+  const [selectedSupport, setSelectedSupport] = useState<number | null>(null);
 
   useEffect(() => {
-    // 모달이 열리면 body 스크롤 비활성화
     document.body.style.overflow = 'hidden';
     return () => {
-      // 모달이 닫히면 body 스크롤 활성화
       document.body.style.overflow = 'auto';
     };
   }, []);
@@ -26,7 +40,7 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
     setIsChecked((prev) => !prev);
   };
 
-  const handleSupportSelection = (id: string) => {
+  const handleSupportSelection = (id: number) => {
     setSelectedSupport((prev) => (prev === id ? null : id));
   };
 
@@ -46,42 +60,48 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
             <div className={styles.breadcrumb}>
               <span>요청과제</span>
               <ArrowIcon className={styles.arrowIcon} />
-              <span>디자인</span>
+              <span>{getCategoryLabel(category)}</span>
             </div>
             <div className={styles.companyInfo}>
-              <h2>SY TECH</h2>
-              <h1>Web 서비스 제안</h1>
+              <h2>{writerName}</h2>
+              <h1>{title}</h1>
             </div>
           </div>
           <h2 className={styles.sectionTitle}>지원 부문</h2>
-          <hr className={styles.divider} />
-          <div className={styles.supportTable}>
-            <div className={styles.tableHeader}>
-              <span className={styles.column}>지원 분야</span>
-              <span className={styles.column}>인원 현황</span>
-              <span className={styles.column}>지원</span>
-            </div>
-            {[
-              { id: 'PM', field: 'PM', status: '1 / 1' },
-              { id: '디자이너', field: '디자이너', status: '1 / 2' },
-            ].map((support) => (
-              <div
-                key={support.id}
-                className={styles.supportRow}>
-                <span className={styles.field}>{support.field}</span>
-                <span className={styles.status}>{support.status}</span>
-                <div
-                  className={styles.radioWrapper}
-                  onClick={() => handleSupportSelection(support.id)}>
-                  {selectedSupport === support.id ? (
-                    <ApplyIcon className={styles.radioIcon} />
-                  ) : (
-                    <UnapplyIcon className={styles.radioIcon} />
-                  )}
-                </div>
+          {recruitments.length === 0 ? (
+            <p className={styles.noRecruitments}>
+              지원할 모집 부문이 없습니다.
+            </p>
+          ) : (
+            <div className={styles.supportTable}>
+              <div className={styles.tableHeader}>
+                <span className={styles.column}>지원 분야</span>
+                <span className={styles.column}>인원 현황</span>
+                <span className={styles.column}>지원</span>
               </div>
-            ))}
-          </div>
+              {recruitments.map((recruitment) => (
+                <div
+                  key={recruitment.recruitmentId}
+                  className={styles.supportRow}>
+                  <span className={styles.field}>{recruitment.domain}</span>
+                  <span className={styles.status}>
+                    {recruitment.occupiedQuantity} / {recruitment.totalQuantity}
+                  </span>
+                  <div
+                    className={styles.radioWrapper}
+                    onClick={() =>
+                      handleSupportSelection(recruitment.recruitmentId)
+                    }>
+                    {selectedSupport === recruitment.recruitmentId ? (
+                      <ApplyIcon className={styles.radioIcon} />
+                    ) : (
+                      <UnapplyIcon className={styles.radioIcon} />
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <h2 className={styles.sectionTitle}>추가 메시지</h2>
           <textarea className={styles.textarea} />

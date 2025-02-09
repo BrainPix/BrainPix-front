@@ -24,6 +24,13 @@ interface PostTitleApplyProps {
   viewCount: number;
   saveCount: number;
   createdDate: string;
+  writerName: string;
+  recruitments: {
+    recruitmentId: number;
+    domain: string;
+    occupiedQuantity: number;
+    totalQuantity: number;
+  }[];
 }
 
 const PostTitleApply = ({
@@ -37,6 +44,8 @@ const PostTitleApply = ({
   viewCount,
   saveCount,
   createdDate,
+  writerName,
+  recruitments,
 }: PostTitleApplyProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
@@ -114,7 +123,15 @@ const PostTitleApply = ({
         onClick={openModal}>
         지원하기
       </button>
-      {isModalOpen && <RequestSupportModal onClose={closeModal} />}
+      {isModalOpen && (
+        <RequestSupportModal
+          onClose={closeModal}
+          recruitments={recruitments}
+          category={category}
+          writerName={writerName}
+          title={title}
+        />
+      )}
     </div>
   );
 };

@@ -24,7 +24,7 @@ export const RequestRegisteredPage = () => {
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>오류 발생!</div>;
 
-  if (!data) return null; // 데이터가 없을 경우 안전하게 처리
+  if (!data) return null;
 
   const postData = {
     thumbnailImageUrl: data.thumbnailImageUrl ?? '',
@@ -37,6 +37,7 @@ export const RequestRegisteredPage = () => {
     viewCount: data.viewCount ?? 0,
     saveCount: data.saveCount ?? 0,
     createdDate: data.createdDate ?? '',
+    writerName: data.writer?.name ?? '',
   };
 
   const writerData = {
@@ -57,7 +58,10 @@ export const RequestRegisteredPage = () => {
   return (
     <div className={styles.margin}>
       <ProfileHeader {...writerData} />
-      <PostTitleApply {...postData} />
+      <PostTitleApply
+        {...postData}
+        recruitments={data.recruitments}
+      />
       <AssignmentDescription
         content={descriptionData.content}
         attachments={descriptionData.attachments}
