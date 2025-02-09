@@ -85,7 +85,7 @@ export const Portfolio = () => {
       <div className={classNames(styles.title)}>
         포트폴리오 관리하기
         <span className={classNames(styles.portfolioCount)}>
-          {PORTFOLIO_COUNT}
+          {myPorfolios?.pages[0].totalElements ?? 0}
         </span>
         <button
           onClick={() => setIsOpenAddPortfolioModal(true)}

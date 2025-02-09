@@ -2,13 +2,12 @@ import { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
 import styles from './addPortfolioModal.module.scss';
 import ReactQuill from 'react-quill-new';
+import { QuillToolbar } from './QuillToolbar';
 
 import ImageInput from '../../../assets/icons/imageInput.svg?react';
 import { Dropdown } from '../../common/dropdown/Dropdown';
-
 import 'react-quill-new/dist/quill.snow.css';
 import '../../../styles/quillStyles.css';
-import { QuillToolbar } from './QuillToolbar';
 
 interface AddPortfolioModalPropsType {
   onClose: () => void;
@@ -54,7 +53,10 @@ export const AddPortfolioModal = forwardRef<
         <div className={classNames(styles.infoInputWrapper)}>
           <div className={classNames(styles.categoryInputWrapper)}>
             <h3 className={classNames(styles.inputTitle)}>카테고리</h3>
-            <Dropdown customClassName={styles.categoryDropdown} />
+            <Dropdown
+              selectedBoxClassName={styles.categoryDropdown}
+              optionBoxClassName={styles.categoryOptionsBoxDropdown}
+            />
           </div>
           <div>
             <h3 className={classNames(styles.inputTitle)}>프로젝트 기간</h3>
