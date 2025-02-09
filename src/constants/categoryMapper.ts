@@ -21,10 +21,23 @@ export const TASK_TYPE_LABELS: Record<string, string> = {
   MARKET_PLACE: '마켓 플레이스',
 };
 
+// 보수 지급 형태 라벨
+export const PAYMENT_DURATION_LABELS: Record<string, string> = {
+  ONCE: '건당',
+  DAILY: '일간',
+  WEEKLY: '주간',
+  MONTHLY: '월간',
+  NOT_APPLICABLE: '추후 협의',
+};
+
 export const getCategoryLabel = (categoryKey: string): string => {
   return CATEGORY_LABELS[categoryKey] || '기타';
 };
 
 export const getTaskTypeLabel = (taskTypeKey: string): string => {
   return TASK_TYPE_LABELS[taskTypeKey] || '기타';
+};
+
+export const getPaymentDurationLabel = (paymentKey: string): string => {
+  return PAYMENT_DURATION_LABELS[paymentKey] || '추후 협의';
 };
