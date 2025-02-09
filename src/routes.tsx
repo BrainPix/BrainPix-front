@@ -7,7 +7,6 @@ import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
 import { CollaborationMain } from './pages/collaboration/CollaborationMain';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
-import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
 import { MyPage } from './pages/my-page/myPage/MyPage';
@@ -69,7 +68,7 @@ export const routes = createBrowserRouter([
         element: <IdeaRegisteredPage />,
       },
       {
-        path: '/idea-market/payment',
+        path: '/idea-market/payment/:ideaId',
         element: <IdeaMarketPayment />,
       },
       {
@@ -85,11 +84,7 @@ export const routes = createBrowserRouter([
         element: <PersonalProfile />,
       },
       {
-        path: '/collaboration/postdetailwithoutlink',
-        element: <PostDetailWithoutLink />,
-      },
-      {
-        path: '/collaboration/postdetailwithlink',
+        path: '/collaboration/postdetailwithlink/:collaborationId',
         element: <PostDetailWithLink />,
       },
       {
