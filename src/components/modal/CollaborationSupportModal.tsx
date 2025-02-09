@@ -58,7 +58,7 @@ export const CollaborationSupportModal = ({
         <div className={styles.content}>
           <div className={styles.titleSection}>
             <div className={styles.breadcrumb}>
-              <span>요청과제</span>
+              <span>협업 광장</span>
               <ArrowIcon className={styles.arrowIcon} />
               <span>{getCategoryLabel(category)}</span>
             </div>
