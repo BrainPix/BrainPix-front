@@ -1,20 +1,44 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './portfolio.module.scss';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { AddPortfolioModal } from '../../../components/my-page/portfolio/AddPortfolioModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
 import { getMyPorfolio } from '../../../apis/portfolio';
+import React from 'react';
 import { MyPorfolioType } from '../../../types/myPageType';
+import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 
 export const Portfolio = () => {
   const PORTFOLIO_COUNT = 8;
+  const [lastCardId, setLastCardId] = useState(0);
+  const { setTarget } = useIntersectionObserverAPI({
+    onIntersect: () => {
+      fetchNextPage();
+      const totalCurrentCardLength = myPorfolios?.pages.reduce(
+        (acc, page) => acc + page.content.length,
+        0,
+      );
+      setLastCardId(totalCurrentCardLength - 1);
+    },
+  });
 
-  const { data: myPorfolios, isPending: isGetPorfoliosPending } = useQuery({
+  const {
+    data: myPorfolios,
+    isFetching: isGetPorfoliosPending,
+    fetchNextPage,
+  } = useInfiniteQuery({
     queryKey: ['myPorfolios'],
-    queryFn: getMyPorfolio,
+    queryFn: ({ pageParam = 0 }) => getMyPorfolio(pageParam),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.currentPage < pages[0].totalPages) {
+        return lastPage?.currentPage + 1;
+      }
+      return null;
+    },
   });
 
   const [isOpenAddPortfolioModal, setIsOpenAddPortfolioModal] = useState(false);
@@ -44,8 +68,6 @@ export const Portfolio = () => {
     return <div>로딩 중,,,</div>;
   }
 
-  const portfolios = myPorfolios.content as MyPorfolioType[];
-
   return (
     <div className={classNames(styles.container)}>
       {isOpenAddPortfolioModal && (
@@ -72,23 +94,33 @@ export const Portfolio = () => {
         </button>
       </div>
       <div className={classNames(styles.portfolioContainer)}>
-        {portfolios.map(({ id, title, createdDate, profileImage }) => (
-          <div
-            key={id}
-            onClick={() => setIsOpenPortfolioDetailModal(true)}
-            className={classNames(styles.portfolioCardWrapper)}>
-            {profileImage ? (
-              <img
-                alt='포트폴리오 사진'
-                className={classNames(styles.image)}
-                src={profileImage}
-              />
-            ) : (
-              <div className={classNames(styles.image)} />
+        {myPorfolios?.pages.map((portfolios) => (
+          <React.Fragment key={portfolios.currentPage}>
+            {portfolios.content.map(
+              (
+                { id, title, createdDate, profileImage }: MyPorfolioType,
+                idx: number,
+              ) => (
+                <div
+                  key={id}
+                  ref={idx === lastCardId ? setTarget : null}
+                  onClick={() => setIsOpenPortfolioDetailModal(true)}
+                  className={classNames(styles.portfolioCardWrapper)}>
+                  {profileImage ? (
+                    <img
+                      alt='포트폴리오 사진'
+                      className={classNames(styles.image)}
+                      src={profileImage}
+                    />
+                  ) : (
+                    <div className={classNames(styles.image)} />
+                  )}
+                  <p className={classNames(styles.portfolioTitle)}>{title}</p>
+                  <p className={classNames(styles.date)}>{createdDate}</p>
+                </div>
+              ),
             )}
-            <p className={classNames(styles.portfolioTitle)}>{title}</p>
-            <p className={classNames(styles.date)}>{createdDate}</p>
-          </div>
+          </React.Fragment>
         ))}
       </div>
     </div>

@@ -15,7 +15,10 @@ export const SpecializationPart = ({
         {userType === '개인' ? '전문 분야' : '기업 분야'}
         <span className={classNames(styles.subTitle)}>{'(최대 2개)'}</span>
       </h1>
-      <Dropdown customClassName={classNames(styles.speciallizationDropdown)} />
+      <Dropdown
+        selectedBoxClassName={classNames(styles.selectedropdown)}
+        optionBoxClassName={classNames(styles.optionsDropdown)}
+      />
     </div>
   );
 };

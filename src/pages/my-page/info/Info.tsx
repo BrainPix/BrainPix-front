@@ -96,11 +96,11 @@ export const Info = () => {
               className={classNames(
                 editMode ? styles.colContainer : styles.rowContainer,
               )}>
+              {editMode && <SpecializationPart userType={userType} />}
               <IndividualInfoPart
                 editMode={editMode}
                 onClickAdd={handleClickAddInfoButton}
               />
-              {editMode && <SpecializationPart userType={userType} />}
 
               <SkillPart editMode={editMode} />
             </div>
