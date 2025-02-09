@@ -6,11 +6,34 @@ import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 import Label from '../common/label/Label';
-const PostHeader = () => {
+
+import { getCategoryLabel } from '../../constants/categoryMapper';
+
+interface PostHeaderProps {
+  category: string;
+  auth: string;
+  title: string;
+  deadline: number;
+  viewCount: number;
+  saveCount: number;
+  createdDate: string;
+}
+
+const PostHeader = ({
+  category,
+  auth,
+  title,
+  deadline,
+  viewCount,
+  saveCount,
+  createdDate,
+}: PostHeaderProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
 
   const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
+    setIsBookmarked((prev) => !prev);
+    setCurrentSaveCount((prev) => (isBookmarked ? prev - 1 : prev + 1));
   };
 
   return (
@@ -18,22 +41,32 @@ const PostHeader = () => {
       <div className={styles.navigation}>
         <span className={styles.text}>협업광장</span>
         <ArrowIcon className={styles.arrowIcon} />
-        <span className={styles.text}>디자인</span>
+        <span className={styles.text}>{getCategoryLabel(category)}</span>
       </div>
-      <DeadlineLabel deadline={5} />
-      <div className={styles.titleContainer}>
-        <h1 className={styles.title}>저랑 프로젝트 같이 하실 분</h1>
-        <Label
-          text='기업 공개'
-          type='corporatePublic'
-        />
+      <div className={styles.firstContainer}>
+        <DeadlineLabel deadline={deadline} />
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>{title}</h1>
+          {auth === 'COMPANY' && (
+            <Label
+              text='기업 공개'
+              type='corporatePublic'
+            />
+          )}
+          {auth === 'ALL' && (
+            <Label
+              text='전체 공개'
+              type='entire'
+            />
+          )}
+        </div>
       </div>
       <div className={styles.details}>
-        <span className={styles.date}>2024/12/28</span>
+        <span className={styles.date}>{createdDate}</span>
         <DotIcon className={styles.dotIcon} />
-        <span className={styles.info}>조회 120</span>
+        <span className={styles.info}>조회 {viewCount}</span>
         <DotIcon className={styles.dotIcon} />
-        <span className={styles.info}>저장 12</span>
+        <span className={styles.info}>저장 {currentSaveCount}</span>
         <button
           className={styles.bookmarkButton}
           onClick={toggleBookmark}>
