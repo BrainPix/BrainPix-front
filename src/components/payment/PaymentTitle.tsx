@@ -2,10 +2,19 @@ import { useState, useEffect } from 'react';
 import styles from './paymentTitle.module.scss';
 import UpDownButton from '../../assets/icons/upDownButton.svg?react';
 
-const MIN_QUANTITY = 0;
-const MAX_QUANTITY = 10;
+interface PaymentTitleProps {
+  thumbnailImageUrl: string;
+  title: string;
+  remainingQuantity: number;
+  price: number;
+}
 
-const PaymentTitle = () => {
+const PaymentTitle = ({
+  thumbnailImageUrl,
+  title,
+  remainingQuantity,
+  price,
+}: PaymentTitleProps) => {
   const [quantity, setQuantity] = useState(1);
   const [showError, setShowError] = useState(false);
 
@@ -21,15 +30,15 @@ const PaymentTitle = () => {
   }, [showError]);
 
   const increaseQuantity = () => {
-    if (quantity < MAX_QUANTITY) {
+    if (quantity < remainingQuantity) {
       setQuantity((prev) => prev + 1);
     } else {
-      setShowError(true); // 최대 수량 초과 시 에러 모달 표시
+      setShowError(true);
     }
   };
 
   const decreaseQuantity = () => {
-    setQuantity((prev) => (prev > MIN_QUANTITY ? prev - 1 : prev));
+    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
   const closeErrorModal = () => {
@@ -40,10 +49,14 @@ const PaymentTitle = () => {
     <div className={styles.paymentTitle}>
       <div className={styles.title}>결제하기</div>
       <div className={styles.content}>
-        <div className={styles.image}></div>
+        <img
+          src={thumbnailImageUrl || '/default-thumbnail.png'}
+          alt='상품 썸네일'
+          className={styles.image}
+        />
         <div className={styles.text}>
-          <div className={styles.price}>2,000,000원</div>
-          <div className={styles.description}>디자인 해드립니다</div>
+          <div className={styles.price}>{price.toLocaleString()}원</div>
+          <div className={styles.description}>{title}</div>
         </div>
         <div className={styles.quantityContainer}>
           <span className={styles.quantityLabel}>구매 수량</span>
@@ -76,7 +89,7 @@ const PaymentTitle = () => {
               <div className={styles.errorContent}>
                 판매자가 설정한 수량 제한이 초과하였습니다.
                 <br />
-                (최대 {MAX_QUANTITY}개)
+                (최대 {remainingQuantity}개)
               </div>
             </div>
             <button

@@ -6,7 +6,14 @@ import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import CheckLightGray from '../../assets/icons/checkLightGray.svg?react';
 import CheckLightBlue from '../../assets/icons/checkLightBlue.svg?react';
 
-const PaymentSummary = () => {
+interface PaymentSummaryProps {
+  price: number;
+}
+
+const PaymentSummary = ({ price }: PaymentSummaryProps) => {
+  const fee = Math.round(price * 0.05); // 주문 금액의 5% 수수료
+  const totalAmount = price + fee;
+
   const [isAllAgreed, setIsAllAgreed] = useState(false);
 
   const AGREEMENT_ITEMS = [
@@ -49,18 +56,20 @@ const PaymentSummary = () => {
       <div className={styles.summaryBox}>
         <div className={styles.row}>
           <div className={styles.label}>주문 금액</div>
-          <div className={styles.value}>2,000,000원</div>
+          <div className={styles.value}>{price.toLocaleString()}원</div>
         </div>
         <div className={styles.row}>
           <div className={styles.label}>수수료</div>
-          <div className={styles.value}>10,000원</div>
+          <div className={styles.value}>{fee.toLocaleString()}원</div>
         </div>
         <div className={styles.line}></div>
         <div className={styles.row}>
           <div className={styles.totalLabel}>
             총 결제 금액 <span className={styles.highlight}>(VAT 포함)</span>
           </div>
-          <div className={styles.totalValue}>2,010,000원</div>
+          <div className={styles.totalValue}>
+            {totalAmount.toLocaleString()}원
+          </div>
         </div>
       </div>
 
