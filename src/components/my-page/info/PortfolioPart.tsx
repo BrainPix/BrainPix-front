@@ -14,6 +14,7 @@ interface PortfolioParttPropsType {
 export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [openPopup, setOpenPopup] = useState(false);
+
   const handleClosePopup = () => {
     setOpenPopup(false);
   };

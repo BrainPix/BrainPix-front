@@ -6,3 +6,10 @@ export interface MyBaseInfoType {
   collaborationCount: number;
   selfIntroduction: 'string';
 }
+
+export interface MyPorfolioType {
+  id: 7;
+  title: '기죽지마';
+  createdDate: '2025-02-08';
+  profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS3rypq3_ZMR1jh38cucfhVHNTa44qbZYYvQ&s';
+}

@@ -1,13 +1,21 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
-import styles from './ portfolio.module.scss';
+import styles from './portfolio.module.scss';
+import { useQuery } from '@tanstack/react-query';
 
 import { AddPortfolioModal } from '../../../components/my-page/portfolio/AddPortfolioModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
+import { getMyPorfolio } from '../../../apis/portfolio';
+import { MyPorfolioType } from '../../../types/myPageType';
 
 export const Portfolio = () => {
   const PORTFOLIO_COUNT = 8;
+
+  const { data: myPorfolios, isPending: isGetPorfoliosPending } = useQuery({
+    queryKey: ['myPorfolios'],
+    queryFn: getMyPorfolio,
+  });
 
   const [isOpenAddPortfolioModal, setIsOpenAddPortfolioModal] = useState(false);
   const [isOpenPortfolioDetailModal, setIsOpenPortfolioDetailModal] =
@@ -31,6 +39,12 @@ export const Portfolio = () => {
     ref: portfolioDetailModalRef,
     handler: handleClosePortfolioDetailModal,
   });
+
+  if (isGetPorfoliosPending) {
+    return <div>로딩 중,,,</div>;
+  }
+
+  const portfolios = myPorfolios.content as MyPorfolioType[];
 
   return (
     <div className={classNames(styles.container)}>
@@ -58,19 +72,24 @@ export const Portfolio = () => {
         </button>
       </div>
       <div className={classNames(styles.portfolioContainer)}>
-        {new Array(8)
-          .fill(0)
-          .map((_, idx) => idx)
-          .map((val) => (
-            <div
-              key={val}
-              onClick={() => setIsOpenPortfolioDetailModal(true)}
-              className={classNames(styles.portfolioCardWrapper)}>
+        {portfolios.map(({ id, title, createdDate, profileImage }) => (
+          <div
+            key={id}
+            onClick={() => setIsOpenPortfolioDetailModal(true)}
+            className={classNames(styles.portfolioCardWrapper)}>
+            {profileImage ? (
+              <img
+                alt='포트폴리오 사진'
+                className={classNames(styles.image)}
+                src={profileImage}
+              />
+            ) : (
               <div className={classNames(styles.image)} />
-              <p className={classNames(styles.portfolioTitle)}>{val}</p>
-              <p className={classNames(styles.date)}>2024/12/25</p>
-            </div>
-          ))}
+            )}
+            <p className={classNames(styles.portfolioTitle)}>{title}</p>
+            <p className={classNames(styles.date)}>{createdDate}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
