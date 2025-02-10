@@ -5,6 +5,11 @@ import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import ApplyIcon from '../../assets/icons/apply.svg?react';
 import UnapplyIcon from '../../assets/icons/unapply.svg?react';
 import { getCategoryLabel } from '../../constants/categoryMapper';
+import { useNavigate } from 'react-router-dom';
+
+import { useMutation } from '@tanstack/react-query';
+import { applyForRequest } from '../../apis/applyAPI';
+import axios from 'axios';
 
 interface RequestSupportModalProps {
   onClose: () => void;
@@ -17,6 +22,7 @@ interface RequestSupportModalProps {
   category: string;
   writerName: string;
   title: string;
+  taskId: number;
 }
 
 const RequestSupportModal = ({
@@ -25,9 +31,12 @@ const RequestSupportModal = ({
   category,
   writerName,
   title,
+  taskId,
 }: RequestSupportModalProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedSupport, setSelectedSupport] = useState<number | null>(null);
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -42,6 +51,55 @@ const RequestSupportModal = ({
 
   const handleSupportSelection = (id: number) => {
     setSelectedSupport((prev) => (prev === id ? null : id));
+  };
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (!taskId) {
+        alert('요청과제 게시글 ID가 없습니다. 다시 시도해주세요.');
+        return Promise.reject('taskId is missing');
+      }
+
+      if (!selectedSupport) {
+        alert('지원할 모집 부문을 선택해주세요.');
+        return Promise.reject('지원할 모집 부문을 선택해주세요.');
+      }
+
+      const requestData = {
+        requestRecruitmentId: selectedSupport,
+        isOpenProfile: isChecked,
+        message,
+      };
+      return applyForRequest(taskId, requestData);
+    },
+    onSuccess: () => {
+      alert('지원이 완료되었습니다!');
+      onClose();
+      navigate('/request-assign');
+    },
+    onError: (error: unknown) => {
+      console.error('지원 요청 실패:', error);
+
+      let errorMessage = '지원 요청 중 오류가 발생했습니다.';
+
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.message || errorMessage;
+      }
+
+      if (errorMessage.includes('이미 신청한 분야')) {
+        alert('⚠ 이미 신청함');
+      } else {
+        alert(`${errorMessage}`);
+      }
+    },
+  });
+
+  const handleSubmit = () => {
+    if (!selectedSupport) {
+      alert('지원할 모집 부문을 선택해주세요.');
+      return;
+    }
+    mutation.mutate();
   };
 
   return (
@@ -104,7 +162,12 @@ const RequestSupportModal = ({
           )}
 
           <h2 className={styles.sectionTitle}>추가 메시지</h2>
-          <textarea className={styles.textarea} />
+          <textarea
+            className={styles.textarea}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder='지원 동기 및 추가 메시지를 입력하세요.'
+          />
           <div className={styles.footer}>
             <div
               className={styles.checkbox}
@@ -125,7 +188,12 @@ const RequestSupportModal = ({
                 onClick={onClose}>
                 닫기
               </button>
-              <button className={styles.submitButton}>지원하기</button>
+              <button
+                className={styles.submitButton}
+                onClick={handleSubmit}
+                disabled={mutation.isPending || !selectedSupport}>
+                {mutation.isPending ? '지원 중...' : '지원하기'}
+              </button>
             </div>
           </div>
         </div>
