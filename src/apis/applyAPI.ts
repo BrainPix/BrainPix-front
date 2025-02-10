@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-interface ApplyRequest {
+interface ApplyRequestForCollaboration {
   collaborationRecruitmentId: number;
   isOpenProfile: boolean;
   message: string;
@@ -10,7 +10,7 @@ interface ApplyRequest {
 
 export const applyForCollaboration = async (
   collaborationId: number,
-  requestData: ApplyRequest,
+  requestData: ApplyRequestForCollaboration,
 ) => {
   const token = localStorage.getItem('accessToken');
 
