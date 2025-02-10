@@ -35,9 +35,11 @@ export const IdeaRegisteredPage = () => {
     viewCount: data.viewCount ?? 0,
     saveCount: data.saveCount ?? 0,
     createdDate: data.createdDate ?? '',
+    ideaId: data.ideaId ?? 0,
   };
 
   const writerData = {
+    writerId: data.writer?.writerId ?? 0,
     name: data.writer?.name ?? '',
     profileImageUrl: data.writer?.profileImageUrl ?? '',
     role: data.writer?.role ?? '',
@@ -53,10 +55,7 @@ export const IdeaRegisteredPage = () => {
 
   return (
     <div className={styles.margin}>
-      <ProfileHeader
-        {...writerData}
-        openMyProfile={() => console.log('프로필 페이지로 이동')}
-      />
+      <ProfileHeader {...writerData} />
       <PostTitlePay {...postData} />
       <IdeaDescription
         content={descriptionData.content}
