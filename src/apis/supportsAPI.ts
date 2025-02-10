@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Purchase, RequestTasks } from '../types/supportsType';
+import { Purchase, RequestTasks, Collaborations } from '../types/supportsType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -57,7 +57,7 @@ export const getAcceptedRequestTasks = async (
       params: { page, size },
     });
 
-    console.log('수락된 요청 과제 데이터:', response.data);
+    //console.log('수락된 요청 과제 데이터:', response.data);
     return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -71,6 +71,9 @@ export const getRejectedRequestTasks = async (
 ): Promise<RequestTasks[]> => {
   const url = `${BASE_URL}/supports/request-tasks/rejected`;
   const API_TOKEN = localStorage.getItem('accessToken');
+
+  console.log('요청 URL:', url);
+  console.log('요청 파라미터:', { page, size });
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
@@ -87,6 +90,7 @@ export const getRejectedRequestTasks = async (
     });
 
     console.log('거절된 요청 과제 데이터:', response.data);
+    console.log('거절된 요청 과제 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -116,5 +120,67 @@ export const deleteRejectedRequestTask = async (
   } catch (error) {
     console.error('삭제 요청 실패:', error);
     throw error;
+  }
+};
+
+export const getAcceptedCollaborations = async (
+  page = 0,
+  size = 10,
+): Promise<Collaborations[]> => {
+  const url = `${BASE_URL}/supports/collaborations/accepted`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+    return [];
+  }
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+      params: { page, size },
+    });
+
+    console.log('협업 광장 : 지원 완료');
+    return response.data?.data?.content ?? [];
+  } catch (error) {
+    console.error('API 요청 실패:', error);
+    return [];
+  }
+};
+
+export const getRejectedCollaborations = async (
+  page = 0,
+  size = 10,
+): Promise<Collaborations[]> => {
+  const url = `${BASE_URL}/supports/collaborations/rejected`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  console.log('요청 URL:', url);
+  console.log('요청 파라미터:', { page, size });
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+    return [];
+  }
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+      params: { page, size },
+    });
+
+    console.log('거절된 협업 광장 데이터:', response.data);
+    console.log('거절된 협업 광장 데이터:', response.data?.data);
+    return response.data?.data?.content ?? [];
+  } catch (error) {
+    console.error('API 요청 실패:', error);
+    return [];
   }
 };

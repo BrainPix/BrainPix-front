@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+//import { useEffect } from 'react';
 import { RequestTasks } from '../../../types/supportsType';
 import {
   getAcceptedRequestTasks,
@@ -73,6 +74,14 @@ export const ApplyRequest = () => {
     queryKey: ['RejectedRequestTasks', 0, 10],
     queryFn: () => getRejectedRequestTasks(0, 10),
   });
+
+  // useEffect(() => {
+  //   if (rejectedTasks.length > 0) {
+  //     console.log('거절된 요청 과제 데이터:', rejectedTasks);
+  //   } else {
+  //     console.log('거절된 요청 과제 데이터가 없습니다.');
+  //   }
+  // }, [rejectedTasks]);
 
   if (isLoadingAccepted || isLoadingRejected) {
     return <div className={styles.loading}>로딩 중...</div>;

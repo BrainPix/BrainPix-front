@@ -43,7 +43,7 @@ export const PurchaseList = () => {
   // ];
 
   const {
-    data: purchases,
+    data: purchases = [],
     isLoading,
     isError,
   } = useQuery({
@@ -60,36 +60,41 @@ export const PurchaseList = () => {
         <span className={styles.sectionMainTitle}>지원 현황</span>
         <span className={styles.sectionSubTitle}>구매 내역</span>
       </div>
-      {purchases?.map((purchase: Purchase) => (
-        <div
-          className={styles.purchaseCard}
-          key={purchase.purchasingId}>
-          <CardHeader
-            date={purchase.purchasedAt}
-            status='구매 완료'
-            statusType='purchaseCompleted'
-            cardTitle={FORM_DATA.cardTitle}
-          />
-          <div className={styles.cardContent}>
-            <PostAuthorInfo
-              seller={purchase.writerName}
-              labelText={FORM_DATA.labelText}
-              labelType={FORM_DATA.labelType}
+
+      {purchases?.length > 0 ? (
+        purchases.map((purchase: Purchase) => (
+          <div
+            className={styles.purchaseCard}
+            key={purchase.purchasingId}>
+            <CardHeader
+              date={purchase.purchasedAt}
+              status='구매 완료'
+              statusType='purchaseCompleted'
+              cardTitle={FORM_DATA.cardTitle}
             />
-            <PurchaseDetailsInfo
-              tab='아이디어 마켓'
-              category={purchase.specialization}
-              itemName={purchase.title}
-              price={purchase.finalPrice}
-            />
-            <PayInfo
-              payment='카카오페이'
-              price={purchase.finalPrice}
-              fee={purchase.fee}
-            />
+            <div className={styles.cardContent}>
+              <PostAuthorInfo
+                seller={purchase.writerName}
+                labelText={FORM_DATA.labelText}
+                labelType={FORM_DATA.labelType}
+              />
+              <PurchaseDetailsInfo
+                tab='아이디어 마켓'
+                category={purchase.specialization}
+                itemName={purchase.title}
+                price={purchase.finalPrice}
+              />
+              <PayInfo
+                payment='카카오페이'
+                price={purchase.finalPrice}
+                fee={purchase.fee}
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <div>구매 내역이 없습니다.</div>
+      )}
     </div>
   );
 };

@@ -23,3 +23,28 @@ export interface RequestTasks {
   writerType: string;
   requestTaskId: number;
 }
+
+export interface Collaborations {
+  collectionGatheringId: number;
+  firstImage: string;
+  postCreatedAt: string;
+  postTitle: string;
+  specialization: string;
+  domain: string;
+  writerName: string;
+  writerType: string;
+  teamInfoList: [
+    {
+      domain: string;
+      occupied: number;
+      total: number;
+      joiners: [
+        {
+          joinerID: string;
+          userType: string;
+        },
+      ];
+    },
+  ];
+  collaborationId: number;
+}
