@@ -12,6 +12,7 @@ interface TeamBuildingButtonProps {
   category: string;
   writerName: string;
   title: string;
+  collaborationId: number;
 }
 
 const TeamBuildingButton = ({
@@ -19,6 +20,7 @@ const TeamBuildingButton = ({
   category,
   writerName,
   title,
+  collaborationId,
 }: TeamBuildingButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -50,6 +52,7 @@ const TeamBuildingButton = ({
           category={category}
           writerName={writerName}
           title={title}
+          collaborationId={collaborationId}
         />
       )}
     </>

@@ -99,6 +99,7 @@ export const PostDetailWithLink = () => {
           category={postHeaderData.category}
           writerName={profileData.name}
           title={postHeaderData.title}
+          collaborationId={Number(collaborationId)}
         />
       </div>
       <div className={styles.margin}>
