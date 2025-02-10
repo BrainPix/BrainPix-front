@@ -38,6 +38,7 @@ export const RequestRegisteredPage = () => {
     saveCount: data.saveCount ?? 0,
     createdDate: data.createdDate ?? '',
     writerName: data.writer?.name ?? '',
+    taskId: data.taskId ?? 0,
   };
 
   const writerData = {

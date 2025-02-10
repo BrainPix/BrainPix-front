@@ -25,6 +25,7 @@ interface PostTitleApplyProps {
   saveCount: number;
   createdDate: string;
   writerName: string;
+  taskId: number;
   recruitments: {
     recruitmentId: number;
     domain: string;
@@ -46,6 +47,7 @@ const PostTitleApply = ({
   createdDate,
   writerName,
   recruitments,
+  taskId,
 }: PostTitleApplyProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
@@ -130,6 +132,7 @@ const PostTitleApply = ({
           category={category}
           writerName={writerName}
           title={title}
+          taskId={taskId}
         />
       )}
     </div>
