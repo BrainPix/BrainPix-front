@@ -4,13 +4,13 @@ import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
 import styles from './ideaMarketRegister.module.scss';
+import { CategorySection } from '../../components/common/register/CategorySection';
 import MainImage from '../../assets/icons/mainImage.svg?react';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react';
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
-import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
 interface FormValues {
   category: string;
@@ -146,111 +146,13 @@ export const IdeaMarketRegister: React.FC = () => {
       onSubmit={handleSubmit(onSubmit)}
       className={styles.container}>
       <div className={styles.title}>아이디어 등록하기</div>
-      <div className={styles.horizontalContainer}>
-        <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
-          <div className={styles.labelWrapper}>
-            <label htmlFor='category'>
-              카테고리
-              <span className={styles.required}>(필수)</span>
-            </label>
-          </div>
-          <Controller
-            name='category'
-            control={control}
-            render={({ field }) => (
-              <div
-                className={styles.select}
-                onClick={() => setIsDropdownOpen((prev) => !prev)}>
-                <span>{field.value || '분야별'}</span>
-                {isDropdownOpen ? <UpButton /> : <DownButton />}
-                {isDropdownOpen && (
-                  <div className={styles.dropdownMenu}>
-                    {[
-                      '광고 · 홍보',
-                      '디자인',
-                      '레슨',
-                      '마케팅',
-                      '문서 · 글쓰기',
-                    ].map((cat) => (
-                      <div
-                        key={cat}
-                        className={styles.dropdownItem}
-                        onClick={() => {
-                          field.onChange(cat);
-                          setIsDropdownOpen(false);
-                        }}>
-                        {cat}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          />
-        </div>
-
-        <div className={`${styles.formGroup} ${styles.pageTypeGroup}`}>
-          <div className={styles.labelWrapper}>
-            <span id='pageTypeLabel'>
-              페이지 설정
-              <span className={styles.required}>(필수)</span>
-            </span>
-          </div>
-          <Controller
-            name='pageType'
-            control={control}
-            render={({ field }) => (
-              <div className={styles.pageTypeWrapper}>
-                <button
-                  type='button'
-                  className={`${styles.pageTypeButton} ${field.value === 'Idea Solution' ? styles.active : ''}`}
-                  onClick={() => field.onChange('Idea Solution')}>
-                  Idea Solution
-                </button>
-                <button
-                  type='button'
-                  className={`${styles.pageTypeButton} ${field.value === 'Market Place' ? styles.active : ''}`}
-                  onClick={() => field.onChange('Market Place')}>
-                  Market Place
-                </button>
-              </div>
-            )}
-          />
-
-          <div
-            className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
-            onClick={() => setShowDetail(!showDetail)}>
-            <div className={styles.header}>
-              <span className={styles.descriptionText}>
-                {pageType === 'Idea Solution'
-                  ? 'Idea Solution이란?'
-                  : 'Market Place란?'}
-              </span>
-              <InfoDropdown
-                className={styles.infoIcon}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowDetail(!showDetail);
-                }}
-              />
-            </div>
-            {showDetail && (
-              <div className={styles.detailDescription}>
-                <span className={styles.mainText}>
-                  {pageType === 'Idea Solution'
-                    ? '전문가가 제공하는 과제 제작 서비스'
-                    : '완성된 과제물과 창의적인 제품을 거래하는 공간'}
-                </span>
-                <span className={styles.subText}>
-                  {pageType === 'Idea Solution'
-                    ? `ex) '블로그 제작을 도와드립니다.' / '로고 제작 서비스를 제공합니다.'`
-                    : `ex) '어르신 맞춤형 키오스크 로봇' / '다이어트 식단 관리 앱 개발'`}
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <CategorySection
+        control={control}
+        isDropdownOpen={isDropdownOpen}
+        setIsDropdownOpen={setIsDropdownOpen}
+        showDetail={showDetail}
+        setShowDetail={setShowDetail}
+      />
 
       <div className={styles.formGroup}>
         <input
