@@ -68,7 +68,7 @@ export const RequestRegisteredPage = () => {
         attachments={descriptionData.attachments}
       />
       <RecruitInfo recruitments={data.recruitments} />
-      <QnASection />
+      <QnASection postId={Number(taskId)} />
       <AuthorInfo {...writerData} />
     </div>
   );

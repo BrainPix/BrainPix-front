@@ -103,7 +103,7 @@ export const PostDetailWithLink = () => {
         />
       </div>
       <div className={styles.margin}>
-        <QnASection />
+        <QnASection postId={Number(collaborationId)} />
         <AuthorInfo {...authorInfoData} />
       </div>
     </>
