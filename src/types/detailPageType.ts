@@ -25,7 +25,7 @@ export interface IdeaMarketDetail {
 }
 
 export interface RequsetDetail {
-  ideaId: number;
+  taskId: number;
   thumbnailImageUrl: string;
   category: string;
   taskType: string;
