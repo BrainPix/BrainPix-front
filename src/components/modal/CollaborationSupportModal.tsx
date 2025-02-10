@@ -5,6 +5,11 @@ import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import ApplyIcon from '../../assets/icons/apply.svg?react';
 import UnapplyIcon from '../../assets/icons/unapply.svg?react';
 import { getCategoryLabel } from '../../constants/categoryMapper';
+import { useNavigate } from 'react-router-dom';
+
+import { useMutation } from '@tanstack/react-query';
+import { applyForCollaboration } from '../../apis/applyAPI';
+import axios from 'axios';
 
 interface CollaborationSupportModalProps {
   onClose: () => void;
@@ -17,6 +22,7 @@ interface CollaborationSupportModalProps {
   category: string;
   writerName: string;
   title: string;
+  collaborationId: number;
 }
 
 export const CollaborationSupportModal = ({
@@ -25,9 +31,12 @@ export const CollaborationSupportModal = ({
   category,
   writerName,
   title,
+  collaborationId,
 }: CollaborationSupportModalProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedSupport, setSelectedSupport] = useState<number | null>(null);
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -41,7 +50,56 @@ export const CollaborationSupportModal = ({
   };
 
   const handleSupportSelection = (id: number) => {
-    setSelectedSupport((prev) => (prev === id ? null : id));
+    setSelectedSupport(id === selectedSupport ? null : id);
+  };
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (!collaborationId) {
+        alert('협업 게시글 ID가 없습니다. 다시 시도해주세요.');
+        return Promise.reject('collaborationId is missing');
+      }
+
+      if (!selectedSupport) {
+        alert('지원할 모집 부문을 선택해주세요.');
+        return Promise.reject('지원할 모집 부문을 선택해주세요.');
+      }
+
+      const requestData = {
+        collaborationRecruitmentId: selectedSupport,
+        isOpenProfile: isChecked,
+        message,
+      };
+      return applyForCollaboration(collaborationId, requestData);
+    },
+    onSuccess: () => {
+      alert('지원이 완료되었습니다!');
+      onClose();
+      navigate('/collaboration');
+    },
+    onError: (error: unknown) => {
+      console.error('지원 요청 실패:', error);
+
+      let errorMessage = '지원 요청 중 오류가 발생했습니다.';
+
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.message || errorMessage;
+      }
+
+      if (errorMessage.includes('이미 신청한 분야')) {
+        alert('⚠ 이미 신청함');
+      } else {
+        alert(`${errorMessage}`);
+      }
+    },
+  });
+
+  const handleSubmit = () => {
+    if (!selectedSupport) {
+      alert('지원할 모집 부문을 선택해주세요.');
+      return;
+    }
+    mutation.mutate();
   };
 
   return (
@@ -105,7 +163,12 @@ export const CollaborationSupportModal = ({
           )}
 
           <h2 className={styles.sectionTitle}>추가 메시지</h2>
-          <textarea className={styles.textarea} />
+          <textarea
+            className={styles.textarea}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder='지원 동기 및 추가 메시지를 입력하세요.'
+          />
           <div className={styles.footer}>
             <div
               className={styles.checkbox}
@@ -126,7 +189,12 @@ export const CollaborationSupportModal = ({
                 onClick={onClose}>
                 닫기
               </button>
-              <button className={styles.submitButton}>지원하기</button>
+              <button
+                className={styles.submitButton}
+                onClick={handleSubmit}
+                disabled={mutation.isPending || !selectedSupport}>
+                {mutation.isPending ? '지원 중...' : '지원하기'}
+              </button>
             </div>
           </div>
         </div>
