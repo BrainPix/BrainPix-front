@@ -76,7 +76,7 @@ export const routes = createBrowserRouter([
         element: <RequestRegisteredPage />,
       },
       {
-        path: 'collaboration',
+        path: '/collaboration',
         element: <CollaborationMain />,
       },
       {
