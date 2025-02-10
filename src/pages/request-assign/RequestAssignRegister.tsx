@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
@@ -11,41 +12,52 @@ import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
-interface RequestAssignRegisterProps {
-  [key: string]: never;
+interface FormValues {
+  category: string;
+  pageType: 'Open Idea' | 'Tech Zone';
+  ideaName: string;
+  content: string;
+  price: string;
+  quantity: number;
+  visibility: '전체공개' | '기업공개' | '비공개';
+  isPortfolioVisible: boolean;
+  attachedFile: FileList | null;
+  pdfFile: FileList | null;
 }
 
-export const RequestAssignRegisterNow: React.FC<
-  RequestAssignRegisterProps
-> = () => {
+export const RequestAssignRegisterNow: React.FC = () => {
   const navigate = useNavigate();
-  const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [pageType, setPageType] = useState<'Open Idea' | 'Tech Zone'>(
-    'Open Idea',
-  );
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
-  const [content, setContent] = useState<string>('');
-  const [, setAttachedFile] = useState<File | null>(null);
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [visibility, setVisibility] = useState<
-    '전체공개' | '기업공개' | '비공개'
-  >('전체공개');
-  const [price, setPrice] = useState<string>('0');
-  const [quantity, setQuantity] = useState<number>(0);
-  const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<ReactQuill>(null);
   const pdfInputRef = useRef<HTMLInputElement>(null);
 
+  const { control, handleSubmit, watch, setValue } = useForm<FormValues>({
+    defaultValues: {
+      category: '',
+      pageType: 'Open Idea',
+      ideaName: '',
+      content: '',
+      price: '0',
+      quantity: 0,
+      visibility: '전체공개',
+      isPortfolioVisible: false,
+      attachedFile: null,
+      pdfFile: null,
+    },
+  });
+
+  const pageType = watch('pageType');
+  const quantity = watch('quantity');
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setAttachedFile(file);
-      // 이미지 URL 생성
-      const imageUrl = URL.createObjectURL(file);
+    const files = event.target.files;
+    if (files?.[0]) {
+      setValue('attachedFile', files);
+      const imageUrl = URL.createObjectURL(files[0]);
       setPreviewImageUrl(imageUrl);
     }
   };
@@ -55,9 +67,9 @@ export const RequestAssignRegisterNow: React.FC<
   };
 
   const handlePdfUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file && file.type === 'application/pdf') {
-      setPdfFile(file);
+    const files = event.target.files;
+    if (files?.[0] && files[0].type === 'application/pdf') {
+      setValue('pdfFile', files);
     }
   };
 
@@ -65,45 +77,27 @@ export const RequestAssignRegisterNow: React.FC<
     pdfInputRef.current?.click();
   };
 
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    setPrice(value);
-  };
-
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    const numberValue = value === '' ? 0 : parseInt(value, 10);
-    setQuantity(numberValue);
-  };
-
-  const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const handleDecrement = () => {
-    setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
-  };
-
-  const handlePortfolioVisibility = () => {
-    setIsPortfolioVisible((prev) => !prev);
-  };
-
-  const handleEditClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 상위 컴포넌트로의 이벤트 전파 방지
-    // Edit 버튼 클릭 시 처리할 로직
+  const handleQuantityChange = (change: number) => {
+    const currentQuantity = watch('quantity');
+    const newQuantity = Math.max(0, currentQuantity + change);
+    setValue('quantity', newQuantity);
   };
 
   const handleCancel = () => {
     navigate(-1);
   };
 
-  const handleSubmit = () => {
+  const onSubmit = (data: FormValues) => {
+    console.log('Form submitted:', data);
     navigate('/request-assign/register-complete');
+  };
+
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
   };
 
   useEffect(() => {
     return () => {
-      // 컴포넌트가 언마운트될 때 URL 정리
       if (previewImageUrl) {
         URL.revokeObjectURL(previewImageUrl);
       }
@@ -145,12 +139,13 @@ export const RequestAssignRegisterNow: React.FC<
     [],
   );
 
-  // Quill 에디터 스타일 설정
   const formats = ['font', 'size', 'align', 'link', 'image'];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>요청 과제 등록하기</div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={styles.container}>
+      <div className={styles.title}>아이디어 등록하기</div>
       <div className={styles.horizontalContainer}>
         <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
           <div className={styles.labelWrapper}>
@@ -159,41 +154,39 @@ export const RequestAssignRegisterNow: React.FC<
               <span className={styles.required}>(필수)</span>
             </label>
           </div>
-          <div
-            className={styles.select}
-            onClick={() => setIsDropdownOpen((prev) => !prev)}>
-            <span>{category || '분야별'}</span>
-            {isDropdownOpen ? <UpButton /> : <DownButton />}
-            {isDropdownOpen && (
-              <div className={styles.dropdownMenu}>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('광고 · 홍보')}>
-                  광고 · 홍보
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('디자인')}>
-                  디자인
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('레슨')}>
-                  레슨
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('마케팅')}>
-                  마케팅
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('문서 · 글쓰기')}>
-                  문서 · 글쓰기
-                </div>
+          <Controller
+            name='category'
+            control={control}
+            render={({ field }) => (
+              <div
+                className={styles.select}
+                onClick={() => setIsDropdownOpen((prev) => !prev)}>
+                <span>{field.value || '분야별'}</span>
+                {isDropdownOpen ? <UpButton /> : <DownButton />}
+                {isDropdownOpen && (
+                  <div className={styles.dropdownMenu}>
+                    {[
+                      '광고 · 홍보',
+                      '디자인',
+                      '레슨',
+                      '마케팅',
+                      '문서 · 글쓰기',
+                    ].map((cat) => (
+                      <div
+                        key={cat}
+                        className={styles.dropdownItem}
+                        onClick={() => {
+                          field.onChange(cat);
+                          setIsDropdownOpen(false);
+                        }}>
+                        {cat}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
-          </div>
+          />
         </div>
 
         <div className={`${styles.formGroup} ${styles.pageTypeGroup}`}>
@@ -203,77 +196,59 @@ export const RequestAssignRegisterNow: React.FC<
               <span className={styles.required}>(필수)</span>
             </span>
           </div>
+          <Controller
+            name='pageType'
+            control={control}
+            render={({ field }) => (
+              <div className={styles.pageTypeWrapper}>
+                <button
+                  type='button'
+                  className={`${styles.pageTypeButton} ${field.value === 'Open Idea' ? styles.active : ''}`}
+                  onClick={() => field.onChange('Open Idea')}>
+                  Open Idea
+                </button>
+                <button
+                  type='button'
+                  className={`${styles.pageTypeButton} ${field.value === 'Tech Zone' ? styles.active : ''}`}
+                  onClick={() => field.onChange('Tech Zone')}>
+                  Tech Zone
+                </button>
+              </div>
+            )}
+          />
+
           <div
-            className={styles.pageTypeWrapper}
-            role='group'
-            aria-labelledby='pageTypeLabel'>
-            <button
-              className={`${styles.pageTypeButton} ${pageType === 'Open Idea' ? styles.active : ''}`}
-              onClick={() => setPageType('Open Idea')}>
-              Open Idea
-            </button>
-            <button
-              className={`${styles.pageTypeButton} ${pageType === 'Tech Zone' ? styles.active : ''}`}
-              onClick={() => setPageType('Tech Zone')}>
-              Tech Zone
-            </button>
-          </div>
-
-          {pageType === 'Open Idea' && (
-            <div
-              className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
-              onClick={() => setShowDetail(!showDetail)}>
-              <div className={styles.header}>
-                <span className={styles.descriptionText}>Open Idea란?</span>
-                <InfoDropdown
-                  className={styles.infoIcon}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDetail(!showDetail);
-                  }}
-                />
-              </div>
-              {showDetail && (
-                <div className={styles.detailDescription}>
-                  <span className={styles.mainText}>
-                    누구나 참여할 수 있는 창의적인 아이디어 과제
-                  </span>
-                  <span className={styles.subText}>
-                    {`ex) '새로운 카페 브랜드를 위한 세련되고 기억에 남는 이름을 제안해주세요.'
-                    '환경 보호를 주제로 한 캠페인을 위한 슬로건을 만들어주세요.'`}
-                  </span>
-                </div>
-              )}
+            className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
+            onClick={() => setShowDetail(!showDetail)}>
+            <div className={styles.header}>
+              <span className={styles.descriptionText}>
+                {pageType === 'Open Idea' ? 'Open Idea란?' : 'Tech Zone이란?'}
+              </span>
+              <InfoDropdown
+                className={styles.infoIcon}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDetail(!showDetail);
+                }}
+              />
             </div>
-          )}
-
-          {pageType === 'Tech Zone' && (
-            <div
-              className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
-              onClick={() => setShowDetail(!showDetail)}>
-              <div className={styles.header}>
-                <span className={styles.descriptionText}>Tech Zone이란?</span>
-                <InfoDropdown
-                  className={styles.infoIcon}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDetail(!showDetail);
-                  }}
-                />
-              </div>
-              {showDetail && (
-                <div className={styles.detailDescription}>
-                  <span className={styles.mainText}>
-                    전문 지식이 필요한 기술 중심 프로젝트
-                  </span>
-                  <span className={styles.subText}>
-                    {` ex) '판매 데이터를 분석하여 다음 분기의 매출 예측 모델을 개발해주세요.'
+            {showDetail && (
+              <div className={styles.detailDescription}>
+                <span className={styles.mainText}>
+                  {pageType === 'Open Idea'
+                    ? '누구나 참여할 수 있는 창의적인 아이디어 과제'
+                    : '전문 지식이 필요한 기술 중심 프로젝트'}
+                </span>
+                <span className={styles.subText}>
+                  {pageType === 'Open Idea'
+                    ? `ex) '새로운 카페 브랜드를 위한 세련되고 기억에 남는 이름을 제안해주세요.'
+                    '환경 보호를 주제로 한 캠페인을 위한 슬로건을 만들어주세요.'`
+                    : `ex) '판매 데이터를 분석하여 다음 분기의 매출 예측 모델을 개발해주세요.'
                     '간단한 이커머스 웹사이트를 구축하고 결제 시스템을 연동해주세요.'`}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -313,30 +288,37 @@ export const RequestAssignRegisterNow: React.FC<
 
       <div className={styles.formGroup}>
         <div className={styles.ideaNameWrapper}>
-          <input
-            type='text'
-            placeholder='과제명이에용..'
-            className={styles.ideaNameInput}
+          <Controller
+            name='ideaName'
+            control={control}
+            render={({ field }) => (
+              <input
+                type='text'
+                placeholder='과제명이에용..'
+                className={styles.ideaNameInput}
+                {...field}
+              />
+            )}
           />
         </div>
       </div>
 
       <div className={styles.formGroup}>
-        <label
-          htmlFor='editor'
-          className={styles.visuallyHidden}>
-          아이디어 내용
-        </label>
-        <ReactQuill
-          ref={quillRef}
-          id='editor'
-          value={content}
-          onChange={setContent}
-          className={styles.editor}
-          theme='snow'
-          modules={modules}
-          formats={formats}
-          placeholder='아이디어 내용을 입력하세요. (필수)'
+        <Controller
+          name='content'
+          control={control}
+          render={({ field }) => (
+            <ReactQuill
+              ref={quillRef}
+              value={field.value}
+              onChange={field.onChange}
+              className={styles.editor}
+              theme='snow'
+              modules={modules}
+              formats={formats}
+              placeholder='아이디어 내용을 입력하세요. (필수)'
+            />
+          )}
         />
       </div>
 
@@ -352,7 +334,7 @@ export const RequestAssignRegisterNow: React.FC<
           className={styles.fileUploadBox}
           onClick={handlePdfClick}>
           <span className={styles.placeholder}>
-            {pdfFile ? pdfFile.name : '파일이 업로드 되지 않았습니다.'}
+            {watch('pdfFile')?.[0]?.name || '파일이 업로드 되지 않았습니다.'}
           </span>
         </div>
         <input
@@ -370,15 +352,24 @@ export const RequestAssignRegisterNow: React.FC<
             책정 금액
             <span className={styles.required}>(필수)</span>
           </div>
-          <div className={styles.inputWrapper}>
-            <input
-              type='text'
-              value={price}
-              onChange={handlePriceChange}
-              className={styles.input}
-            />
-            <span className={styles.unit}>원</span>
-          </div>
+          <Controller
+            name='price'
+            control={control}
+            render={({ field }) => (
+              <div className={styles.inputWrapper}>
+                <input
+                  type='text'
+                  className={styles.input}
+                  {...field}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/[^0-9]/g, '');
+                    field.onChange(value);
+                  }}
+                />
+                <span className={styles.unit}>원</span>
+              </div>
+            )}
+          />
         </div>
 
         {pageType === 'Tech Zone' && (
@@ -388,26 +379,43 @@ export const RequestAssignRegisterNow: React.FC<
               <span className={styles.required}>(필수)</span>
             </div>
             <div className={styles.inputWrapper}>
-              <input
-                type='text'
-                value={quantity}
-                onChange={handleQuantityChange}
-                className={styles.input}
+              <Controller
+                name='quantity'
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <input
+                      type='text'
+                      value={field.value}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^0-9]/g, '');
+                        field.onChange(value === '' ? 0 : parseInt(value, 10));
+                      }}
+                      className={styles.input}
+                    />
+                    <span className={styles.unit}>개</span>
+                    <div className={styles.quantityControlWrapper}>
+                      <button
+                        type='button'
+                        onClick={() => handleQuantityChange(1)}
+                        className={styles.quantityButton}>
+                        <UpButton />
+                      </button>
+                      <button
+                        type='button'
+                        onClick={() => handleQuantityChange(-1)}
+                        className={styles.quantityButton}
+                        disabled={quantity === 0}>
+                        {quantity === 0 ? (
+                          <DisabledDownButton />
+                        ) : (
+                          <DownButton />
+                        )}
+                      </button>
+                    </div>
+                  </>
+                )}
               />
-              <span className={styles.unit}>개</span>
-              <div className={styles.quantityControlWrapper}>
-                <button
-                  onClick={handleIncrement}
-                  className={styles.quantityButton}>
-                  <UpButton />
-                </button>
-                <button
-                  onClick={handleDecrement}
-                  className={styles.quantityButton}
-                  disabled={quantity === 0}>
-                  {quantity === 0 ? <DisabledDownButton /> : <DownButton />}
-                </button>
-              </div>
             </div>
           </div>
         )}
@@ -422,54 +430,78 @@ export const RequestAssignRegisterNow: React.FC<
         </div>
         <div className={styles.visibilityContainer}>
           <div className={styles.visibilityGroupWrapper}>
-            <div className={styles.visibilityWrapper}>
-              <button
-                className={`${styles.visibilityButton} ${visibility === '전체공개' ? styles.active : ''}`}
-                onClick={() => setVisibility('전체공개')}>
-                전체공개
-              </button>
-              <button
-                className={`${styles.visibilityButton} ${visibility === '기업공개' ? styles.active : ''}`}
-                onClick={() => setVisibility('기업공개')}>
-                기업공개
-              </button>
-              <button
-                className={`${styles.visibilityButton} ${visibility === '비공개' ? styles.active : ''}`}
-                onClick={() => setVisibility('비공개')}>
-                비공개
-              </button>
-            </div>
+            <Controller
+              name='visibility'
+              control={control}
+              render={({ field }) => (
+                <div className={styles.visibilityWrapper}>
+                  <button
+                    type='button'
+                    className={`${styles.visibilityButton} ${field.value === '전체공개' ? styles.active : ''}`}
+                    onClick={() => field.onChange('전체공개')}>
+                    전체공개
+                  </button>
+                  <button
+                    type='button'
+                    className={`${styles.visibilityButton} ${field.value === '기업공개' ? styles.active : ''}`}
+                    onClick={() => field.onChange('기업공개')}>
+                    기업공개
+                  </button>
+                  <button
+                    type='button'
+                    className={`${styles.visibilityButton} ${field.value === '비공개' ? styles.active : ''}`}
+                    onClick={() => field.onChange('비공개')}>
+                    비공개
+                  </button>
+                </div>
+              )}
+            />
           </div>
 
-          <div
-            className={styles.portfolioVisibility}
-            onClick={handlePortfolioVisibility}>
-            {isPortfolioVisible ? <CheckButton /> : <DisabledCheckButton />}
-            <span
-              className={`${styles.portfolioText} ${isPortfolioVisible ? styles.active : ''}`}>
-              프로필 공개
-            </span>
-            <button
-              className={styles.editButton}
-              onClick={handleEditClick}>
-              <span>EDIT</span>
-            </button>
+          <div className={styles.portfolioVisibility}>
+            <Controller
+              name='isPortfolioVisible'
+              control={control}
+              render={({ field }) => (
+                <>
+                  <div
+                    onClick={() => field.onChange(!field.value)}
+                    style={{ cursor: 'pointer' }}>
+                    {field.value ? <CheckButton /> : <DisabledCheckButton />}
+                    <span
+                      className={`${styles.portfolioText} ${field.value ? styles.active : ''}`}>
+                      프로필 공개
+                    </span>
+                  </div>
+                  <button
+                    type='button'
+                    className={styles.editButton}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Edit 버튼 클릭 시 처리할 로직
+                    }}>
+                    <span>EDIT</span>
+                  </button>
+                </>
+              )}
+            />
           </div>
         </div>
       </div>
 
       <div className={styles.buttonWrapper}>
         <button
+          type='button'
           onClick={handleCancel}
           className={styles.cancelButton}>
           취소
         </button>
         <button
-          onClick={handleSubmit}
+          type='submit'
           className={styles.submitButton}>
           <span>등록</span>
         </button>
       </div>
-    </div>
+    </form>
   );
 };
