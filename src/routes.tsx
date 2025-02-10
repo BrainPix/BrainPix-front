@@ -2,10 +2,15 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from './pages/layout/Layout';
 import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
 import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
+import { IdeaMarketRegisterComplete } from './pages/idea-market/IdeaMarketRegisterComplete';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
+import { RequestAssignMain } from './pages/request-assign/RequestAssignMain';
+import { RequestAssignRegisterNow } from './pages/request-assign/RequestAssignRegister';
+import { RequestAssignRegisterComplete } from './pages/request-assign/RequestAssignRegisterComplete';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
 import { CollaborationMain } from './pages/collaboration/CollaborationMain';
+import { CollaborationRegister } from './pages/collaboration/CollaborationRegister';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
 import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
@@ -65,6 +70,10 @@ export const routes = createBrowserRouter([
         element: <IdeaMarketRegister />,
       },
       {
+        path: '/idea-market/register-complete',
+        element: <IdeaMarketRegisterComplete />,
+      },
+      {
         path: '/idea-market/registered/:ideaId',
         element: <IdeaRegisteredPage />,
       },
@@ -73,12 +82,28 @@ export const routes = createBrowserRouter([
         element: <IdeaMarketPayment />,
       },
       {
+        path: '/request-assign',
+        element: <RequestAssignMain />,
+      },
+      {
+        path: '/request-assign/register',
+        element: <RequestAssignRegisterNow />,
+      },
+      {
+        path: '/request-assign/register-complete',
+        element: <RequestAssignRegisterComplete />,
+      },
+      {
         path: '/request-assign/registered/:taskId',
         element: <RequestRegisteredPage />,
       },
       {
         path: 'collaboration',
         element: <CollaborationMain />,
+      },
+      {
+        path: 'collaboration/register',
+        element: <CollaborationRegister />,
       },
       {
         path: '/personal-profile/:id',

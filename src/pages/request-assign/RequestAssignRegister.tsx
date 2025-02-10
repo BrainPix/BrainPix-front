@@ -15,7 +15,7 @@ interface RequestAssignRegisterProps {
   [key: string]: never;
 }
 
-export const RequestAssignRegister: React.FC<
+export const RequestAssignRegisterNow: React.FC<
   RequestAssignRegisterProps
 > = () => {
   const navigate = useNavigate();
