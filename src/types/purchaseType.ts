@@ -7,4 +7,5 @@ export interface IdeaMarketPurchase {
   sellerId: number;
   name: string;
   profileImageUrl: string;
+  email: string;
 }

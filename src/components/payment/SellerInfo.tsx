@@ -3,9 +3,10 @@ import styles from './sellerInfo.module.scss';
 interface SellerInfoProps {
   name: string;
   profileImageUrl: string;
+  email: string;
 }
 
-const SellerInfo = ({ name, profileImageUrl }: SellerInfoProps) => {
+const SellerInfo = ({ name, profileImageUrl, email }: SellerInfoProps) => {
   return (
     <div className={styles.sellerInfo}>
       <div className={styles.title}>판매자 정보</div>
@@ -16,7 +17,7 @@ const SellerInfo = ({ name, profileImageUrl }: SellerInfoProps) => {
           className={styles.profile}
         />
         <div className={styles.name}>{name}</div>
-        <div className={styles.email}>erwer@naver.com</div>
+        <div className={styles.email}>{email}</div>
       </div>
     </div>
   );

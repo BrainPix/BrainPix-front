@@ -34,6 +34,7 @@ export const IdeaMarketPayment = () => {
   const sellerInfoData = {
     name: data.name,
     profileImageUrl: data.profileImageUrl,
+    email: data.email,
   };
 
   const paymentSummaryData = {
