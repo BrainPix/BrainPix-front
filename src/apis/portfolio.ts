@@ -53,3 +53,15 @@ export const putPorfolioDetail = async (
     return data;
   }
 };
+
+export const deletePorfolioDetail = async (cardId: number) => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/portfolios/${cardId}`;
+
+  if (token) {
+    const { data } = await axios.delete(url, {
+      headers: { Authorization: token },
+    });
+    return data;
+  }
+};

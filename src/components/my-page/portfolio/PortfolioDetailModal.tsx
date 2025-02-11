@@ -13,7 +13,11 @@ import { Controller, FieldValues, useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill-new';
 import { v4 as uuidv4 } from 'uuid';
 
-import { getPorfolioDetail, putPorfolioDetail } from '../../../apis/portfolio';
+import {
+  getPorfolioDetail,
+  putPorfolioDetail,
+  deletePorfolioDetail,
+} from '../../../apis/portfolio';
 import {
   EditProfilePayload,
   PortfolioDetailResponseType,
@@ -54,7 +58,7 @@ export const PortfolioDetailModal = forwardRef<
     queryFn: () => getPorfolioDetail(cardId),
   });
 
-  const { mutate: putPortfolio } = useMutation({
+  const { mutate: putPortfolioMutate } = useMutation({
     mutationFn: (payload: EditProfilePayload) =>
       putPorfolioDetail(cardId, payload),
     onSuccess: () => {
@@ -63,6 +67,17 @@ export const PortfolioDetailModal = forwardRef<
       successToast('수정이 완료되었습니다.');
     },
     onError: () => errorToast('게시글 수정에 실패하였습니다.'),
+  });
+
+  const { mutate: deletePortfolioMutate } = useMutation({
+    mutationFn: () => deletePorfolioDetail(cardId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['clickedCardData'] });
+      queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
+      successToast('삭제가 완료되었습니다.');
+      onClose();
+    },
+    onError: () => errorToast('게시글 삭제에 실패하였습니다.'),
   });
 
   const { register, setValue, control, handleSubmit } = useForm({
@@ -121,7 +136,11 @@ export const PortfolioDetailModal = forwardRef<
   };
 
   const handleSubmitHandler = async (payload: FieldValues) => {
-    putPortfolio(payload as EditProfilePayload);
+    putPortfolioMutate(payload as EditProfilePayload);
+  };
+
+  const handleClickDeleteButton = async () => {
+    deletePortfolioMutate();
   };
 
   const handleChangeImageInput = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -294,6 +313,7 @@ export const PortfolioDetailModal = forwardRef<
                 닫기
               </button>
               <button
+                onClick={handleClickDeleteButton}
                 type='button'
                 className={classNames(
                   'buttonFilled-primary',
