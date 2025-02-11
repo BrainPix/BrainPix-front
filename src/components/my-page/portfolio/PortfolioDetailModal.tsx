@@ -153,7 +153,7 @@ export const PortfolioDetailModal = forwardRef<
         <button
           onClick={handleClickEditButton}
           className={classNames('buttonOutlined-grey500', styles.editButton)}>
-          {editMode ? '수정완료' : '수정하기'}
+          {editMode && '수정완료'}
         </button>
       </div>
       <hr className={classNames(styles.titleDivider)} />
@@ -245,7 +245,7 @@ export const PortfolioDetailModal = forwardRef<
                 'buttonFilled-primary',
                 styles.uploadButton,
               )}>
-              업로드
+              수정 완료
             </button>
           </div>
         </form>
@@ -294,7 +294,7 @@ export const PortfolioDetailModal = forwardRef<
                 닫기
               </button>
               <button
-                type='submit'
+                type='button'
                 className={classNames(
                   'buttonFilled-primary',
                   styles.uploadButton,
