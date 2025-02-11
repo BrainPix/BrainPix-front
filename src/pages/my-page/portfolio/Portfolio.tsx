@@ -1,5 +1,4 @@
-import React from 'react';
-import { SyntheticEvent, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './portfolio.module.scss';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -11,24 +10,23 @@ import { getMyPorfolio } from '../../../apis/portfolio';
 import placeholder from '../../../assets/images/brainPixIcon.png';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
+import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 
 export const Portfolio = () => {
   const [lastCardId, setLastCardId] = useState(0);
-  const [clickedCardId, setClickedCardId] = useState(-1);
-
-  const imageOnErrorHandler = (e: SyntheticEvent<HTMLImageElement>) => {
-    console.log(e);
-    e.currentTarget.src = placeholder;
-  };
+  const [clickedCardId, setClickedCardId] = useState(18);
 
   const { setTarget } = useIntersectionObserverAPI({
-    onIntersect: () => {
-      fetchNextPage();
-      const totalCurrentCardLength = myPorfolios?.pages.reduce(
-        (acc, page) => acc + page.content.length,
-        0,
-      );
-      setLastCardId(totalCurrentCardLength - 1);
+    onIntersect: (observer) => {
+      if (observer.isIntersecting) {
+        fetchNextPage();
+        const totalCurrentCardLength = myPorfolios?.pages.reduce(
+          (acc, page) => acc + page.content.length,
+          0,
+        );
+
+        setLastCardId(totalCurrentCardLength - 1);
+      }
     },
   });
 
@@ -44,7 +42,6 @@ export const Portfolio = () => {
       if (lastPage.currentPage < pages[0].totalPages) {
         return lastPage?.currentPage + 1;
       }
-      return null;
     },
   });
 
@@ -67,6 +64,7 @@ export const Portfolio = () => {
 
   const addPortfolioModalRef = useRef(null);
   const portfolioDetailModalRef = useRef(null);
+
   useOutsideClick({
     ref: addPortfolioModalRef,
     handler: handleCloseAddPortfolioModal,
@@ -107,7 +105,7 @@ export const Portfolio = () => {
         </button>
       </div>
       <div className={classNames(styles.portfolioContainer)}>
-        {myPorfolios?.pages.map((portfolios) => (
+        {myPorfolios?.pages.map((portfolios, pageIdx) => (
           <React.Fragment key={portfolios.currentPage}>
             {portfolios.content.map(
               (
@@ -116,16 +114,15 @@ export const Portfolio = () => {
               ) => (
                 <div
                   key={id}
-                  ref={idx === lastCardId ? setTarget : null}
+                  ref={8 * pageIdx + idx === lastCardId ? setTarget : null}
                   onClick={() => handleClickPorfolioCard(id)}
                   className={classNames(styles.portfolioCardWrapper)}>
                   <img
                     alt='포트폴리오 사진'
                     className={classNames(styles.image)}
                     src={profileImage || placeholder}
-                    onError={imageOnErrorHandler}
+                    onError={imageErrorHandler}
                   />
-
                   <p className={classNames(styles.portfolioTitle)}>{title}</p>
                   <p className={classNames(styles.date)}>{createdDate}</p>
                 </div>
