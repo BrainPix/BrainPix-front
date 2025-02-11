@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQnA } from '../../hooks/useQnA';
 import styles from './qnaSection.module.scss';
 import { Comment } from '../../types/commentsType';
@@ -6,35 +6,33 @@ import React from 'react';
 
 interface QnASectionProps {
   postId: number;
+  userId: number; //props로 userId 받기
   profileImageUrl: string;
 }
 
-const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
+const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
   const {
     commentsQuery,
     postCommentMutation,
     postReplyMutation,
+    deleteCommentMutation,
     setCurrentPage,
     currentPage,
-  } = useQnA(postId);
+  } = useQnA(postId, userId);
 
   const [commentContent, setCommentContent] = useState('');
   const [replyContent, setReplyContent] = useState<{ [key: number]: string }>(
     {},
   );
-  const [activeReply, setActiveReply] = useState<number | null>(null); // 대댓글 입력창 활성화 상태
+  const [activeReply, setActiveReply] = useState<number | null>(null);
 
-  // 페이지 이동 함수
-  const handleNextPage = () => {
-    if (commentsQuery.data?.hasNext) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
+  useEffect(() => {
+    console.log('내 userId:', userId);
+    console.log('댓글 데이터:', commentsQuery.data);
+  }, [userId, commentsQuery.data]);
 
-  const handlePrevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage((prev) => prev - 1);
-    }
+  const handleDeleteComment = (commentId: number) => {
+    deleteCommentMutation.mutate({ commentId });
   };
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -51,7 +49,7 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
     }));
   };
 
-  const handleCommentSubmit = async () => {
+  const handleCommentSubmit = () => {
     if (!commentContent.trim()) {
       alert('댓글을 입력해주세요.');
       return;
@@ -59,12 +57,12 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
 
     postCommentMutation.mutate(commentContent, {
       onSuccess: () => {
-        setCommentContent(''); // 입력 필드 초기화
+        setCommentContent('');
       },
     });
   };
 
-  const handleReplySubmit = async (parentCommentId: number) => {
+  const handleReplySubmit = (parentCommentId: number) => {
     if (!replyContent[parentCommentId]?.trim()) {
       alert('답글을 입력해주세요.');
       return;
@@ -75,7 +73,7 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
       {
         onSuccess: () => {
           setReplyContent((prev) => ({ ...prev, [parentCommentId]: '' }));
-          setActiveReply(null); // 대댓글 입력창 닫기
+          setActiveReply(null);
         },
       },
     );
@@ -86,7 +84,6 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
       <h1 className={styles.title}>담당자 Q&A</h1>
       <div className={styles.divider}></div>
 
-      {/* 🔹 댓글 입력 폼 */}
       <div className={styles.inputContainer}>
         <textarea
           className={styles.textArea}
@@ -102,12 +99,11 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
         </button>
       </div>
 
-      {/* 🔹 댓글 목록 */}
       {commentsQuery.isLoading && <p>댓글을 불러오는 중...</p>}
-      {commentsQuery.error && <p>댓글을 불러오는 중 오류 발생!</p>}
+      {commentsQuery.error && <p>댓글을 불러오는 중 오류 발생</p>}
 
       {commentsQuery.data?.content.length === 0 ? (
-        <p>등록된 댓글이 없습니다.</p>
+        <div className={styles.nocomments}>아직 댓글이 달리지 않았습니다.</div>
       ) : (
         commentsQuery.data?.content.map((comment: Comment) => (
           <div
@@ -116,14 +112,23 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
             <div className={styles.profile}>
               <img
                 src={profileImageUrl || '/default-profile.png'}
-                alt={`프로필`}
+                alt='프로필'
                 className={styles.profileIcon}
               />
             </div>
             <div className={styles.content}>
               <div className={styles.header}>
-                <span className={styles.id}>{comment.writerName}</span>
-                <span className={styles.date}>{comment.createdDate}</span>
+                <div className={styles.headerLeft}>
+                  <span className={styles.id}>{comment.writerName}</span>
+                  <span className={styles.date}>{comment.createdDate}</span>
+                </div>
+                {userId === comment.writerId && (
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => handleDeleteComment(comment.commentId)}>
+                    삭제하기
+                  </button>
+                )}
               </div>
               <p className={styles.question}>{comment.content}</p>
               <div className={styles.actions}>
@@ -133,8 +138,6 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
                   답글쓰기
                 </button>
               </div>
-
-              {/* 🔹 대댓글 입력창 */}
               {activeReply === comment.commentId && (
                 <div className={styles.replyInputContainer}>
                   <textarea
@@ -151,8 +154,6 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
                   </button>
                 </div>
               )}
-
-              {/* 🔹 대댓글 목록 */}
               {comment.childComments.length > 0 && (
                 <div className={styles.childComments}>
                   {comment.childComments.map((child) => (
@@ -162,16 +163,29 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
                       <div className={styles.profile}>
                         <img
                           src={profileImageUrl || '/default-profile.png'}
-                          alt={`프로필`}
+                          alt='프로필'
                           className={styles.profileIcon}
                         />
                       </div>
                       <div className={styles.content}>
                         <div className={styles.header}>
-                          <span className={styles.id}>{child.writerName}</span>
-                          <span className={styles.date}>
-                            {child.createdDate}
-                          </span>
+                          <div>
+                            <span className={styles.id}>
+                              {child.writerName}
+                            </span>
+                            <span className={styles.date}>
+                              {child.createdDate}
+                            </span>
+                          </div>
+                          {userId === child.writerId && (
+                            <button
+                              className={styles.deleteButton}
+                              onClick={() =>
+                                handleDeleteComment(child.commentId)
+                              }>
+                              삭제하기
+                            </button>
+                          )}
                         </div>
                         <p className={styles.question}>{child.content}</p>
                       </div>
@@ -183,18 +197,16 @@ const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
           </div>
         ))
       )}
-
-      {/* 🔹 페이지네이션 버튼 (댓글이 있을 때만 표시) */}
       {commentsQuery.data && commentsQuery.data.content.length > 0 && (
         <div className={styles.pagination}>
           <button
-            onClick={handlePrevPage}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
             disabled={currentPage === 0}>
             이전 페이지
           </button>
           <span>{currentPage + 1} 페이지</span>
           <button
-            onClick={handleNextPage}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
             disabled={!commentsQuery.data?.hasNext}>
             다음 페이지
           </button>
