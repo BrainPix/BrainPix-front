@@ -8,8 +8,8 @@ import {
 } from 'react';
 import classNames from 'classnames';
 import styles from './portfolioDetailModal.module.scss';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Controller, FieldValues, useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill-new';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -41,8 +41,9 @@ export const PortfolioDetailModal = forwardRef<
     toolbar: { container: '#toolbar' },
   };
   const quillRef = useRef<ReactQuill>(null);
-  const { errorToast } = useContext(ToastContext);
+  const { errorToast, successToast } = useContext(ToastContext);
   const IMAGE_BASE_URL = import.meta.env.VITE_S3_URL;
+  const queryClient = useQueryClient();
 
   const [editMode, setEditMode] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -56,6 +57,11 @@ export const PortfolioDetailModal = forwardRef<
   const { mutate: putPortfolio } = useMutation({
     mutationFn: (payload: EditProfilePayload) =>
       putPorfolioDetail(cardId, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['clickedCardData'] });
+      queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
+      successToast('수정이 완료되었습니다.');
+    },
   });
 
   const { register, setValue, control, handleSubmit } = useForm({
@@ -106,7 +112,6 @@ export const PortfolioDetailModal = forwardRef<
   };
 
   const handleSelectSpecialization = (option: string) => {
-    console.log(option);
     setSelectedSpecializations(option);
   };
 
@@ -114,9 +119,8 @@ export const PortfolioDetailModal = forwardRef<
     setValue('title', e.target.value);
   };
 
-  const handleSubmitHandler = async (payload: EditProfilePayload) => {
-    console.log(payload);
-    putPortfolio(payload);
+  const handleSubmitHandler = async (payload: FieldValues) => {
+    putPortfolio(payload as EditProfilePayload);
   };
 
   const handleChangeImageInput = async (e: ChangeEvent<HTMLInputElement>) => {
