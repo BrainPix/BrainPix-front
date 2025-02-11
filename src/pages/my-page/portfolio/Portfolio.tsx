@@ -12,8 +12,8 @@ import { MyPorfolioType } from '../../../types/myPageType';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 
 export const Portfolio = () => {
-  const PORTFOLIO_COUNT = 8;
   const [lastCardId, setLastCardId] = useState(0);
+  const [clickedCardId, setClickedCardId] = useState(-1);
   const { setTarget } = useIntersectionObserverAPI({
     onIntersect: () => {
       fetchNextPage();
@@ -44,6 +44,11 @@ export const Portfolio = () => {
   const [isOpenAddPortfolioModal, setIsOpenAddPortfolioModal] = useState(false);
   const [isOpenPortfolioDetailModal, setIsOpenPortfolioDetailModal] =
     useState(false);
+
+  const handleClickPorfolioCard = (id: number) => {
+    setIsOpenPortfolioDetailModal(true);
+    setClickedCardId(id);
+  };
 
   const handleCloseAddPortfolioModal = () => {
     setIsOpenAddPortfolioModal(false);
@@ -78,6 +83,7 @@ export const Portfolio = () => {
       )}
       {isOpenPortfolioDetailModal && (
         <PortfolioDetailModal
+          cardId={clickedCardId}
           ref={portfolioDetailModalRef}
           onClose={handleClosePortfolioDetailModal}
         />
@@ -104,7 +110,7 @@ export const Portfolio = () => {
                 <div
                   key={id}
                   ref={idx === lastCardId ? setTarget : null}
-                  onClick={() => setIsOpenPortfolioDetailModal(true)}
+                  onClick={() => handleClickPorfolioCard(id)}
                   className={classNames(styles.portfolioCardWrapper)}>
                   {profileImage ? (
                     <img
