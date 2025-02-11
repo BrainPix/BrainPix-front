@@ -34,6 +34,7 @@ import { PORTFOLIO_DETAIL_INIT } from '../../../constants/initValues';
 import { getPresignedURL } from '../../../apis/commonAPI';
 import axios from 'axios';
 import { ToastContext } from '../../../contexts/toastContext';
+import { DeleteCheckModal } from './DeleteCheckModal';
 
 interface PortfolioDetailModalPropsType {
   onClose: () => void;
@@ -55,6 +56,7 @@ export const PortfolioDetailModal = forwardRef<
   const [editMode, setEditMode] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedSpecializations, setSelectedSpecializations] = useState('');
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const { data: cardData, isPending: isCardDataPending } = useQuery({
     queryKey: ['clickedCardData'],
@@ -161,157 +163,106 @@ export const PortfolioDetailModal = forwardRef<
   };
 
   return (
-    <div
-      className={classNames(styles.container)}
-      ref={ref}>
-      <div className={classNames(styles.titleWrapper)}>
-        {editMode ? (
-          <input
-            className={classNames(styles.titleInput)}
-            type='text'
-            placeholder='제목을 입력하세요.'
-            {...register('title')}
-            onChange={handleChange}
-          />
-        ) : (
-          <h1 className={classNames(styles.title)}>{title}</h1>
-        )}
-        <button
-          onClick={handleClickEditButton}
-          className={classNames('buttonOutlined-grey500', styles.editButton)}>
-          {!editMode && '수정하기'}
-        </button>
-      </div>
-      <hr className={classNames(styles.titleDivider)} />
-      {editMode ? (
-        <form
-          className={classNames(styles.contentContainer)}
-          onSubmit={handleSubmit(handleSubmitHandler)}>
-          <div className={classNames(styles.imageInputWrapper)}>
-            <img
-              alt='포트폴리오 이미지'
-              src={selectedImage || profileImage}
-              className={classNames(styles.imageInputLabel)}
+    <div>
+      <div
+        className={classNames(styles.container)}
+        ref={ref}>
+        <div className={classNames(styles.titleWrapper)}>
+          {editMode ? (
+            <input
+              className={classNames(styles.titleInput)}
+              type='text'
+              placeholder='제목을 입력하세요.'
+              {...register('title')}
+              onChange={handleChange}
             />
-            <label htmlFor='imageInput'>
-              <div className={classNames(styles.imageInputLabel)}>
-                <ImageInput
-                  width={48}
-                  height={48}
-                />
-                대표사진
-              </div>
-              <input
-                id='imageInput'
-                type='file'
-                alt='이미지'
-                accept='image/*'
-                className={classNames(styles.imageInput)}
-                {...register('profileImage')}
-                onChange={handleChangeImageInput}
+          ) : (
+            <h1 className={classNames(styles.title)}>{title}</h1>
+          )}
+          <button
+            onClick={handleClickEditButton}
+            className={classNames('buttonOutlined-grey500', styles.editButton)}>
+            {!editMode && '수정하기'}
+          </button>
+        </div>
+        <hr className={classNames(styles.titleDivider)} />
+        {editMode ? (
+          <form
+            className={classNames(styles.contentContainer)}
+            onSubmit={handleSubmit(handleSubmitHandler)}>
+            <div className={classNames(styles.imageInputWrapper)}>
+              <img
+                alt='포트폴리오 이미지'
+                src={selectedImage || profileImage}
+                className={classNames(styles.imageInputLabel)}
               />
-            </label>
-          </div>
-          <div className={classNames(styles.infoInputWrapper)}>
-            <div className={classNames(styles.categoryInputWrapper)}>
-              <h3 className={classNames(styles.inputTitle)}>카테고리</h3>
-              <Dropdown
-                onSelect={handleSelectSpecialization}
-                selectedBoxClassName={styles.categoryDropdown}
-                optionBoxClassName={styles.categoryOptionsBoxDropdown}
-              />
-            </div>
-            <div>
-              <h3 className={classNames(styles.inputTitle)}>프로젝트 기간</h3>
-              <div className={classNames(styles.dateInputWrapper)}>
-                <input
-                  placeholder='시작 날짜 선택'
-                  className={classNames(styles.dateInput)}
-                  {...register('startDate')}
-                />
-                <hr className={classNames(styles.divider)} />
-                <input
-                  placeholder='종료 날짜 선택'
-                  className={classNames(styles.dateInput)}
-                  {...register('endDate')}
-                />
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className={classNames(styles.inputTitle)}>포트폴리오 내용</div>
-            <div className={classNames(styles.contentInputWrapper)}>
-              <QuillToolbar />
-              <Controller
-                name='content'
-                control={control}
-                render={({ field }) => (
-                  <ReactQuill
-                    {...field}
-                    ref={quillRef}
-                    modules={modules}
-                    className={classNames(styles.textInput)}
-                    placeholder='내용을 입력하세요'
-                    onChange={(content: string) => field.onChange(content)}
+              <label htmlFor='imageInput'>
+                <div className={classNames(styles.imageInputLabel)}>
+                  <ImageInput
+                    width={48}
+                    height={48}
                   />
-                )}
-              />
+                  대표사진
+                </div>
+                <input
+                  id='imageInput'
+                  type='file'
+                  alt='이미지'
+                  accept='image/*'
+                  className={classNames(styles.imageInput)}
+                  {...register('profileImage')}
+                  onChange={handleChangeImageInput}
+                />
+              </label>
             </div>
-          </div>
-          <div className={classNames(styles.uploadButtonWrapper)}>
-            <button
-              type='button'
-              onClick={onClose}
-              className={classNames(styles.cancelButton)}>
-              닫기
-            </button>
-            <button
-              type='submit'
-              className={classNames(
-                'buttonFilled-primary',
-                styles.uploadButton,
-              )}>
-              수정 완료
-            </button>
-          </div>
-        </form>
-      ) : (
-        <>
-          <div className={classNames(styles.contentContainer)}>
-            <div
-              className={classNames(styles.infoContainer, {
-                [styles.editMode]: editMode,
-              })}>
-              <div className={classNames(styles.infoWrapper)}>
-                <span>카테고리 </span>
-                <hr className={classNames(styles.infoDivider)} />
-                <div>{CATEGORY_LABELS[specializations[0]]}</div>
+            <div className={classNames(styles.infoInputWrapper)}>
+              <div className={classNames(styles.categoryInputWrapper)}>
+                <h3 className={classNames(styles.inputTitle)}>카테고리</h3>
+                <Dropdown
+                  onSelect={handleSelectSpecialization}
+                  selectedBoxClassName={styles.categoryDropdown}
+                  optionBoxClassName={styles.categoryOptionsBoxDropdown}
+                />
               </div>
-
-              <div className={classNames(styles.infoWrapper)}>
-                <span>프로젝트 기간 </span>
-                <hr className={classNames(styles.infoDivider)} />
-                <div>
-                  {startDate} - {endDate}
+              <div>
+                <h3 className={classNames(styles.inputTitle)}>프로젝트 기간</h3>
+                <div className={classNames(styles.dateInputWrapper)}>
+                  <input
+                    placeholder='시작 날짜 선택'
+                    className={classNames(styles.dateInput)}
+                    {...register('startDate')}
+                  />
+                  <hr className={classNames(styles.divider)} />
+                  <input
+                    placeholder='종료 날짜 선택'
+                    className={classNames(styles.dateInput)}
+                    {...register('endDate')}
+                  />
                 </div>
               </div>
             </div>
-            <div className={classNames(styles.imageInputWrapper)}>
-              <img
-                alt='포트폴리오 사진'
-                src={profileImage}
-                className={classNames(styles.imageInputLabel)}
-                onError={imageErrorHandler}
-              />
+            <div>
+              <div className={classNames(styles.inputTitle)}>
+                포트폴리오 내용
+              </div>
+              <div className={classNames(styles.contentInputWrapper)}>
+                <QuillToolbar />
+                <Controller
+                  name='content'
+                  control={control}
+                  render={({ field }) => (
+                    <ReactQuill
+                      {...field}
+                      ref={quillRef}
+                      modules={modules}
+                      className={classNames(styles.textInput)}
+                      placeholder='내용을 입력하세요'
+                      onChange={(content: string) => field.onChange(content)}
+                    />
+                  )}
+                />
+              </div>
             </div>
-            <div className={classNames(styles.titleWrapper)}>
-              <h1 className={classNames(styles.title)}>포트폴리오 내용</h1>
-            </div>
-            <textarea
-              disabled={!editMode}
-              className={classNames(styles.contentInput)}
-              value={content}
-            />
             <div className={classNames(styles.uploadButtonWrapper)}>
               <button
                 type='button'
@@ -320,18 +271,79 @@ export const PortfolioDetailModal = forwardRef<
                 닫기
               </button>
               <button
-                onClick={handleClickDeleteButton}
-                type='button'
+                type='submit'
                 className={classNames(
                   'buttonFilled-primary',
                   styles.uploadButton,
                 )}>
-                삭제하기
+                수정 완료
               </button>
             </div>
-          </div>
-        </>
-      )}
+          </form>
+        ) : (
+          <>
+            <div className={classNames(styles.contentContainer)}>
+              <div
+                className={classNames(styles.infoContainer, {
+                  [styles.editMode]: editMode,
+                })}>
+                <div className={classNames(styles.infoWrapper)}>
+                  <span>카테고리 </span>
+                  <hr className={classNames(styles.infoDivider)} />
+                  <div>{CATEGORY_LABELS[specializations[0]]}</div>
+                </div>
+
+                <div className={classNames(styles.infoWrapper)}>
+                  <span>프로젝트 기간 </span>
+                  <hr className={classNames(styles.infoDivider)} />
+                  <div>
+                    {startDate} - {endDate}
+                  </div>
+                </div>
+              </div>
+              <div className={classNames(styles.imageInputWrapper)}>
+                <img
+                  alt='포트폴리오 사진'
+                  src={profileImage}
+                  className={classNames(styles.imageInputLabel)}
+                  onError={imageErrorHandler}
+                />
+              </div>
+              <div className={classNames(styles.titleWrapper)}>
+                <h1 className={classNames(styles.title)}>포트폴리오 내용</h1>
+              </div>
+              <textarea
+                disabled={!editMode}
+                className={classNames(styles.contentInput)}
+                value={content}
+              />
+              <div className={classNames(styles.uploadButtonWrapper)}>
+                <button
+                  type='button'
+                  onClick={onClose}
+                  className={classNames(styles.cancelButton)}>
+                  닫기
+                </button>
+                <button
+                  onClick={() => setIsOpenDeleteModal(true)}
+                  type='button'
+                  className={classNames(
+                    'buttonFilled-primary',
+                    styles.uploadButton,
+                  )}>
+                  삭제하기
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+        {isOpenDeleteModal && (
+          <DeleteCheckModal
+            onCancle={() => setIsOpenDeleteModal(false)}
+            onDelete={handleClickDeleteButton}
+          />
+        )}
+      </div>
     </div>
   );
 });
