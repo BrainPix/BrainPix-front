@@ -56,6 +56,28 @@ export const RequestRegisteredPage = () => {
     attachments: data.attachments ?? [],
   };
 
+  const parseJwt = (token: string) => {
+    try {
+      const base64Url = token.split('.')[1]; // JWT의 Payload
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Base64 URL Safe 복원
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => `%${('00' + c.charCodeAt(0).toString(16)).slice(-2)}`)
+          .join(''),
+      );
+      return JSON.parse(jsonPayload); // JSON 객체로 변환
+    } catch (e) {
+      console.error('❌ 토큰 파싱 오류:', e);
+      return null;
+    }
+  };
+  //로컬스토리지에서 accessToken을 가져와 userId 가져오기
+  const accessToken = localStorage.getItem('accessToken');
+  const decodedToken = accessToken ? parseJwt(accessToken) : null;
+  const userId = decodedToken?.userId || decodedToken?.id || null;
+  console.log('내 userId:', userId);
+
   return (
     <div className={styles.margin}>
       <ProfileHeader {...writerData} />
@@ -71,6 +93,7 @@ export const RequestRegisteredPage = () => {
       <QnASection
         postId={Number(taskId)}
         profileImageUrl={writerData.profileImageUrl}
+        userId={userId}
       />
       <AuthorInfo {...writerData} />
     </div>
