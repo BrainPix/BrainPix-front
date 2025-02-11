@@ -23,7 +23,7 @@ export const PostHeader = ({
 
   const handleEditNavigate = () => {
     let editPath = '/';
-    if (tab === '요청과제') {
+    if (tab === '요청 과제') {
       editPath = `/my/posts/request-assign/edit/${postId}`;
     } else if (tab === '협업 광장') {
       editPath = `/my/posts/collaboration/edit/${postId}`;

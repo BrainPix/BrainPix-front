@@ -108,3 +108,30 @@ export const getPostCollaboration = async (
     throw error;
   }
 };
+
+export const getPostRequestTaskDetail = async (
+  postId: number,
+): Promise<PostApiResponse<RequestTask>> => {
+  const url = `${BASE_URL}/post-management/request-task/${postId}`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    });
+
+    console.log('요청 과제 상세 조회 API 응답 데이터:', response.data);
+
+    return response.data.data;
+  } catch (error) {
+    console.error('요청 과제 상세 조회 API 요청 실패:', error);
+    throw error;
+  }
+};
