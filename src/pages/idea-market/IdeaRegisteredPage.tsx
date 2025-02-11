@@ -61,7 +61,10 @@ export const IdeaRegisteredPage = () => {
         content={descriptionData.content}
         attachments={descriptionData.attachments}
       />
-      <QnASection postId={Number(ideaId)} />
+      <QnASection
+        postId={Number(ideaId)}
+        profileImageUrl={writerData.profileImageUrl}
+      />
       <AuthorInfo {...writerData} />
     </div>
   );
