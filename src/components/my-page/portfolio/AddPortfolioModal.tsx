@@ -1,17 +1,18 @@
-import { forwardRef, useContext, useRef, useState } from 'react';
+import { ChangeEvent, forwardRef, useContext, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './addPortfolioModal.module.scss';
 import ReactQuill from 'react-quill-new';
 import { QuillToolbar } from './QuillToolbar';
 import { FieldValues, useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 import ImageInput from '../../../assets/icons/imageInput.svg?react';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import 'react-quill-new/dist/quill.snow.css';
 import '../../../styles/quillStyles.css';
 import { CATEGORY_MAPPER_TO_ENG } from '../../../constants/categoryMapper';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PostPortfolioPayload } from '../../../types/myPageType';
 import { postPorfolio } from '../../../apis/portfolio';
 import { getPresignedURL } from '../../../apis/commonAPI';
@@ -28,53 +29,69 @@ export const AddPortfolioModal = forwardRef<
   const modules = {
     toolbar: { container: '#toolbar' },
   };
-  const { errorToast } = useContext(ToastContext);
+  const { errorToast, successToast } = useContext(ToastContext);
   const IMAGE_BASE_URL = import.meta.env.VITE_S3_URL;
+  const queryClient = useQueryClient();
+
+  const quillRef = useRef<ReactQuill>(null);
+  const { register, handleSubmit, control, setValue } = useForm();
+  const [specializations, setSpecializations] = useState('');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const { mutate: postPortfolioMutate } = useMutation({
     mutationFn: (formData: PostPortfolioPayload) => postPorfolio(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
+      successToast('게시글 등록에 성공하였습니다.');
+      onClose();
+    },
   });
 
   const imageLoader = async (image: File) => {
+    const fileExt = image.name.split('.').pop();
+    const safeFileName = `${uuidv4()}.${fileExt}`;
+
     try {
       const presignedURL = await getPresignedURL({
-        fileName: encodeURIComponent(image.name),
+        fileName: encodeURIComponent(safeFileName),
         fileType: image.type,
       });
       await axios.put(presignedURL, image, {
         headers: { 'Content-Type': image.type },
       });
-      return presignedURL;
+      return `${IMAGE_BASE_URL}/${safeFileName}`;
     } catch {
       errorToast(`업로드에 실패하였습니다`);
     }
   };
 
-  const quillRef = useRef<ReactQuill>(null);
-  const { register, handleSubmit, control } = useForm();
-  const [specializations, setSpecializations] = useState('');
-
   const handleSubmitHandler = async (payload: FieldValues) => {
-    const fileImage = payload.image;
-    const imageURL = await imageLoader(fileImage[0]);
-
-    if (!imageURL) return;
+    console.log(payload);
 
     const requestBody = {
       title: String(payload.title),
       specializations: [CATEGORY_MAPPER_TO_ENG[specializations]],
       startDate: String(payload.startDate),
       endDate: String(payload.endDate),
-      profileImage: `${IMAGE_BASE_URL}/${fileImage[0].name}`,
+      profileImage: payload.image,
       content: String(payload.content),
     };
 
-    console.log(requestBody);
     postPortfolioMutate(requestBody);
   };
 
   const handleSelectSpecialization = (option: string) => {
     setSpecializations(option);
+  };
+
+  const handleChangeImageInput = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target?.files) return null;
+
+    const result = await imageLoader(e.target.files?.[0]);
+    if (result) {
+      setSelectedImage(result);
+      setValue('image', result);
+    }
   };
 
   return (
@@ -86,23 +103,33 @@ export const AddPortfolioModal = forwardRef<
       <form
         className={classNames(styles.contentContainer)}
         onSubmit={handleSubmit(handleSubmitHandler)}>
-        <label htmlFor='imageInput'>
-          <div className={classNames(styles.imageInputLabel)}>
-            <ImageInput
-              width={48}
-              height={48}
+        <div className={classNames(styles.imageInputWrapper)}>
+          {selectedImage && (
+            <img
+              alt='선택된 이미지'
+              src={selectedImage}
+              className={classNames(styles.imageInputLabel)}
             />
-            대표사진
-          </div>
-          <input
-            id='imageInput'
-            type='file'
-            alt='이미지'
-            accept='image/*'
-            className={classNames(styles.imageInput)}
-            {...register('image')}
-          />
-        </label>
+          )}
+          <label htmlFor='imageInput'>
+            <div className={classNames(styles.imageInputLabel)}>
+              <ImageInput
+                width={48}
+                height={48}
+              />
+              대표사진
+            </div>
+            <input
+              id='imageInput'
+              type='file'
+              alt='이미지'
+              accept='image/*'
+              className={classNames(styles.imageInput)}
+              {...register('image')}
+              onChange={handleChangeImageInput}
+            />
+          </label>
+        </div>
         <input
           className={classNames(styles.titleInput)}
           type='text'

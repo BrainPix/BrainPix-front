@@ -35,6 +35,11 @@
   gap: 15px;
 }
 
+.imageInputWrapper {
+  display: flex;
+  gap: 15px;
+}
+
 .imageInputLabel {
   @include flex-center;
   @include pretendard-14-400;
