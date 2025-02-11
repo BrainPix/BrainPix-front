@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getPostIdeaMarket } from '../../../apis/postManagementAPI.ts';
 import styles from './myPagePosts.module.scss';
 import { TabNavigation } from '../../../components/my-page/TabNavigation.tsx';
-import { PostCard } from '../../../components/postcard/PostCard.tsx';
-import { Post } from '../../../types/postDataType.ts';
+import PreviewThumbnail from '../../../components/preview/PreviewThumbnail.tsx';
+import { Post, PostApiResponse } from '../../../types/postDataType.ts';
 
 export const MyPagePosts = () => {
   const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
@@ -16,11 +16,13 @@ export const MyPagePosts = () => {
   //   [TABS[2]]: PostCategories.COLLABORATION,
   // };
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<PostApiResponse>({
     queryKey: ['myPosts', activeTab],
     queryFn: () => getPostIdeaMarket(0, 10),
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
   });
+
+  const ideaMarketPosts: Post[] = data?.content ?? [];
 
   // const posts = [
   //   {
@@ -98,13 +100,25 @@ export const MyPagePosts = () => {
           <p>데이터를 불러오는 중 오류가 발생했습니다.</p>
         ) : (
           <>
-            <div className={styles.count}>총 게시글 {data?.content.length}</div>
+            <div className={styles.count}>
+              총 게시글 {ideaMarketPosts.length}
+            </div>
             {/* 게시물 리스트 */}
             <div className={styles.postList}>
-              {data?.content.map((post: Post) => (
-                <PostCard
-                  key={post.id}
-                  {...post}
+              {ideaMarketPosts.map((post: Post) => (
+                <PreviewThumbnail
+                  key={post.ideaId}
+                  imageUrl={post.thumbnailImage || ''}
+                  //profileImage={profileImage || ''}
+                  //username={user}
+                  description={post.title}
+                  username={post.writerName}
+                  price={post.price}
+                  isBookmarked={false} // 북마크 여부는 추후 API 연동 필요
+                  onBookmarkClick={() =>
+                    console.log(`Bookmark clicked for ${post.ideaId}`)
+                  }
+                  verified={true} // 검증 여부 (필요시 데이터에서 가져오기)
                 />
               ))}
             </div>
