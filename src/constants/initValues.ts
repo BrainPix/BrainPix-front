@@ -38,3 +38,12 @@ export const COMPANY_RPOFILE_INIT = {
     },
   ],
 };
+
+export const PORTFOLIO_DETAIL_INIT = {
+  title: '',
+  specializations: [''],
+  startDate: '',
+  endDate: '',
+  content: '',
+  profileImage: '',
+};

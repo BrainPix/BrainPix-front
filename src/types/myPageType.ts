@@ -32,3 +32,12 @@ export interface PortfolioDetailResponseType {
   content: string;
   profileImage: string;
 }
+
+export interface EditProfilePayload {
+  title: string;
+  sepcializations: string[];
+  startDate: string;
+  endDate: string;
+  content: string;
+  profileImage: string;
+}

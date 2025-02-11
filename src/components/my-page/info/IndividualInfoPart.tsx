@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import styles from './individualInfoPart.module.scss';
@@ -29,13 +29,10 @@ export const IndividualInfoPart = forwardRef<
     value: '',
     isOpen: false,
   });
+
   const [selectedSpecialization, setSelectedSpecialization] = useState<
     string[]
   >([]);
-
-  useEffect(() => {
-    console.log(addInfo);
-  }, [addInfo]);
 
   const LABEL_OPTIONS =
     (userData as IndividualProfileType).userType === 'INDIVIDUAL'
@@ -43,6 +40,7 @@ export const IndividualInfoPart = forwardRef<
       : ['홈페이지', '이메일', '전화번호', '기타'];
 
   const handleSelectLabel = (option: string) => {
+    setSelectedSpecialization((prev) => [prev[0], option]);
     setAddInfo((prev) => {
       return {
         ...prev,
@@ -73,7 +71,7 @@ export const IndividualInfoPart = forwardRef<
         )}
       </h1>
       <div className={classNames(styles.individualInfoWrapper)}>
-        {info.map(({ type, value }) => (
+        {info?.map(({ type, value }) => (
           <div
             key={type}
             className={classNames(styles.list)}>

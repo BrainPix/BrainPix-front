@@ -19,7 +19,6 @@ export const useIntersectionObserverAPI = ({
     ): void => {
       entries.forEach((entry: IntersectionObserverEntry) => {
         if (entry.isIntersecting) {
-          console.log(entry);
           onIntersect(entry, observer);
         }
       });

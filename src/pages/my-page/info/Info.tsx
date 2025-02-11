@@ -74,7 +74,6 @@ export const Info = () => {
 
   const handleClickAddInfoButton = (data: IndividualContactType) => {
     setAddContacts((prev) => [...prev, data]);
-    console.log(addContacts);
   };
 
   return (

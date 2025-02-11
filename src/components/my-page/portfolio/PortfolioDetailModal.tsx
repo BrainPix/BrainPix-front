@@ -1,11 +1,32 @@
-import { forwardRef, useState } from 'react';
+import {
+  ChangeEvent,
+  forwardRef,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import styles from './portfolioDetailModal.module.scss';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Controller, useForm } from 'react-hook-form';
+import ReactQuill from 'react-quill-new';
+import { v4 as uuidv4 } from 'uuid';
 
-import { useQuery } from '@tanstack/react-query';
-import { getPorfolioDetail } from '../../../apis/portfolio';
-import { PortfolioDetailResponseType } from '../../../types/myPageType';
+import { getPorfolioDetail, putPorfolioDetail } from '../../../apis/portfolio';
+import {
+  EditProfilePayload,
+  PortfolioDetailResponseType,
+} from '../../../types/myPageType';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
+import ImageInput from '../../../assets/icons/imageInput.svg?react';
+import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { QuillToolbar } from './QuillToolbar';
+import { Dropdown } from '../../common/dropdown/Dropdown';
+import { PORTFOLIO_DETAIL_INIT } from '../../../constants/initValues';
+import { getPresignedURL } from '../../../apis/commonAPI';
+import axios from 'axios';
+import { ToastContext } from '../../../contexts/toastContext';
 
 interface PortfolioDetailModalPropsType {
   onClose: () => void;
@@ -16,16 +37,66 @@ export const PortfolioDetailModal = forwardRef<
   HTMLDivElement,
   PortfolioDetailModalPropsType
 >(({ onClose, cardId }, ref) => {
-  const [editMode, setEditMode] = useState(false);
+  const modules = {
+    toolbar: { container: '#toolbar' },
+  };
+  const quillRef = useRef<ReactQuill>(null);
+  const { errorToast } = useContext(ToastContext);
+  const IMAGE_BASE_URL = import.meta.env.VITE_S3_URL;
 
-  const { data: cardData } = useQuery({
+  const [editMode, setEditMode] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedSpecializations, setSelectedSpecializations] = useState('');
+
+  const { data: cardData, isPending: isCardDataPending } = useQuery({
     queryKey: ['clickedCardData'],
     queryFn: () => getPorfolioDetail(cardId),
   });
 
-  console.log(cardData);
+  const { mutate: putPortfolio } = useMutation({
+    mutationFn: (payload: EditProfilePayload) =>
+      putPorfolioDetail(cardId, payload),
+  });
+
+  const { register, setValue, control, handleSubmit } = useForm({
+    defaultValues: PORTFOLIO_DETAIL_INIT,
+  });
+
+  const imageLoader = async (image: File) => {
+    const fileExt = image.name.split('.').pop();
+    const safeFileName = `${uuidv4()}.${fileExt}`;
+
+    try {
+      const presignedURL = await getPresignedURL({
+        fileName: encodeURIComponent(safeFileName),
+        fileType: image.type,
+      });
+      await axios.put(presignedURL, image, {
+        headers: { 'Content-Type': image.type },
+      });
+      return `${IMAGE_BASE_URL}/${safeFileName}`;
+    } catch {
+      errorToast(`업로드에 실패하였습니다`);
+    }
+  };
+
+  useEffect(() => {
+    if (cardData?.data) {
+      setValue('title', cardData.data.title || '');
+      setValue('profileImage', cardData.data.profileImage);
+      setValue('specializations', cardData.data.specializations);
+      setValue('startDate', cardData.data.startDate);
+      setValue('endDate', cardData.data.endDate);
+      setValue('content', cardData.data.content);
+    }
+  }, [cardData, setValue]);
+
+  if (isCardDataPending) {
+    return <div>로딩 중</div>;
+  }
+
   const { title, specializations, startDate, endDate, content, profileImage } =
-    cardData.data as PortfolioDetailResponseType;
+    cardData?.data as PortfolioDetailResponseType;
 
   const handleClickEditButton = () => {
     if (editMode) {
@@ -33,12 +104,47 @@ export const PortfolioDetailModal = forwardRef<
     }
     setEditMode(true);
   };
+
+  const handleSelectSpecialization = (option: string) => {
+    console.log(option);
+    setSelectedSpecializations(option);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue('title', e.target.value);
+  };
+
+  const handleSubmitHandler = async (payload: EditProfilePayload) => {
+    console.log(payload);
+    putPortfolio(payload);
+  };
+
+  const handleChangeImageInput = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target?.files) return null;
+
+    const result = await imageLoader(e.target.files?.[0]);
+    if (result) {
+      setSelectedImage(result);
+      setValue('profileImage', result);
+    }
+  };
+
   return (
     <div
       className={classNames(styles.container)}
       ref={ref}>
       <div className={classNames(styles.titleWrapper)}>
-        <h1 className={classNames(styles.title)}>{title}</h1>
+        {editMode ? (
+          <input
+            className={classNames(styles.titleInput)}
+            type='text'
+            placeholder='제목을 입력하세요.'
+            {...register('title')}
+            onChange={handleChange}
+          />
+        ) : (
+          <h1 className={classNames(styles.title)}>{title}</h1>
+        )}
         <button
           onClick={handleClickEditButton}
           className={classNames('buttonOutlined-grey500', styles.editButton)}>
@@ -46,67 +152,154 @@ export const PortfolioDetailModal = forwardRef<
         </button>
       </div>
       <hr className={classNames(styles.titleDivider)} />
-      <div className={classNames(styles.contentContainer)}>
-        <div className={classNames(styles.infoContainer)}>
-          <div className={classNames(styles.infoWrapper)}>
-            <span>카테고리 </span>
-            <hr className={classNames(styles.infoDivider)} />
-            <input
-              defaultValue={CATEGORY_LABELS[specializations[0]]}
-              disabled={!editMode}
+      {editMode ? (
+        <form
+          className={classNames(styles.contentContainer)}
+          onSubmit={handleSubmit(handleSubmitHandler)}>
+          <div className={classNames(styles.imageInputWrapper)}>
+            <img
+              alt='포트폴리오 이미지'
+              src={selectedImage || profileImage}
+              className={classNames(styles.imageInputLabel)}
             />
+            <label htmlFor='imageInput'>
+              <div className={classNames(styles.imageInputLabel)}>
+                <ImageInput
+                  width={48}
+                  height={48}
+                />
+                대표사진
+              </div>
+              <input
+                id='imageInput'
+                type='file'
+                alt='이미지'
+                accept='image/*'
+                className={classNames(styles.imageInput)}
+                {...register('profileImage')}
+                onChange={handleChangeImageInput}
+              />
+            </label>
           </div>
-          <div className={classNames(styles.infoWrapper)}>
-            <span>프로젝트 기간 </span>
-            <hr className={classNames(styles.infoDivider)} />
-            <input
-              defaultValue={`${startDate} - ${endDate}`}
+          <div className={classNames(styles.infoInputWrapper)}>
+            <div className={classNames(styles.categoryInputWrapper)}>
+              <h3 className={classNames(styles.inputTitle)}>카테고리</h3>
+              <Dropdown
+                onSelect={handleSelectSpecialization}
+                selectedBoxClassName={styles.categoryDropdown}
+                optionBoxClassName={styles.categoryOptionsBoxDropdown}
+              />
+            </div>
+            <div>
+              <h3 className={classNames(styles.inputTitle)}>프로젝트 기간</h3>
+              <div className={classNames(styles.dateInputWrapper)}>
+                <input
+                  placeholder='시작 날짜 선택'
+                  className={classNames(styles.dateInput)}
+                  {...register('startDate')}
+                />
+                <hr className={classNames(styles.divider)} />
+                <input
+                  placeholder='종료 날짜 선택'
+                  className={classNames(styles.dateInput)}
+                  {...register('endDate')}
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className={classNames(styles.inputTitle)}>포트폴리오 내용</div>
+            <div className={classNames(styles.contentInputWrapper)}>
+              <QuillToolbar />
+              <Controller
+                name='content'
+                control={control}
+                render={({ field }) => (
+                  <ReactQuill
+                    {...field}
+                    ref={quillRef}
+                    modules={modules}
+                    className={classNames(styles.textInput)}
+                    placeholder='내용을 입력하세요'
+                    onChange={(content: string) => field.onChange(content)}
+                  />
+                )}
+              />
+            </div>
+          </div>
+          <div className={classNames(styles.uploadButtonWrapper)}>
+            <button
+              type='button'
+              onClick={onClose}
+              className={classNames(styles.cancelButton)}>
+              닫기
+            </button>
+            <button
+              type='submit'
+              className={classNames(
+                'buttonFilled-primary',
+                styles.uploadButton,
+              )}>
+              업로드
+            </button>
+          </div>
+        </form>
+      ) : (
+        <>
+          <div className={classNames(styles.contentContainer)}>
+            <div
+              className={classNames(styles.infoContainer, {
+                [styles.editMode]: editMode,
+              })}>
+              <div className={classNames(styles.infoWrapper)}>
+                <span>카테고리 </span>
+                <hr className={classNames(styles.infoDivider)} />
+                <div>{CATEGORY_LABELS[specializations[0]]}</div>
+              </div>
+
+              <div className={classNames(styles.infoWrapper)}>
+                <span>프로젝트 기간 </span>
+                <hr className={classNames(styles.infoDivider)} />
+                <div>
+                  {startDate} - {endDate}
+                </div>
+              </div>
+            </div>
+            <div className={classNames(styles.imageInputWrapper)}>
+              <img
+                alt='포트폴리오 사진'
+                src={profileImage}
+                className={classNames(styles.imageInputLabel)}
+                onError={imageErrorHandler}
+              />
+            </div>
+            <div className={classNames(styles.titleWrapper)}>
+              <h1 className={classNames(styles.title)}>포트폴리오 내용</h1>
+            </div>
+            <textarea
               disabled={!editMode}
+              className={classNames(styles.contentInput)}
+              value={content}
             />
+            <div className={classNames(styles.uploadButtonWrapper)}>
+              <button
+                type='button'
+                onClick={onClose}
+                className={classNames(styles.cancelButton)}>
+                닫기
+              </button>
+              <button
+                type='submit'
+                className={classNames(
+                  'buttonFilled-primary',
+                  styles.uploadButton,
+                )}>
+                삭제하기
+              </button>
+            </div>
           </div>
-        </div>
-        <img
-          alt='포트폴리오 사진'
-          src={profileImage}
-          className={classNames(styles.imageInputLabel)}
-        />
-        {/* <label
-          htmlFor='imageInput'
-          className={classNames(styles.imageInputLabel)}>
-          <ImageInput
-            width={41}
-            height={41}
-          />
-          대표사진
-        </label>
-        <input
-          id='imageInput'
-          type='file'
-          alt='이미지'
-          className={classNames(styles.imageInput)}
-        /> */}
-        <div className={classNames(styles.titleWrapper)}>
-          <h1 className={classNames(styles.title)}>포트폴리오 내용</h1>
-        </div>
-        <textarea
-          disabled={!editMode}
-          className={classNames(styles.contentInput)}
-          value={content}
-        />
-        <div className={classNames(styles.deleteButtonWrapper)}>
-          <button
-            type='button'
-            onClick={onClose}
-            className={classNames(styles.cancelButton)}>
-            닫기
-          </button>
-          <button
-            type='button'
-            className={classNames('buttonFilled-primary', styles.deleteButton)}>
-            삭제하기
-          </button>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 });

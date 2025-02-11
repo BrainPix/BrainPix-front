@@ -203,7 +203,7 @@ export const StepTwo = ({
           </div>
         </div>
         <button
-          disabled={!(isValid && emailCheckResult === '성공')}
+          disabled={!isValid}
           className={classNames(
             styles.submitButton,
             isValid && emailCheckResult === '성공'

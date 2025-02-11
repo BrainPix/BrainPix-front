@@ -6,6 +6,7 @@ import styles from './dropdown.module.scss';
 interface DropdownProps {
   label?: string;
   options?: string[];
+  defaultValue?: string;
   max_visible_options?: number;
   dropDownClassName?: string;
   selectedBoxClassName?: string;
@@ -37,10 +38,13 @@ export const Dropdown = ({
   selectedBoxClassName,
   optionBoxClassName,
   onSelect,
+  defaultValue,
 }: DropdownProps) => {
   const finalOptions = options && options.length > 0 ? options : defaultOptions;
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(options?.[0] || '분야별');
+  const [selected, setSelected] = useState(
+    options?.[0] || defaultValue || '분야별',
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
   const optionsListRef = useRef<HTMLUListElement>(null);
 
