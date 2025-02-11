@@ -1,28 +1,40 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getPostIdeaMarket } from '../../../apis/postManagementAPI.ts';
+import {
+  getPostIdeaMarket,
+  getPostRequestTask,
+  getPostCollaboration,
+} from '../../../apis/postManagementAPI.ts';
 import styles from './myPagePosts.module.scss';
 import { TabNavigation } from '../../../components/my-page/TabNavigation.tsx';
 import PreviewThumbnail from '../../../components/preview/PreviewThumbnail.tsx';
-import { Post, PostApiResponse } from '../../../types/postDataType.ts';
+import {
+  IdeaMarket,
+  RequestTask,
+  Collaboration,
+  PostApiResponse,
+} from '../../../types/postDataType.ts';
 
 export const MyPagePosts = () => {
-  const TABS = ['아이디어 마켓', '요청과제', '협업광장'];
+  const TABS = ['아이디어 마켓', '요청 과제', '협업 광장'];
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
-  // const categoryMap: { [key: string]: PostCategories } = {
-  //   [TABS[0]]: PostCategories.IDEA_MARKET,
-  //   [TABS[1]]: PostCategories.REQUEST_ASSIGN,
-  //   [TABS[2]]: PostCategories.COLLABORATION,
-  // };
+  const postAPIMap = () => {
+    if (activeTab === '아이디어 마켓') return getPostIdeaMarket;
+    if (activeTab === '요청 과제') return getPostRequestTask;
+    if (activeTab === '협업 광장') return getPostCollaboration;
+    return getPostIdeaMarket;
+  };
 
-  const { data, isLoading, isError } = useQuery<PostApiResponse>({
+  const { data, isLoading, isError } = useQuery<
+    PostApiResponse<IdeaMarket | RequestTask | Collaboration>
+  >({
     queryKey: ['myPosts', activeTab],
-    queryFn: () => getPostIdeaMarket(0, 10),
+    queryFn: () => postAPIMap()(0, 10),
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
   });
 
-  const ideaMarketPosts: Post[] = data?.content ?? [];
+  const posts = data?.content ?? [];
 
   // const posts = [
   //   {
@@ -100,20 +112,22 @@ export const MyPagePosts = () => {
           <p>데이터를 불러오는 중 오류가 발생했습니다.</p>
         ) : (
           <>
-            <div className={styles.count}>
-              총 게시글 {ideaMarketPosts.length}
-            </div>
+            <div className={styles.count}>총 게시글 {posts.length}</div>
             {/* 게시물 리스트 */}
             <div className={styles.postList}>
-              {ideaMarketPosts.map((post: Post) => (
+              {posts.map((post) => (
                 <PreviewThumbnail
                   key={post.ideaId}
-                  imageUrl={post.thumbnailImage || ''}
+                  imageUrl={
+                    'thumbnailImageUrl' in post &&
+                    post.thumbnailImageUrl !== null
+                      ? post.thumbnailImageUrl
+                      : undefined
+                  }
                   //profileImage={profileImage || ''}
-                  //username={user}
                   description={post.title}
                   username={post.writerName}
-                  price={post.price}
+                  price={'price' in post ? post.price : undefined}
                   isBookmarked={false} // 북마크 여부는 추후 API 연동 필요
                   onBookmarkClick={() =>
                     console.log(`Bookmark clicked for ${post.ideaId}`)
