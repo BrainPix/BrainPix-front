@@ -200,10 +200,11 @@
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+  @include pretendard-14-400;
 }
 
 .pagination button {
-  @include pretendard-14-400;
+  @include pretendard-12-400;
   color: $grey-700;
   border: none;
   background: none;
