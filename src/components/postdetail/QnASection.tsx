@@ -6,13 +6,21 @@ import React from 'react';
 
 interface QnASectionProps {
   postId: number;
+  profileImageUrl: string;
 }
 
-const QnASection = ({ postId }: QnASectionProps) => {
-  //const { commentsQuery, postCommentMutation } = useQnA(postId);
+const QnASection = ({ postId, profileImageUrl }: QnASectionProps) => {
+  const {
+    commentsQuery,
+    postCommentMutation,
+    postReplyMutation,
+    setCurrentPage,
+    currentPage,
+  } = useQnA(postId);
+
   const [commentContent, setCommentContent] = useState('');
-  const { commentsQuery, postCommentMutation, setCurrentPage, currentPage } =
-    useQnA(postId);
+  const [replyContent, setReplyContent] = useState('');
+  const [activeReply, setActiveReply] = useState<number | null>(null); // 대댓글 입력창 활성화 상태
 
   // 페이지 이동 함수
   const handleNextPage = () => {
@@ -31,6 +39,10 @@ const QnASection = ({ postId }: QnASectionProps) => {
     setCommentContent(e.target.value);
   };
 
+  const handleReplyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReplyContent(e.target.value);
+  };
+
   const handleCommentSubmit = async () => {
     if (!commentContent.trim()) {
       alert('댓글을 입력해주세요.');
@@ -44,7 +56,22 @@ const QnASection = ({ postId }: QnASectionProps) => {
     });
   };
 
-  console.log('댓글 데이터:', commentsQuery.data); // API 응답 확인용
+  const handleReplySubmit = async (parentCommentId: number) => {
+    if (!replyContent.trim()) {
+      alert('답글을 입력해주세요.');
+      return;
+    }
+
+    postReplyMutation.mutate(
+      { parentCommentId, content: replyContent },
+      {
+        onSuccess: () => {
+          setReplyContent('');
+          setActiveReply(null); // 대댓글 입력창 닫기
+        },
+      },
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -62,8 +89,7 @@ const QnASection = ({ postId }: QnASectionProps) => {
         <button
           className={styles.submitButton}
           onClick={handleCommentSubmit}
-          disabled={postCommentMutation.isPending} // 🔹 `isLoading` → `isPending`
-        >
+          disabled={postCommentMutation.isPending}>
           {postCommentMutation.isPending ? '등록 중...' : '등록'}
         </button>
       </div>
@@ -80,7 +106,11 @@ const QnASection = ({ postId }: QnASectionProps) => {
           key={comment.commentId}
           className={styles.qnaItem}>
           <div className={styles.profile}>
-            <div className={styles.profileIcon}></div>
+            <img
+              src={profileImageUrl || '/default-profile.png'}
+              alt={`프로필`}
+              className={styles.profileIcon}
+            />
           </div>
           <div className={styles.content}>
             <div className={styles.header}>
@@ -89,11 +119,60 @@ const QnASection = ({ postId }: QnASectionProps) => {
             </div>
             <p className={styles.question}>{comment.content}</p>
             <div className={styles.actions}>
-              <button className={styles.actionButton}>답글쓰기</button>
+              <button
+                className={styles.actionButton}
+                onClick={() => setActiveReply(comment.commentId)}>
+                답글쓰기
+              </button>
             </div>
+
+            {/* 🔹 대댓글 입력창 */}
+            {activeReply === comment.commentId && (
+              <div className={styles.replyInputContainer}>
+                <textarea
+                  className={styles.textArea}
+                  placeholder='답글을 입력하세요...'
+                  value={replyContent}
+                  onChange={handleReplyChange}
+                />
+                <button
+                  className={styles.submitButton}
+                  onClick={() => handleReplySubmit(comment.commentId)}
+                  disabled={postReplyMutation.isPending}>
+                  {postReplyMutation.isPending ? '등록 중...' : '등록'}
+                </button>
+              </div>
+            )}
+
+            {/* 🔹 대댓글 목록 */}
+            {comment.childComments.length > 0 && (
+              <div className={styles.childComments}>
+                {comment.childComments.map((child) => (
+                  <div
+                    key={child.commentId}
+                    className={styles.qnaItemReply}>
+                    <div className={styles.profile}>
+                      <img
+                        src={profileImageUrl || '/default-profile.png'}
+                        alt={`프로필`}
+                        className={styles.profileIcon}
+                      />
+                    </div>
+                    <div className={styles.content}>
+                      <div className={styles.header}>
+                        <span className={styles.id}>{child.writerName}</span>
+                        <span className={styles.date}>{child.createdDate}</span>
+                      </div>
+                      <p className={styles.question}>{child.content}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       ))}
+
       {/* 🔹 페이지네이션 버튼 */}
       <div className={styles.pagination}>
         <button
