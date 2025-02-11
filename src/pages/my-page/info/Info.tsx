@@ -65,7 +65,10 @@ export const Info = () => {
     setEditMode(false);
   };
 
-  const handleSubmitHandler: SubmitHandler<FieldValues> = () => {
+  const handleSubmitHandler: SubmitHandler<FieldValues> = (
+    payload: FieldValues,
+  ) => {
+    console.log(payload);
     setEditMode(false);
   };
 
