@@ -312,10 +312,9 @@ export const PortfolioDetailModal = forwardRef<
               <div className={classNames(styles.titleWrapper)}>
                 <h1 className={classNames(styles.title)}>포트폴리오 내용</h1>
               </div>
-              <textarea
-                disabled={!editMode}
+              <div
                 className={classNames(styles.contentInput)}
-                value={content}
+                dangerouslySetInnerHTML={{ __html: content }}
               />
               <div className={classNames(styles.uploadButtonWrapper)}>
                 <button

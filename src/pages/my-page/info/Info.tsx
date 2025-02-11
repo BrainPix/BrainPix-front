@@ -68,7 +68,7 @@ export const Info = () => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = (
     payload: FieldValues,
   ) => {
-    console.log(payload);
+    console.log(payload, addContacts);
     setEditMode(false);
   };
 

@@ -5,9 +5,20 @@ import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   CompanyProfileType,
-  FieldValuesType,
   IndividualProfileType,
 } from '../../../types/profileType';
+
+interface FieldValuesType {
+  introduce: string;
+  phone: string;
+  notion: string;
+  github: string;
+  homepage: string;
+  email: string;
+  others: string;
+  contactOpen: boolean;
+  stackOpen: boolean;
+}
 
 interface IntroducePartPropsType {
   editMode: boolean;

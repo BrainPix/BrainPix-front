@@ -44,19 +44,21 @@ export const SkillPart = ({ editMode }: SkillPartPropsType) => {
           <hr className={classNames(styles.tableDivider)} />
           <div className={classNames(styles.label)}>수준</div>
         </div>
-        <div className={classNames(styles.contentContainer)}>
-          {skillInfo.map(({ stackName, proficiency }) => (
-            <div
-              className={classNames(styles.list)}
-              key={stackName}>
-              <div className={classNames(styles.skillName)}>{stackName}</div>
-              <hr className={classNames(styles.tableDivider)} />
-              <div className={classNames(styles.skillLevel)}>
-                {SKILL_PROFICIENCY_MAPPER[proficiency]}
+        {skillInfo.length > 0 && (
+          <div className={classNames(styles.contentContainer)}>
+            {skillInfo.map(({ stackName, proficiency }) => (
+              <div
+                className={classNames(styles.list)}
+                key={stackName}>
+                <div className={classNames(styles.skillName)}>{stackName}</div>
+                <hr className={classNames(styles.tableDivider)} />
+                <div className={classNames(styles.skillLevel)}>
+                  {SKILL_PROFICIENCY_MAPPER[proficiency]}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {editMode && (

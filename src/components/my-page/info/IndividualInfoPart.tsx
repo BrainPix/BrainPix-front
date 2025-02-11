@@ -130,6 +130,7 @@ export const IndividualInfoPart = forwardRef<
           </button>
         </div>
       )}
+      <>{selectedSpecialization}</>
     </div>
   );
 });
