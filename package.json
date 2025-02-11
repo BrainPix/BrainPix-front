@@ -15,6 +15,7 @@
     "@tanstack/react-query-devtools": "^5.66.0",
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
+    "dompurify": "^3.2.4",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "lint": "^0.8.19",
     "lodash": "^4.17.21",
