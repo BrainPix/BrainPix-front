@@ -1,21 +1,28 @@
-export enum PostCategories {
-  IDEA_MARKET = 'ideaMarket',
-  REQUEST_ASSIGN = 'requestTask',
-  COLLABORATION = 'collaboration',
-}
-
-export interface PostProps {
-  id: number;
-  category: PostCategories;
-  fieldOfPost?: string;
+export interface Post {
+  postId: number;
+  category: string;
   user: string;
-  profileImage: string | null;
+  profileImage?: string | null;
   title: string;
-  postImage: string | null;
-  price?: number;
+  thumbnailImage: string | null;
+  price: number;
   deadline?: number;
-  current?: number; // 현재 인원
-  total?: number; // 총 모집 인원
+  current?: number;
+  total?: number;
   saveCount?: number;
   viewCount?: number;
+  purchaseHistory: [
+    {
+      buyerID: string;
+      userId: number;
+      payment: string;
+      totalPay: number;
+    },
+  ];
+}
+
+export interface PostApiResponse {
+  content: Post[];
+  totalPages: number;
+  totalElements: number;
 }
