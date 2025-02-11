@@ -45,6 +45,7 @@ export const AddPortfolioModal = forwardRef<
       successToast('게시글 등록에 성공하였습니다.');
       onClose();
     },
+    onError: () => errorToast('게시글 등록에 실패하였습니다.'),
   });
 
   const imageLoader = async (image: File) => {
@@ -66,8 +67,6 @@ export const AddPortfolioModal = forwardRef<
   };
 
   const handleSubmitHandler = async (payload: FieldValues) => {
-    console.log(payload);
-
     const requestBody = {
       title: String(payload.title),
       specializations: [CATEGORY_MAPPER_TO_ENG[specializations]],

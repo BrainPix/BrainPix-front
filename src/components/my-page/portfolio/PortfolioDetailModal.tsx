@@ -62,6 +62,7 @@ export const PortfolioDetailModal = forwardRef<
       queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
       successToast('수정이 완료되었습니다.');
     },
+    onError: () => errorToast('게시글 수정에 실패하였습니다.'),
   });
 
   const { register, setValue, control, handleSubmit } = useForm({
