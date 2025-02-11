@@ -22,7 +22,10 @@ import {
   EditProfilePayload,
   PortfolioDetailResponseType,
 } from '../../../types/myPageType';
-import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
+import {
+  CATEGORY_LABELS,
+  CATEGORY_MAPPER_TO_ENG,
+} from '../../../constants/categoryMapper';
 import ImageInput from '../../../assets/icons/imageInput.svg?react';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 import { QuillToolbar } from './QuillToolbar';
@@ -136,7 +139,11 @@ export const PortfolioDetailModal = forwardRef<
   };
 
   const handleSubmitHandler = async (payload: FieldValues) => {
-    putPortfolioMutate(payload as EditProfilePayload);
+    const updatedPayload = {
+      ...payload,
+      specializations: [CATEGORY_MAPPER_TO_ENG[selectedSpecializations]],
+    };
+    putPortfolioMutate(updatedPayload as EditProfilePayload);
   };
 
   const handleClickDeleteButton = async () => {
@@ -172,7 +179,7 @@ export const PortfolioDetailModal = forwardRef<
         <button
           onClick={handleClickEditButton}
           className={classNames('buttonOutlined-grey500', styles.editButton)}>
-          {editMode && '수정완료'}
+          {!editMode && '수정하기'}
         </button>
       </div>
       <hr className={classNames(styles.titleDivider)} />

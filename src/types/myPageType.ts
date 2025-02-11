@@ -35,7 +35,7 @@ export interface PortfolioDetailResponseType {
 
 export interface EditProfilePayload {
   title: string;
-  sepcializations: string[];
+  specializations: string[];
   startDate: string;
   endDate: string;
   content: string;
