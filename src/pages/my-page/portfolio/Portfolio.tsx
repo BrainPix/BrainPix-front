@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import React from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './portfolio.module.scss';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -7,13 +8,19 @@ import { AddPortfolioModal } from '../../../components/my-page/portfolio/AddPort
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
 import { getMyPorfolio } from '../../../apis/portfolio';
-import React from 'react';
+import placeholder from '../../../assets/images/brainPixIcon.png';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 
 export const Portfolio = () => {
   const [lastCardId, setLastCardId] = useState(0);
   const [clickedCardId, setClickedCardId] = useState(-1);
+
+  const imageOnErrorHandler = (e: SyntheticEvent<HTMLImageElement>) => {
+    console.log(e);
+    e.currentTarget.src = placeholder;
+  };
+
   const { setTarget } = useIntersectionObserverAPI({
     onIntersect: () => {
       fetchNextPage();
@@ -112,15 +119,13 @@ export const Portfolio = () => {
                   ref={idx === lastCardId ? setTarget : null}
                   onClick={() => handleClickPorfolioCard(id)}
                   className={classNames(styles.portfolioCardWrapper)}>
-                  {profileImage ? (
-                    <img
-                      alt='포트폴리오 사진'
-                      className={classNames(styles.image)}
-                      src={profileImage}
-                    />
-                  ) : (
-                    <div className={classNames(styles.image)} />
-                  )}
+                  <img
+                    alt='포트폴리오 사진'
+                    className={classNames(styles.image)}
+                    src={profileImage || placeholder}
+                    onError={imageOnErrorHandler}
+                  />
+
                   <p className={classNames(styles.portfolioTitle)}>{title}</p>
                   <p className={classNames(styles.date)}>{createdDate}</p>
                 </div>
