@@ -19,7 +19,7 @@ export interface RequestTask {
   specialization: string;
   title: string;
   thumbnailImageUrl: string | null;
-  deadline?: string;
+  deadLine?: string;
   saveCount?: number;
   viewCount?: number;
 }
@@ -31,7 +31,7 @@ export interface Collaboration {
   writerName: string;
   thumbnailImageUrl: string | null;
   title: string;
-  deadline?: string;
+  deadLine?: string;
   specialization: string;
   saveCount?: number;
   viewCount?: number;
