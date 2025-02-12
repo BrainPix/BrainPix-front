@@ -6,7 +6,7 @@ interface ApplyStatusProps {
     role: string;
     approvedCount: number;
     totalCount: number;
-    purchasingId: number;
+    purchasingId?: number;
   }[];
 }
 
@@ -15,7 +15,7 @@ export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
   //   { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
   // ];
   {
-    console.log('해당 요청 과제의 지원 현황: ', applicationStatus);
+    console.log('지원 현황: ', applicationStatus);
   }
   return (
     <div className={styles.container}>
