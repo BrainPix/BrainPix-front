@@ -67,7 +67,7 @@ export const IndividualInfoPart = forwardRef<
         {contacts?.map(({ type, value, isPublic }) => {
           return editMode ? (
             <div
-              key={value}
+              key={type}
               className={classNames(styles.list)}>
               <span className={classNames(styles.label)}>
                 {INFO_TYPE_MAPPER[type]}

@@ -11,7 +11,7 @@ import { ExperiencePart } from '../../../components/my-page/info/ExperiencePart'
 import { PortfolioPart } from '../../../components/my-page/info/PortfolioPart';
 import { SpecializationPart } from '../../../components/my-page/info/SpecializationPart';
 import { BusinessInfoPart } from '../../../components/my-page/info/BusinessInfoPart';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getProfilePersonal } from '../../../apis/profileAPI';
 import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
 import {
@@ -19,10 +19,16 @@ import {
   IndividualContactType,
   IndividualSkillTypeResponseType,
 } from '../../../types/profileType';
-import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
+import {
+  CATEGORY_LABELS,
+  CATEGORY_MAPPER_TO_ENG,
+} from '../../../constants/categoryMapper';
+import { IndividualInfoResponseType } from '../../../types/myPageType';
+import { putIndividualInfo } from '../../../apis/mypageAPI';
 
 export const Info = () => {
   type userTypetype = '개인' | '기업';
+  const queryClient = useQueryClient();
 
   const [editMode, setEditMode] = useState(false);
   const [contacts, setContacts] = useState<IndividualContactType[]>([]);
@@ -42,10 +48,6 @@ export const Info = () => {
     careerOpen: false,
   };
 
-  useEffect(() => {
-    console.log(skills);
-  }, [skills]);
-
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: defaultInputValues,
   });
@@ -62,6 +64,15 @@ export const Info = () => {
     enabled: userType === '개인',
   });
 
+  const { mutate: editMyInfoMutate } = useMutation({
+    mutationFn: (payload: IndividualInfoResponseType) =>
+      putIndividualInfo(personalData.userId, payload),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['userData'],
+      }),
+  });
+
   useEffect(() => {
     if (personalData) {
       setValue('selfIntroduction', personalData.selfIntroduction);
@@ -76,6 +87,10 @@ export const Info = () => {
       setCareers(personalData.careers);
     }
   }, [personalData, companyData, setValue]);
+
+  useEffect(() => {
+    console.log(contacts);
+  }, [contacts]);
 
   if (isPersonalDataPending || isCompanyDataPending) {
     return <div>로딩 중..</div>;
@@ -110,10 +125,24 @@ export const Info = () => {
     setSelectedSpecialization(updatedSpecialization);
   };
 
-  const handleSubmitHandler: SubmitHandler<FieldValues> = (
+  const handleSubmitHandler: SubmitHandler<FieldValues> = async (
     payload: FieldValues,
   ) => {
-    console.log(payload, contacts);
+    const requestBody = {
+      ...payload,
+      contacts,
+      careers,
+      specializations: selectedSpecialization.map(
+        (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
+      ),
+      stacks: skills.map(({ stackName, ...rest }) => ({
+        name: stackName,
+        ...rest,
+      })),
+    };
+    editMyInfoMutate(requestBody as IndividualInfoResponseType);
+
+    console.log(requestBody);
     setEditMode(false);
   };
 

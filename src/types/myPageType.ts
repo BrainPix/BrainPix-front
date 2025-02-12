@@ -1,3 +1,9 @@
+import {
+  IndividualCareerResponseType,
+  IndividualContactType,
+  IndividualSkillTypeResponseType,
+} from './profileType';
+
 export interface MyBaseInfoType {
   name: 'string';
   userType: 'string';
@@ -5,6 +11,17 @@ export interface MyBaseInfoType {
   ideaCount: number;
   collaborationCount: number;
   selfIntroduction: 'string';
+}
+
+export interface IndividualInfoResponseType {
+  profileImage: string;
+  selfIntroduction: string;
+  contacts: IndividualContactType[];
+  stacks: IndividualSkillTypeResponseType[];
+  stackOpen: boolean;
+  careers: IndividualCareerResponseType[];
+  careerOpen: boolean;
+  specializations: string[];
 }
 
 export interface MyPorfolioType {
