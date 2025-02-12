@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
   getPostIdeaMarket,
@@ -16,6 +17,8 @@ import {
 } from '../../../types/postDataType.ts';
 
 export const MyPagePosts = () => {
+  const navigate = useNavigate();
+
   const TABS = ['아이디어 마켓', '요청 과제', '협업 광장'];
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
@@ -133,6 +136,11 @@ export const MyPagePosts = () => {
                     console.log(`Bookmark clicked for ${post.ideaId}`)
                   }
                   verified={true} // 검증 여부 (필요시 데이터에서 가져오기)
+                  onClick={() => {
+                    if (activeTab === '요청 과제') {
+                      navigate(`/my/posts/request-assign/${post.ideaId}`);
+                    }
+                  }}
                 />
               ))}
             </div>
