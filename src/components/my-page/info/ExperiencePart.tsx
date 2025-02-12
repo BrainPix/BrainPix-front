@@ -1,10 +1,10 @@
-import { forwardRef, useState } from 'react';
+import { ChangeEvent, forwardRef, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './experiencePart.module.scss';
-import { useQueryClient } from '@tanstack/react-query';
 
-import { IndividualProfileType } from '../../../types/profileType';
+import { IndividualCareerResponseType } from '../../../types/profileType';
 import { UseFormSetValue } from 'react-hook-form';
+import { formatBirth } from '../../../utils/formatBirth';
 
 interface FieldValuesType {
   profileImage: string;
@@ -16,22 +16,50 @@ interface FieldValuesType {
 interface ExperiencePartPropsType {
   editMode: boolean;
   setValue: UseFormSetValue<FieldValuesType>;
+  careers: IndividualCareerResponseType[];
+  onClickAdd: (data: IndividualCareerResponseType) => void;
 }
 
 export const ExperiencePart = forwardRef<
   HTMLInputElement,
   ExperiencePartPropsType
->(({ editMode, setValue }, ref) => {
-  const queryClient = useQueryClient();
-  const userData = queryClient.getQueryData([
-    'userData',
-  ]) as IndividualProfileType;
-
+>(({ editMode, setValue, careers, onClickAdd }, ref) => {
   const [experienceOpenChecked, setExperienceOpenChecked] = useState(false);
+  const startDateRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
+
+  const [careerName, setCareerName] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const handleChangeCheckbox = (checked: boolean) => {
     setValue('careerOpen', checked);
     setExperienceOpenChecked(checked);
+  };
+
+  const handleChangeCareerNameInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setCareerName(e.target.value);
+  };
+
+  const handleChangeStartDateInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const formattedValue = formatBirth(e.target.value);
+    e.target.value = formattedValue;
+    setStartDate(formattedValue);
+  };
+
+  const handleChangeEndDateInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const formattedValue = formatBirth(e.target.value);
+    e.target.value = formattedValue;
+    setEndDate(formattedValue);
+  };
+
+  const handleClickAddButton = () => {
+    const addedCareer = {
+      content: careerName,
+      startDate,
+      endDate,
+    };
+    onClickAdd(addedCareer);
   };
 
   return (
@@ -69,7 +97,7 @@ export const ExperiencePart = forwardRef<
           <hr className={classNames(styles.tableDivider)} />
           <div className={classNames(styles.label)}>기간</div>
         </div>
-        {userData.careers.map(({ content, startDate, endDate }) => (
+        {careers.map(({ content, startDate, endDate }) => (
           <div
             className={classNames(styles.list)}
             key={content}>
@@ -86,22 +114,30 @@ export const ExperiencePart = forwardRef<
           <div className={classNames(styles.experienceInput)}>
             <input
               placeholder='직무 내용'
+              onChange={handleChangeCareerNameInput}
               className={classNames(styles.input, styles.contentInput)}
             />
             <div className={classNames(styles.dateInputWrapper)}>
               <input
+                ref={startDateRef}
+                maxLength={7}
+                onChange={handleChangeStartDateInput}
                 placeholder='시작 날짜 선택'
                 className={classNames(styles.input, styles.startDate)}
               />
               <div className={classNames(styles.inputDivider)} />
               <input
+                ref={endDateRef}
                 placeholder='종료 날짜 선택'
+                maxLength={7}
+                onChange={handleChangeEndDateInput}
                 className={classNames(styles.input, styles.endDate)}
               />
             </div>
           </div>
           <button
             type='button'
+            onClick={handleClickAddButton}
             className={classNames('buttonFilled-grey700', styles.addButton)}>
             추가하기
           </button>

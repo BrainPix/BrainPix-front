@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getProfilePersonal } from '../../../apis/profileAPI';
 import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
 import {
+  IndividualCareerResponseType,
   IndividualContactType,
   IndividualSkillTypeResponseType,
 } from '../../../types/profileType';
@@ -29,6 +30,7 @@ export const Info = () => {
     string[]
   >(['']);
   const [skills, setSkills] = useState<IndividualSkillTypeResponseType[]>([]);
+  const [careers, setCareers] = useState<IndividualCareerResponseType[]>([]);
 
   const userType: userTypetype =
     localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
@@ -71,6 +73,7 @@ export const Info = () => {
       setSelectedSpecialization(updatedSpecializations);
       setContacts(personalData.contacts);
       setSkills(personalData.stacks);
+      setCareers(personalData.careers);
     }
   }, [personalData, companyData, setValue]);
 
@@ -132,6 +135,10 @@ export const Info = () => {
     setSkills((prev) => [...prev, data]);
   };
 
+  const handleClickAddCareerButton = (data: IndividualCareerResponseType) => {
+    setCareers((prev) => [...prev, data]);
+  };
+
   return (
     <div className={classNames(styles.container)}>
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
@@ -179,6 +186,8 @@ export const Info = () => {
             <ExperiencePart
               editMode={editMode}
               setValue={setValue}
+              careers={careers}
+              onClickAdd={handleClickAddCareerButton}
               {...register('careerOpen')}
             />
             <PortfolioPart

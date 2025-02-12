@@ -49,3 +49,9 @@ export interface IndividualSkillTypeResponseType {
   stackName: string;
   proficiency: string;
 }
+
+export interface IndividualCareerResponseType {
+  content: string;
+  startDate: string;
+  endDate: string;
+}
