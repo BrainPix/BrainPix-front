@@ -4,21 +4,24 @@ import { Dropdown } from '../../common/dropdown/Dropdown';
 import styles from './individualInfoPart.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 import {
-  CompanyProfileType,
   IndividualContactType,
   IndividualProfileType,
 } from '../../../types/profileType';
-import { INFO_TYPE_MAPPER } from '../../../constants/categoryMapper';
+import {
+  INFO_TYPE_MAPPER,
+  INFO_TYPE_MAPPER_TO_ENG,
+} from '../../../constants/categoryMapper';
 
 interface IndividualInfoPartPropsType {
   editMode: boolean;
   onClickAdd: (data: IndividualContactType) => void;
+  contacts: { type: string; value: string; isPublic: boolean }[];
 }
 
 export const IndividualInfoPart = forwardRef<
   HTMLInputElement,
   IndividualInfoPartPropsType
->(({ editMode, onClickAdd }, ref) => {
+>(({ editMode, onClickAdd, contacts }, ref) => {
   const queryClient = useQueryClient();
   const userData = queryClient.getQueryData(['userData']);
   const userType = localStorage.getItem('myType');
@@ -27,12 +30,8 @@ export const IndividualInfoPart = forwardRef<
   const [addInfo, setAddInfo] = useState<IndividualContactType>({
     type: '',
     value: '',
-    isOpen: false,
+    isPublic: false,
   });
-
-  const [selectedSpecialization, setSelectedSpecialization] = useState<
-    string[]
-  >([]);
 
   const LABEL_OPTIONS =
     (userData as IndividualProfileType).userType === 'INDIVIDUAL'
@@ -40,27 +39,21 @@ export const IndividualInfoPart = forwardRef<
       : ['홈페이지', '이메일', '전화번호', '기타'];
 
   const handleSelectLabel = (option: string) => {
-    setSelectedSpecialization((prev) => [prev[0], option]);
     setAddInfo((prev) => {
       return {
         ...prev,
-        type: option,
+        type: INFO_TYPE_MAPPER_TO_ENG[option],
       };
     });
   };
 
   const handleChangeOpenCheckbox = (checked: boolean) => {
-    setInfoOpenChecked(infoOpenChecked);
+    setInfoOpenChecked(checked);
     setAddInfo((prev) => ({
       ...prev,
-      isOpen: checked,
+      isPublic: checked,
     }));
   };
-
-  const info =
-    userType === 'personal'
-      ? (userData as IndividualProfileType).contacts
-      : (userData as CompanyProfileType).companyInformations;
 
   return (
     <div>
@@ -71,16 +64,29 @@ export const IndividualInfoPart = forwardRef<
         )}
       </h1>
       <div className={classNames(styles.individualInfoWrapper)}>
-        {info?.map(({ type, value }) => (
-          <div
-            key={type}
-            className={classNames(styles.list)}>
-            <span className={classNames(styles.label)}>
-              {INFO_TYPE_MAPPER[type]}
-            </span>
-            <span className={classNames(styles.value)}>{value}</span>
-          </div>
-        ))}
+        {contacts?.map(({ type, value, isPublic }) => {
+          return editMode ? (
+            <div
+              key={value}
+              className={classNames(styles.list)}>
+              <span className={classNames(styles.label)}>
+                {INFO_TYPE_MAPPER[type]}
+              </span>
+              <span className={classNames(styles.value)}>{value}</span>
+            </div>
+          ) : (
+            isPublic && (
+              <div
+                key={value}
+                className={classNames(styles.list)}>
+                <span className={classNames(styles.label)}>
+                  {INFO_TYPE_MAPPER[type]}
+                </span>
+                <span className={classNames(styles.value)}>{value}</span>
+              </div>
+            )
+          );
+        })}
       </div>
       {editMode && (
         <div className={classNames(styles.editInputWrapper)}>
@@ -95,7 +101,7 @@ export const IndividualInfoPart = forwardRef<
             <input
               ref={ref}
               onChange={(e) =>
-                setAddInfo((prev) => ({ ...prev, content: e.target.value }))
+                setAddInfo((prev) => ({ ...prev, value: e.target.value }))
               }
               maxLength={500}
               className={classNames(styles.input)}
@@ -130,7 +136,6 @@ export const IndividualInfoPart = forwardRef<
           </button>
         </div>
       )}
-      <>{selectedSpecialization}</>
     </div>
   );
 });

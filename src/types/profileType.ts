@@ -42,5 +42,5 @@ export interface CompanyProfileType {
 export interface IndividualContactType {
   type: string;
   value: string;
-  isOpen: boolean;
+  isPublic: boolean;
 }

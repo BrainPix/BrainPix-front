@@ -21,7 +21,7 @@ export const Info = () => {
   type userTypetype = '개인' | '기업';
 
   const [editMode, setEditMode] = useState(false);
-  const [addContacts, setAddContacts] = useState<IndividualContactType[]>([]);
+  const [contacts, setContacts] = useState<IndividualContactType[]>([]);
   const [selectedSpecialization, setSelectedSpecialization] = useState<
     string[]
   >(['']);
@@ -33,6 +33,10 @@ export const Info = () => {
     profileImage: '',
     selfIntroduction: '',
   };
+
+  useEffect(() => {
+    console.log(contacts);
+  }, [contacts]);
 
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: defaultInputValues,
@@ -59,6 +63,7 @@ export const Info = () => {
         },
       );
       setSelectedSpecialization(updatedSpecializations);
+      setContacts(personalData.contacts);
     }
   }, [personalData, companyData, setValue]);
 
@@ -98,12 +103,22 @@ export const Info = () => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = (
     payload: FieldValues,
   ) => {
-    console.log(payload, addContacts);
+    console.log(payload, contacts);
     setEditMode(false);
   };
 
   const handleClickAddInfoButton = (data: IndividualContactType) => {
-    setAddContacts((prev) => [...prev, data]);
+    setContacts((prev) => {
+      const existingIndex = prev.findIndex((item) => item.type === data.type);
+      if (existingIndex !== -1) {
+        return prev.map((item, index) =>
+          index === existingIndex
+            ? { ...item, value: data.value, isPublic: data.isPublic }
+            : item,
+        );
+      }
+      return [...prev, data];
+    });
   };
 
   return (
@@ -138,6 +153,7 @@ export const Info = () => {
               )}
               <IndividualInfoPart
                 editMode={editMode}
+                contacts={contacts}
                 onClickAdd={handleClickAddInfoButton}
               />
 
@@ -161,6 +177,7 @@ export const Info = () => {
             <IndividualInfoPart
               editMode={editMode}
               onClickAdd={handleClickAddInfoButton}
+              contacts={contacts}
             />
             {editMode && (
               <SpecializationPart
