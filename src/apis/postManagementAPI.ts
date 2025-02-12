@@ -3,6 +3,7 @@ import {
   IdeaMarket,
   RequestTask,
   Collaboration,
+  IdeaMarketDetail,
   RequestTaskDetail,
   PostApiResponse,
 } from '../types/postDataType';
@@ -106,6 +107,33 @@ export const getPostCollaboration = async (
     return response.data.data;
   } catch (error) {
     console.error('API 요청 실패:', error);
+    throw error;
+  }
+};
+
+export const getPostIdeaMarketDetail = async (
+  postId: number,
+): Promise<IdeaMarketDetail> => {
+  const url = `${BASE_URL}/post-management/idea-market/${postId}`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    });
+
+    console.log('아이디어 마켓 상세 조회 API 응답 데이터:', response.data);
+
+    return response.data.data;
+  } catch (error) {
+    console.error('아이디어 마켓 상세 조회 API 요청 실패:', error);
     throw error;
   }
 };
