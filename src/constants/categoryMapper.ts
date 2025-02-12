@@ -60,3 +60,9 @@ export const SKILL_PROFICIENCY_MAPPER: Record<string, string> = {
   MIDIUM: '중',
   LOW: '하',
 };
+
+export const SKILL_PROFICIENCY_MAPPER_TO_ENG: Record<string, string> = {
+  상: 'HIGH',
+  중: 'MIDIUM',
+  하: 'LOW',
+};

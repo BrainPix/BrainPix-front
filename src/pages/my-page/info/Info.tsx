@@ -14,7 +14,10 @@ import { BusinessInfoPart } from '../../../components/my-page/info/BusinessInfoP
 import { useQuery } from '@tanstack/react-query';
 import { getProfilePersonal } from '../../../apis/profileAPI';
 import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
-import { IndividualContactType } from '../../../types/profileType';
+import {
+  IndividualContactType,
+  IndividualSkillTypeResponseType,
+} from '../../../types/profileType';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 
 export const Info = () => {
@@ -25,6 +28,7 @@ export const Info = () => {
   const [selectedSpecialization, setSelectedSpecialization] = useState<
     string[]
   >(['']);
+  const [skills, setSkills] = useState<IndividualSkillTypeResponseType[]>([]);
 
   const userType: userTypetype =
     localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
@@ -32,11 +36,13 @@ export const Info = () => {
   const defaultInputValues = {
     profileImage: '',
     selfIntroduction: '',
+    stackOpen: false,
+    careerOpen: false,
   };
 
   useEffect(() => {
-    console.log(contacts);
-  }, [contacts]);
+    console.log(skills);
+  }, [skills]);
 
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: defaultInputValues,
@@ -64,6 +70,7 @@ export const Info = () => {
       );
       setSelectedSpecialization(updatedSpecializations);
       setContacts(personalData.contacts);
+      setSkills(personalData.stacks);
     }
   }, [personalData, companyData, setValue]);
 
@@ -121,6 +128,10 @@ export const Info = () => {
     });
   };
 
+  const handleClickAddSkillButton = (data: IndividualSkillTypeResponseType) => {
+    setSkills((prev) => [...prev, data]);
+  };
+
   return (
     <div className={classNames(styles.container)}>
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
@@ -157,7 +168,13 @@ export const Info = () => {
                 onClickAdd={handleClickAddInfoButton}
               />
 
-              <SkillPart editMode={editMode} />
+              <SkillPart
+                editMode={editMode}
+                setValue={setValue}
+                skills={skills}
+                onClickAdd={handleClickAddSkillButton}
+                {...register('stackOpen')}
+              />
             </div>
             <ExperiencePart editMode={editMode} />
             <PortfolioPart

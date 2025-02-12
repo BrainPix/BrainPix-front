@@ -44,3 +44,8 @@ export interface IndividualContactType {
   value: string;
   isPublic: boolean;
 }
+
+export interface IndividualSkillTypeResponseType {
+  stackName: string;
+  proficiency: string;
+}

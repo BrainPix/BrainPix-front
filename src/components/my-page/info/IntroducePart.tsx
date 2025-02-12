@@ -11,6 +11,8 @@ import {
 interface FieldValuesType {
   profileImage: string;
   selfIntroduction: string;
+  stackOpen: boolean;
+  careerOpen: boolean;
 }
 
 interface IntroducePartPropsType {

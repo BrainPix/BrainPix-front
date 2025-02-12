@@ -94,3 +94,23 @@
   border: 1px solid $grey-500;
   border-left: none;
 }
+
+.skillCheckboxLabel {
+  @include flex-center;
+
+  width: 16px;
+  height: 16px;
+  border: 1px solid $grey-500;
+  border-radius: 100px;
+  cursor: pointer;
+  outline: none;
+
+  & > .checked {
+    width: 10px;
+    height: 10px;
+    background-color: $grey-800;
+    border-radius: 10000px;
+    cursor: pointer;
+    outline: none;
+  }
+}
