@@ -176,7 +176,11 @@ export const Info = () => {
                 {...register('stackOpen')}
               />
             </div>
-            <ExperiencePart editMode={editMode} />
+            <ExperiencePart
+              editMode={editMode}
+              setValue={setValue}
+              {...register('careerOpen')}
+            />
             <PortfolioPart
               editMode={editMode}
               userType={userType}

@@ -86,6 +86,10 @@
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    color: $grey-500;
+  }
 }
 
 .levelCheckboxWrapper {

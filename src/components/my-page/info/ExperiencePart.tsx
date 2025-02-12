@@ -1,33 +1,63 @@
+import { forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './experiencePart.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
+
 import { IndividualProfileType } from '../../../types/profileType';
+import { UseFormSetValue } from 'react-hook-form';
+
+interface FieldValuesType {
+  profileImage: string;
+  selfIntroduction: string;
+  stackOpen: boolean;
+  careerOpen: boolean;
+}
 
 interface ExperiencePartPropsType {
   editMode: boolean;
+  setValue: UseFormSetValue<FieldValuesType>;
 }
 
-export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
+export const ExperiencePart = forwardRef<
+  HTMLInputElement,
+  ExperiencePartPropsType
+>(({ editMode, setValue }, ref) => {
   const queryClient = useQueryClient();
   const userData = queryClient.getQueryData([
     'userData',
   ]) as IndividualProfileType;
+
+  const [experienceOpenChecked, setExperienceOpenChecked] = useState(false);
+
+  const handleChangeCheckbox = (checked: boolean) => {
+    setValue('careerOpen', checked);
+    setExperienceOpenChecked(checked);
+  };
+
   return (
     <div>
       <div className={classNames(styles.title)}>
         경력 사항
         {editMode && (
           <div>
-            <label htmlFor='checkbox'>
+            <label htmlFor='experineceOpenCheck'>
               <div className={classNames(styles.publicCheckWrapper)}>
-                <div className={classNames(styles.checkboxLabel)} />
+                <div className={classNames(styles.checkboxLabel)}>
+                  <div
+                    className={classNames({
+                      [styles.checked]: experienceOpenChecked,
+                    })}
+                  />
+                </div>
                 <span>공개</span>
                 {''}
               </div>
             </label>
             <input
-              id='checkbox'
+              id='experineceOpenCheck'
               type='checkbox'
+              ref={ref}
+              onChange={(e) => handleChangeCheckbox(e.target.checked)}
               className={classNames(styles.checkboxInput)}
             />
           </div>
@@ -79,4 +109,6 @@ export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
       )}
     </div>
   );
-};
+});
+
+ExperiencePart.displayName = 'ExperiencePart';

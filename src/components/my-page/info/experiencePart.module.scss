@@ -4,7 +4,7 @@
   @include pretendard-18-500;
 
   width: 100%;
-  color: $grey-600;
+  color: $grey-700;
   overflow: hidden;
   border: 1px solid $grey-500;
   border-radius: 5px;
@@ -55,12 +55,16 @@
   @include pretendard-18-400;
 
   background-color: $grey-50;
-  color: $grey-600;
+  color: $grey-700;
   padding: 25px 20px;
   height: 54px;
 
   &:focus {
     outline: none;
+  }
+
+  &::placeholder {
+    color: $grey-500;
   }
 }
 
@@ -75,12 +79,16 @@
   @include flex-space-between;
 
   width: 466px;
+  height: 54px;
   border-radius: 0 5px 5px 0;
   border: 1px solid $grey-500;
   border-left: none;
+  overflow: hidden;
 
   & > * {
     border: none;
+    border-top: 1px solid $grey-500;
+    border-bottom: 1px solid $grey-500;
     width: 50%;
     text-align: center;
   }
@@ -96,4 +104,24 @@
   width: 350px;
   border-radius: 5px 0 0 5px;
   border: 1px solid $grey-500;
+}
+
+.checkboxLabel {
+  @include flex-center;
+
+  width: 16px;
+  height: 16px;
+  border: 1px solid $grey-500;
+  border-radius: 100px;
+  cursor: pointer;
+  outline: none;
+
+  & > .checked {
+    width: 10px;
+    height: 10px;
+    background-color: $grey-800;
+    border-radius: 10000px;
+    cursor: pointer;
+    outline: none;
+  }
 }
