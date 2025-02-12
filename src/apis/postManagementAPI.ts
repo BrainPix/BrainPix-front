@@ -5,6 +5,7 @@ import {
   Collaboration,
   IdeaMarketDetail,
   RequestTaskDetail,
+  CollaborationDetail,
   PostApiResponse,
 } from '../types/postDataType';
 
@@ -161,6 +162,33 @@ export const getPostRequestTaskDetail = async (
     return response.data.data;
   } catch (error) {
     console.error('요청 과제 상세 조회 API 요청 실패:', error);
+    throw error;
+  }
+};
+
+export const getPostCollaborationDetail = async (
+  postId: number,
+): Promise<CollaborationDetail> => {
+  const url = `${BASE_URL}/post-management/collaboration/${postId}`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    });
+
+    console.log('협업 광장 상세 조회 API 응답 데이터:', response.data);
+
+    return response.data.data;
+  } catch (error) {
+    console.error('협업 광장 상세 조회 API 요청 실패:', error);
     throw error;
   }
 };
