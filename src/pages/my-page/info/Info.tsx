@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './info.module.scss';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -15,26 +15,23 @@ import { useQuery } from '@tanstack/react-query';
 import { getProfilePersonal } from '../../../apis/profileAPI';
 import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
 import { IndividualContactType } from '../../../types/profileType';
+import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 
 export const Info = () => {
   type userTypetype = '개인' | '기업';
 
   const [editMode, setEditMode] = useState(false);
   const [addContacts, setAddContacts] = useState<IndividualContactType[]>([]);
+  const [selectedSpecialization, setSelectedSpecialization] = useState<
+    string[]
+  >(['']);
 
   const userType: userTypetype =
     localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
 
   const defaultInputValues = {
-    introduce: '',
-    phone: '',
-    notion: '',
-    github: '',
-    homepage: '',
-    email: '',
-    others: '',
-    contactOpen: false,
-    stackOpen: false,
+    profileImage: '',
+    selfIntroduction: '',
   };
 
   const { register, handleSubmit, setValue, watch } = useForm({
@@ -53,6 +50,18 @@ export const Info = () => {
     enabled: userType === '개인',
   });
 
+  useEffect(() => {
+    if (personalData) {
+      setValue('selfIntroduction', personalData.selfIntroduction);
+      const updatedSpecializations = personalData.specializations.map(
+        (value: string) => {
+          return CATEGORY_LABELS[value];
+        },
+      );
+      setSelectedSpecialization(updatedSpecializations);
+    }
+  }, [personalData, companyData, setValue]);
+
   if (isPersonalDataPending || isCompanyDataPending) {
     return <div>로딩 중..</div>;
   }
@@ -63,6 +72,27 @@ export const Info = () => {
 
   const handleClickSaveButton = () => {
     setEditMode(false);
+  };
+
+  const handleChangeSpecialziations = (option: string) => {
+    let haveOption = false;
+
+    selectedSpecialization.forEach((specialization) => {
+      if (specialization === option) {
+        haveOption = true;
+      }
+    });
+
+    if (!haveOption) {
+      setSelectedSpecialization((prev) => [prev[0], option]);
+    }
+  };
+
+  const handleClickDeleteSelectedSpecialization = (option: string) => {
+    const updatedSpecialization = selectedSpecialization?.filter(
+      (value) => value !== option,
+    );
+    setSelectedSpecialization(updatedSpecialization);
   };
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (
@@ -92,13 +122,20 @@ export const Info = () => {
               editMode={editMode}
               setValue={setValue}
               watch={watch}
-              {...register('introduce')}
+              {...register('selfIntroduction')}
             />
             <div
               className={classNames(
                 editMode ? styles.colContainer : styles.rowContainer,
               )}>
-              {editMode && <SpecializationPart userType={userType} />}
+              {editMode && (
+                <SpecializationPart
+                  userType={userType}
+                  onDelete={handleClickDeleteSelectedSpecialization}
+                  onChange={handleChangeSpecialziations}
+                  selectedSpecialization={selectedSpecialization}
+                />
+              )}
               <IndividualInfoPart
                 editMode={editMode}
                 onClickAdd={handleClickAddInfoButton}
@@ -119,13 +156,20 @@ export const Info = () => {
               editMode={editMode}
               setValue={setValue}
               watch={watch}
-              {...register('introduce')}
+              {...register('selfIntroduction')}
             />
             <IndividualInfoPart
               editMode={editMode}
               onClickAdd={handleClickAddInfoButton}
             />
-            {editMode && <SpecializationPart userType={userType} />}
+            {editMode && (
+              <SpecializationPart
+                userType={userType}
+                onDelete={handleClickDeleteSelectedSpecialization}
+                onChange={handleChangeSpecialziations}
+                selectedSpecialization={selectedSpecialization}
+              />
+            )}
             <BusinessInfoPart editMode={editMode} />
             <PortfolioPart
               editMode={editMode}

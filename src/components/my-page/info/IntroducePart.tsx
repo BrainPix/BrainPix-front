@@ -9,15 +9,8 @@ import {
 } from '../../../types/profileType';
 
 interface FieldValuesType {
-  introduce: string;
-  phone: string;
-  notion: string;
-  github: string;
-  homepage: string;
-  email: string;
-  others: string;
-  contactOpen: boolean;
-  stackOpen: boolean;
+  profileImage: string;
+  selfIntroduction: string;
 }
 
 interface IntroducePartPropsType {
@@ -40,10 +33,10 @@ export const IntroducePart = forwardRef<
       ? (userData as IndividualProfileType).selfIntroduction
       : (userData as CompanyProfileType).selfIntroduction;
 
-  setValue('introduce', introducingText);
+  setValue('selfIntroduction', introducingText);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue('introduce', e.target.value);
+    setValue('selfIntroduction', e.target.value);
   };
 
   return (
