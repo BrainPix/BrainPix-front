@@ -5,6 +5,7 @@ import styles from './portfolioPart.module.scss';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { Carousel } from '../../common/carousel/Carousel';
 import { PortfolioPopup } from '../../personal-profile/PortfolioPopup';
+import { useNavigate } from 'react-router-dom';
 
 interface PortfolioParttPropsType {
   editMode: boolean;
@@ -13,6 +14,7 @@ interface PortfolioParttPropsType {
 
 export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
   const popupRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const [openPopup, setOpenPopup] = useState(false);
 
   const handleClosePopup = () => {
@@ -23,11 +25,6 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
 
   return (
     <div className={classNames(styles.portfolioWrapper)}>
-      <div className={classNames(styles.portfolioTitle)}>
-        {editMode && (
-          <span className={classNames(styles.manageText)}>관리하기</span>
-        )}
-      </div>
       <div className={classNames(styles.container)}>
         {openPopup && (
           <PortfolioPopup
@@ -41,6 +38,8 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
           cardCount={4}
           buttonPosition='top'
           label='포트폴리오'
+          editMode={editMode}
+          onClickManagetText={() => navigate('/my/portfolio')}
           dataLength={10}>
           {new Array(10).fill(0).map((_, idx) => (
             <div
