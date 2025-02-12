@@ -39,6 +39,16 @@ export interface Collaboration {
   occupiedQuantity?: number;
 }
 
+// 상세 조회 API 응답 데이터 타입
+export interface IdeaMarketDetail extends IdeaMarket {
+  purchaseHistory: {
+    buyerID: string;
+    userId: number;
+    payment: string;
+    totalPay: number;
+  }[];
+}
+
 export interface RequestTaskDetail extends RequestTask {
   applicationStatus: {
     applicantId: string;
