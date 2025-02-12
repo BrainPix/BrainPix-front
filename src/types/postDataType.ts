@@ -67,6 +67,25 @@ export interface RequestTaskDetail extends RequestTask {
   }[];
 }
 
+export interface CollaborationDetail extends Collaboration {
+  applicationStatus: {
+    applicantId: string;
+    role: string;
+    approvedCount: number;
+    totalCount: number;
+    gatheringId: number;
+  }[];
+  currentMembers: {
+    role: string;
+    approvedCount: number;
+    memberId: {
+      id: string;
+      userType: string;
+      userId: number;
+    }[];
+  }[];
+}
+
 export interface PostApiResponse<T> {
   content: T[];
   totalPages: number;
