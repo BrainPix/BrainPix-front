@@ -137,13 +137,13 @@ export const MyPagePosts = () => {
                   }
                   verified={true} // 검증 여부 (필요시 데이터에서 가져오기)
                   onClick={() => {
-                    if (activeTab === '아이디어 마켓') {
+                    if (activeTab === TABS[0]) {
                       navigate(`/my/posts/idea-market/${post.ideaId}`);
                     }
-                    if (activeTab === '요청 과제') {
+                    if (activeTab === TABS[1]) {
                       navigate(`/my/posts/request-assign/${post.ideaId}`);
                     }
-                    if (activeTab === '협업 광장') {
+                    if (activeTab === TABS[2]) {
                       navigate(`/my/posts/collaboration/${post.ideaId}`);
                     }
                   }}
