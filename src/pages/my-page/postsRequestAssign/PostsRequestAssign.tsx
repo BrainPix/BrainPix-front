@@ -44,7 +44,7 @@ export const PostsRequestAssign = () => {
         postId={post.ideaId}
       />
       <ApplyStatus applicationStatus={post.applicationStatus} />
-      <CurrentPeople />
+      <CurrentPeople currentMembers={post.currentMembers} />
     </>
   );
 };
