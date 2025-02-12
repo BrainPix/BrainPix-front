@@ -3,6 +3,7 @@ import {
   IdeaMarket,
   RequestTask,
   Collaboration,
+  RequestTaskDetail,
   PostApiResponse,
 } from '../types/postDataType';
 
@@ -111,7 +112,7 @@ export const getPostCollaboration = async (
 
 export const getPostRequestTaskDetail = async (
   postId: number,
-): Promise<PostApiResponse<RequestTask>> => {
+): Promise<RequestTaskDetail> => {
   const url = `${BASE_URL}/post-management/request-task/${postId}`;
   const API_TOKEN = localStorage.getItem('accessToken');
 

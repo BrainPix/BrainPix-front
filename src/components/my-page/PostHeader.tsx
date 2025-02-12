@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './postHeader.module.scss';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
+import { calculateDday } from '../../utils/dateUtils';
 
 interface PostHeaderProps {
   tab: string;
   category: string;
   title: string;
-  deadline: number;
+  deadline?: string;
   postImage?: string | null;
   postId: number;
 }
@@ -20,6 +21,7 @@ export const PostHeader = ({
   postId,
 }: PostHeaderProps) => {
   const navigate = useNavigate();
+  const dDay = deadline ? calculateDday(deadline) : undefined;
 
   const handleEditNavigate = () => {
     let editPath = '/';
@@ -53,7 +55,7 @@ export const PostHeader = ({
             {tab} {'>'} {category}
           </div>
           <p className={styles.postTitle}>{title}</p>
-          <DeadlineLabel deadline={deadline} />
+          {dDay !== undefined && <DeadlineLabel deadline={dDay} />}
         </div>
         <div className={styles.buttonContainer}>
           <button

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getRequestTaskDetail } from '../../../apis/postManagementAPI.ts';
+import { getPostRequestTaskDetail } from '../../../apis/postManagementAPI.ts';
 import { RequestTaskDetail } from '../../../types/postDataType.ts';
 import { CurrentPeople } from '../../../components/my-page/CurrentPeople.tsx';
 import { ApplyStatus } from '../../../components/my-page/ApplyStatus.tsx';
@@ -26,7 +26,7 @@ export const PostsRequestAssign = () => {
     isError,
   } = useQuery<RequestTaskDetail>({
     queryKey: ['requestTaskDetail', postId],
-    queryFn: () => getRequestTaskDetail(Number(postId)),
+    queryFn: () => getPostRequestTaskDetail(Number(postId)),
     enabled: !!postId, // postId가 있을 때만 실행
   });
 
@@ -47,7 +47,7 @@ export const PostsRequestAssign = () => {
         title={post.title}
         deadline={post.deadline}
         postImage={post.thumbnailImageUrl}
-        postId={post.postId}
+        postId={post.ideaId}
       />
       <ApplyStatus />
       <CurrentPeople />
