@@ -23,9 +23,9 @@ export const MyPagePosts = () => {
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
   const postAPIMap = () => {
-    if (activeTab === '아이디어 마켓') return getPostIdeaMarket;
-    if (activeTab === '요청 과제') return getPostRequestTask;
-    if (activeTab === '협업 광장') return getPostCollaboration;
+    if (activeTab === TABS[0]) return getPostIdeaMarket;
+    if (activeTab === TABS[1]) return getPostRequestTask;
+    if (activeTab === TABS[2]) return getPostCollaboration;
     return getPostIdeaMarket;
   };
 
@@ -137,8 +137,14 @@ export const MyPagePosts = () => {
                   }
                   verified={true} // 검증 여부 (필요시 데이터에서 가져오기)
                   onClick={() => {
+                    if (activeTab === '아이디어 마켓') {
+                      navigate(`/my/posts/idea-market/${post.ideaId}`);
+                    }
                     if (activeTab === '요청 과제') {
                       navigate(`/my/posts/request-assign/${post.ideaId}`);
+                    }
+                    if (activeTab === '협업 광장') {
+                      navigate(`/my/posts/collaboration/${post.ideaId}`);
                     }
                   }}
                 />

@@ -1,10 +1,22 @@
 import styles from './applyStatus.module.scss';
 
-export const ApplyStatus = () => {
-  const APPLY_RECORDS = [
-    { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
-  ];
+interface ApplyStatusProps {
+  applicationStatus: {
+    applicantId: string;
+    role: string;
+    approvedCount: number;
+    totalCount: number;
+    purchasingId: number;
+  }[];
+}
 
+export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
+  // const APPLY_RECORDS = [
+  //   { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
+  // ];
+  {
+    console.log('해당 요청 과제의 지원 현황: ', applicationStatus);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.tableTitle}>지원 현황</div>
@@ -19,16 +31,16 @@ export const ApplyStatus = () => {
           <span className={styles.divider} />
           <span />
         </div>
-        {APPLY_RECORDS.map((apply) => (
+        {applicationStatus.map((apply) => (
           <div
-            key={apply.id}
+            key={apply.applicantId}
             className={styles.tableRow}>
-            <span>{apply.id}</span>
+            <span>{apply.applicantId}</span>
             <span className={styles.divider} />
             <span>{apply.role}</span>
             <span className={styles.divider} />
             <span>
-              {apply.current} / {apply.total}
+              {apply.approvedCount} / {apply.totalCount}
             </span>
             <span className={styles.divider} />
             <div className={styles.buttonGroup}>

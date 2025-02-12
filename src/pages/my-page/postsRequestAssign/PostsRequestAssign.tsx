@@ -31,13 +31,7 @@ export const PostsRequestAssign = () => {
   });
 
   if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
-
-  // POST_DATA에서 postId에 맞는 데이터 찾기
-  // const post = POST_DATA.find((p) => p.id === Number(postId));
-  // if (!post) {
-  //   return <div>게시글을 찾을 수 없습니다.</div>;
-  // }
+  if (isError || !post) return <div>요청 과제 게시글을 찾을 수 없습니다.</div>;
 
   return (
     <>
@@ -49,7 +43,7 @@ export const PostsRequestAssign = () => {
         postImage={post.thumbnailImageUrl}
         postId={post.ideaId}
       />
-      <ApplyStatus />
+      <ApplyStatus applicationStatus={post.applicationStatus} />
       <CurrentPeople />
     </>
   );
