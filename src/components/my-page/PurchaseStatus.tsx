@@ -1,10 +1,19 @@
 import styles from './applyStatus.module.scss';
 
-export const PurchaseStatus = () => {
-  const PURCHASE_RECORDS = [
-    { id: 'drerwr', payment: '카카오페이', price: 1000 },
-    { id: 'drerwr', payment: '카카오페이', price: 1000 },
-  ];
+interface PurchaseStatusProps {
+  purchaseHistory: {
+    buyerID: string;
+    userId: number;
+    payment: string;
+    totalPay: number;
+  }[];
+}
+
+export const PurchaseStatus = ({ purchaseHistory }: PurchaseStatusProps) => {
+  // const PURCHASE_RECORDS = [
+  //   { id: 'drerwr', payment: '카카오페이', price: 1000 },
+  //   { id: 'drerwr', payment: '카카오페이', price: 1000 },
+  // ];
 
   return (
     <div className={styles.container}>
@@ -20,15 +29,15 @@ export const PurchaseStatus = () => {
           <span className={styles.divider} />
           <span>메신저</span>
         </div>
-        {PURCHASE_RECORDS.map((record) => (
+        {purchaseHistory.map((record) => (
           <div
-            key={record.id}
+            key={record.userId}
             className={styles.tableRow}>
-            <span>{record.id}</span>
+            <span>{record.buyerID}</span>
             <span className={styles.divider} />
             <span>{record.payment}</span>
             <span className={styles.divider} />
-            <span>{record.price}</span>
+            <span>{record.totalPay.toLocaleString()}</span>
             <span className={styles.divider} />
             <div className={styles.buttonGroup}>
               <button className={styles.button}>보내기</button>
