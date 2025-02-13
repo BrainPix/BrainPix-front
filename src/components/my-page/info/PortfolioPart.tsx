@@ -43,7 +43,6 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
   if (isGetPortfoliosFetching) {
     return <div>로딩 중..</div>;
   }
-  console.log(myPorfolios?.pages[0].totalElements);
 
   return (
     <div className={classNames(styles.portfolioWrapper)}>

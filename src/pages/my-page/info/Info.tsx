@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './info.module.scss';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -12,8 +12,10 @@ import { PortfolioPart } from '../../../components/my-page/info/PortfolioPart';
 import { SpecializationPart } from '../../../components/my-page/info/SpecializationPart';
 import { BusinessInfoPart } from '../../../components/my-page/info/BusinessInfoPart';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getProfilePersonal } from '../../../apis/profileAPI';
-import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
+import {
+  getProfileCompany,
+  getProfilePersonal,
+} from '../../../apis/profileAPI';
 import {
   IndividualCareerResponseType,
   IndividualContactType,
@@ -23,8 +25,11 @@ import {
   CATEGORY_LABELS,
   CATEGORY_MAPPER_TO_ENG,
 } from '../../../constants/categoryMapper';
-import { IndividualInfoPayloadType } from '../../../types/myPageType';
-import { putIndividualInfo } from '../../../apis/mypageAPI';
+import {
+  IndividualInfoPayloadType,
+  putCompanyInfoPayload,
+} from '../../../types/myPageType';
+import { putCompanyInfo, putIndividualInfo } from '../../../apis/mypageAPI';
 import { ToastContext } from '../../../contexts/toastContext';
 
 export const Info = () => {
@@ -38,11 +43,20 @@ export const Info = () => {
   >(['']);
   const [skills, setSkills] = useState<IndividualSkillTypeResponseType[]>([]);
   const [careers, setCareers] = useState<IndividualCareerResponseType[]>([]);
+  const [businessInfo, setBusinessInfo] = useState<string>('');
 
   const { errorToast, successToast } = useContext(ToastContext);
 
+  const userTypeRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!userTypeRef.current) {
+      userTypeRef.current = localStorage.getItem('myType');
+    }
+  }, []);
+
   const userType: userTypetype =
-    localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
+    localStorage.getItem('myType') === 'corporate' ? '기업' : '개인';
 
   const defaultInputValues = {
     profileImage: '',
@@ -58,18 +72,32 @@ export const Info = () => {
   const { data: personalData, isLoading: isPersonalDataPending } = useQuery({
     queryKey: ['userData'],
     queryFn: getProfilePersonal,
-    enabled: userType === '기업',
+    enabled: userTypeRef.current === '기업',
   });
 
   const { data: companyData, isLoading: isCompanyDataPending } = useQuery({
     queryKey: ['userData'],
-    queryFn: getProfilePersonal,
-    enabled: userType === '개인',
+    queryFn: getProfileCompany,
+    enabled: userTypeRef.current === '개인' || userType !== null,
   });
 
-  const { mutate: editMyInfoMutate } = useMutation({
+  const { mutate: editPersonalInfoMutate } = useMutation({
     mutationFn: (payload: IndividualInfoPayloadType) =>
       putIndividualInfo(personalData.userId, payload),
+    onSuccess: () => {
+      successToast('수정되었습니다.');
+      queryClient.invalidateQueries({
+        queryKey: ['userData'],
+      });
+    },
+    onError: () => {
+      errorToast('수정에 실패하였습니다. 다시 시도해주세요.');
+    },
+  });
+
+  const { mutate: editCompanyInfoMutate } = useMutation({
+    mutationFn: (payload: putCompanyInfoPayload) =>
+      putCompanyInfo(companyData.userId, payload),
     onSuccess: () => {
       successToast('수정되었습니다.');
       queryClient.invalidateQueries({
@@ -90,9 +118,20 @@ export const Info = () => {
         },
       );
       setSelectedSpecialization(updatedSpecializations);
-      setContacts(personalData.contacts);
+      setContacts(personalData.contacts ?? []);
       setSkills(personalData.stacks);
       setCareers(personalData.careers);
+    }
+
+    if (companyData) {
+      setValue('selfIntroduction', companyData.selfIntroduction);
+      const updatedSpecializations = companyData.specializations?.map(
+        (value: string) => {
+          return CATEGORY_LABELS[value];
+        },
+      );
+      setSelectedSpecialization(updatedSpecializations);
+      setContacts(companyData.companyInformations ?? []);
     }
   }, [personalData, companyData, setValue]);
 
@@ -109,16 +148,13 @@ export const Info = () => {
   };
 
   const handleChangeSpecialziations = (option: string) => {
-    let haveOption = false;
-
-    selectedSpecialization.forEach((specialization) => {
-      if (specialization === option) {
-        haveOption = true;
-      }
-    });
+    const haveOption = selectedSpecialization?.includes(option) ?? false;
 
     if (!haveOption) {
-      setSelectedSpecialization((prev) => [prev[0], option]);
+      setSelectedSpecialization((prev) => [
+        ...(prev.length >= 2 ? prev.slice(1) : prev),
+        option,
+      ]);
     }
   };
 
@@ -132,26 +168,42 @@ export const Info = () => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (
     payload: FieldValues,
   ) => {
-    const requestBody: IndividualInfoPayloadType = {
-      profileImage: payload.profileImage,
-      selfIntroduction: payload.selfIntroduction,
-      stackOpen: payload.stackOpen,
-      careerOpen: payload.careerOpen,
-      contacts,
-      careers,
-      specializations: selectedSpecialization.map(
-        (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
-      ),
-      stacks: skills.map(({ stackName, ...rest }) => ({
-        name: stackName,
-        ...rest,
-      })),
-    };
-    editMyInfoMutate(requestBody);
+    if (userTypeRef.current === 'personal') {
+      const requestBody: IndividualInfoPayloadType = {
+        profileImage: payload.profileImage,
+        selfIntroduction: payload.selfIntroduction,
+        stackOpen: payload.stackOpen,
+        careerOpen: payload.careerOpen,
+        contacts,
+        careers,
+        specializations: selectedSpecialization.map(
+          (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
+        ),
+        stacks: skills.map(({ stackName, ...rest }) => ({
+          name: stackName,
+          ...rest,
+        })),
+      };
+      editPersonalInfoMutate(requestBody);
+    }
+
+    if (userTypeRef.current === 'corporate') {
+      const requestBody: putCompanyInfoPayload = {
+        profileImage: payload.profileImage,
+        selfIntroduction: payload.selfIntroduction,
+        specializations: selectedSpecialization.map(
+          (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
+        ),
+        companyInformations: contacts,
+        businessInformation: businessInfo,
+      };
+      editCompanyInfoMutate(requestBody);
+    }
     setEditMode(false);
   };
 
   const handleClickAddInfoButton = (data: IndividualContactType) => {
+    console.log(data);
     setContacts((prev) => {
       const existingIndex = prev.findIndex((item) => item.type === data.type);
       if (existingIndex !== -1) {
@@ -194,11 +246,17 @@ export const Info = () => {
     setCareers(updatedExperiences);
   };
 
+  const handleChangeBusinessInfoInput = (
+    e: ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setBusinessInfo(e.target.value);
+  };
+
   return (
     <div className={classNames(styles.container)}>
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
         <MyProfileCard
-          userData={personalData ?? PERSONAL_RPOFILE_INIT}
+          userData={personalData ?? companyData}
           status={editMode ? 'save' : 'edit'}
           onClickButton={
             editMode ? handleClickSaveButton : handleClickEditButton
@@ -276,7 +334,10 @@ export const Info = () => {
                 selectedSpecialization={selectedSpecialization}
               />
             )}
-            <BusinessInfoPart editMode={editMode} />
+            <BusinessInfoPart
+              editMode={editMode}
+              onChange={handleChangeBusinessInfoInput}
+            />
             <PortfolioPart
               editMode={editMode}
               userType={userType}

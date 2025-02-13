@@ -66,3 +66,11 @@ export interface EditProfilePayload {
   content: string;
   profileImage: string;
 }
+
+export interface putCompanyInfoPayload {
+  profileImage: string;
+  selfIntroduction: string;
+  businessInformation: string;
+  companyInformations: IndividualContactType[];
+  specializations: string[];
+}

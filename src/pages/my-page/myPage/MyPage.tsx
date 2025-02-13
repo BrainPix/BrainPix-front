@@ -22,21 +22,10 @@ const INIT_DATA = {
 };
 
 export const MyPage = () => {
-  // const [specializationString, setSpecializationString] = useState('');
   const { data: myBaseInfoData } = useQuery({
     queryKey: ['myBasicInfo'],
     queryFn: getMyBasicInfo,
   });
-
-  // useEffect(() => {
-  //   if (specializationString === '' && specializations) {
-  //     specializations.map((specialization) => {
-  //       setSpecializationString(
-  //         (prev) => prev + getCategoryLabel(specialization),
-  //       );
-  //     });
-  //   }
-  // }, [myBaseInfoData, specializationString]);
 
   // const { data: alarms } = useQuery({
   //   queryKey: ['alarms'],

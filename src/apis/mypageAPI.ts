@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { IndividualInfoPayloadType } from '../types/myPageType';
+import {
+  IndividualInfoPayloadType,
+  putCompanyInfoPayload,
+} from '../types/myPageType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -21,6 +24,21 @@ export const putIndividualInfo = async (
 ) => {
   const token = localStorage.getItem('accessToken');
   const url = `${BASE_URL}/profile/individual/${userId}`;
+
+  if (token) {
+    const { data } = await axios.put(url, payload, {
+      headers: { Authorization: token },
+    });
+    return data;
+  }
+};
+
+export const putCompanyInfo = async (
+  userId: number,
+  payload: putCompanyInfoPayload,
+) => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/profile/company/${userId}`;
 
   if (token) {
     const { data } = await axios.put(url, payload, {

@@ -37,7 +37,7 @@ export const IndividualInfoPart = forwardRef<
   const LABEL_OPTIONS =
     (userData as IndividualProfileType).userType === 'INDIVIDUAL'
       ? ['연락처', '노션', '깃허브', '기타']
-      : ['홈페이지', '이메일', '전화번호', '기타'];
+      : ['홈페이지', '이메일', '연락처', '기타'];
 
   const handleSelectLabel = (option: string) => {
     setAddInfo((prev) => {

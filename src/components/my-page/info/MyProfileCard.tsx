@@ -26,6 +26,8 @@ export const MyProfileCard = ({
   userData,
   onClickButton,
 }: MyProfileCardPropsType) => {
+  const userType = userData.userType == 'COMPANY' ? '기업' : '개인';
+
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.profileContainer)}>
@@ -40,8 +42,8 @@ export const MyProfileCard = ({
         )}
         <div className={classNames(styles.info)}>
           <Label
-            text='개인'
-            type='personal'
+            text={userType}
+            type={userType === '기업' ? 'corporate' : 'personal'}
           />
           <h1 className={classNames(styles.name)}>{userData.name}</h1>
           {(status === 'edit' || status === 'save') && (
