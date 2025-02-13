@@ -123,6 +123,7 @@ export const RecentNews = () => {
                 iconType='trash'
                 key={alarmData.alarmId}
                 alarmData={alarmData}
+                onClickIcon={handleClickIcon}
               />
             ),
           )}

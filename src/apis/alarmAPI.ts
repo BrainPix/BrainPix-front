@@ -103,3 +103,18 @@ export const deleteAllAlarms = async () => {
     return data;
   }
 };
+
+export const deleteAlarm = async (alarmId: string) => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/delete/${alarmId}`;
+
+  if (token) {
+    const { data } = await axios.delete(url, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    return data;
+  }
+};
