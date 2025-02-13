@@ -98,7 +98,7 @@ export const getRejectedRequestTasks = async (
   }
 };
 
-export const deleteRejectedRequestTask = async (
+export const deleteRejectedRequestTasks = async (
   purchasingId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/supports/request-tasks/${purchasingId}`;
@@ -182,5 +182,30 @@ export const getRejectedCollaborations = async (
   } catch (error) {
     console.error('API 요청 실패:', error);
     return [];
+  }
+};
+
+export const deleteRejectedCollaborations = async (
+  collectionGatheringId: number,
+): Promise<void> => {
+  const url = `${BASE_URL}/supports/collaborations/${collectionGatheringId}`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    });
+
+    console.log(`협업 광장 ${collectionGatheringId}번 게시글 삭제 성공`);
+  } catch (error) {
+    console.error('삭제 요청 실패:', error);
+    throw error;
   }
 };

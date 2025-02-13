@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Collaborations } from '../../../types/supportsType';
 import {
   getAcceptedCollaborations,
   getRejectedCollaborations,
+  deleteRejectedCollaborations,
 } from '../../../apis/supportsAPI';
 import styles from './applyCollaboration.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
@@ -55,7 +56,21 @@ export const ApplyCollaboration = () => {
   //   },
   // ];
 
-  // accept된 요청 과제
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: (collectionGatheringId: number) =>
+      deleteRejectedCollaborations(collectionGatheringId),
+    onSuccess: () => {
+      alert('거절된 협업 광장의 지원 내역이 삭제되었습니다.');
+      queryClient.invalidateQueries({ queryKey: ['RejectedCollaborations'] }); // 삭제 후 리스트 새로고침
+    },
+    onError: () => {
+      alert('삭제에 실패했습니다.');
+    },
+  });
+
+  // accept된 협업 광장
   const {
     data: acceptedCollaborations = [],
     isLoading: isLoadingAccepted,
@@ -65,7 +80,7 @@ export const ApplyCollaboration = () => {
     queryFn: () => getAcceptedCollaborations(0, 10),
   });
 
-  // reject된 요청 과제
+  // reject된 협업 광장
   const {
     data: rejectedCollaborations = [],
     isLoading: isLoadingRejected,
@@ -183,6 +198,9 @@ export const ApplyCollaboration = () => {
                 status={'거절됨'}
                 statusType={'reject'}
                 showDeleteButton={true}
+                onDelete={() =>
+                  deleteMutation.mutate(collaboration.collectionGatheringId)
+                }
               />
             </div>
 

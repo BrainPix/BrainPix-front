@@ -3,7 +3,7 @@ import { RequestTasks } from '../../../types/supportsType';
 import {
   getAcceptedRequestTasks,
   getRejectedRequestTasks,
-  deleteRejectedRequestTask,
+  deleteRejectedRequestTasks,
 } from '../../../apis/supportsAPI';
 import styles from './applyRequest.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
@@ -43,10 +43,9 @@ export const ApplyRequest = () => {
 
   const queryClient = useQueryClient();
 
-  // 삭제 API 호출을 위한 Mutation 생성
   const deleteMutation = useMutation({
     mutationFn: (purchasingId: number) =>
-      deleteRejectedRequestTask(purchasingId),
+      deleteRejectedRequestTasks(purchasingId),
     onSuccess: () => {
       alert('거절된 요청과제 지원 내역이 삭제되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['RejectedRequestTasks'] }); // 삭제 후 리스트 새로고침
