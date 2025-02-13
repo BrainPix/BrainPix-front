@@ -193,7 +193,7 @@ export const getPostCollaborationDetail = async (
   }
 };
 
-export const postAcceptApplication = async (
+export const postAcceptRequestApplication = async (
   purchasingId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/post-management/request-task/application/${purchasingId}/accept`;
@@ -218,6 +218,35 @@ export const postAcceptApplication = async (
     console.log('요청 과제의 지원 수락 성공:', response.data);
   } catch (error) {
     console.error('요청 과제의 지원 수락 실패:', error);
+    throw error;
+  }
+};
+
+export const postRejectRequestApplication = async (
+  purchasingId: number,
+): Promise<void> => {
+  const url = `${BASE_URL}/post-management/request-task/application/${purchasingId}/reject`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+      },
+    );
+
+    console.log('요청 과제의 지원 거절 성공:', response.data);
+  } catch (error) {
+    console.error('요청 과제의 지원 거절 실패:', error);
     throw error;
   }
 };

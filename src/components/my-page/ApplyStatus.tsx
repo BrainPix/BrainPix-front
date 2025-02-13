@@ -1,4 +1,7 @@
-import { postAcceptApplication } from '../../apis/postManagementAPI';
+import {
+  postAcceptRequestApplication,
+  postRejectRequestApplication,
+} from '../../apis/postManagementAPI';
 import styles from './applyStatus.module.scss';
 
 interface ApplyStatusProps {
@@ -26,12 +29,28 @@ export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
     }
 
     try {
-      await postAcceptApplication(purchasingId);
+      await postAcceptRequestApplication(purchasingId);
       alert('지원이 수락되었습니다.');
-      window.location.reload(); // 성공 시 페이지 새로고침 (UI 업데이트)
+      window.location.reload(); // 성공 시 페이지 새로고침
     } catch (error) {
       console.error('지원 수락 중 오류 발생:', error);
       alert('지원 수락에 실패했습니다.');
+    }
+  };
+
+  const handleReject = async (purchasingId?: number) => {
+    if (!purchasingId) {
+      console.error('purchasingId가 없습니다.');
+      return;
+    }
+
+    try {
+      await postRejectRequestApplication(purchasingId);
+      alert('지원이 거절되었습니다.');
+      window.location.reload(); // 성공 시 페이지 새로고침
+    } catch (error) {
+      console.error('지원 거절 중 오류 발생:', error);
+      alert('지원 거절에 실패했습니다.');
     }
   };
 
@@ -67,7 +86,11 @@ export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
                 onClick={() => handleAccept(apply.purchasingId)}>
                 수락
               </button>
-              <button className={styles.button}>거절</button>
+              <button
+                className={styles.button}
+                onClick={() => handleReject(apply.purchasingId)}>
+                거절
+              </button>
             </div>
           </div>
         ))}
