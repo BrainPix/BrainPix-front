@@ -1,11 +1,17 @@
 import classNames from 'classnames';
 import styles from './experiencePart.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
+import { IndividualProfileType } from '../../../types/profileType';
 
 interface ExperiencePartPropsType {
   editMode: boolean;
 }
 
 export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
+  const queryClient = useQueryClient();
+  const userData = queryClient.getQueryData([
+    'userData',
+  ]) as IndividualProfileType;
   return (
     <div>
       <div className={classNames(styles.title)}>
@@ -33,18 +39,17 @@ export const ExperiencePart = ({ editMode }: ExperiencePartPropsType) => {
           <hr className={classNames(styles.tableDivider)} />
           <div className={classNames(styles.label)}>기간</div>
         </div>
-        <div className={classNames(styles.list)}>
-          <div className={classNames(styles.experience)}>
-            삼성 소프트웨어 개발(서버) 인턴십
+        {userData.careers.map(({ content, startDate, endDate }) => (
+          <div
+            className={classNames(styles.list)}
+            key={content}>
+            <div className={classNames(styles.experience)}>{content}</div>
+            <hr className={classNames(styles.tableDivider)} />
+            <div className={classNames(styles.date)}>
+              {startDate} - {endDate}
+            </div>
           </div>
-          <hr className={classNames(styles.tableDivider)} />
-          <div className={classNames(styles.date)}>2024/12 - 2024/12</div>
-        </div>
-        <div className={classNames(styles.list)}>
-          <div className={classNames(styles.experience)}>어쩌구 인턴쉽</div>
-          <hr className={classNames(styles.tableDivider)} />
-          <div className={classNames(styles.date)}>2024/12 - 2024/12</div>
-        </div>
+        ))}
       </div>
       {editMode && (
         <div className={classNames(styles.editInputWrapper)}>

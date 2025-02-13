@@ -1,9 +1,12 @@
 .container {
   position: fixed;
-  top: 0;
+  top: 1%;
   right: 10px;
   z-index: 10;
   width: 650px;
+  height: fit-content;
+  max-height: 98vh;
+  overflow-y: scroll;
   background-color: $grey-50;
   box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
   padding: 40px;
@@ -89,6 +92,12 @@
   background-color: $grey-200;
   color: $grey-600;
   margin: 15px 0;
+  cursor: pointer;
+}
+
+.imageInputWrapper {
+  display: flex;
+  gap: 15px;
 }
 
 .imageInput {
@@ -105,6 +114,7 @@
   border-radius: 1px solid $grey-400;
   background-color: $grey-50;
   padding: 18px 20px;
+  border: 1px solid $grey-600;
   resize: none;
 
   &:focus {
@@ -113,6 +123,112 @@
 }
 
 .deleteButtonWrapper {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+  margin-left: auto;
+
+  & > .cancelButton {
+    border: none;
+    background: none;
+    color: $grey-600;
+  }
+
+  & > .deleteButton {
+    padding: 10px 20px;
+    border-radius: 34px;
+  }
+}
+
+.titleInput {
+  @include pretendard-14-400;
+
+  padding: 15px 20px;
+  width: 50%;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid $grey-600;
+  background-color: $grey-50;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.categoryDropdown {
+  @include pretendard-16-400;
+
+  padding: 15px 20px;
+  color: $grey-900;
+  height: 49px;
+  width: 260px;
+  border: 1px solid $grey-600;
+}
+
+.categoryOptionsBoxDropdown {
+  @include pretendard-16-400;
+
+  width: 260px;
+}
+
+.inputTitle {
+  @include pretendard-18-500;
+
+  margin-bottom: 20px;
+}
+
+.infoInputWrapper {
+  @include flex-space-between;
+}
+
+.dateInputWrapper {
+  @include flex-space-between;
+
+  width: 260px;
+  height: 49px;
+  border-radius: 5px;
+  border: 1px solid $grey-600;
+
+  & > .dateInput {
+    @include pretendard-14-400;
+
+    padding: 13px 20px;
+    border: none;
+    background-color: $grey-50;
+    width: 50%;
+
+    &:last-child {
+      text-align: right;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $grey-700;
+    }
+  }
+
+  & > .divider {
+    width: 10px;
+    height: 2px;
+    background-color: $grey-500;
+  }
+}
+
+.textInput {
+  @include pretendard-16-500;
+
+  width: 570px;
+  height: 250px;
+
+  & > * {
+    @include pretendard-14-400;
+  }
+}
+
+.uploadButtonWrapper {
   display: flex;
   gap: 15px;
   margin: 15px 0;
@@ -130,7 +246,7 @@
     color: $grey-600;
   }
 
-  & > .deleteButton {
+  & > .uploadButton {
     padding: 10px 20px;
     border-radius: 34px;
   }

@@ -7,11 +7,10 @@ import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
 import RequestSupportModal from '../modal/RequestSupportModal';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
-
 import {
   getCategoryLabel,
   getTaskTypeLabel,
-} from '../../constants/categoryMapper';
+} from '../../utils/categoryMapping';
 
 interface PostTitleApplyProps {
   thumbnailImageUrl: string;

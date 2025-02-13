@@ -26,7 +26,7 @@ export const Main = () => {
       </h1>
       <div className={classNames(styles.buttonWrapper)}>
         <button
-          onClick={() => navigate('/login/individual')}
+          onClick={() => navigate('/login/personal')}
           className={classNames(styles.memberButton, 'buttonFilled-grey800')}>
           <Individual stroke='#fafafa' />
           <span>개인회원 로그인하기</span>

@@ -1,15 +1,21 @@
 import classNames from 'classnames';
 import styles from './skillPart.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
+
 import { LevelCheckboxGroup } from '../../common/levelCheckboxGroup/LevelCheckboxGroup';
+import { IndividualProfileType } from '../../../types/profileType';
+import { SKILL_PROFICIENCY_MAPPER } from '../../../constants/categoryMapper';
 
 interface SkillPartPropsType {
   editMode: boolean;
 }
 
 export const SkillPart = ({ editMode }: SkillPartPropsType) => {
-  const handleClick = () => {
-    // console.log(value);
-  };
+  const queryClient = useQueryClient();
+  const userData = queryClient.getQueryData(['userData']);
+  const skillInfo = (userData as IndividualProfileType).stacks;
+
+  const handleClick = () => {};
 
   return (
     <div>
@@ -38,18 +44,21 @@ export const SkillPart = ({ editMode }: SkillPartPropsType) => {
           <hr className={classNames(styles.tableDivider)} />
           <div className={classNames(styles.label)}>수준</div>
         </div>
-        <div className={classNames(styles.contentContainer)}>
-          <div className={classNames(styles.list)}>
-            <div className={classNames(styles.skillName)}>파이썬</div>
-            <hr className={classNames(styles.tableDivider)} />
-            <div className={classNames(styles.skillLevel)}>상</div>
+        {skillInfo.length > 0 && (
+          <div className={classNames(styles.contentContainer)}>
+            {skillInfo.map(({ stackName, proficiency }) => (
+              <div
+                className={classNames(styles.list)}
+                key={stackName}>
+                <div className={classNames(styles.skillName)}>{stackName}</div>
+                <hr className={classNames(styles.tableDivider)} />
+                <div className={classNames(styles.skillLevel)}>
+                  {SKILL_PROFICIENCY_MAPPER[proficiency]}
+                </div>
+              </div>
+            ))}
           </div>
-          <div className={classNames(styles.list)}>
-            <div className={classNames(styles.skillName)}>액셀</div>
-            <hr className={classNames(styles.tableDivider)} />
-            <div className={classNames(styles.skillLevel)}>상</div>
-          </div>
-        </div>
+        )}
       </div>
 
       {editMode && (

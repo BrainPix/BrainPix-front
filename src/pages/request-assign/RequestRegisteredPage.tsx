@@ -5,8 +5,8 @@ import RecruitInfo from '../../components/registeredPage/RecruitInfo';
 import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
 import styles from './requestRegisteredPage.module.scss';
-
 import { useParams } from 'react-router-dom';
+
 import { useQuery } from '@tanstack/react-query';
 import { RequsetDetail } from '../../types/detailPageType';
 import { getRequestDetail } from '../../apis/detailPageAPI';
