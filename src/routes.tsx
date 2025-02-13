@@ -4,6 +4,10 @@ import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
 import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
+import { PaymentProcessing } from './pages/idea-market/PaymentProcessing';
+import { PaymentFail } from './pages/idea-market/PaymentFail';
+import { PaymentCancel } from './pages/idea-market/PaymentCancel';
+import { PaymentSuccess } from './pages/idea-market/PaymentSuccess';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
 import { CollaborationMain } from './pages/collaboration/CollaborationMain';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
@@ -70,6 +74,22 @@ export const routes = createBrowserRouter([
       {
         path: '/idea-market/payment/:ideaId',
         element: <IdeaMarketPayment />,
+      },
+      {
+        path: '/idea-market/payment-processing',
+        element: <PaymentProcessing />,
+      },
+      {
+        path: '/idea-market/payment-fail',
+        element: <PaymentFail />,
+      },
+      {
+        path: '/idea-market/payment-cancel',
+        element: <PaymentCancel />,
+      },
+      {
+        path: '/idea-market/payment-success',
+        element: <PaymentSuccess />,
       },
       {
         path: '/request-assign/registered/:taskId',
