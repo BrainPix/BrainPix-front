@@ -145,6 +145,8 @@ export const getAcceptedCollaborations = async (
     });
 
     console.log('협업 광장 : 지원 완료');
+    console.log('수락된 협업 광장 데이터:', response.data);
+    console.log('수락된 협업 광장 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);

@@ -100,32 +100,32 @@ export const ApplyCollaboration = () => {
     );
   }
 
-  const content: Collaborations[] = [
-    {
-      collectionGatheringId: 0,
-      firstImage: 'string',
-      postCreatedAt: 'yyyy-MM-dd',
-      postTitle: 'string',
-      specialization: 'ADVERTISING_PROMOTION',
-      domain: 'string',
-      writerName: 'string',
-      writerType: 'string',
-      teamInfoList: [
-        {
-          domain: 'string',
-          occupied: 0,
-          total: 0,
-          joiners: [
-            {
-              joinerID: 'string',
-              userType: 'string',
-            },
-          ],
-        },
-      ],
-      collaborationId: 0,
-    },
-  ];
+  // const content: Collaborations[] = [
+  //   {
+  //     collectionGatheringId: 0,
+  //     firstImage: 'string',
+  //     postCreatedAt: 'yyyy-MM-dd',
+  //     postTitle: 'string',
+  //     specialization: 'ADVERTISING_PROMOTION',
+  //     domain: 'string',
+  //     writerName: 'string',
+  //     writerType: 'string',
+  //     teamInfoList: [
+  //       {
+  //         domain: 'string',
+  //         occupied: 0,
+  //         total: 0,
+  //         joiners: [
+  //           {
+  //             joinerID: 'user123',
+  //             userType: '디자이너',
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //     collaborationId: 0,
+  //   },
+  // ];
 
   return (
     <div className={styles.container}>
@@ -134,8 +134,8 @@ export const ApplyCollaboration = () => {
         <span className={styles.sectionSubTitle}>지원 내역</span>
       </div>
 
-      {content.length > 0 ? (
-        content.map((collaboration: Collaborations) => (
+      {acceptedCollaborations.length > 0 ? (
+        acceptedCollaborations.map((collaboration: Collaborations) => (
           <div
             key={collaboration.collaborationId}
             className={styles.applyCard}>
@@ -171,10 +171,10 @@ export const ApplyCollaboration = () => {
                 <span></span>
               </div>
 
-              {collaboration.teamInfoList.map((teamInfo, index) => (
+              {collaboration.teamInfoList?.map((teamInfo, index) => (
                 <ApplyTable
                   key={index}
-                  id={teamInfo.joiners[index].joinerID}
+                  id={teamInfo.joiners[index]?.joinerID}
                   role={teamInfo.domain}
                   current={teamInfo.occupied}
                   total={teamInfo.total}
