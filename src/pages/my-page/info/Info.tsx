@@ -171,7 +171,7 @@ export const Info = () => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (
     payload: FieldValues,
   ) => {
-    if (userType === 'personal') {
+    if (userType === '개인') {
       const requestBody: IndividualInfoPayloadType = {
         profileImage: selectedProfileImage,
         selfIntroduction: payload.selfIntroduction,
@@ -190,7 +190,7 @@ export const Info = () => {
       editPersonalInfoMutate(requestBody);
     }
 
-    if (userType === 'corporate') {
+    if (userType === '기업') {
       const requestBody: putCompanyInfoPayload = {
         profileImage: selectedProfileImage,
         selfIntroduction: payload.selfIntroduction,
