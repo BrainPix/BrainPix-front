@@ -30,12 +30,17 @@ export const Signup = () => {
     onError: () => errorToast('회원가입에 실패하였습니다.'),
     onSuccess: () => {
       successToast('회원가입에 성공하였습니다.');
-      navigate('/');
+      navigate('/login/personal');
     },
   });
 
   const { mutate: signupCompanyMutation } = useMutation({
     mutationFn: (formData: CompanySignUpPayload) => postCompanySignUp(formData),
+    onError: () => errorToast('회원가입에 실패하였습니다.'),
+    onSuccess: () => {
+      successToast('회원가입에 성공하였습니다.');
+      navigate('/login/corparate');
+    },
   });
 
   const {
@@ -69,7 +74,6 @@ export const Signup = () => {
         emailToken: localStorage.getItem('signupToken'),
       };
       return signupPersonalMutation(requestBody);
-      // location.href = '/idea-market';
     }
 
     if (userType === 'corporate') {
