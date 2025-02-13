@@ -1,6 +1,7 @@
 import {
   IndividualCareerResponseType,
   IndividualContactType,
+  IndividualSkillTypePayloadType,
   IndividualSkillTypeResponseType,
 } from './profileType';
 
@@ -13,22 +14,29 @@ export interface MyBaseInfoType {
   selfIntroduction: 'string';
 }
 
-export interface IndividualInfoResponseType {
+export interface IndividualInfoType {
   profileImage: string;
   selfIntroduction: string;
   contacts: IndividualContactType[];
-  stacks: IndividualSkillTypeResponseType[];
   stackOpen: boolean;
   careers: IndividualCareerResponseType[];
   careerOpen: boolean;
   specializations: string[];
 }
 
+export interface IndividualInfoResponseType extends IndividualInfoType {
+  stacks: IndividualSkillTypeResponseType[];
+}
+
+export interface IndividualInfoPayloadType extends IndividualInfoType {
+  stacks: IndividualSkillTypePayloadType[];
+}
+
 export interface MyPorfolioType {
-  id: 7;
-  title: '기죽지마';
-  createdDate: '2025-02-08';
-  profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS3rypq3_ZMR1jh38cucfhVHNTa44qbZYYvQ&s';
+  id: number;
+  title: string;
+  createdDate: string;
+  profileImage: string;
 }
 
 export interface PostPortfolioPayload {

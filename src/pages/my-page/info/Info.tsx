@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './info.module.scss';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -23,8 +23,9 @@ import {
   CATEGORY_LABELS,
   CATEGORY_MAPPER_TO_ENG,
 } from '../../../constants/categoryMapper';
-import { IndividualInfoResponseType } from '../../../types/myPageType';
+import { IndividualInfoPayloadType } from '../../../types/myPageType';
 import { putIndividualInfo } from '../../../apis/mypageAPI';
+import { ToastContext } from '../../../contexts/toastContext';
 
 export const Info = () => {
   type userTypetype = '개인' | '기업';
@@ -37,6 +38,8 @@ export const Info = () => {
   >(['']);
   const [skills, setSkills] = useState<IndividualSkillTypeResponseType[]>([]);
   const [careers, setCareers] = useState<IndividualCareerResponseType[]>([]);
+
+  const { errorToast, successToast } = useContext(ToastContext);
 
   const userType: userTypetype =
     localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
@@ -65,12 +68,17 @@ export const Info = () => {
   });
 
   const { mutate: editMyInfoMutate } = useMutation({
-    mutationFn: (payload: IndividualInfoResponseType) =>
+    mutationFn: (payload: IndividualInfoPayloadType) =>
       putIndividualInfo(personalData.userId, payload),
-    onSuccess: () =>
+    onSuccess: () => {
+      successToast('수정되었습니다.');
       queryClient.invalidateQueries({
         queryKey: ['userData'],
-      }),
+      });
+    },
+    onError: () => {
+      errorToast('수정에 실패하였습니다. 다시 시도해주세요.');
+    },
   });
 
   useEffect(() => {
@@ -87,10 +95,6 @@ export const Info = () => {
       setCareers(personalData.careers);
     }
   }, [personalData, companyData, setValue]);
-
-  useEffect(() => {
-    console.log(contacts);
-  }, [contacts]);
 
   if (isPersonalDataPending || isCompanyDataPending) {
     return <div>로딩 중..</div>;
@@ -128,7 +132,7 @@ export const Info = () => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (
     payload: FieldValues,
   ) => {
-    const requestBody = {
+    const requestBody: IndividualInfoPayloadType = {
       ...payload,
       contacts,
       careers,
@@ -140,7 +144,7 @@ export const Info = () => {
         ...rest,
       })),
     };
-    editMyInfoMutate(requestBody as IndividualInfoResponseType);
+    editMyInfoMutate(requestBody);
 
     console.log(requestBody);
     setEditMode(false);
@@ -160,12 +164,33 @@ export const Info = () => {
     });
   };
 
+  const handleClickDeleteInfoButton = (deleteType: string) => {
+    const updatedContacts = contacts.filter(
+      (contact) => contact.type !== deleteType,
+    );
+    setContacts(updatedContacts);
+  };
+
   const handleClickAddSkillButton = (data: IndividualSkillTypeResponseType) => {
     setSkills((prev) => [...prev, data]);
   };
 
+  const handleClickDeleteSkillButton = (deleteName: string) => {
+    const updatedSkills = skills.filter(
+      (skill) => skill.stackName !== deleteName,
+    );
+    setSkills(updatedSkills);
+  };
+
   const handleClickAddCareerButton = (data: IndividualCareerResponseType) => {
     setCareers((prev) => [...prev, data]);
+  };
+
+  const handleClickDeleteExperienceButton = (experience: string) => {
+    const updatedExperiences = careers.filter(
+      (career) => career.content !== experience,
+    );
+    setCareers(updatedExperiences);
   };
 
   return (
@@ -201,10 +226,12 @@ export const Info = () => {
               <IndividualInfoPart
                 editMode={editMode}
                 contacts={contacts}
+                onDelete={handleClickDeleteInfoButton}
                 onClickAdd={handleClickAddInfoButton}
               />
 
               <SkillPart
+                onDelete={handleClickDeleteSkillButton}
                 editMode={editMode}
                 setValue={setValue}
                 skills={skills}
@@ -217,6 +244,7 @@ export const Info = () => {
               setValue={setValue}
               careers={careers}
               onClickAdd={handleClickAddCareerButton}
+              onDelete={handleClickDeleteExperienceButton}
               {...register('careerOpen')}
             />
             <PortfolioPart
@@ -236,6 +264,7 @@ export const Info = () => {
             <IndividualInfoPart
               editMode={editMode}
               onClickAdd={handleClickAddInfoButton}
+              onDelete={handleClickDeleteInfoButton}
               contacts={contacts}
             />
             {editMode && (

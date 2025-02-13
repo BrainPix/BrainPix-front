@@ -50,6 +50,11 @@ export interface IndividualSkillTypeResponseType {
   proficiency: string;
 }
 
+export interface IndividualSkillTypePayloadType {
+  name: string;
+  proficiency: string;
+}
+
 export interface IndividualCareerResponseType {
   content: string;
   startDate: string;

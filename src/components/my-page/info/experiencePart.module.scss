@@ -14,6 +14,15 @@
   @include flex-space-between;
 
   width: 100%;
+
+  &.editMode {
+    width: 90%;
+  }
+}
+
+.listWrapper {
+  width: 100%;
+  position: relative;
 }
 
 .label {
@@ -35,6 +44,11 @@
 
   height: 34px;
   color: $grey-800;
+  position: relative;
+
+  &.editMode {
+    width: 90%;
+  }
 
   & > .experience,
   .date {
@@ -124,4 +138,19 @@
     cursor: pointer;
     outline: none;
   }
+}
+
+.deleteButton {
+  @include pretendard-14-400;
+
+  padding: 5px 10px;
+  background-color: $grey-400;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: $grey-100;
+  margin-left: auto;
+  position: absolute;
+  top: 2px;
+  left: 640px;
 }

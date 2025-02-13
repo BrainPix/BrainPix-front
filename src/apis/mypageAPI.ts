@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IndividualInfoResponseType } from '../types/myPageType';
+import { IndividualInfoPayloadType } from '../types/myPageType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -17,7 +17,7 @@ export const getMyBasicInfo = async () => {
 
 export const putIndividualInfo = async (
   userId: number,
-  payload: IndividualInfoResponseType,
+  payload: IndividualInfoPayloadType,
 ) => {
   const token = localStorage.getItem('accessToken');
   const url = `${BASE_URL}/profile/individual/${userId}`;

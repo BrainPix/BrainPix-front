@@ -22,10 +22,11 @@ interface SkillPartPropsType {
   setValue: UseFormSetValue<FieldValuesType>;
   onClickAdd: (data: IndividualSkillTypeResponseType) => void;
   skills: IndividualSkillTypeResponseType[];
+  onDelete: (deleteSkillName: string) => void;
 }
 
 export const SkillPart = forwardRef<HTMLInputElement, SkillPartPropsType>(
-  ({ editMode, setValue, onClickAdd, skills }, ref) => {
+  ({ editMode, setValue, onClickAdd, skills, onDelete }, ref) => {
     const skillInputRef = useRef<HTMLInputElement | null>(null);
     const [selectedSkill, setSelectedSkill] = useState('');
     const [selectedProficiency, setSelectedProficiency] = useState('MEDIUM');
@@ -69,7 +70,10 @@ export const SkillPart = forwardRef<HTMLInputElement, SkillPartPropsType>(
             </div>
           )}
         </div>
-        <div className={classNames(styles.skillInfoWrapper)}>
+        <div
+          className={classNames(styles.skillInfoWrapper, {
+            [styles.editMode]: editMode,
+          })}>
           <div className={classNames(styles.labelWrapper)}>
             <div className={classNames(styles.label)}>기술</div>
             <hr className={classNames(styles.tableDivider)} />
@@ -79,15 +83,25 @@ export const SkillPart = forwardRef<HTMLInputElement, SkillPartPropsType>(
             <div className={classNames(styles.contentContainer)}>
               {skills.map(({ stackName, proficiency }) => (
                 <div
-                  className={classNames(styles.list)}
-                  key={stackName}>
-                  <div className={classNames(styles.skillName)}>
-                    {stackName}
+                  key={stackName}
+                  className={classNames(styles.listWrapper)}>
+                  <div className={classNames(styles.list)}>
+                    <div className={classNames(styles.skillName)}>
+                      {stackName}
+                    </div>
+                    <hr className={classNames(styles.tableDivider)} />
+                    <div className={classNames(styles.skillLevel)}>
+                      {SKILL_PROFICIENCY_MAPPER[proficiency]}
+                    </div>
                   </div>
-                  <hr className={classNames(styles.tableDivider)} />
-                  <div className={classNames(styles.skillLevel)}>
-                    {SKILL_PROFICIENCY_MAPPER[proficiency]}
-                  </div>
+                  {editMode && (
+                    <button
+                      onClick={() => onDelete(stackName)}
+                      className={classNames(styles.deleteButton)}
+                      type='button'>
+                      삭제
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

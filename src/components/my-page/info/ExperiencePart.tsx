@@ -18,12 +18,13 @@ interface ExperiencePartPropsType {
   setValue: UseFormSetValue<FieldValuesType>;
   careers: IndividualCareerResponseType[];
   onClickAdd: (data: IndividualCareerResponseType) => void;
+  onDelete: (experienceName: string) => void;
 }
 
 export const ExperiencePart = forwardRef<
   HTMLInputElement,
   ExperiencePartPropsType
->(({ editMode, setValue, careers, onClickAdd }, ref) => {
+>(({ editMode, setValue, careers, onClickAdd, onDelete }, ref) => {
   const [experienceOpenChecked, setExperienceOpenChecked] = useState(false);
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
@@ -92,22 +93,39 @@ export const ExperiencePart = forwardRef<
         )}
       </div>
       <div className={classNames(styles.experienceWrapper)}>
-        <div className={classNames(styles.labelWrapper)}>
+        <div
+          className={classNames(styles.labelWrapper, {
+            [styles.editMode]: editMode,
+          })}>
           <div className={classNames(styles.label)}>직무</div>
           <hr className={classNames(styles.tableDivider)} />
           <div className={classNames(styles.label)}>기간</div>
         </div>
-        {careers.map(({ content, startDate, endDate }) => (
-          <div
-            className={classNames(styles.list)}
-            key={content}>
-            <div className={classNames(styles.experience)}>{content}</div>
-            <hr className={classNames(styles.tableDivider)} />
-            <div className={classNames(styles.date)}>
-              {startDate} - {endDate}
+        <div className={classNames(styles.listContainer)}>
+          {careers.map(({ content, startDate, endDate }) => (
+            <div
+              key={content}
+              className={classNames(styles.listWrapper)}>
+              <div
+                className={classNames(styles.list, {
+                  [styles.editMode]: editMode,
+                })}>
+                <div className={classNames(styles.experience)}>{content}</div>
+                <hr className={classNames(styles.tableDivider)} />
+                <div className={classNames(styles.date)}>
+                  {startDate} - {endDate}
+                </div>
+              </div>
+              {editMode && (
+                <button
+                  onClick={() => onDelete(content)}
+                  className={classNames(styles.deleteButton)}>
+                  삭제
+                </button>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       {editMode && (
         <div className={classNames(styles.editInputWrapper)}>

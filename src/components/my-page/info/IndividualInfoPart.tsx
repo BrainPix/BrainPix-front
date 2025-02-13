@@ -16,12 +16,13 @@ interface IndividualInfoPartPropsType {
   editMode: boolean;
   onClickAdd: (data: IndividualContactType) => void;
   contacts: { type: string; value: string; isPublic: boolean }[];
+  onDelete: (deleteType: string) => void;
 }
 
 export const IndividualInfoPart = forwardRef<
   HTMLInputElement,
   IndividualInfoPartPropsType
->(({ editMode, onClickAdd, contacts }, ref) => {
+>(({ editMode, onClickAdd, contacts, onDelete }, ref) => {
   const queryClient = useQueryClient();
   const userData = queryClient.getQueryData(['userData']);
   const userType = localStorage.getItem('myType');
@@ -73,6 +74,12 @@ export const IndividualInfoPart = forwardRef<
                 {INFO_TYPE_MAPPER[type]}
               </span>
               <span className={classNames(styles.value)}>{value}</span>
+              <button
+                type='button'
+                onClick={() => onDelete(type)}
+                className={classNames(styles.deleteButton)}>
+                삭제
+              </button>
             </div>
           ) : (
             isPublic && (
