@@ -5,13 +5,23 @@
 }
 
 .title {
-  @include pretendard-32-500;
+  @include pretendard-24-500;
+  @include flex-space-between;
 
   color: $grey-900;
   width: 100%;
   border-bottom: 1px solid $grey-500;
   padding-bottom: 15px;
   margin-bottom: 15px;
+
+  & > button {
+    @include pretendard-18-500;
+
+    color: $grey-700;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
 }
 
 .moreButton {

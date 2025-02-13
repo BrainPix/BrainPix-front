@@ -88,3 +88,18 @@ export const patchRestoreAlarm = async (alarmId: string) => {
     return data;
   }
 };
+
+export const deleteAllAlarms = async () => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/delete`;
+
+  if (token) {
+    const { data } = await axios.delete(url, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    return data;
+  }
+};
