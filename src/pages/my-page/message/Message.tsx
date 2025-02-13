@@ -7,6 +7,8 @@ import { noMessage } from '../../../constants/noMessageText';
 import { WriteMessageModal } from '../../../components/my-page/message/WriteMessageModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { MESSAGES_TEMP, PREVIOUS_MESSAGE_TEMP } from '../../../constants/temp';
+import { useQuery } from '@tanstack/react-query';
+import { getMessages } from '../../../apis/messageAPI';
 
 export const Message = () => {
   const READ_COUNT = 1;
@@ -27,6 +29,11 @@ export const Message = () => {
   const [isOpenWriteModal, setIsOpenWriteModal] = useState(false);
 
   const writeMessageModalRef = useRef(null);
+
+  const { data: messages } = useQuery({
+    queryKey: ['messages'],
+    queryFn: getMessages,
+  });
 
   const handleCloseWriteModal = () => {
     setIsOpenWriteModal(false);

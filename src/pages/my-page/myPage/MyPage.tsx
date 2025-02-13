@@ -9,8 +9,8 @@ import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard'
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 import { MyBaseInfoType } from '../../../types/myPageType';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
-// import { getAlarms } from '../../../apis/alarmAPI';
-// import { getCategoryLabel } from '../../../utils/categoryMapping';
+import { getAlarms } from '../../../apis/alarmAPI';
+import { getAlarmResponseType } from '../../../types/alarmType';
 
 const INIT_DATA = {
   name: '',
@@ -27,10 +27,18 @@ export const MyPage = () => {
     queryFn: getMyBasicInfo,
   });
 
-  // const { data: alarms } = useQuery({
-  //   queryKey: ['alarms'],
-  //   queryFn: getAlarms,
-  // });
+  const { data: alarms, isFetching: isFetchingAlarms } = useQuery({
+    queryKey: ['alarms'],
+    queryFn: () => getAlarms(0),
+  });
+
+  if (isFetchingAlarms) {
+    return <div>로딩중,,</div>;
+  }
+
+  // const previewAlarms = alarms?.slice(0, 4);
+
+  // console.log(alarms.data.alarmDetailList);
 
   const myBaseInfo: MyBaseInfoType = myBaseInfoData?.data ?? INIT_DATA;
 
@@ -71,8 +79,25 @@ export const MyPage = () => {
           <a href='/my/recent-news'>자세히</a>
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          <PreviewList isRead />
-          <PreviewList />
+          {alarms.data.alarmDetailList
+            .slice(0, 3)
+            .map(
+              ({
+                alarmId,
+                isRead,
+                header,
+                message,
+                redirectUrl,
+              }: getAlarmResponseType) => (
+                <PreviewList
+                  key={alarmId}
+                  isRead={isRead}
+                  header={header}
+                  message={message}
+                  redirectUrl={redirectUrl}
+                />
+              ),
+            )}
         </div>
       </div>
       <div>
