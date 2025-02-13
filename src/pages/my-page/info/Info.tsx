@@ -107,7 +107,7 @@ export const Info = () => {
   });
 
   useEffect(() => {
-    if (personalData) {
+    if (personalData?.contacts) {
       setValue('selfIntroduction', personalData.selfIntroduction);
       const updatedSpecializations = personalData.specializations.map(
         (value: string) => {
@@ -121,7 +121,7 @@ export const Info = () => {
       setSelectedProfileImage(personalData.profileImage);
     }
 
-    if (companyData) {
+    if (companyData?.businessInformation) {
       setValue('selfIntroduction', companyData.selfIntroduction);
       const updatedSpecializations = companyData.specializations?.map(
         (value: string) => {
@@ -275,7 +275,6 @@ export const Info = () => {
             <IntroducePart
               editMode={editMode}
               setValue={setValue}
-              watch={watch}
               {...register('selfIntroduction')}
             />
             <div
@@ -325,7 +324,6 @@ export const Info = () => {
             <IntroducePart
               editMode={editMode}
               setValue={setValue}
-              watch={watch}
               {...register('selfIntroduction')}
             />
             <IndividualInfoPart

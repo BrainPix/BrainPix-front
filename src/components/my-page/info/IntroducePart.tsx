@@ -1,7 +1,7 @@
 import { ChangeEvent, forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './introducePart.module.scss';
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   CompanyProfileType,
@@ -17,7 +17,6 @@ interface FieldValuesType {
 
 interface IntroducePartPropsType {
   editMode: boolean;
-  watch: UseFormWatch<FieldValuesType>;
   setValue: UseFormSetValue<FieldValuesType>;
 }
 
