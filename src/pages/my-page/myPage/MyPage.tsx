@@ -32,7 +32,7 @@ export const MyPage = () => {
       if (observer.isIntersecting) {
         fetchNextPage();
         const totalCurrentCardLength = myIdeas?.pages.reduce(
-          (acc, page) => acc + page.content.length,
+          (acc, page) => acc + page.data.content.length,
           0,
         );
 
@@ -60,13 +60,13 @@ export const MyPage = () => {
     queryFn: ({ pageParam = 0 }) => getMyIdeas(pageParam),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage.currentPage < pages[0].totalPages) {
-        return lastPage?.currentPage + 1;
+      if (lastPage.data.currentPage < pages[0].data.totalPages) {
+        return lastPage?.data.currentPage + 1;
       }
     },
   });
 
-  if (isFetchingAlarms || isGetIdeasFetching) {
+  if (isFetchingAlarms) {
     return <div>로딩중,,</div>;
   }
 
@@ -122,12 +122,13 @@ export const MyPage = () => {
       <div>
         <div className={classNames(styles.title)}>내 아이디어</div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          {myIdeas?.pages.map((ideas, pageIndex) => (
-            <React.Fragment key={pageIndex}>
+          {myIdeas?.pages.map((ideas, pageIdx) => (
+            <React.Fragment key={pageIdx}>
               {ideas.data.content.map(
                 ({ ideaId, title }: GetMyIdeasResponse, idx: number) => (
                   <PreviewList
                     key={ideaId}
+                    ref={3 * pageIdx + idx === lastCardId ? setTarget : null}
                     iconType='idea'
                     alarmData={{
                       alarmId: String(ideaId),
@@ -141,6 +142,7 @@ export const MyPage = () => {
               )}
             </React.Fragment>
           ))}
+          {isGetIdeasFetching && <div>로딩 중,,,</div>}
         </div>
       </div>
     </div>
