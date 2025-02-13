@@ -1,10 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-//import { useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RequestTasks } from '../../../types/supportsType';
 import {
   getAcceptedRequestTasks,
   getRejectedRequestTasks,
-  //deleteRejectedRequestTask,
+  deleteRejectedRequestTask,
 } from '../../../apis/supportsAPI';
 import styles from './applyRequest.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
@@ -42,18 +41,20 @@ export const ApplyRequest = () => {
   //   },
   // ];
 
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-  // const { mutate: removeRejectedTask } = useMutation<void, Error, number>(
-  //   (purchasingId: number) => {
-  //     return deleteRejectedRequestTask(purchasingId);
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({ queryKey: ['RejectedRequestTasks'] });
-  //     },
-  //   },
-  // );
+  // 삭제 API 호출을 위한 Mutation 생성
+  const deleteMutation = useMutation({
+    mutationFn: (purchasingId: number) =>
+      deleteRejectedRequestTask(purchasingId),
+    onSuccess: () => {
+      alert('거절된 요청과제 지원 내역이 삭제되었습니다.');
+      queryClient.invalidateQueries({ queryKey: ['RejectedRequestTasks'] }); // 삭제 후 리스트 새로고침
+    },
+    onError: () => {
+      alert('삭제에 실패했습니다.');
+    },
+  });
 
   // accept된 요청 과제
   const {
@@ -74,14 +75,6 @@ export const ApplyRequest = () => {
     queryKey: ['RejectedRequestTasks', 0, 10],
     queryFn: () => getRejectedRequestTasks(0, 10),
   });
-
-  // useEffect(() => {
-  //   if (rejectedTasks.length > 0) {
-  //     console.log('거절된 요청 과제 데이터:', rejectedTasks);
-  //   } else {
-  //     console.log('거절된 요청 과제 데이터가 없습니다.');
-  //   }
-  // }, [rejectedTasks]);
 
   if (isLoadingAccepted || isLoadingRejected) {
     return <div className={styles.loading}>로딩 중...</div>;
@@ -143,7 +136,7 @@ export const ApplyRequest = () => {
                 status='거절됨'
                 statusType='reject'
                 showDeleteButton={true}
-                //onDelete={() => removeRejectedTask(requestTask.purchasingId)}
+                onDelete={() => deleteMutation.mutate(requestTask.purchasingId)}
               />
             </div>
 

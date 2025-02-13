@@ -116,7 +116,7 @@ export const deleteRejectedRequestTask = async (
       },
     });
 
-    console.log(`요청 과제 게시글 ${purchasingId} 삭제 성공`);
+    console.log(`요청 과제 ${purchasingId}번 게시글 삭제 성공`);
   } catch (error) {
     console.error('삭제 요청 실패:', error);
     throw error;
