@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './recentNews.module.scss';
-import { useQuery } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 import Arrow from '../../../assets/icons/arrowRight.svg?react';
-import { getAlarms } from '../../../apis/alarmAPI';
+import { getAlarms, getTrashAlarm } from '../../../apis/alarmAPI';
 import { getAlarmResponseType } from '../../../types/alarmType';
+import React from 'react';
 
 export const RecentNews = () => {
+  const queryClient = useQueryClient();
+
   const [isOpenMoreDelete, setIsOpenMoreDelete] = useState<boolean>(false);
   const [currentPageNums, setCurrentPageNums] = useState<number[]>([
     1, 2, 3, 4, 5,
@@ -20,7 +27,29 @@ export const RecentNews = () => {
     queryFn: () => getAlarms(clickedPage),
   });
 
-  if (isFetchingAlarms) {
+  const { data: alarmsInTrash, isFetching: isFetchingTrashAlarms } =
+    useInfiniteQuery({
+      queryKey: ['alarmsInTrash'],
+      queryFn: ({ pageParam = 0 }) => getTrashAlarm(pageParam),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.currentPage < pages[0].totalPages) {
+          return lastPage?.currentPage + 1;
+        }
+      },
+    });
+
+  useEffect(() => {
+    if (alarms?.data.totalPage < 5) {
+      const pages = new Array(alarms.data.totalPage)
+        .fill(0)
+        .map((_, idx) => idx + 1);
+      console.log(pages);
+      setCurrentPageNums(pages);
+    }
+  }, [alarms]);
+
+  if (isFetchingAlarms || isFetchingTrashAlarms) {
     return <div>로딩중,,</div>;
   }
 
@@ -40,6 +69,12 @@ export const RecentNews = () => {
 
   const handleClickMoreIcon = () => {
     setIsOpenMoreDelete((prev) => !prev);
+  };
+
+  const handleClickTrashIcon = () => {
+    queryClient.invalidateQueries({
+      queryKey: ['alarms', clickedPage],
+    });
   };
 
   return (
@@ -84,7 +119,10 @@ export const RecentNews = () => {
           <button
             className={classNames(styles.arrowButton)}
             onClick={handleClickNextArrow}
-            disabled={currentPageNums[4] >= alarms.data.totalPage}>
+            disabled={
+              currentPageNums[currentPageNums.length - 1] >=
+              alarms.data.totalPage
+            }>
             <Arrow
               width={20}
               height={20}
@@ -95,25 +133,41 @@ export const RecentNews = () => {
       </div>
       <div>
         <h1 className={classNames(styles.title)}>휴지통</h1>
-        <button
-          onClick={handleClickMoreIcon}
-          className={classNames(styles.moreButton, 'buttonFilled-grey700')}>
-          더보기
-          <Arrow
-            width={24}
-            height={24}
-            stroke='#fafafa'
-            className={classNames(
-              isOpenMoreDelete ? styles.upArrow : styles.bottomArrow,
-            )}
-          />
-        </button>
+        {alarmsInTrash?.pages[0].data.alarmDetailList.length === 0 ? (
+          <h1 className={classNames(styles.noAlarmText)}>
+            휴지통이 비었습니다.
+          </h1>
+        ) : (
+          <button
+            onClick={handleClickMoreIcon}
+            className={classNames(styles.moreButton, 'buttonFilled-grey700')}>
+            더보기
+            <Arrow
+              width={24}
+              height={24}
+              stroke='#fafafa'
+              className={classNames(
+                isOpenMoreDelete ? styles.upArrow : styles.bottomArrow,
+              )}
+            />
+          </button>
+        )}
         {isOpenMoreDelete && (
           <div className={classNames(styles.trashListWrapper)}>
-            <PreviewList iconType='delete' />
-            <PreviewList iconType='delete' />
-            <PreviewList iconType='delete' />
-            <PreviewList iconType='delete' />
+            {alarmsInTrash?.pages.map((alarms, pageIdx) => (
+              <React.Fragment key={pageIdx}>
+                {alarms.data.alarmDetailList.map(
+                  (alarmData: getAlarmResponseType) => (
+                    <PreviewList
+                      key={alarmData.alarmId}
+                      iconType='delete'
+                      alarmData={alarmData}
+                      onClickIcon={handleClickTrashIcon}
+                    />
+                  ),
+                )}
+              </React.Fragment>
+            ))}
           </div>
         )}
       </div>

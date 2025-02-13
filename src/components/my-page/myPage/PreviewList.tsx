@@ -3,18 +3,21 @@ import styles from './previewList.module.scss';
 import Trash from '../../../assets/icons/trash.svg?react';
 import Undo from '../../../assets/icons/undo.svg?react';
 import { getAlarmResponseType } from '../../../types/alarmType';
-import { useMutation } from '@tanstack/react-query';
-import { patchReadAlarm } from '../../../apis/alarmAPI';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { patchReadAlarm, patchTrashAlarm } from '../../../apis/alarmAPI';
 
 interface NewsListPropsType {
   alarmData: getAlarmResponseType;
   iconType?: 'trash' | 'more' | 'delete';
+  onClickIcon?: () => void;
 }
 
 export const PreviewList = ({
   alarmData,
   iconType = 'more',
+  onClickIcon,
 }: NewsListPropsType) => {
+  const queryClient = useQueryClient();
   const { alarmId, isRead, header, message, redirectUrl } = alarmData ?? {
     alarmId: '',
     isRead: false,
@@ -24,12 +27,24 @@ export const PreviewList = ({
   };
 
   const { mutate: patchReadAlarmMutate } = useMutation({
-    mutationFn: (alarmId: string) => patchReadAlarm(alarmId),
+    mutationFn: () => patchReadAlarm(alarmId),
+  });
+
+  const { mutate: patchTrashAlarmMutate } = useMutation({
+    mutationFn: () => patchTrashAlarm(alarmId),
   });
 
   const handleClickList = () => {
-    patchReadAlarmMutate(alarmId);
+    patchReadAlarmMutate();
     // navigate(redirectUrl);
+  };
+
+  const handleClickTrash = () => {
+    patchTrashAlarmMutate();
+    queryClient.invalidateQueries({
+      queryKey: ['alarmsInTrash'],
+    });
+    onClickIcon?.();
   };
 
   return (
@@ -50,6 +65,7 @@ export const PreviewList = ({
         <Trash
           className={classNames(styles.trashIcon)}
           stroke='#757575'
+          onClick={handleClickTrash}
         />
       )}
       {iconType === 'delete' && (

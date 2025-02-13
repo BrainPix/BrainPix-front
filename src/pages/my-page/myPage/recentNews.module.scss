@@ -72,3 +72,12 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.noAlarmText {
+  @include pretendard-22-500;
+
+  color: $grey-700;
+  text-align: center;
+  padding-top: 30px;
+  height: 100px;
+}
