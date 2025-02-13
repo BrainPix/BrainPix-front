@@ -6,12 +6,13 @@ import {
 } from './profileType';
 
 export interface MyBaseInfoType {
-  name: 'string';
-  userType: 'string';
+  name: string;
+  userType: string;
   specializations: string[];
   ideaCount: number;
   collaborationCount: number;
-  selfIntroduction: 'string';
+  selfIntroduction: string;
+  profileImage: string;
 }
 
 export interface IndividualInfoType {
