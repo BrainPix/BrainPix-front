@@ -71,7 +71,7 @@ export const RecentNews = () => {
     setIsOpenMoreDelete((prev) => !prev);
   };
 
-  const handleClickTrashIcon = () => {
+  const handleClickIcon = () => {
     queryClient.invalidateQueries({
       queryKey: ['alarms', clickedPage],
     });
@@ -162,7 +162,7 @@ export const RecentNews = () => {
                       key={alarmData.alarmId}
                       iconType='delete'
                       alarmData={alarmData}
-                      onClickIcon={handleClickTrashIcon}
+                      onClickIcon={handleClickIcon}
                     />
                   ),
                 )}

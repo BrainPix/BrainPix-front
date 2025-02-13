@@ -69,3 +69,22 @@ export const patchTrashAlarm = async (alarmId: string) => {
     return data;
   }
 };
+
+export const patchRestoreAlarm = async (alarmId: string) => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/restore/${alarmId}`;
+
+  if (token) {
+    const { data } = await axios.patch(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `${token}`,
+        },
+      },
+    );
+
+    return data;
+  }
+};

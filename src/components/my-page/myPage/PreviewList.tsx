@@ -1,10 +1,15 @@
 import classNames from 'classnames';
+import { MouseEvent } from 'react';
 import styles from './previewList.module.scss';
 import Trash from '../../../assets/icons/trash.svg?react';
 import Undo from '../../../assets/icons/undo.svg?react';
 import { getAlarmResponseType } from '../../../types/alarmType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { patchReadAlarm, patchTrashAlarm } from '../../../apis/alarmAPI';
+import {
+  patchReadAlarm,
+  patchRestoreAlarm,
+  patchTrashAlarm,
+} from '../../../apis/alarmAPI';
 
 interface NewsListPropsType {
   alarmData: getAlarmResponseType;
@@ -32,6 +37,22 @@ export const PreviewList = ({
 
   const { mutate: patchTrashAlarmMutate } = useMutation({
     mutationFn: () => patchTrashAlarm(alarmId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['alarmsInTrash'],
+      });
+      onClickIcon?.();
+    },
+  });
+
+  const { mutate: patchRestoreAlarmMutate } = useMutation({
+    mutationFn: () => patchRestoreAlarm(alarmId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['alarmsInTrash'],
+      });
+      onClickIcon?.();
+    },
   });
 
   const handleClickList = () => {
@@ -39,12 +60,14 @@ export const PreviewList = ({
     // navigate(redirectUrl);
   };
 
-  const handleClickTrash = () => {
+  const handleClickTrash = async (e: MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
     patchTrashAlarmMutate();
-    queryClient.invalidateQueries({
-      queryKey: ['alarmsInTrash'],
-    });
-    onClickIcon?.();
+  };
+
+  const handleClickRestoreIcon = async (e: MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
+    patchRestoreAlarmMutate();
   };
 
   return (
@@ -74,7 +97,7 @@ export const PreviewList = ({
             className={classNames(styles.deleteButton, 'buttonFilled-grey700')}>
             삭제
           </button>
-          <Undo />
+          <Undo onClick={handleClickRestoreIcon} />
         </>
       )}
     </div>
