@@ -43,7 +43,10 @@ export const PostsRequestAssign = () => {
         postImage={post.thumbnailImageUrl}
         postId={post.ideaId}
       />
-      <ApplyStatus applicationStatus={post.applicationStatus} />
+      <ApplyStatus
+        applicationStatus={post.applicationStatus}
+        postType='request-task'
+      />
       <CurrentPeople currentMembers={post.currentMembers} />
     </>
   );

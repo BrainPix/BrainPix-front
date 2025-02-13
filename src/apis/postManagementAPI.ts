@@ -250,3 +250,61 @@ export const postRejectRequestApplication = async (
     throw error;
   }
 };
+
+export const postAcceptCollaborationApplication = async (
+  gatheringId: number,
+): Promise<void> => {
+  const url = `${BASE_URL}/post-management/collaboration/application/${gatheringId}/accept`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+      },
+    );
+
+    console.log('협업 광장의 지원 수락 성공:', response.data);
+  } catch (error) {
+    console.error('협업 광장의 지원 수락 실패:', error);
+    throw error;
+  }
+};
+
+export const postRejectCollaborationApplication = async (
+  gatheringId: number,
+): Promise<void> => {
+  const url = `${BASE_URL}/post-management/collaboration/application/${gatheringId}/reject`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = 'login/individual';
+  }
+
+  try {
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+      },
+    );
+
+    console.log('협업 광장의 지원 거절 성공:', response.data);
+  } catch (error) {
+    console.error('협업 광장의 지원 거절 실패:', error);
+    throw error;
+  }
+};

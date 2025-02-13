@@ -49,7 +49,10 @@ export const PostsCollaboration = () => {
         postImage={post.thumbnailImageUrl}
         postId={post.ideaId}
       />
-      <ApplyStatus applicationStatus={post.applicationStatus} />
+      <ApplyStatus
+        applicationStatus={post.applicationStatus}
+        postType='collaboration'
+      />
       <CurrentPeople currentMembers={post.currentMembers} />
     </>
   );
