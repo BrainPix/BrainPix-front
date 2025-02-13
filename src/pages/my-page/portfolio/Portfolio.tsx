@@ -5,6 +5,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { AddPortfolioModal } from '../../../components/my-page/portfolio/AddPortfolioModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
+import Loading from '../../../assets/icons/loading.svg?react';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
 import { getMyPorfolio } from '../../../apis/portfolio';
 import placeholder from '../../../assets/images/brainPixIcon.png';
@@ -74,10 +75,6 @@ export const Portfolio = () => {
     handler: handleClosePortfolioDetailModal,
   });
 
-  if (isGetPorfoliosPending) {
-    return <div>로딩 중,,,</div>;
-  }
-
   return (
     <div className={classNames(styles.container)}>
       {isOpenAddPortfolioModal && (
@@ -131,6 +128,11 @@ export const Portfolio = () => {
           </React.Fragment>
         ))}
       </div>
+      {isGetPorfoliosPending && (
+        <div className={classNames(styles.loadingIconWrapper)}>
+          <Loading />
+        </div>
+      )}
     </div>
   );
 };

@@ -91,3 +91,9 @@
   padding-top: 30px;
   height: 100px;
 }
+
+.loadingWrapper {
+  @include flex-center;
+
+  width: 100%;
+}

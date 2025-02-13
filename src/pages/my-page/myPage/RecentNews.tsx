@@ -10,6 +10,7 @@ import {
 
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 import Arrow from '../../../assets/icons/arrowRight.svg?react';
+import Loading from '../../../assets/icons/loading.svg?react';
 import {
   deleteAllAlarms,
   getAlarms,
@@ -84,7 +85,7 @@ export const RecentNews = () => {
     }
   }, [alarms]);
 
-  if (isFetchingAlarms || isFetchingTrashAlarms) {
+  if (isFetchingAlarms) {
     return <div>로딩중,,</div>;
   }
 
@@ -208,6 +209,11 @@ export const RecentNews = () => {
                 )}
               </React.Fragment>
             ))}
+            {isFetchingTrashAlarms && (
+              <div className={classNames(styles.loadingWrapper)}>
+                <Loading />
+              </div>
+            )}
           </div>
         )}
       </div>

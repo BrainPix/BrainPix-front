@@ -14,6 +14,7 @@ import { getAlarmResponseType } from '../../../types/alarmType';
 import { getMyIdeas } from '../../../apis/ideaMarketAPI';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import { GetMyIdeasResponse } from '../../../types/ideaMarket';
+import Loading from '../../../assets/icons/loading.svg?react';
 
 const INIT_DATA = {
   name: '',
@@ -142,7 +143,11 @@ export const MyPage = () => {
               )}
             </React.Fragment>
           ))}
-          {isGetIdeasFetching && <div>로딩 중,,,</div>}
+          {isGetIdeasFetching && (
+            <div className={classNames(styles.loadingIconWrapper)}>
+              <Loading />
+            </div>
+          )}
         </div>
       </div>
     </div>
