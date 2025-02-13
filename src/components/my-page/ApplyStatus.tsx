@@ -1,6 +1,8 @@
 import {
   postAcceptRequestApplication,
   postRejectRequestApplication,
+  postAcceptCollaborationApplication,
+  postRejectCollaborationApplication,
 } from '../../apis/postManagementAPI';
 import styles from './applyStatus.module.scss';
 
@@ -11,10 +13,15 @@ interface ApplyStatusProps {
     approvedCount: number;
     totalCount: number;
     purchasingId?: number;
+    gatheringId?: number;
   }[];
+  postType: 'request-task' | 'collaboration';
 }
 
-export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
+export const ApplyStatus = ({
+  applicationStatus,
+  postType,
+}: ApplyStatusProps) => {
   // const APPLY_RECORDS = [
   //   { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
   // ];
@@ -22,35 +29,43 @@ export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
     console.log('지원 현황: ', applicationStatus);
   }
 
-  const handleAccept = async (purchasingId?: number) => {
-    if (!purchasingId) {
-      console.error('purchasingId가 없습니다.');
+  const handleAccept = async (id?: number) => {
+    if (!id) {
+      console.error('ID가 없습니다.');
       return;
     }
 
     try {
-      await postAcceptRequestApplication(purchasingId);
-      alert('지원이 수락되었습니다.');
-      window.location.reload(); // 성공 시 페이지 새로고침
+      if (postType === 'request-task') {
+        await postAcceptRequestApplication(id);
+      } else {
+        await postAcceptCollaborationApplication(id);
+      }
+      alert('요청 과제의 지원이 수락되었습니다.');
+      window.location.reload(); // 성공 시 새로고침
     } catch (error) {
-      console.error('지원 수락 중 오류 발생:', error);
-      alert('지원 수락에 실패했습니다.');
+      console.error('요청 과제의 지원 수락 중 오류 발생:', error);
+      alert('요청 과제의 지원 수락에 실패했습니다.');
     }
   };
 
-  const handleReject = async (purchasingId?: number) => {
-    if (!purchasingId) {
-      console.error('purchasingId가 없습니다.');
+  const handleReject = async (id?: number) => {
+    if (!id) {
+      console.error('ID가 없습니다.');
       return;
     }
 
     try {
-      await postRejectRequestApplication(purchasingId);
-      alert('지원이 거절되었습니다.');
-      window.location.reload(); // 성공 시 페이지 새로고침
+      if (postType === 'request-task') {
+        await postRejectRequestApplication(id);
+      } else {
+        await postRejectCollaborationApplication(id);
+      }
+      alert('협업 광장의 지원이 거절되었습니다.');
+      window.location.reload(); // 성공 시 새로고침
     } catch (error) {
-      console.error('지원 거절 중 오류 발생:', error);
-      alert('지원 거절에 실패했습니다.');
+      console.error('협업 광장의 지원 거절 중 오류 발생:', error);
+      alert('협업 광장의 지원 거절에 실패했습니다.');
     }
   };
 
@@ -83,12 +98,24 @@ export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
             <div className={styles.buttonGroup}>
               <button
                 className={styles.button}
-                onClick={() => handleAccept(apply.purchasingId)}>
+                onClick={() =>
+                  handleAccept(
+                    postType === 'request-task'
+                      ? apply.purchasingId
+                      : apply.gatheringId,
+                  )
+                }>
                 수락
               </button>
               <button
                 className={styles.button}
-                onClick={() => handleReject(apply.purchasingId)}>
+                onClick={() =>
+                  handleReject(
+                    postType === 'request-task'
+                      ? apply.purchasingId
+                      : apply.gatheringId,
+                  )
+                }>
                 거절
               </button>
             </div>
