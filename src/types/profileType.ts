@@ -1,5 +1,6 @@
 export interface IndividualProfileType {
   userType: string;
+  profileImage: string;
   specializations: string;
   name: string;
   selfIntroduction: string;
@@ -26,6 +27,7 @@ export interface IndividualProfileType {
 
 export interface CompanyProfileType {
   userId: 0;
+  profileImage: string;
   userType: string;
   specializations: string;
   name: string;

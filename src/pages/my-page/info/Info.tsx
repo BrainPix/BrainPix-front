@@ -35,6 +35,7 @@ import { ToastContext } from '../../../contexts/toastContext';
 export const Info = () => {
   type userTypetype = '개인' | '기업';
   const queryClient = useQueryClient();
+  const userTypeRef = useRef<string | null>(null);
 
   const [editMode, setEditMode] = useState(false);
   const [contacts, setContacts] = useState<IndividualContactType[]>([]);
@@ -44,10 +45,9 @@ export const Info = () => {
   const [skills, setSkills] = useState<IndividualSkillTypeResponseType[]>([]);
   const [careers, setCareers] = useState<IndividualCareerResponseType[]>([]);
   const [businessInfo, setBusinessInfo] = useState<string>('');
+  const [selectedProfileImage, setSelectedProfileImage] = useState('');
 
   const { errorToast, successToast } = useContext(ToastContext);
-
-  const userTypeRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!userTypeRef.current) {
@@ -119,8 +119,9 @@ export const Info = () => {
       );
       setSelectedSpecialization(updatedSpecializations);
       setContacts(personalData.contacts ?? []);
-      setSkills(personalData.stacks);
-      setCareers(personalData.careers);
+      setSkills(personalData.stacks ?? []);
+      setCareers(personalData.careers ?? []);
+      setSelectedProfileImage(personalData.profileImage);
     }
 
     if (companyData) {
@@ -132,6 +133,7 @@ export const Info = () => {
       );
       setSelectedSpecialization(updatedSpecializations);
       setContacts(companyData.companyInformations ?? []);
+      setSelectedProfileImage(personalData.imageUrl);
     }
   }, [personalData, companyData, setValue]);
 
@@ -170,7 +172,7 @@ export const Info = () => {
   ) => {
     if (userTypeRef.current === 'personal') {
       const requestBody: IndividualInfoPayloadType = {
-        profileImage: payload.profileImage,
+        profileImage: selectedProfileImage,
         selfIntroduction: payload.selfIntroduction,
         stackOpen: payload.stackOpen,
         careerOpen: payload.careerOpen,
@@ -189,7 +191,7 @@ export const Info = () => {
 
     if (userTypeRef.current === 'corporate') {
       const requestBody: putCompanyInfoPayload = {
-        profileImage: payload.profileImage,
+        profileImage: selectedProfileImage,
         selfIntroduction: payload.selfIntroduction,
         specializations: selectedSpecialization.map(
           (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
@@ -203,7 +205,6 @@ export const Info = () => {
   };
 
   const handleClickAddInfoButton = (data: IndividualContactType) => {
-    console.log(data);
     setContacts((prev) => {
       const existingIndex = prev.findIndex((item) => item.type === data.type);
       if (existingIndex !== -1) {
@@ -252,6 +253,10 @@ export const Info = () => {
     setBusinessInfo(e.target.value);
   };
 
+  const handleChangeProfileImageInput = (imgURL: string) => {
+    setSelectedProfileImage(imgURL || '');
+  };
+
   return (
     <div className={classNames(styles.container)}>
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
@@ -261,6 +266,8 @@ export const Info = () => {
           onClickButton={
             editMode ? handleClickSaveButton : handleClickEditButton
           }
+          onChangeProfileImage={handleChangeProfileImageInput}
+          selectedImage={selectedProfileImage}
         />
         {userType === '개인' && personalData && (
           <div className={classNames(styles.contentContainer)}>
@@ -336,6 +343,7 @@ export const Info = () => {
             )}
             <BusinessInfoPart
               editMode={editMode}
+              businessInfoText={companyData.businessInformation}
               onChange={handleChangeBusinessInfoInput}
             />
             <PortfolioPart
