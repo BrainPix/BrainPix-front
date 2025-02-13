@@ -1,3 +1,4 @@
+import { postAcceptApplication } from '../../apis/postManagementAPI';
 import styles from './applyStatus.module.scss';
 
 interface ApplyStatusProps {
@@ -17,6 +18,23 @@ export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
   {
     console.log('지원 현황: ', applicationStatus);
   }
+
+  const handleAccept = async (purchasingId?: number) => {
+    if (!purchasingId) {
+      console.error('purchasingId가 없습니다.');
+      return;
+    }
+
+    try {
+      await postAcceptApplication(purchasingId);
+      alert('지원이 수락되었습니다.');
+      window.location.reload(); // 성공 시 페이지 새로고침 (UI 업데이트)
+    } catch (error) {
+      console.error('지원 수락 중 오류 발생:', error);
+      alert('지원 수락에 실패했습니다.');
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.tableTitle}>지원 현황</div>
@@ -44,7 +62,11 @@ export const ApplyStatus = ({ applicationStatus }: ApplyStatusProps) => {
             </span>
             <span className={styles.divider} />
             <div className={styles.buttonGroup}>
-              <button className={styles.button}>수락</button>
+              <button
+                className={styles.button}
+                onClick={() => handleAccept(apply.purchasingId)}>
+                수락
+              </button>
               <button className={styles.button}>거절</button>
             </div>
           </div>
