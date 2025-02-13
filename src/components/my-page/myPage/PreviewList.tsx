@@ -31,7 +31,10 @@ export const PreviewList = ({
         <button className={classNames(styles.moreButton)}>자세히</button>
       )}
       {iconType === 'trash' && (
-        <Trash className={classNames(styles.trashIcon)} />
+        <Trash
+          className={classNames(styles.trashIcon)}
+          stroke='#757575'
+        />
       )}
       {iconType === 'delete' && (
         <>
