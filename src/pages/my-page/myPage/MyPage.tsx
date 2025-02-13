@@ -36,10 +36,6 @@ export const MyPage = () => {
     return <div>로딩중,,</div>;
   }
 
-  // const previewAlarms = alarms?.slice(0, 4);
-
-  // console.log(alarms.data.alarmDetailList);
-
   const myBaseInfo: MyBaseInfoType = myBaseInfoData?.data ?? INIT_DATA;
 
   const { ideaCount, specializations, collaborationCount, selfIntroduction } =
@@ -81,23 +77,12 @@ export const MyPage = () => {
         <div className={classNames(styles.recentNewsWrapper)}>
           {alarms.data.alarmDetailList
             .slice(0, 3)
-            .map(
-              ({
-                alarmId,
-                isRead,
-                header,
-                message,
-                redirectUrl,
-              }: getAlarmResponseType) => (
-                <PreviewList
-                  key={alarmId}
-                  isRead={isRead}
-                  header={header}
-                  message={message}
-                  redirectUrl={redirectUrl}
-                />
-              ),
-            )}
+            .map((alarmData: getAlarmResponseType) => (
+              <PreviewList
+                key={alarmData.alarmId}
+                alarmData={alarmData}
+              />
+            ))}
         </div>
       </div>
       <div>

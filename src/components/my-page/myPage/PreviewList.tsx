@@ -2,24 +2,40 @@ import classNames from 'classnames';
 import styles from './previewList.module.scss';
 import Trash from '../../../assets/icons/trash.svg?react';
 import Undo from '../../../assets/icons/undo.svg?react';
+import { getAlarmResponseType } from '../../../types/alarmType';
+import { useMutation } from '@tanstack/react-query';
+import { patchReadAlarm } from '../../../apis/alarmAPI';
 
 interface NewsListPropsType {
-  isRead?: boolean;
+  alarmData: getAlarmResponseType;
   iconType?: 'trash' | 'more' | 'delete';
-  header: string;
-  message: string;
-  redirectUrl: string;
 }
 
 export const PreviewList = ({
-  isRead = false,
+  alarmData,
   iconType = 'more',
-  header,
-  message,
-  redirectUrl,
 }: NewsListPropsType) => {
+  const { alarmId, isRead, header, message, redirectUrl } = alarmData ?? {
+    alarmId: '',
+    isRead: false,
+    header: '',
+    message: '',
+    redirectUrl: '',
+  };
+
+  const { mutate: patchReadAlarmMutate } = useMutation({
+    mutationFn: (alarmId: string) => patchReadAlarm(alarmId),
+  });
+
+  const handleClickList = () => {
+    patchReadAlarmMutate(alarmId);
+    // navigate(redirectUrl);
+  };
+
   return (
-    <div className={classNames(styles.container, { [styles.isRead]: isRead })}>
+    <div
+      className={classNames(styles.container, { [styles.isRead]: isRead })}
+      onClick={handleClickList}>
       {isRead && (
         <div className={classNames(styles.tag, styles.read)}>읽음</div>
       )}

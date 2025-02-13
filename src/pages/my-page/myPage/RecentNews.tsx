@@ -48,20 +48,11 @@ export const RecentNews = () => {
         <h1 className={classNames(styles.title)}>최근 소식</h1>
         <div className={classNames(styles.listContainer)}>
           {alarms?.data.alarmDetailList.map(
-            ({
-              alarmId,
-              isRead,
-              header,
-              message,
-              redirectUrl,
-            }: getAlarmResponseType) => (
+            (alarmData: getAlarmResponseType) => (
               <PreviewList
                 iconType='trash'
-                key={alarmId}
-                isRead={isRead}
-                header={header}
-                message={message}
-                redirectUrl={redirectUrl}
+                key={alarmData.alarmId}
+                alarmData={alarmData}
               />
             ),
           )}
