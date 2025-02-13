@@ -1,26 +1,41 @@
 import { useState } from 'react';
 import classNames from 'classnames';
 import styles from './recentNews.module.scss';
+import { useQuery } from '@tanstack/react-query';
+
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 import Arrow from '../../../assets/icons/arrowRight.svg?react';
+import { getAlarms } from '../../../apis/alarmAPI';
+import { getAlarmResponseType } from '../../../types/alarmType';
 
 export const RecentNews = () => {
   const [isOpenMoreDelete, setIsOpenMoreDelete] = useState<boolean>(false);
-
   const [currentPageNums, setCurrentPageNums] = useState<number[]>([
     1, 2, 3, 4, 5,
   ]);
-
   const [clickedPage, setClickedPage] = useState<number>(1);
+
+  const { data: alarms, isFetching: isFetchingAlarms } = useQuery({
+    queryKey: ['alarms', clickedPage],
+    queryFn: () => getAlarms(clickedPage),
+  });
+
+  if (isFetchingAlarms) {
+    return <div>로딩중,,</div>;
+  }
+
+  const handleClickPreviousArrow = () => {
+    const updatedPageNums = currentPageNums.map((page: number) => page - 5);
+    setCurrentPageNums(updatedPageNums);
+  };
+
+  const handleClickNextArrow = () => {
+    const updatedPageNums = currentPageNums.map((page: number) => page + 5);
+    setCurrentPageNums(updatedPageNums);
+  };
 
   const handleClickPageNum = (page: number) => {
     setClickedPage(page);
-    if (page !== 1 && page === currentPageNums[0]) {
-      return setCurrentPageNums([page - 3, page - 2, page - 1, page, page + 1]);
-    }
-    if (page === currentPageNums[currentPageNums.length - 1]) {
-      return setCurrentPageNums([page - 1, page, page + 1, page + 2, page + 3]);
-    }
   };
 
   const handleClickMoreIcon = () => {
@@ -31,8 +46,38 @@ export const RecentNews = () => {
     <div className={classNames(styles.container)}>
       <div>
         <h1 className={classNames(styles.title)}>최근 소식</h1>
-        <PreviewList iconType='trash' />
+        <div className={classNames(styles.listContainer)}>
+          {alarms?.data.alarmDetailList.map(
+            ({
+              alarmId,
+              isRead,
+              header,
+              message,
+              redirectUrl,
+            }: getAlarmResponseType) => (
+              <PreviewList
+                iconType='trash'
+                key={alarmId}
+                isRead={isRead}
+                header={header}
+                message={message}
+                redirectUrl={redirectUrl}
+              />
+            ),
+          )}
+        </div>
         <div className={classNames(styles.pageNumberWrapper)}>
+          <button
+            disabled={currentPageNums[0] <= 1}
+            onClick={handleClickPreviousArrow}
+            className={classNames(styles.arrowButton)}>
+            <Arrow
+              width={20}
+              height={20}
+              stroke='#757575'
+              className={classNames(styles.leftArrow)}
+            />
+          </button>
           {currentPageNums.map((currentPageNum) => (
             <span
               key={currentPageNum}
@@ -45,6 +90,16 @@ export const RecentNews = () => {
               {currentPageNum}
             </span>
           ))}
+          <button
+            className={classNames(styles.arrowButton)}
+            onClick={handleClickNextArrow}
+            disabled={currentPageNums[4] >= alarms.data.totalPage}>
+            <Arrow
+              width={20}
+              height={20}
+              stroke='#757575'
+            />
+          </button>
         </div>
       </div>
       <div>

@@ -23,6 +23,10 @@
   margin-bottom: 15px;
 }
 
+.leftArrow {
+  transform: rotate((180deg));
+}
+
 .bottomArrow {
   transform: rotate(90deg);
 }
@@ -31,11 +35,17 @@
   transform: rotate(270deg);
 }
 
+.arrowButton {
+  border: none;
+  background: none;
+}
+
 .pageNumberWrapper {
   width: fit-content;
   display: flex;
   margin: 0 auto;
   gap: 10px;
+  align-items: center;
   margin-top: 15px;
 
   & > * {
@@ -55,4 +65,10 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

@@ -101,10 +101,7 @@ export const MyPage = () => {
         </div>
       </div>
       <div>
-        <div className={classNames(styles.title)}>
-          내 아이디어
-          <a href='/my'>전체보기</a>
-        </div>
+        <div className={classNames(styles.title)}>내 아이디어</div>
         <div className={classNames(styles.recentNewsWrapper)}>
           <PreviewList />
         </div>
