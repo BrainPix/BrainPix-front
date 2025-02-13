@@ -1,4 +1,4 @@
-import styles from './PaymentFail.module.scss';
+import styles from './paymentFail.module.scss';
 import FailIcon from '../../assets/icons/failIcon.svg?react';
 import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
 
