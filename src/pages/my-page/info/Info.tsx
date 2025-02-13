@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './info.module.scss';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -33,9 +33,7 @@ import { putCompanyInfo, putIndividualInfo } from '../../../apis/mypageAPI';
 import { ToastContext } from '../../../contexts/toastContext';
 
 export const Info = () => {
-  type userTypetype = '개인' | '기업';
   const queryClient = useQueryClient();
-  const userTypeRef = useRef<string | null>(null);
 
   const [editMode, setEditMode] = useState(false);
   const [contacts, setContacts] = useState<IndividualContactType[]>([]);
@@ -46,17 +44,16 @@ export const Info = () => {
   const [careers, setCareers] = useState<IndividualCareerResponseType[]>([]);
   const [businessInfo, setBusinessInfo] = useState<string>('');
   const [selectedProfileImage, setSelectedProfileImage] = useState('');
+  const [userType, setUserType] = useState<string | null>(null);
 
   const { errorToast, successToast } = useContext(ToastContext);
 
   useEffect(() => {
-    if (!userTypeRef.current) {
-      userTypeRef.current = localStorage.getItem('myType');
+    const storedType = localStorage.getItem('myType');
+    if (storedType) {
+      setUserType(storedType === 'personal' ? '개인' : '기업');
     }
   }, []);
-
-  const userType: userTypetype =
-    localStorage.getItem('myType') === 'corporate' ? '기업' : '개인';
 
   const defaultInputValues = {
     profileImage: '',
@@ -72,13 +69,13 @@ export const Info = () => {
   const { data: personalData, isLoading: isPersonalDataPending } = useQuery({
     queryKey: ['userData'],
     queryFn: getProfilePersonal,
-    enabled: userTypeRef.current === '기업',
+    enabled: userType === '개인' || userType === null,
   });
 
   const { data: companyData, isLoading: isCompanyDataPending } = useQuery({
     queryKey: ['userData'],
     queryFn: getProfileCompany,
-    enabled: userTypeRef.current === '개인' || userType !== null,
+    enabled: userType === '기업' || userType === null,
   });
 
   const { mutate: editPersonalInfoMutate } = useMutation({
@@ -137,6 +134,10 @@ export const Info = () => {
     }
   }, [personalData, companyData, setValue]);
 
+  if (!userType) {
+    return <div>로딩 중...</div>;
+  }
+
   if (isPersonalDataPending || isCompanyDataPending) {
     return <div>로딩 중..</div>;
   }
@@ -170,7 +171,7 @@ export const Info = () => {
   const handleSubmitHandler: SubmitHandler<FieldValues> = async (
     payload: FieldValues,
   ) => {
-    if (userTypeRef.current === 'personal') {
+    if (userType === 'personal') {
       const requestBody: IndividualInfoPayloadType = {
         profileImage: selectedProfileImage,
         selfIntroduction: payload.selfIntroduction,
@@ -189,7 +190,7 @@ export const Info = () => {
       editPersonalInfoMutate(requestBody);
     }
 
-    if (userTypeRef.current === 'corporate') {
+    if (userType === 'corporate') {
       const requestBody: putCompanyInfoPayload = {
         profileImage: selectedProfileImage,
         selfIntroduction: payload.selfIntroduction,
