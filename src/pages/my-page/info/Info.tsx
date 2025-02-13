@@ -133,7 +133,10 @@ export const Info = () => {
     payload: FieldValues,
   ) => {
     const requestBody: IndividualInfoPayloadType = {
-      ...payload,
+      profileImage: payload.profileImage,
+      selfIntroduction: payload.selfIntroduction,
+      stackOpen: payload.stackOpen,
+      careerOpen: payload.careerOpen,
       contacts,
       careers,
       specializations: selectedSpecialization.map(
@@ -145,8 +148,6 @@ export const Info = () => {
       })),
     };
     editMyInfoMutate(requestBody);
-
-    console.log(requestBody);
     setEditMode(false);
   };
 
