@@ -1,8 +1,8 @@
-// import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Fragment } from 'react/jsx-runtime';
 import styles from './myPage.module.scss';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard';
@@ -11,6 +11,9 @@ import { MyBaseInfoType } from '../../../types/myPageType';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 import { getAlarms } from '../../../apis/alarmAPI';
 import { getAlarmResponseType } from '../../../types/alarmType';
+import { getMyIdeas } from '../../../apis/ideaMarketAPI';
+import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
+import { GetMyIdeasResponse } from '../../../types/ideaMarket';
 
 const INIT_DATA = {
   name: '',
@@ -22,6 +25,22 @@ const INIT_DATA = {
 };
 
 export const MyPage = () => {
+  const [lastCardId, setLastCardId] = useState(0);
+
+  const { setTarget } = useIntersectionObserverAPI({
+    onIntersect: (observer) => {
+      if (observer.isIntersecting) {
+        fetchNextPage();
+        const totalCurrentCardLength = myIdeas?.pages.reduce(
+          (acc, page) => acc + page.content.length,
+          0,
+        );
+
+        setLastCardId(totalCurrentCardLength - 1);
+      }
+    },
+  });
+
   const { data: myBaseInfoData } = useQuery({
     queryKey: ['myBasicInfo'],
     queryFn: getMyBasicInfo,
@@ -32,7 +51,22 @@ export const MyPage = () => {
     queryFn: () => getAlarms(0),
   });
 
-  if (isFetchingAlarms) {
+  const {
+    data: myIdeas,
+    isFetching: isGetIdeasFetching,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['myPorfolios'],
+    queryFn: ({ pageParam = 0 }) => getMyIdeas(pageParam),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.currentPage < pages[0].totalPages) {
+        return lastPage?.currentPage + 1;
+      }
+    },
+  });
+
+  if (isFetchingAlarms || isGetIdeasFetching) {
     return <div>로딩중,,</div>;
   }
 
@@ -88,7 +122,25 @@ export const MyPage = () => {
       <div>
         <div className={classNames(styles.title)}>내 아이디어</div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          <PreviewList />
+          {myIdeas?.pages.map((ideas, pageIndex) => (
+            <React.Fragment key={pageIndex}>
+              {ideas.data.content.map(
+                ({ ideaId, title }: GetMyIdeasResponse, idx: number) => (
+                  <PreviewList
+                    key={ideaId}
+                    iconType='idea'
+                    alarmData={{
+                      alarmId: String(ideaId),
+                      header: title,
+                      isRead: false,
+                      message: '아이디어 마켓',
+                      redirectUrl: `/idea-market/registered/${ideaId}`,
+                    }}
+                  />
+                ),
+              )}
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </div>

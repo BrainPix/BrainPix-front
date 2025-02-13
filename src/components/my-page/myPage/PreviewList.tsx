@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { forwardRef, MouseEvent, useContext } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './previewList.module.scss';
 import Trash from '../../../assets/icons/trash.svg?react';
@@ -16,13 +17,14 @@ import { ToastContext } from '../../../contexts/toastContext';
 
 interface NewsListPropsType {
   alarmData: getAlarmResponseType;
-  iconType?: 'trash' | 'more' | 'delete';
+  iconType?: 'trash' | 'more' | 'delete' | 'idea';
   onClickIcon?: () => void;
 }
 
 export const PreviewList = forwardRef<HTMLDivElement, NewsListPropsType>(
   ({ alarmData, iconType = 'more', onClickIcon }, ref) => {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
     const { errorToast } = useContext(ToastContext);
     const { alarmId, isRead, header, message, redirectUrl } = alarmData ?? {
       alarmId: '',
@@ -74,8 +76,10 @@ export const PreviewList = forwardRef<HTMLDivElement, NewsListPropsType>(
     });
 
     const handleClickList = () => {
+      if (iconType === 'idea') {
+        return navigate(redirectUrl);
+      }
       if (isRead) {
-        // navigate(redirectUrl);
         return null;
       }
       patchReadAlarmMutate();
@@ -109,9 +113,10 @@ export const PreviewList = forwardRef<HTMLDivElement, NewsListPropsType>(
           <span className={classNames(styles.page)}>{message}</span>
         </div>
         <span className={classNames(styles.content)}>{header}</span>
-        {iconType === 'more' && (
-          <button className={classNames(styles.moreButton)}>자세히</button>
-        )}
+        {iconType === 'more' ||
+          (iconType === 'idea' && (
+            <button className={classNames(styles.moreButton)}>자세히</button>
+          ))}
         {iconType === 'trash' && (
           <Trash
             className={classNames(styles.trashIcon)}
