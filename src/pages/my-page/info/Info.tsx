@@ -62,7 +62,7 @@ export const Info = () => {
     careerOpen: false,
   };
 
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: defaultInputValues,
   });
 
