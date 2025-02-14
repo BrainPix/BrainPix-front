@@ -42,14 +42,13 @@ export const getProfileCompany = async () => {
 
 export const getOtherProfilePersonal = async (userId: number) => {
   const token = localStorage.getItem('accessToken');
-  const url = `${BASE_URL}/public-profile/individual`;
+  const url = `${BASE_URL}/public-profile/individual/${userId}`;
 
   if (token) {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      params: { userId },
     });
 
     if (data.success) {
@@ -60,9 +59,28 @@ export const getOtherProfilePersonal = async (userId: number) => {
   throw Error;
 };
 
-export const getOtherProfileCompany = async () => {
+export const getOtherProfileCompany = async (userId: number) => {
   const token = localStorage.getItem('accessToken');
-  const url = `${BASE_URL}/public-profile/company`;
+  const url = `${BASE_URL}/public-profile/company/${userId}`;
+
+  if (token) {
+    const { data } = await axios(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (data.success) {
+      return data.data;
+    }
+  }
+
+  throw Error;
+};
+
+export const getOtherProfilePosts = async (userId: number) => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/public-profile/${userId}`;
 
   if (token) {
     const { data } = await axios(url, {

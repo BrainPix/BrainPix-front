@@ -1,8 +1,35 @@
-import { Carousel } from '../common/carousel/Carousel';
 import classNames from 'classnames';
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import { Carousel } from '../common/carousel/Carousel';
+import { getOtherProfilePosts } from '../../apis/profileAPI';
 import styles from './postCarousel.module.scss';
 
 export const PostsCarousel = () => {
+  const { id } = useParams();
+
+  const [clickedPostsPage, setClickedPostsPage] = useState(0);
+
+  const { data: posts, isFetching: isFetchingPosts } = useQuery({
+    queryKey: ['posts', clickedPostsPage],
+    queryFn: () => getOtherProfilePosts(Number(id)),
+    enabled: false,
+  });
+
+  const handleClickNextButton = () => {
+    setClickedPostsPage((prev) => prev + 1);
+  };
+
+  const handleClickPreviousButton = () => {
+    setClickedPostsPage((prev) => prev - 1);
+  };
+
+  if (isFetchingPosts) {
+    <div>로딩 중,,</div>;
+  }
+
   return (
     <div className={classNames(styles.container)}>
       <Carousel

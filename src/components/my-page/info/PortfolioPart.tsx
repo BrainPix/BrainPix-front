@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './portfolioPart.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { Carousel } from '../../common/carousel/Carousel';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getMyPorfolio } from '../../../apis/portfolio';
+import { getPorfolios } from '../../../apis/portfolio';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 import { PortfolioDetailModal } from '../portfolio/PortfolioDetailModal';
@@ -21,17 +21,26 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
   const navigate = useNavigate();
   const [openPopup, setOpenPopup] = useState(false);
   const [clickedCardId, setClickedCardId] = useState(-1);
+  const [userId, setUserId] = useState(-1);
+
+  useEffect(() => {
+    const MyUserId = localStorage.getItem('userId');
+    if (MyUserId) {
+      setUserId(Number(MyUserId));
+    }
+  }, []);
 
   const { data: myPorfolios, isFetching: isGetPortfoliosFetching } =
     useInfiniteQuery({
       queryKey: ['myPortfolios'],
-      queryFn: ({ pageParam = 0 }) => getMyPorfolio(pageParam),
+      queryFn: ({ pageParam = 0 }) => getPorfolios(pageParam, userId),
       initialPageParam: 0,
       getNextPageParam: (lastPage, pages) => {
         if (lastPage.currentPage < pages[0].totalPages) {
           return lastPage?.currentPage + 1;
         }
       },
+      enabled: false,
     });
 
   const handleClosePopup = () => {

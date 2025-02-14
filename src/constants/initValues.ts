@@ -1,6 +1,6 @@
 export const PERSONAL_RPOFILE_INIT = {
   userType: '',
-  specializations: '',
+  specializations: [''],
   name: '',
   selfIntroduction: '',
   contacts: [

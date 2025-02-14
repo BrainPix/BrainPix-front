@@ -1,79 +1,54 @@
 import classNames from 'classnames';
+import styles from './personalProfile.module.scss';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+
+import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
+import { IndividualProfileType } from '../../types/profileType';
+import { getOtherProfilePersonal } from '../../apis/profileAPI';
+import { PERSONAL_RPOFILE_INIT } from '../../constants/initValues';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
-import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
-import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
-import styles from './personalProfile.module.scss';
-import { useParams } from 'react-router-dom';
-import { IndividualProfileType } from '../../types/profileType';
 
 export const PersonalProfile = () => {
   const { id, userType } = useParams();
 
-  console.log(id, userType);
+  const {
+    data: selectedPersonalUserInfo,
+    isLoading: isFetchingPersonalInfoData,
+  } = useQuery({
+    queryKey: ['selectedUserInfo'],
+    queryFn: () => getOtherProfilePersonal(Number(id)),
+    enabled: userType === 'personal',
+  });
 
-  // const { data: selectedPersonalUserInfo } = useQuery({
-  //   queryKey: ['selectedUserInfo'],
-  //   queryFn: () => getOtherProfilePersonal(id),
-  // });
+  const {
+    data: selectedCompanylUserInfo,
+    isFetching: isFetchingCompanyInfoData,
+  } = useQuery({
+    queryKey: ['selectedUserInfo'],
+    queryFn: () => getOtherProfilePersonal(Number(id)),
+    enabled: userType === 'company',
+  });
 
-  // const { data: selectedCompanylUserInfo } = useQuery({
-  //   queryKey: ['selectedUserInfo'],
-  //   queryFn: () => getOtherProfileCompany(id),
-  // });
+  if (isFetchingCompanyInfoData || isFetchingPersonalInfoData) {
+    <div>로딩 중..</div>;
+  }
 
-  // console.log(selectedPersonalUserInfo);
-
-  // if (userType === 'personal') {
-  // }
-
-  const USER_DATA: IndividualProfileType = {
-    userId: 123,
-    name: 'MIN JEONG',
-    userType: 'INDIVIDUAL',
-    profileImage: '',
-    specializations: ['DESIGN', 'LESSON'],
-    selfIntroduction: '자기 소개입니다.',
-    contacts: [
-      {
-        type: 'PHONE',
-        value: '010-1234-5576',
-      },
-    ],
-    stacks: [
-      {
-        stackName: '파이썬',
-        proficiency: 'HIGH',
-      },
-      {
-        stackName: 'C언어',
-        proficiency: 'LOW',
-      },
-    ],
-    careers: [
-      {
-        content: 'SY TECH 인턴',
-        startDate: '2022/12',
-        endDate: '2023/06',
-      },
-      {
-        content: 'TECH 인턴',
-        startDate: '2024/12',
-        endDate: '2027/02',
-      },
-    ],
-  };
+  const { name, specializations, profileImage } =
+    (selectedPersonalUserInfo as IndividualProfileType) ??
+    PERSONAL_RPOFILE_INIT;
 
   return (
     <div className={classNames(styles.container)}>
       <ProfileCard
-        userType={USER_DATA.userType}
-        userName={USER_DATA.name}
-        specializations={USER_DATA.specializations}
-        profileImage={USER_DATA.profileImage}
+        userType={userType || ''}
+        userName={name}
+        specializations={specializations}
+        profileImage={profileImage}
       />
-      <DescriptionTable userData={USER_DATA} />
-      <PortfolioCarousel size={4} />
+      <DescriptionTable userData={selectedPersonalUserInfo} />
+      {/* <PortfolioCarousel size={4} /> */}
       <PostsCarousel />
     </div>
   );

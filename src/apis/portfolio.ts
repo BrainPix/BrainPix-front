@@ -3,13 +3,14 @@ import { EditProfilePayload, PostPortfolioPayload } from '../types/myPageType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export const getMyPorfolio = async (page: number) => {
+export const getPorfolios = async (page: number, userId: number) => {
   const token = localStorage.getItem('accessToken');
-  const url = `${BASE_URL}/portfolios?page=${page}&size=8`;
+  const url = `${BASE_URL}/portfolios?&size=8`;
 
   if (token) {
     const { data } = await axios(url, {
       headers: { Authorization: token },
+      params: { page, userId },
     });
     return data;
   }

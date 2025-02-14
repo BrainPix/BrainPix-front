@@ -43,15 +43,19 @@
 
 .skillsContainer,
 .careersContainer {
+  @include pretendard-14-500;
+
   display: flex;
   flex-direction: column;
-  border: 1px solid $grey-500;
+  border: 1px solid $grey-600;
   border-radius: 5px;
   border-bottom: none;
   overflow: hidden;
   line-height: normal;
 
   & > .label {
+    @include pretendard-16-500;
+
     background-color: $grey-100;
     color: $grey-700;
   }
@@ -62,7 +66,7 @@
   text-align: center;
   padding: 10px 0;
   align-items: center;
-  border-bottom: 1px solid $grey-500;
+  border-bottom: 1px solid $grey-600;
 
   & > .name {
     width: 50%;
@@ -79,7 +83,7 @@
   align-items: center;
   padding: 10px 0;
   text-align: center;
-  border-bottom: 1px solid $grey-500;
+  border-bottom: 1px solid $grey-600;
 
   & > .name {
     width: 180px;

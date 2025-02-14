@@ -6,13 +6,15 @@ import {
   INFO_TYPE_MAPPER,
   SKILL_PROFICIENCY_MAPPER,
 } from '../../constants/categoryMapper';
+import { PERSONAL_RPOFILE_INIT } from '../../constants/initValues';
 
 interface DescriptionTablePropsType {
   userData: IndividualProfileType;
 }
 
 export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
-  const { selfIntroduction, contacts, stacks, careers } = userData;
+  const { selfIntroduction, contacts, stacks, careers } =
+    userData ?? PERSONAL_RPOFILE_INIT;
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.descriptionWrapper)}>
