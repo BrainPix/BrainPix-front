@@ -5,7 +5,10 @@ import { useParams } from 'react-router-dom';
 
 import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
 import { IndividualProfileType } from '../../types/profileType';
-import { getOtherProfilePersonal } from '../../apis/profileAPI';
+import {
+  getOtherProfileCompany,
+  getOtherProfilePersonal,
+} from '../../apis/profileAPI';
 import { PERSONAL_RPOFILE_INIT } from '../../constants/initValues';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
@@ -27,8 +30,8 @@ export const PersonalProfile = () => {
     isFetching: isFetchingCompanyInfoData,
   } = useQuery({
     queryKey: ['selectedUserInfo'],
-    queryFn: () => getOtherProfilePersonal(Number(id)),
-    enabled: userType === 'company',
+    queryFn: () => getOtherProfileCompany(Number(id)),
+    enabled: userType === 'corporate',
   });
 
   if (isFetchingCompanyInfoData || isFetchingPersonalInfoData) {

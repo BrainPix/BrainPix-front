@@ -23,8 +23,8 @@ export const ProfileCard = ({
         <div className={classNames(styles.profileImage)} />
         <div className={classNames(styles.profileNameContainer)}>
           <Label
-            text='기업'
-            type='personal'
+            text={userType === 'personal' ? '개인' : '기업'}
+            type={userType as 'personal' | 'corporate'}
           />
           <h1 className={classNames(styles.userName)}>{userName}</h1>
           <div className={classNames(styles.role)}>
