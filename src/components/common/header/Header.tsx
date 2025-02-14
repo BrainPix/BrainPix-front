@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './header.module.scss';
 
@@ -6,6 +6,7 @@ import { SearchInput } from './SearchInput';
 import Logo from '../../../assets/icons/logo.svg?react';
 import Alarm from '../../../assets/icons/alarm.svg?react';
 import { useNavigate } from 'react-router-dom';
+import { useOutsideClick } from '../../../hooks/useOutsideClick';
 
 const OPTION_MENU = {
   등록하기: '/register',
@@ -21,10 +22,17 @@ const PAGE_MENU = {
 export const Header = () => {
   const location = window.location.pathname;
   const navigate = useNavigate();
+  const alaramContainerRef = useRef<HTMLDivElement>(null);
 
   const [hoverIdeaMarket, setHoverIdeaMarket] = useState(false);
   const [hoverRequest, setHoverRequest] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [openAlarm, setOpenAlarm] = useState(false);
+
+  useOutsideClick({
+    ref: alaramContainerRef,
+    handler: () => setOpenAlarm(false),
+  });
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -50,8 +58,32 @@ export const Header = () => {
                 </a>
               ))}
             </div>
-            <div className={classNames(styles.alarmWrapper)}>
-              <Alarm />
+            <div
+              className={classNames(styles.alarmContainer)}
+              ref={alaramContainerRef}>
+              <Alarm
+                onClick={() => setOpenAlarm((prev) => !prev)}
+                className={classNames(styles.alarmIcon)}
+              />
+              {openAlarm && (
+                <div className={classNames(styles.alarmWrapper)}>
+                  <div className={classNames(styles.title)}>알림</div>
+                  {token ? (
+                    <div>알람들 리스트 넣기</div>
+                  ) : (
+                    <div className={classNames(styles.noToken)}>
+                      로그인이 필요합니다.
+                      <button
+                        className={classNames(
+                          'buttonFilled-primary',
+                          styles.loginButton,
+                        )}>
+                        로그인 하기
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </menu>

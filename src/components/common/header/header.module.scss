@@ -17,7 +17,7 @@
   gap: 30px;
 }
 
-.alarmWrapper {
+.alarmContainer {
   @include flex-center;
 
   width: 24px;
@@ -26,6 +26,47 @@
   border-radius: 50px;
   cursor: pointer;
   margin-bottom: 1px;
+  position: relative;
+
+  &:hover {
+    background-color: $grey-200;
+  }
+}
+
+.alarmWrapper {
+  position: absolute;
+  top: 40px;
+  width: 400px;
+  height: 600px;
+  z-index: 100;
+  background-color: $grey-50;
+  border-radius: 5px;
+  box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 10%);
+}
+
+.alarmWrapper > .title {
+  @include pretendard-20-600;
+
+  padding: 10px 20px;
+  color: $grey-900;
+}
+
+.noToken {
+  @include flex-center;
+  @include pretendard-20-500;
+
+  height: 100%;
+  color: $grey-800;
+  flex-direction: column;
+  gap: 15px;
+  background-color: $grey-200;
+
+  & > .loginButton {
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+    color: $grey-50;
+  }
 }
 
 .optionWrapper {
