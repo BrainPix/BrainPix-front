@@ -4,14 +4,20 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
-import { IndividualProfileType } from '../../types/profileType';
+import {
+  CompanyProfileType,
+  IndividualProfileType,
+} from '../../types/profileType';
 import {
   getOtherProfileCompany,
   getOtherProfilePersonal,
 } from '../../apis/profileAPI';
-import { PERSONAL_RPOFILE_INIT } from '../../constants/initValues';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
+import {
+  COMPANY_RPOFILE_INIT,
+  PERSONAL_RPOFILE_INIT,
+} from '../../constants/initValues';
 
 export const PersonalProfile = () => {
   const { id, userType } = useParams();
@@ -38,9 +44,14 @@ export const PersonalProfile = () => {
     <div>로딩 중..</div>;
   }
 
-  const { name, specializations, profileImage } =
-    (selectedPersonalUserInfo as IndividualProfileType) ??
-    PERSONAL_RPOFILE_INIT;
+  const userData =
+    userType === 'personal'
+      ? ((selectedPersonalUserInfo as IndividualProfileType) ??
+        PERSONAL_RPOFILE_INIT)
+      : ((selectedCompanylUserInfo as CompanyProfileType) ??
+        COMPANY_RPOFILE_INIT);
+
+  const { name, specializations, profileImage } = userData;
 
   return (
     <div className={classNames(styles.container)}>
@@ -50,7 +61,7 @@ export const PersonalProfile = () => {
         specializations={specializations}
         profileImage={profileImage}
       />
-      <DescriptionTable userData={selectedPersonalUserInfo} />
+      <DescriptionTable userData={userData} />
       {/* <PortfolioCarousel size={4} /> */}
       <PostsCarousel />
     </div>

@@ -24,7 +24,7 @@ export interface CompanyProfileType {
   userId: 0;
   profileImage: string;
   userType: string;
-  specializations: string;
+  specializations: string[];
   name: string;
   selfIntroduction: string;
   businessInformation: string;
