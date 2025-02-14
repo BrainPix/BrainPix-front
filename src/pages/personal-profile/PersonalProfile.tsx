@@ -2,48 +2,76 @@ import classNames from 'classnames';
 import { ProfileCard } from '../../components/personal-profile/ProfileCard';
 import { DescriptionTable } from '../../components/personal-profile/DescriptionTable';
 import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
-import { userProfileData } from '../../types/userDataType';
 import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
 import styles from './personalProfile.module.scss';
+import { useParams } from 'react-router-dom';
+import { IndividualProfileType } from '../../types/profileType';
 
 export const PersonalProfile = () => {
-  // const { id } = useParams();
+  const { id, userType } = useParams();
 
-  const USER_DATA: userProfileData = {
-    id: 123,
+  console.log(id, userType);
+
+  // const { data: selectedPersonalUserInfo } = useQuery({
+  //   queryKey: ['selectedUserInfo'],
+  //   queryFn: () => getOtherProfilePersonal(id),
+  // });
+
+  // const { data: selectedCompanylUserInfo } = useQuery({
+  //   queryKey: ['selectedUserInfo'],
+  //   queryFn: () => getOtherProfileCompany(id),
+  // });
+
+  // console.log(selectedPersonalUserInfo);
+
+  // if (userType === 'personal') {
+  // }
+
+  const USER_DATA: IndividualProfileType = {
+    userId: 123,
     name: 'MIN JEONG',
-    phoneNumber: '010-1234-5678',
-    notion: '노션 주소임',
-    github: '깃허브 주소임',
-    skills: [
+    userType: 'INDIVIDUAL',
+    profileImage: '',
+    specializations: ['DESIGN', 'LESSON'],
+    selfIntroduction: '자기 소개입니다.',
+    contacts: [
       {
-        name: '파이썬',
-        content: '파이썬을 이용한 게임 제작',
-        level: '상',
+        type: 'PHONE',
+        value: '010-1234-5576',
+      },
+    ],
+    stacks: [
+      {
+        stackName: '파이썬',
+        proficiency: 'HIGH',
       },
       {
-        name: 'C언어',
-        content: 'C언어를 이용한 개발 경험',
-        level: '하',
+        stackName: 'C언어',
+        proficiency: 'LOW',
       },
     ],
     careers: [
       {
-        name: 'SY TECH 인턴',
-        start: '2022/12',
-        end: '2023/06',
+        content: 'SY TECH 인턴',
+        startDate: '2022/12',
+        endDate: '2023/06',
       },
       {
-        name: 'TECH 인턴',
-        start: '2024/12',
-        end: '2027/02',
+        content: 'TECH 인턴',
+        startDate: '2024/12',
+        endDate: '2027/02',
       },
     ],
   };
 
   return (
     <div className={classNames(styles.container)}>
-      <ProfileCard />
+      <ProfileCard
+        userType={USER_DATA.userType}
+        userName={USER_DATA.name}
+        specializations={USER_DATA.specializations}
+        profileImage={USER_DATA.profileImage}
+      />
       <DescriptionTable userData={USER_DATA} />
       <PortfolioCarousel size={4} />
       <PostsCarousel />

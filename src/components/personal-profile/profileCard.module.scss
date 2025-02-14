@@ -16,12 +16,6 @@
   flex-direction: column;
   gap: 5px;
 
-  & > .userType {
-    @include flex-center;
-
-    height: 29px;
-  }
-
   & > .userName {
     @include pretendard-20-500;
 
@@ -32,6 +26,8 @@
     @include pretendard-18-400;
 
     color: $grey-700;
+    display: flex;
+    gap: 5px;
   }
 }
 
