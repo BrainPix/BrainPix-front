@@ -12,6 +12,14 @@
   width: 100%;
 }
 
+.manageText {
+  @include pretendard-18-500;
+
+  color: $grey-600;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 .arrow {
   stroke: $grey-800;
 }

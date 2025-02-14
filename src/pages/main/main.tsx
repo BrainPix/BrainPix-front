@@ -32,7 +32,7 @@ export const Main = () => {
           <span>개인회원 로그인하기</span>
         </button>
         <button
-          onClick={() => navigate('/login/corparate')}
+          onClick={() => navigate('/login/corporate')}
           className={classNames(styles.memberButton, 'buttonOutlined-grey500')}>
           <Corporate />
           <span>기업회원 로그인하기</span>

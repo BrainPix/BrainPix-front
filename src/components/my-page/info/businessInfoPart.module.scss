@@ -1,11 +1,11 @@
 @import './commonStyle.module';
 
-.introduceWrapper {
+.introduceTextArea {
   @include pretendard-18-400;
 
   width: 100%;
   height: 54px;
-  color: black;
+  color: $grey-900;
   padding: 15px 20px;
   border: 1px solid $grey-500;
   border-radius: 5px;
@@ -17,4 +17,15 @@
   &:focus {
     outline: none;
   }
+}
+
+.textWrapper {
+  @include pretendard-18-400;
+
+  width: 100%;
+  height: 54px;
+  color: $grey-900;
+  margin-top: 15px;
+  overflow-y: scroll;
+  resize: none;
 }

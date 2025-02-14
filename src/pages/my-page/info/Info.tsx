@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './info.module.scss';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -11,47 +11,132 @@ import { ExperiencePart } from '../../../components/my-page/info/ExperiencePart'
 import { PortfolioPart } from '../../../components/my-page/info/PortfolioPart';
 import { SpecializationPart } from '../../../components/my-page/info/SpecializationPart';
 import { BusinessInfoPart } from '../../../components/my-page/info/BusinessInfoPart';
-import { useQuery } from '@tanstack/react-query';
-import { getProfilePersonal } from '../../../apis/profileAPI';
-import { PERSONAL_RPOFILE_INIT } from '../../../constants/initValues';
-import { IndividualContactType } from '../../../types/profileType';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  getProfileCompany,
+  getProfilePersonal,
+} from '../../../apis/profileAPI';
+import {
+  IndividualCareerResponseType,
+  IndividualContactType,
+  IndividualSkillTypeResponseType,
+} from '../../../types/profileType';
+import {
+  CATEGORY_LABELS,
+  CATEGORY_MAPPER_TO_ENG,
+} from '../../../constants/categoryMapper';
+import {
+  IndividualInfoPayloadType,
+  putCompanyInfoPayload,
+} from '../../../types/myPageType';
+import { putCompanyInfo, putIndividualInfo } from '../../../apis/mypageAPI';
+import { ToastContext } from '../../../contexts/toastContext';
 
 export const Info = () => {
-  type userTypetype = '개인' | '기업';
+  const queryClient = useQueryClient();
 
   const [editMode, setEditMode] = useState(false);
-  const [addContacts, setAddContacts] = useState<IndividualContactType[]>([]);
+  const [contacts, setContacts] = useState<IndividualContactType[]>([]);
+  const [selectedSpecialization, setSelectedSpecialization] = useState<
+    string[]
+  >(['']);
+  const [skills, setSkills] = useState<IndividualSkillTypeResponseType[]>([]);
+  const [careers, setCareers] = useState<IndividualCareerResponseType[]>([]);
+  const [businessInfo, setBusinessInfo] = useState<string>('');
+  const [selectedProfileImage, setSelectedProfileImage] = useState('');
+  const [userType, setUserType] = useState<string | null>(null);
 
-  const userType: userTypetype =
-    localStorage.getItem('myType') === 'personal' ? '개인' : '기업';
+  const { errorToast, successToast } = useContext(ToastContext);
+
+  useEffect(() => {
+    const storedType = localStorage.getItem('myType');
+    if (storedType) {
+      setUserType(storedType === 'personal' ? '개인' : '기업');
+    }
+  }, []);
 
   const defaultInputValues = {
-    introduce: '',
-    phone: '',
-    notion: '',
-    github: '',
-    homepage: '',
-    email: '',
-    others: '',
-    contactOpen: false,
+    profileImage: '',
+    selfIntroduction: '',
     stackOpen: false,
+    careerOpen: false,
   };
 
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: defaultInputValues,
   });
 
   const { data: personalData, isLoading: isPersonalDataPending } = useQuery({
     queryKey: ['userData'],
     queryFn: getProfilePersonal,
-    enabled: userType === '기업',
+    enabled: userType === '개인' || userType === null,
   });
 
   const { data: companyData, isLoading: isCompanyDataPending } = useQuery({
     queryKey: ['userData'],
-    queryFn: getProfilePersonal,
-    enabled: userType === '개인',
+    queryFn: getProfileCompany,
+    enabled: userType === '기업' || userType === null,
   });
+
+  const { mutate: editPersonalInfoMutate } = useMutation({
+    mutationFn: (payload: IndividualInfoPayloadType) =>
+      putIndividualInfo(personalData.userId, payload),
+    onSuccess: () => {
+      successToast('수정되었습니다.');
+      queryClient.invalidateQueries({
+        queryKey: ['userData'],
+      });
+    },
+    onError: () => {
+      errorToast('수정에 실패하였습니다. 다시 시도해주세요.');
+    },
+  });
+
+  const { mutate: editCompanyInfoMutate } = useMutation({
+    mutationFn: (payload: putCompanyInfoPayload) =>
+      putCompanyInfo(companyData.userId, payload),
+    onSuccess: () => {
+      successToast('수정되었습니다.');
+      queryClient.invalidateQueries({
+        queryKey: ['userData'],
+      });
+    },
+    onError: () => {
+      errorToast('수정에 실패하였습니다. 다시 시도해주세요.');
+    },
+  });
+
+  useEffect(() => {
+    if (personalData?.contacts) {
+      setValue('selfIntroduction', personalData.selfIntroduction);
+      const updatedSpecializations = personalData.specializations.map(
+        (value: string) => {
+          return CATEGORY_LABELS[value];
+        },
+      );
+      setSelectedSpecialization(updatedSpecializations);
+      setContacts(personalData.contacts ?? []);
+      setSkills(personalData.stacks ?? []);
+      setCareers(personalData.careers ?? []);
+      setSelectedProfileImage(personalData.profileImage);
+    }
+
+    if (companyData?.businessInformation) {
+      setValue('selfIntroduction', companyData.selfIntroduction);
+      const updatedSpecializations = companyData.specializations?.map(
+        (value: string) => {
+          return CATEGORY_LABELS[value];
+        },
+      );
+      setSelectedSpecialization(updatedSpecializations);
+      setContacts(companyData.companyInformations ?? []);
+      setSelectedProfileImage(personalData.imageUrl);
+    }
+  }, [personalData, companyData, setValue]);
+
+  if (!userType) {
+    return <div>로딩 중...</div>;
+  }
 
   if (isPersonalDataPending || isCompanyDataPending) {
     return <div>로딩 중..</div>;
@@ -65,48 +150,169 @@ export const Info = () => {
     setEditMode(false);
   };
 
-  const handleSubmitHandler: SubmitHandler<FieldValues> = (
+  const handleChangeSpecialziations = (option: string) => {
+    const haveOption = selectedSpecialization?.includes(option) ?? false;
+
+    if (!haveOption) {
+      setSelectedSpecialization((prev) => [
+        ...(prev.length >= 2 ? prev.slice(1) : prev),
+        option,
+      ]);
+    }
+  };
+
+  const handleClickDeleteSelectedSpecialization = (option: string) => {
+    const updatedSpecialization = selectedSpecialization?.filter(
+      (value) => value !== option,
+    );
+    setSelectedSpecialization(updatedSpecialization);
+  };
+
+  const handleSubmitHandler: SubmitHandler<FieldValues> = async (
     payload: FieldValues,
   ) => {
-    console.log(payload, addContacts);
+    if (userType === '개인') {
+      const requestBody: IndividualInfoPayloadType = {
+        profileImage: selectedProfileImage,
+        selfIntroduction: payload.selfIntroduction,
+        stackOpen: payload.stackOpen,
+        careerOpen: payload.careerOpen,
+        contacts,
+        careers,
+        specializations: selectedSpecialization.map(
+          (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
+        ),
+        stacks: skills.map(({ stackName, ...rest }) => ({
+          name: stackName,
+          ...rest,
+        })),
+      };
+      editPersonalInfoMutate(requestBody);
+    }
+
+    if (userType === '기업') {
+      const requestBody: putCompanyInfoPayload = {
+        profileImage: selectedProfileImage,
+        selfIntroduction: payload.selfIntroduction,
+        specializations: selectedSpecialization.map(
+          (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
+        ),
+        companyInformations: contacts,
+        businessInformation: businessInfo,
+      };
+      editCompanyInfoMutate(requestBody);
+    }
     setEditMode(false);
   };
 
   const handleClickAddInfoButton = (data: IndividualContactType) => {
-    setAddContacts((prev) => [...prev, data]);
+    setContacts((prev) => {
+      const existingIndex = prev.findIndex((item) => item.type === data.type);
+      if (existingIndex !== -1) {
+        return prev.map((item, index) =>
+          index === existingIndex
+            ? { ...item, value: data.value, isPublic: data.isPublic }
+            : item,
+        );
+      }
+      return [...prev, data];
+    });
+  };
+
+  const handleClickDeleteInfoButton = (deleteType: string) => {
+    const updatedContacts = contacts.filter(
+      (contact) => contact.type !== deleteType,
+    );
+    setContacts(updatedContacts);
+  };
+
+  const handleClickAddSkillButton = (data: IndividualSkillTypeResponseType) => {
+    setSkills((prev) => [...prev, data]);
+  };
+
+  const handleClickDeleteSkillButton = (deleteName: string) => {
+    const updatedSkills = skills.filter(
+      (skill) => skill.stackName !== deleteName,
+    );
+    setSkills(updatedSkills);
+  };
+
+  const handleClickAddCareerButton = (data: IndividualCareerResponseType) => {
+    setCareers((prev) => [...prev, data]);
+  };
+
+  const handleClickDeleteExperienceButton = (experience: string) => {
+    const updatedExperiences = careers.filter(
+      (career) => career.content !== experience,
+    );
+    setCareers(updatedExperiences);
+  };
+
+  const handleChangeBusinessInfoInput = (
+    e: ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setBusinessInfo(e.target.value);
+  };
+
+  const handleChangeProfileImageInput = (imgURL: string) => {
+    setSelectedProfileImage(imgURL || '');
   };
 
   return (
     <div className={classNames(styles.container)}>
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
         <MyProfileCard
-          userData={personalData ?? PERSONAL_RPOFILE_INIT}
+          userData={personalData ?? companyData}
           status={editMode ? 'save' : 'edit'}
           onClickButton={
             editMode ? handleClickSaveButton : handleClickEditButton
           }
+          onChangeProfileImage={handleChangeProfileImageInput}
+          selectedImage={selectedProfileImage}
         />
         {userType === '개인' && personalData && (
           <div className={classNames(styles.contentContainer)}>
             <IntroducePart
               editMode={editMode}
               setValue={setValue}
-              watch={watch}
-              {...register('introduce')}
+              {...register('selfIntroduction')}
             />
             <div
               className={classNames(
                 editMode ? styles.colContainer : styles.rowContainer,
               )}>
-              {editMode && <SpecializationPart userType={userType} />}
+              {editMode && (
+                <SpecializationPart
+                  userType={userType}
+                  onDelete={handleClickDeleteSelectedSpecialization}
+                  onChange={handleChangeSpecialziations}
+                  selectedSpecialization={selectedSpecialization}
+                />
+              )}
               <IndividualInfoPart
                 editMode={editMode}
+                contacts={contacts}
+                onDelete={handleClickDeleteInfoButton}
                 onClickAdd={handleClickAddInfoButton}
               />
 
-              <SkillPart editMode={editMode} />
+              <SkillPart
+                onDelete={handleClickDeleteSkillButton}
+                editMode={editMode}
+                setValue={setValue}
+                skills={skills}
+                onClickAdd={handleClickAddSkillButton}
+                {...register('stackOpen')}
+              />
             </div>
-            <ExperiencePart editMode={editMode} />
+            <ExperiencePart
+              editMode={editMode}
+              setValue={setValue}
+              careers={careers}
+              onClickAdd={handleClickAddCareerButton}
+              onDelete={handleClickDeleteExperienceButton}
+              {...register('careerOpen')}
+            />
             <PortfolioPart
               editMode={editMode}
               userType={userType}
@@ -118,15 +324,27 @@ export const Info = () => {
             <IntroducePart
               editMode={editMode}
               setValue={setValue}
-              watch={watch}
-              {...register('introduce')}
+              {...register('selfIntroduction')}
             />
             <IndividualInfoPart
               editMode={editMode}
               onClickAdd={handleClickAddInfoButton}
+              onDelete={handleClickDeleteInfoButton}
+              contacts={contacts}
             />
-            {editMode && <SpecializationPart userType={userType} />}
-            <BusinessInfoPart editMode={editMode} />
+            {editMode && (
+              <SpecializationPart
+                userType={userType}
+                onDelete={handleClickDeleteSelectedSpecialization}
+                onChange={handleChangeSpecialziations}
+                selectedSpecialization={selectedSpecialization}
+              />
+            )}
+            <BusinessInfoPart
+              editMode={editMode}
+              businessInfoText={companyData.businessInformation}
+              onChange={handleChangeBusinessInfoInput}
+            />
             <PortfolioPart
               editMode={editMode}
               userType={userType}
