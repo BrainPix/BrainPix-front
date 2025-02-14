@@ -11,6 +11,8 @@ interface CarouselProps {
   gap: number;
   label?: string;
   children: ReactNode;
+  editMode?: boolean;
+  onClickManagetText?: () => void;
 }
 
 export const Carousel = ({
@@ -20,7 +22,8 @@ export const Carousel = ({
   gap,
   label,
   dataLength,
-
+  editMode = false,
+  onClickManagetText,
   children,
 }: CarouselProps) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -37,7 +40,16 @@ export const Carousel = ({
     <div className={classNames(styles.container)}>
       {buttonPosition === 'top' ? (
         <div className={classNames(styles.labelContainer)}>
-          <h1 className={classNames(styles.label)}>{label}</h1>
+          <div className={classNames(styles.label)}>
+            {label}{' '}
+            {editMode && (
+              <span
+                className={classNames(styles.manageText)}
+                onClick={onClickManagetText}>
+                관리하기
+              </span>
+            )}
+          </div>
           <div className={classNames(styles.navigationControls)}>
             <button
               type='button'

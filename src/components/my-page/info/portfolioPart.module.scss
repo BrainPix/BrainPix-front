@@ -1,17 +1,31 @@
 @import './commonStyle.module';
 
-.portfolioTitle {
-  @include pretendard-20-500;
-}
-
-.manageText {
-  @include pretendard-18-500;
-
-  color: $grey-600;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
 .portfolioWrapper {
   width: 100%;
+}
+
+.portfolio {
+  min-width: 150px;
+
+  & > .image {
+    min-width: 150px;
+    height: 150px;
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  & > .title {
+    @include pretendard-16-500;
+
+    border: none;
+    margin-bottom: 5px;
+    padding: 0;
+  }
+
+  & > .date {
+    @include pretendard-14-500;
+
+    color: $grey-600;
+  }
 }

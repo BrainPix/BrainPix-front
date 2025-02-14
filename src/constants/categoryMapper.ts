@@ -15,6 +15,22 @@ export const CATEGORY_LABELS: Record<string, string> = {
   OTHERS: '기타',
 };
 
+export const CATEGORY_MAPPER_TO_ENG: Record<string, string> = {
+  '광고 · 홍보': 'ADVERTISING_PROMOTION',
+  디자인: 'DESIGN',
+  레슨: 'LESSON',
+  마케팅: 'MARKETING',
+  '문서 · 글쓰기': 'DOCUMENT_WRITING',
+  '미디어 · 콘텐츠': 'MEDIA_CONTENT',
+  '번역 및 통역': 'TRANSLATION_INTERPRETATION',
+  '세무 · 법무 · 노무': 'TAX_LAW_LABOR',
+  주문제작: 'CUSTOM_PRODUCTION',
+  '창업 · 사업': 'STARTUP_BUSINESS',
+  '푸드 및 음료': 'FOOD_BEVERAGE',
+  'IT · 테크': 'IT_TECH',
+  기타: 'OTHERS',
+};
+
 //아이디어 유형 라벨
 export const TASK_TYPE_LABELS: Record<string, string> = {
   IDEA_SOLUTION: '아이디어 솔루션',
@@ -30,14 +46,32 @@ export const PAYMENT_DURATION_LABELS: Record<string, string> = {
   NOT_APPLICABLE: '추후 협의',
 };
 
-export const getCategoryLabel = (categoryKey: string): string => {
-  return CATEGORY_LABELS[categoryKey] || '기타';
+export const INFO_TYPE_MAPPER: Record<string, string> = {
+  PHONE: '연락처',
+  EMAIL: '이메일',
+  NOTION: '노션',
+  GITHUB: '깃허브',
+  OTHERS: '기타',
+  HOMEPAGE: '홈페이지',
 };
 
-export const getTaskTypeLabel = (taskTypeKey: string): string => {
-  return TASK_TYPE_LABELS[taskTypeKey] || '기타';
+export const INFO_TYPE_MAPPER_TO_ENG: Record<string, string> = {
+  연락처: 'PHONE',
+  이메일: 'EMAIL',
+  노션: 'NOTION',
+  깃허브: 'GITHUB',
+  기타: 'OTHERS',
+  홈페이지: 'HOMEPAGE',
 };
 
-export const getPaymentDurationLabel = (paymentKey: string): string => {
-  return PAYMENT_DURATION_LABELS[paymentKey] || '추후 협의';
+export const SKILL_PROFICIENCY_MAPPER: Record<string, string> = {
+  HIGH: '상',
+  MIDIUM: '중',
+  LOW: '하',
+};
+
+export const SKILL_PROFICIENCY_MAPPER_TO_ENG: Record<string, string> = {
+  상: 'HIGH',
+  중: 'MIDIUM',
+  하: 'LOW',
 };
