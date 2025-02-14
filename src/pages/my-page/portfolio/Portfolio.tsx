@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './portfolio.module.scss';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -7,7 +7,7 @@ import { AddPortfolioModal } from '../../../components/my-page/portfolio/AddPort
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import Loading from '../../../assets/icons/loading.svg?react';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
-import { getMyPorfolio } from '../../../apis/portfolio';
+import { getPorfolios } from '../../../apis/portfolio';
 import placeholder from '../../../assets/images/brainPixIcon.png';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
@@ -16,6 +16,14 @@ import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 export const Portfolio = () => {
   const [lastCardId, setLastCardId] = useState(0);
   const [clickedCardId, setClickedCardId] = useState(18);
+  const [userId, setUserId] = useState(-1);
+
+  useEffect(() => {
+    const myUserId = localStorage.getItem('userId');
+    if (myUserId) {
+      setUserId(Number(myUserId));
+    }
+  }, []);
 
   const { setTarget } = useIntersectionObserverAPI({
     onIntersect: (observer) => {
@@ -37,7 +45,7 @@ export const Portfolio = () => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['myPorfolios'],
-    queryFn: ({ pageParam = 0 }) => getMyPorfolio(pageParam),
+    queryFn: ({ pageParam = 0 }) => getPorfolios(pageParam, userId),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.currentPage < pages[0].totalPages) {
