@@ -1,8 +1,15 @@
 import classNames from 'classnames';
 import styles from './myProfileCard.module.scss';
+
 import Label from '../../common/label/Label';
+import { getCategoryLabel } from '../../../utils/categoryMapping';
+import {
+  CompanyProfileType,
+  IndividualProfileType,
+} from '../../../types/profileType';
 
 interface MyProfileCardPropsType {
+  userData: IndividualProfileType | CompanyProfileType;
   status: 'main' | 'edit' | 'save';
   onClickButton?: () => void;
 }
@@ -16,6 +23,7 @@ const USER_DATA = {
 
 export const MyProfileCard = ({
   status,
+  userData,
   onClickButton,
 }: MyProfileCardPropsType) => {
   return (
@@ -35,10 +43,10 @@ export const MyProfileCard = ({
             text='개인'
             type='personal'
           />
-          <h1 className={classNames(styles.name)}>{USER_DATA.name}</h1>
+          <h1 className={classNames(styles.name)}>{userData.name}</h1>
           {(status === 'edit' || status === 'save') && (
             <span className={classNames(styles.position)}>
-              {USER_DATA.position}
+              {getCategoryLabel(userData.specializations)}
             </span>
           )}
         </div>

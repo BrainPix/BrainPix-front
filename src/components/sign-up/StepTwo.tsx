@@ -11,13 +11,14 @@ import {
 import { Input } from './Input';
 import { useMutation } from '@tanstack/react-query';
 import { postEmailCode, postEmailCodeNumber } from '../../apis/authAPI';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { EmailCodePayload } from '../../types/authType';
+import { ToastContext } from '../../contexts/toastContext';
 
 interface StepTwoPropType {
   registers: Record<string, UseFormRegisterReturn>;
   errors: FieldErrors<FieldValues>;
-  userType: 'individual' | 'corporate';
+  userType: 'personal' | 'corporate';
   isValid: boolean;
   fieldState: UseFormGetFieldState<FieldValues>;
   watch: UseFormWatch<FieldValues>;
@@ -39,10 +40,13 @@ export const StepTwo = ({
     '인증' | '재전송'
   >('인증');
 
+  const { errorToast } = useContext(ToastContext);
+
   const { mutate: emailCheckMutation } = useMutation({
     mutationFn: (email: string) => postEmailCode(email),
     onError: () => {
       setSendEmailButtonText('재전송');
+      errorToast('오류가 발생하였습니다. 잠시후 다시 시도해주세요.');
     },
     onSuccess: () => {
       setEmailCheckResult('대기');
@@ -55,7 +59,6 @@ export const StepTwo = ({
     onError: () => setEmailCheckResult('실패'),
     onSuccess: (response) => {
       setEmailCheckResult('성공');
-      console.log(response);
       localStorage.setItem('signupToken', response.data.token);
     },
   });
@@ -82,7 +85,7 @@ export const StepTwo = ({
           <div className={classNames(styles.inputContainer)}>
             <div className={classNames(styles.rowContainer)}>
               <Input
-                label={userType === 'individual' ? '이름' : '담당자 이름'}
+                label={userType === 'personal' ? '이름' : '담당자 이름'}
                 placeholder='이름 입력'
                 type='text'
                 {...registers.name}
@@ -103,7 +106,7 @@ export const StepTwo = ({
                 {errors.birth?.message && String(errors.birth?.message)}
               </p>
             </div>
-            {userType === 'individual' ? (
+            {userType === 'personal' ? (
               <Input
                 label='닉네임 입력'
                 placeholder='닉네임 입력'
@@ -200,7 +203,7 @@ export const StepTwo = ({
           </div>
         </div>
         <button
-          disabled={!(isValid && emailCheckResult === '성공')}
+          disabled={!isValid}
           className={classNames(
             styles.submitButton,
             isValid && emailCheckResult === '성공'

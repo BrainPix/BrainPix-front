@@ -10,7 +10,7 @@ import Label from '../common/label/Label';
 import {
   getCategoryLabel,
   getTaskTypeLabel,
-} from '../../constants/categoryMapper';
+} from '../../utils/categoryMapping';
 
 interface PostTitlePayProps {
   thumbnailImageUrl: string;

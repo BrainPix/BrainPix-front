@@ -1,3 +1,7 @@
+.container {
+  width: 700px;
+}
+
 .title {
   @include pretendard-24-500;
 
@@ -30,7 +34,7 @@
   display: grid;
   grid-template-columns: repeat(4, 150px);
   grid-template-rows: auto auto;
-  gap: 30px 42px;
+  gap: 40px 33.33px;
 }
 
 .portfolioCardWrapper {

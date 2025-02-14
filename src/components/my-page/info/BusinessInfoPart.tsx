@@ -10,9 +10,7 @@ export const BusinessInfoPart = forwardRef<
   HTMLTextAreaElement,
   BusinessInfoPartPropsType
 >(({ editMode, ...rest }, ref) => {
-  const handleChange = () => {
-    // console.log(e.target.value);
-  };
+  const handleChange = () => {};
 
   return (
     <div>
