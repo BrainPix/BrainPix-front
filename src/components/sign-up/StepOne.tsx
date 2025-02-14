@@ -80,13 +80,13 @@ export const StepOne = ({
       </div>
       <div className={classNames(styles.buttonWrapper)}>
         <button
-          className={classNames(styles.left, 'buttonOutlined-grey500')}
+          className={classNames(styles.left, 'buttonOutlined-grey600')}
           type='button'>
           이전
         </button>
         <button
           onClick={onClickNext}
-          className={classNames(styles.right, 'buttonFilled-grey800')}
+          className={classNames(styles.right, 'buttonFilled-grey900')}
           type='submit'>
           다음
         </button>
