@@ -45,7 +45,8 @@ export const Portfolio = () => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['myPortfolios'],
-    queryFn: ({ pageParam = 0 }) => getPorfolios(pageParam, userId),
+    queryFn: ({ pageParam = 0 }) =>
+      getPorfolios({ page: pageParam, size: 8, userId }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.currentPage < pages[0].totalPages) {

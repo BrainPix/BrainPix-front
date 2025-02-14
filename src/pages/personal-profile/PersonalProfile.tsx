@@ -18,6 +18,7 @@ import {
   COMPANY_RPOFILE_INIT,
   PERSONAL_RPOFILE_INIT,
 } from '../../constants/initValues';
+import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
 
 export const PersonalProfile = () => {
   const { id, userType } = useParams();
@@ -62,7 +63,7 @@ export const PersonalProfile = () => {
         profileImage={profileImage}
       />
       <DescriptionTable userData={userData} />
-      {/* <PortfolioCarousel size={4} /> */}
+      <PortfolioCarousel size={4} />
       <PostsCarousel />
     </div>
   );

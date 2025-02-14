@@ -33,7 +33,8 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
   const { data: myPorfolios, isFetching: isGetPortfoliosFetching } =
     useInfiniteQuery({
       queryKey: ['myPortfolios'],
-      queryFn: ({ pageParam = 0 }) => getPorfolios(pageParam, userId),
+      queryFn: ({ pageParam = 0 }) =>
+        getPorfolios({ page: pageParam, userId, size: 4 }),
       initialPageParam: 0,
       getNextPageParam: (lastPage, pages) => {
         if (lastPage.currentPage < pages[0].totalPages) {
