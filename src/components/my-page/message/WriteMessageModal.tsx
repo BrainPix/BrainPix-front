@@ -47,7 +47,6 @@ export const WriteMessageModal = forwardRef<
   }, []);
 
   const handleSubmitHandler = async (payload: FieldValues) => {
-    console.log(payload);
     sendMessageMutate(payload as sendMessagePayloadType);
   };
 
