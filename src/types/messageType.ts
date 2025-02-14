@@ -12,7 +12,6 @@ export type MessagesType = Record<MessagesKeyType, MessageType[]>;
 
 export interface PreviousMessageType {
   receiver: string;
-  sender: string;
   previousContent: string;
 }
 
@@ -21,4 +20,10 @@ export interface getMessageResponseType {
   title: string;
   senderNickname: string;
   sendDate: string;
+}
+
+export interface sendMessagePayloadType {
+  receiverNickname: string;
+  title: string;
+  content: string;
 }
