@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './header.module.scss';
 
 import { SearchInput } from './SearchInput';
+import Logo from '../../../assets/icons/logo.svg?react';
 import Alarm from '../../../assets/icons/alarm.svg?react';
+import { useNavigate } from 'react-router-dom';
 
 const OPTION_MENU = {
   등록하기: '/register',
@@ -18,20 +20,31 @@ const PAGE_MENU = {
 
 export const Header = () => {
   const location = window.location.pathname;
+  const navigate = useNavigate();
 
   const [hoverIdeaMarket, setHoverIdeaMarket] = useState(false);
   const [hoverRequest, setHoverRequest] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) setToken(accessToken);
+  }, []);
 
   return (
     <div>
       <div className={classNames(styles.container)}>
+        <Logo
+          className={classNames(styles.logo)}
+          onClick={() => navigate('/')}
+        />
         <SearchInput />
         <menu>
           <div className={classNames(styles.optionContainer)}>
             <div className={classNames(styles.optionWrapper)}>
               {Object.entries(OPTION_MENU).map(([menu, link]) => (
                 <a
-                  href={link}
+                  href={token ? link : '/login'}
                   key={menu}>
                   {menu}
                 </a>
