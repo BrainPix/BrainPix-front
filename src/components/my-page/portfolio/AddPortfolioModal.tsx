@@ -41,7 +41,7 @@ export const AddPortfolioModal = forwardRef<
   const { mutate: postPortfolioMutate } = useMutation({
     mutationFn: (formData: PostPortfolioPayload) => postPorfolio(formData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
+      queryClient.resetQueries({ queryKey: ['myPortfolios'] });
       successToast('게시글 등록에 성공하였습니다.');
       onClose();
     },
