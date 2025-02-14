@@ -30,7 +30,7 @@ export const postPersonalSignUp = async (payload: PersonalSignUpPayload) => {
 };
 
 export const postCompanySignUp = async (payload: CompanySignUpPayload) => {
-  const url = `${BASE_URL}/signup/personal`;
+  const url = `${BASE_URL}/signup/company`;
   const response = await axios.post(url, payload);
   return response;
 };

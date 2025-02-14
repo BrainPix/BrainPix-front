@@ -49,8 +49,8 @@ export const routes = createBrowserRouter([
     element: <Login userType='personal' />,
   },
   {
-    path: 'login/corparate',
-    element: <Login userType='corparate' />,
+    path: 'login/corporate',
+    element: <Login userType='corporate' />,
   },
   {
     path: '/',

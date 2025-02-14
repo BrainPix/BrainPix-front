@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import styles from './myProfileCard.module.scss';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 import Label from '../../common/label/Label';
 import { getCategoryLabel } from '../../../utils/categoryMapping';
@@ -7,32 +9,62 @@ import {
   CompanyProfileType,
   IndividualProfileType,
 } from '../../../types/profileType';
+import { getPresignedURL } from '../../../apis/commonAPI';
+import { ChangeEvent, useContext } from 'react';
+import { ToastContext } from '../../../contexts/toastContext';
 
 interface MyProfileCardPropsType {
   userData: IndividualProfileType | CompanyProfileType;
   status: 'main' | 'edit' | 'save';
   onClickButton?: () => void;
+  selectedImage: string;
+  onChangeProfileImage: (imageURL: string) => void;
 }
-
-const USER_DATA = {
-  name: 'SEO YEON',
-  profileImage: null,
-  type: '개인',
-  position: 'IT/디자인',
-};
 
 export const MyProfileCard = ({
   status,
   userData,
   onClickButton,
+  onChangeProfileImage,
+  selectedImage,
 }: MyProfileCardPropsType) => {
+  const IMAGE_BASE_URL = import.meta.env.VITE_S3_URL;
+  const userType = userData.userType == 'COMPANY' ? '기업' : '개인';
+
+  const { errorToast } = useContext(ToastContext);
+
+  const imageLoader = async (image: File) => {
+    const fileExt = image.name.split('.').pop();
+    const safeFileName = `${uuidv4()}.${fileExt}`;
+
+    try {
+      const presignedURL = await getPresignedURL({
+        fileName: encodeURIComponent(safeFileName),
+        fileType: image.type,
+      });
+      await axios.put(presignedURL, image, {
+        headers: { 'Content-Type': image.type },
+      });
+      return `${IMAGE_BASE_URL}/${safeFileName}`;
+    } catch {
+      errorToast(`업로드에 실패하였습니다`);
+    }
+  };
+
+  const handleChangeProfileImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      const imageURL = await imageLoader(e.target.files?.[0]);
+      onChangeProfileImage(imageURL || '');
+    }
+  };
+
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.profileContainer)}>
-        {USER_DATA.profileImage ? (
+        {selectedImage ? (
           <img
             className={classNames(styles.profile)}
-            src={USER_DATA.profileImage}
+            src={selectedImage}
             alt='프로필 이미지'
           />
         ) : (
@@ -40,8 +72,8 @@ export const MyProfileCard = ({
         )}
         <div className={classNames(styles.info)}>
           <Label
-            text='개인'
-            type='personal'
+            text={userType}
+            type={userType === '기업' ? 'corporate' : 'personal'}
           />
           <h1 className={classNames(styles.name)}>{userData.name}</h1>
           {(status === 'edit' || status === 'save') && (
@@ -67,11 +99,14 @@ export const MyProfileCard = ({
         )}
       </div>
       {status == 'save' && (
-        <button
-          className={classNames(styles.profileEditButton)}
-          type='button'>
+        <label className={classNames(styles.profileEditButton)}>
           프로필 사진 수정
-        </button>
+          <input
+            type='file'
+            onChange={handleChangeProfileImage}
+            className={classNames(styles.imageInput)}
+          />
+        </label>
       )}
     </div>
   );

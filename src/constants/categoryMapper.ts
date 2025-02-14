@@ -46,8 +46,23 @@ export const INFO_TYPE_MAPPER: Record<string, string> = {
   HOMEPAGE: '홈페이지',
 };
 
+export const INFO_TYPE_MAPPER_TO_ENG: Record<string, string> = {
+  연락처: 'PHONE',
+  이메일: 'EMAIL',
+  노션: 'NOTION',
+  깃허브: 'GITHUB',
+  기타: 'OTHERS',
+  홈페이지: 'HOMEPAGE',
+};
+
 export const SKILL_PROFICIENCY_MAPPER: Record<string, string> = {
   HIGH: '상',
   MIDIUM: '중',
   LOW: '하',
+};
+
+export const SKILL_PROFICIENCY_MAPPER_TO_ENG: Record<string, string> = {
+  상: 'HIGH',
+  중: 'MIDIUM',
+  하: 'LOW',
 };

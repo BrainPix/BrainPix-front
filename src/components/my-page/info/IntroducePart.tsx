@@ -1,7 +1,7 @@
 import { ChangeEvent, forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './introducePart.module.scss';
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   CompanyProfileType,
@@ -9,20 +9,14 @@ import {
 } from '../../../types/profileType';
 
 interface FieldValuesType {
-  introduce: string;
-  phone: string;
-  notion: string;
-  github: string;
-  homepage: string;
-  email: string;
-  others: string;
-  contactOpen: boolean;
+  profileImage: string;
+  selfIntroduction: string;
   stackOpen: boolean;
+  careerOpen: boolean;
 }
 
 interface IntroducePartPropsType {
   editMode: boolean;
-  watch: UseFormWatch<FieldValuesType>;
   setValue: UseFormSetValue<FieldValuesType>;
 }
 
@@ -40,10 +34,10 @@ export const IntroducePart = forwardRef<
       ? (userData as IndividualProfileType).selfIntroduction
       : (userData as CompanyProfileType).selfIntroduction;
 
-  setValue('introduce', introducingText);
+  setValue('selfIntroduction', introducingText);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue('introduce', e.target.value);
+    setValue('selfIntroduction', e.target.value);
   };
 
   return (

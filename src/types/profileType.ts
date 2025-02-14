@@ -1,5 +1,6 @@
 export interface IndividualProfileType {
   userType: string;
+  profileImage: string;
   specializations: string;
   name: string;
   selfIntroduction: string;
@@ -26,6 +27,7 @@ export interface IndividualProfileType {
 
 export interface CompanyProfileType {
   userId: 0;
+  profileImage: string;
   userType: string;
   specializations: string;
   name: string;
@@ -42,5 +44,21 @@ export interface CompanyProfileType {
 export interface IndividualContactType {
   type: string;
   value: string;
-  isOpen: boolean;
+  isPublic: boolean;
+}
+
+export interface IndividualSkillTypeResponseType {
+  stackName: string;
+  proficiency: string;
+}
+
+export interface IndividualSkillTypePayloadType {
+  name: string;
+  proficiency: string;
+}
+
+export interface IndividualCareerResponseType {
+  content: string;
+  startDate: string;
+  endDate: string;
 }

@@ -8,6 +8,7 @@ import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { MyProfileCard } from '../../../components/my-page/myPage/MyProfileCard';
 import { PreviewList } from '../../../components/my-page/myPage/PreviewList';
 import { MyBaseInfoType } from '../../../types/myPageType';
+import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 // import { getAlarms } from '../../../apis/alarmAPI';
 // import { getCategoryLabel } from '../../../utils/categoryMapping';
 
@@ -21,21 +22,10 @@ const INIT_DATA = {
 };
 
 export const MyPage = () => {
-  // const [specializationString, setSpecializationString] = useState('');
   const { data: myBaseInfoData } = useQuery({
     queryKey: ['myBasicInfo'],
     queryFn: getMyBasicInfo,
   });
-
-  // useEffect(() => {
-  //   if (specializationString === '' && specializations) {
-  //     specializations.map((specialization) => {
-  //       setSpecializationString(
-  //         (prev) => prev + getCategoryLabel(specialization),
-  //       );
-  //     });
-  //   }
-  // }, [myBaseInfoData, specializationString]);
 
   // const { data: alarms } = useQuery({
   //   queryKey: ['alarms'],
@@ -48,7 +38,10 @@ export const MyPage = () => {
     myBaseInfo;
 
   const SUB_INFO = {
-    분야: specializations.length === 0 ? '없음' : specializations,
+    분야:
+      specializations.length === 0
+        ? '없음'
+        : CATEGORY_LABELS[specializations[0]],
     아이디어: ideaCount,
     '협업 경험': collaborationCount,
   };
