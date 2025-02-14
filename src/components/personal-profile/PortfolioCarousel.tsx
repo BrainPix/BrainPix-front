@@ -21,7 +21,6 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
   const [openPopup, setOpenPopup] = useState(false);
   const { id } = useParams();
   const [currentData, setCurrentData] = useState<MyPorfolioType[][]>([]);
-
   const [clickedPage, setClickedPage] = useState<number>(0);
 
   const { data: portfolios } = useQuery({

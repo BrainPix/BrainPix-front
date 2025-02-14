@@ -19,3 +19,19 @@ export interface PostProps {
   saveCount?: number;
   viewCount?: number;
 }
+
+export interface getOtherPostsType {
+  postId: number;
+  openScope: string;
+  specialization: string;
+  title: string;
+  writerName: string;
+  savedCount: number;
+  viewCount: number;
+  deadline: string;
+  thumbnailImage: string;
+  writerImageUrl: string;
+  price: number;
+  currentMembers: number;
+  totalMembers: number;
+}

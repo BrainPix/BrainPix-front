@@ -78,9 +78,9 @@ export const getOtherProfileCompany = async (userId: number) => {
   throw Error;
 };
 
-export const getOtherProfilePosts = async (userId: number) => {
+export const getOtherProfilePosts = async (page: number, userId: number) => {
   const token = localStorage.getItem('accessToken');
-  const url = `${BASE_URL}/public-profile/${userId}`;
+  const url = `${BASE_URL}/public-profile/${userId}?page=${page}&size=4`;
 
   if (token) {
     const { data } = await axios(url, {
