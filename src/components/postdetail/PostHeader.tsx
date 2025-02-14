@@ -7,7 +7,7 @@ import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 import Label from '../common/label/Label';
 
-import { getCategoryLabel } from '../../constants/categoryMapper';
+import { getCategoryLabel } from '../../utils/categoryMapping';
 
 interface PostHeaderProps {
   category: string;

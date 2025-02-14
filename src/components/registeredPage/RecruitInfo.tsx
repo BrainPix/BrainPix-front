@@ -1,5 +1,5 @@
 import styles from './recruitInfo.module.scss';
-import { getPaymentDurationLabel } from '../../constants/categoryMapper';
+import { getPaymentDurationLabel } from '../../utils/categoryMapping';
 
 interface RecruitInfoProps {
   recruitmentId: number;
