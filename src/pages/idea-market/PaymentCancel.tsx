@@ -4,7 +4,7 @@ import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
 
 export const PaymentCancel = () => {
   const goBackTwice = () => {
-    window.history.go(-2);
+    window.history.go(-3);
   };
 
   return (

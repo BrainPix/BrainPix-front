@@ -1,10 +1,21 @@
 import styles from './paymentFail.module.scss';
 import FailIcon from '../../assets/icons/failIcon.svg?react';
 import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const PaymentFail = () => {
-  const goBackTwice = () => {
-    window.history.go(-2);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const ideaId = searchParams.get('ideaId') || sessionStorage.getItem('ideaId');
+
+  const handleGoBack = () => {
+    if (ideaId) {
+      navigate(`/idea-market/registered/${ideaId}`);
+    } else {
+      navigate('/idea-market'); // 아이디어 ID가 없으면 기본 마켓 페이지로 이동
+    }
   };
 
   return (
@@ -16,7 +27,7 @@ export const PaymentFail = () => {
       <div className={styles.buttonWrapper}>
         <button
           className={styles.secondaryButton}
-          onClick={goBackTwice}>
+          onClick={handleGoBack}>
           아이디어 다시보기
           <IdeaReplayIcon />
         </button>
