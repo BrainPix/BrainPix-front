@@ -61,6 +61,10 @@ export const routes = createBrowserRouter([
         element: <IdeaMarketMain />,
       },
       {
+        path: '/idea-market',
+        element: <IdeaMarketMain />,
+      },
+      {
         path: '/idea-market/register',
         element: <IdeaMarketRegister />,
       },
