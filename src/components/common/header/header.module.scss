@@ -33,15 +33,27 @@
   }
 }
 
-.alarmWrapper {
+.myInfoContainer > .icon {
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    color: $grey-800;
+  }
+}
+
+.wrapper {
   position: absolute;
   top: 40px;
-  width: 400px;
-  height: 600px;
   z-index: 100;
-  background-color: $grey-50;
-  border-radius: 5px;
+  background-color: $primary-50;
+  border-radius: 10px;
   box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 10%);
+
+  &.alarm {
+    width: 400px;
+    height: 600px;
+  }
 }
 
 .alarmWrapper > .title {
@@ -59,7 +71,6 @@
   color: $grey-800;
   flex-direction: column;
   gap: 15px;
-  background-color: $grey-200;
 
   & > .loginButton {
     padding: 10px 15px;

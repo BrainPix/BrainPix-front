@@ -1,18 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './header.module.scss';
 
 import { SearchInput } from './SearchInput';
+import Loading from '../../../assets/icons/loading.svg?react';
 import Logo from '../../../assets/icons/logo.svg?react';
 import Alarm from '../../../assets/icons/alarm.svg?react';
 import { useNavigate } from 'react-router-dom';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
+import { useQuery } from '@tanstack/react-query';
+import { getMyBasicInfo } from '../../../apis/mypageAPI';
+import { MyInfoCard } from '../../personal-profile/myInfoCard';
+import { ToastContext } from '../../../contexts/toastContext';
 
 const OPTION_MENU = {
   등록하기: '/register',
   요청하기: '/request',
-  마이: '/my',
 };
+
+const OPTION_MENU_NO_USER = {
+  로그인: '/login',
+  회원가입: '/sign-up',
+};
+
 const PAGE_MENU = {
   '아이디어 마켓': '/idea-market',
   '요청 과제': '/request-assign',
@@ -22,17 +32,37 @@ const PAGE_MENU = {
 export const Header = () => {
   const location = window.location.pathname;
   const navigate = useNavigate();
+  const { successToast } = useContext(ToastContext);
   const alaramContainerRef = useRef<HTMLDivElement>(null);
+  const myInfoContainerRef = useRef<HTMLDivElement>(null);
 
   const [hoverIdeaMarket, setHoverIdeaMarket] = useState(false);
   const [hoverRequest, setHoverRequest] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [openAlarm, setOpenAlarm] = useState(false);
+  const [openMyInfo, setOpenMyInfo] = useState(false);
 
   useOutsideClick({
     ref: alaramContainerRef,
     handler: () => setOpenAlarm(false),
   });
+
+  useOutsideClick({
+    ref: myInfoContainerRef,
+    handler: () => setOpenMyInfo(false),
+  });
+
+  const { data: myBasicInfo, isFetching: isFetchingMyInfo } = useQuery({
+    queryKey: ['myBasicInfo'],
+    queryFn: getMyBasicInfo,
+    enabled: !!(token && openMyInfo),
+  });
+
+  const handleClickLogoutButton = () => {
+    localStorage.removeItem('accessToken');
+    setToken(null);
+    successToast('로그아웃 되었습니다.');
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -50,13 +80,39 @@ export const Header = () => {
         <menu>
           <div className={classNames(styles.optionContainer)}>
             <div className={classNames(styles.optionWrapper)}>
-              {Object.entries(OPTION_MENU).map(([menu, link]) => (
-                <a
-                  href={token ? link : '/login'}
-                  key={menu}>
-                  {menu}
-                </a>
-              ))}
+              {Object.entries(token ? OPTION_MENU : OPTION_MENU_NO_USER).map(
+                ([menu, link]) => (
+                  <a
+                    href={link}
+                    key={menu}>
+                    {menu}
+                  </a>
+                ),
+              )}
+              {token && (
+                <div
+                  className={classNames(styles.myInfoContainer)}
+                  ref={myInfoContainerRef}>
+                  <div className={classNames(styles.icon)}>
+                    <span onClick={() => setOpenMyInfo((prev) => !prev)}>
+                      마이
+                    </span>
+                    {openMyInfo && (
+                      <div
+                        className={classNames(styles.wrapper, styles.myInfo)}>
+                        {isFetchingMyInfo ? (
+                          <Loading />
+                        ) : (
+                          <MyInfoCard
+                            userData={myBasicInfo.data}
+                            onClickLogout={handleClickLogoutButton}
+                          />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
             <div
               className={classNames(styles.alarmContainer)}
@@ -66,7 +122,7 @@ export const Header = () => {
                 className={classNames(styles.alarmIcon)}
               />
               {openAlarm && (
-                <div className={classNames(styles.alarmWrapper)}>
+                <div className={classNames(styles.wrapper, styles.alarm)}>
                   <div className={classNames(styles.title)}>알림</div>
                   {token ? (
                     <div>알람들 리스트 넣기</div>

@@ -50,7 +50,7 @@ export const Login = ({ userType }: LoginPropsType) => {
       localStorage.setItem('myType', userType);
       setIsLoginSuccess(true);
       successToast('로그인에 성공하였습니다.');
-      setTimeout(() => (location.href = '/idea-market'), 2000);
+      setTimeout(() => (location.href = '/idea-market'), 1000);
     },
     onError: () => {
       errorToast('로그인에 실패하였습니다.');
