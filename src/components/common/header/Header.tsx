@@ -10,8 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { useQuery } from '@tanstack/react-query';
 import { getMyBasicInfo } from '../../../apis/mypageAPI';
-import { MyInfoCard } from '../../personal-profile/myInfoCard';
+import { MyInfoCard } from './MyInfoCard';
 import { ToastContext } from '../../../contexts/toastContext';
+import { AlarmsCard } from './AlarmsCard';
 
 const OPTION_MENU = {
   등록하기: '/register',
@@ -121,25 +122,7 @@ export const Header = () => {
                 onClick={() => setOpenAlarm((prev) => !prev)}
                 className={classNames(styles.alarmIcon)}
               />
-              {openAlarm && (
-                <div className={classNames(styles.wrapper, styles.alarm)}>
-                  <div className={classNames(styles.title)}>알림</div>
-                  {token ? (
-                    <div>알람들 리스트 넣기</div>
-                  ) : (
-                    <div className={classNames(styles.noToken)}>
-                      로그인이 필요합니다.
-                      <button
-                        className={classNames(
-                          'buttonFilled-primary',
-                          styles.loginButton,
-                        )}>
-                        로그인 하기
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
+              {openAlarm && <AlarmsCard token={token} />}
             </div>
           </div>
         </menu>

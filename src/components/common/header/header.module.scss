@@ -42,44 +42,6 @@
   }
 }
 
-.wrapper {
-  position: absolute;
-  top: 40px;
-  z-index: 100;
-  background-color: $primary-50;
-  border-radius: 10px;
-  box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 10%);
-
-  &.alarm {
-    width: 400px;
-    height: 600px;
-  }
-}
-
-.alarmWrapper > .title {
-  @include pretendard-20-600;
-
-  padding: 10px 20px;
-  color: $grey-900;
-}
-
-.noToken {
-  @include flex-center;
-  @include pretendard-20-500;
-
-  height: 100%;
-  color: $grey-800;
-  flex-direction: column;
-  gap: 15px;
-
-  & > .loginButton {
-    padding: 10px 15px;
-    border-radius: 30px;
-    border: none;
-    color: $grey-50;
-  }
-}
-
 .optionWrapper {
   display: flex;
   gap: 30px;

@@ -1,0 +1,80 @@
+.wrapper {
+  position: absolute;
+  top: 40px;
+  z-index: 100;
+  background-color: $primary-50;
+  border-radius: 10px;
+  box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 10%);
+  width: 450px;
+  padding-bottom: 10px;
+}
+
+.title {
+  @include pretendard-20-600;
+  @include flex-space-between;
+
+  padding: 10px 20px;
+  color: $grey-900;
+}
+
+.moreButton {
+  @include pretendard-14-400;
+
+  color: $grey-700;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.noToken {
+  @include flex-center;
+  @include pretendard-20-500;
+
+  height: 100%;
+  color: $grey-800;
+  flex-direction: column;
+  gap: 15px;
+
+  & > .loginButton {
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+    color: $grey-50;
+  }
+}
+
+.alarmListContainer {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list {
+  @include pretendard-16-400;
+
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 5px;
+  background-color: $grey-50;
+  padding: 10px;
+  box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 7%);
+
+  & > .root {
+    color: $primary;
+  }
+
+  & > .content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.isRead {
+    opacity: 0.6;
+  }
+}
