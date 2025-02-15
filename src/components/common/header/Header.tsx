@@ -3,13 +3,10 @@ import classNames from 'classnames';
 import styles from './header.module.scss';
 
 import { SearchInput } from './SearchInput';
-import Loading from '../../../assets/icons/loading.svg?react';
 import Logo from '../../../assets/icons/logo.svg?react';
 import Alarm from '../../../assets/icons/alarm.svg?react';
 import { useNavigate } from 'react-router-dom';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
-import { useQuery } from '@tanstack/react-query';
-import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { MyInfoCard } from './MyInfoCard';
 import { ToastContext } from '../../../contexts/toastContext';
 import { AlarmsCard } from './AlarmsCard';
@@ -51,12 +48,6 @@ export const Header = () => {
   useOutsideClick({
     ref: myInfoContainerRef,
     handler: () => setOpenMyInfo(false),
-  });
-
-  const { data: myBasicInfo, isFetching: isFetchingMyInfo } = useQuery({
-    queryKey: ['myBasicInfo'],
-    queryFn: getMyBasicInfo,
-    enabled: !!(token && openMyInfo),
   });
 
   const handleClickLogoutButton = () => {
@@ -101,14 +92,10 @@ export const Header = () => {
                     {openMyInfo && (
                       <div
                         className={classNames(styles.wrapper, styles.myInfo)}>
-                        {isFetchingMyInfo ? (
-                          <Loading />
-                        ) : (
-                          <MyInfoCard
-                            userData={myBasicInfo.data}
-                            onClickLogout={handleClickLogoutButton}
-                          />
-                        )}
+                        <MyInfoCard
+                          token={token}
+                          onClickLogout={handleClickLogoutButton}
+                        />
                       </div>
                     )}
                   </div>
