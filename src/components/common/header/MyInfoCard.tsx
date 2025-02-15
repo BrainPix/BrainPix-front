@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import styles from './myInfoCard.module.scss';
 
-import { imageErrorHandler } from '../../utils/imageErrorHandler';
-import Label from '../common/label/Label';
-import { MyBaseInfoType } from '../../types/myPageType';
-import { CATEGORY_LABELS } from '../../constants/categoryMapper';
+import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import Label from '../label/Label';
+import { MyBaseInfoType } from '../../../types/myPageType';
+import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 
 interface MyInfoCardPropsType {
   userData: MyBaseInfoType;
