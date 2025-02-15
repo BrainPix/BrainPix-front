@@ -1,10 +1,9 @@
 import PaymentTitle from '../../components/payment/PaymentTitle';
 import SellerInfo from '../../components/payment/SellerInfo';
-import PaymentMethods from '../../components/payment/PaymentMethods';
 import PaymentSummary from '../../components/payment/PaymentSummary';
-import PaymentButton from '../../components/payment/PaymentButton';
 import styles from './ideaMarketPayment.module.scss';
 
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getIdeaMarketPayment } from '../../apis/purchaseAPI';
@@ -12,11 +11,14 @@ import { IdeaMarketPurchase } from '../../types/purchaseType';
 
 export const IdeaMarketPayment = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
+  const parsedIdeaId = ideaId && !isNaN(Number(ideaId)) ? Number(ideaId) : null;
+  console.log('useParams에서 가져온 parsedIdeaId:', parsedIdeaId);
+  const [quantity, setQuantity] = useState(1);
 
   const { data, isLoading, error } = useQuery<IdeaMarketPurchase, Error>({
     queryKey: ['ideaMarketPayment', ideaId],
     queryFn: () => getIdeaMarketPayment(Number(ideaId)),
-    enabled: !!ideaId,
+    enabled: !!parsedIdeaId,
     staleTime: 1000 * 60 * 5, // 5분 캐싱
   });
 
@@ -29,6 +31,8 @@ export const IdeaMarketPayment = () => {
     title: data.title,
     remainingQuantity: data.remainingQuantity,
     price: data.price,
+    quantity,
+    setQuantity,
   };
 
   const sellerInfoData = {
@@ -39,6 +43,8 @@ export const IdeaMarketPayment = () => {
 
   const paymentSummaryData = {
     price: data.price,
+    ideaId: data.ideaId,
+    sellerId: data.sellerId,
   };
 
   return (
@@ -46,11 +52,9 @@ export const IdeaMarketPayment = () => {
       <div className={styles.ideaMarketPaymentLayout}>
         <PaymentTitle {...paymentTitleData} />
         <SellerInfo {...sellerInfoData} />
-        <PaymentMethods />
-        <PaymentSummary {...paymentSummaryData} />
-        <PaymentButton
-          isPaymentReady={data.remainingQuantity > 0}
-          onPaymentClick={() => console.log('결제 진행')}
+        <PaymentSummary
+          {...paymentSummaryData}
+          quantity={quantity}
         />
       </div>
     </>
