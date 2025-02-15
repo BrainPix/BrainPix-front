@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './paymentTitle.module.scss';
 import UpDownButton from '../../assets/icons/upDownButton.svg?react';
 
@@ -7,6 +8,8 @@ interface PaymentTitleProps {
   title: string;
   remainingQuantity: number;
   price: number;
+  quantity: number;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const PaymentTitle = ({
@@ -14,8 +17,9 @@ const PaymentTitle = ({
   title,
   remainingQuantity,
   price,
+  quantity,
+  setQuantity,
 }: PaymentTitleProps) => {
-  const [quantity, setQuantity] = useState(1);
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
