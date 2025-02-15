@@ -4,8 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 import { Carousel } from '../common/carousel/Carousel';
-import { PortfolioPopup } from './PortfolioPopup';
-import { useOutsideClick } from '../../hooks/useOutsideClick';
 import styles from './portfolioCarousel.module.scss';
 import { getPorfolios } from '../../apis/portfolio';
 import { MyPorfolioType } from '../../types/myPageType';
@@ -18,7 +16,6 @@ interface PortfolioCarouselPropsType {
 
 export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
   const popupRef = useRef<HTMLDivElement>(null);
-  const [openPopup, setOpenPopup] = useState(false);
   const { id } = useParams();
   const [currentData, setCurrentData] = useState<MyPorfolioType[][]>([]);
   const [clickedPage, setClickedPage] = useState<number>(0);
@@ -44,24 +41,12 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickedPage, portfolios]);
 
-  const handleClosePopup = () => {
-    setOpenPopup(false);
-  };
-
   const handleClickNext = () => {
     setClickedPage((prev) => prev + 1);
   };
 
-  useOutsideClick({ ref: popupRef, handler: handleClosePopup });
-
   return (
     <div className={classNames(styles.container)}>
-      {openPopup && (
-        <PortfolioPopup
-          onClosePopup={handleClosePopup}
-          ref={popupRef}
-        />
-      )}
       <Carousel
         gap={46.67}
         cardWidth={165}
@@ -76,8 +61,7 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
               ({ id, title, createdDate, profileImage }: MyPorfolioType) => (
                 <div
                   key={id}
-                  className={classNames(styles.portfolio)}
-                  onClick={() => setOpenPopup(true)}>
+                  className={classNames(styles.portfolio)}>
                   <img
                     alt='포트폴리오 대표사진'
                     className={classNames(styles.image)}

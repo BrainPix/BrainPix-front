@@ -33,7 +33,7 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
     }
   }, [userId]);
 
-  const { data: myPorfolios, isFetching: isGetPortfoliosFetching } = useQuery({
+  const { data: myPorfolios } = useQuery({
     queryKey: ['myPorfolios', clickedPage],
     queryFn: () =>
       getPorfolios({ page: clickedPage, size: 4, userId: Number(userId) }),

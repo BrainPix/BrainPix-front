@@ -1,3 +1,10 @@
+@mixin label {
+  @include pretendard-12-400;
+
+  padding: 5px 10px;
+  border-radius: 31px;
+}
+
 .container {
   width: 100%;
 }
@@ -7,18 +14,99 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
+  cursor: pointer;
+}
 
-  & > .image {
-    width: 165px;
-    height: 165px;
-    background-color: #d9d9d9;
-    border-radius: 5px;
+.postInfoWrapper {
+  position: absolute;
+  top: 111px;
+  z-index: 10;
+  left: 10px;
+  right: 10px;
+
+  & > .row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }
+}
 
-  & > .title {
+.image {
+  width: 165px;
+  height: 165px;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  filter: brightness(70%);
+}
+
+.scopeLabel {
+  @include label;
+
+  left: 10px;
+  background-color: $primary;
+  color: $grey-50;
+  width: fit-content;
+}
+
+.dDayLabel {
+  @include label;
+
+  top: 10px;
+  right: 10px;
+  background-color: $grey-50;
+  color: $grey-900;
+  position: absolute;
+  z-index: 10;
+}
+
+.specialization,
+.title {
+  @include pretendard-14-400;
+
+  color: $grey-50;
+  padding: 0 3px;
+}
+
+.title {
+  @include pretendard-16-400;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.userProfileWrapper {
+  width: 100%;
+  display: flex;
+}
+
+.userProfileImage {
+  width: 20px;
+  height: 20px;
+  border-radius: 100px;
+  margin-top: 5px;
+
+  & > .userName {
     @include pretendard-14-400;
 
-    height: 100px;
-    text-align: center;
+    color: $grey-900;
+    line-height: 20px;
   }
+}
+
+.nameWrapper {
+  margin-left: 5px;
+}
+
+.popularWrapper {
+  @include pretendard-10-400;
+
+  color: $grey-700;
+  display: flex;
+  gap: 10px;
+}
+
+.bookmark {
+  margin-left: auto;
 }
