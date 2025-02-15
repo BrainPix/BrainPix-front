@@ -8,6 +8,7 @@ import defaultImage from '../../assets/images/brainPixIcon.png';
 import { getOtherProfilePosts } from '../../apis/profileAPI';
 import styles from './postCarousel.module.scss';
 import { getOtherPostsType } from '../../types/postDataType';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 export const PostsCarousel = () => {
   const { id } = useParams();
@@ -67,6 +68,7 @@ export const PostsCarousel = () => {
                     alt='게시글 대표사진'
                     className={classNames(styles.image)}
                     src={thumbnailImage || defaultImage}
+                    onError={imageErrorHandler}
                   />
                   <div className={classNames(styles.title)}>{title}</div>
                 </div>

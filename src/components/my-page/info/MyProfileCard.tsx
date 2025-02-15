@@ -12,6 +12,7 @@ import { getPresignedURL } from '../../../apis/commonAPI';
 import { ChangeEvent, useContext } from 'react';
 import { ToastContext } from '../../../contexts/toastContext';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
+import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 
 interface MyProfileCardPropsType {
   userData: IndividualProfileType | CompanyProfileType;
@@ -66,6 +67,7 @@ export const MyProfileCard = ({
             className={classNames(styles.profile)}
             src={selectedImage}
             alt='프로필 이미지'
+            onError={imageErrorHandler}
           />
         ) : (
           <div className={classNames(styles.profile)} />
