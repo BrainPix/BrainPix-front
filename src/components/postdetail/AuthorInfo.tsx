@@ -2,7 +2,7 @@ import styles from './authorInfo.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
 
-import { getCategoryLabel } from '../../constants/categoryMapper';
+import { getCategoryLabel } from '../../utils/categoryMapping';
 
 interface AuthorInfoProps {
   name: string;

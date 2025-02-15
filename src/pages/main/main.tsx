@@ -26,13 +26,13 @@ export const Main = () => {
       </h1>
       <div className={classNames(styles.buttonWrapper)}>
         <button
-          onClick={() => navigate('/login/individual')}
+          onClick={() => navigate('/login/personal')}
           className={classNames(styles.memberButton, 'buttonFilled-grey800')}>
           <Individual stroke='#fafafa' />
           <span>개인회원 로그인하기</span>
         </button>
         <button
-          onClick={() => navigate('/login/corparate')}
+          onClick={() => navigate('/login/corporate')}
           className={classNames(styles.memberButton, 'buttonOutlined-grey500')}>
           <Corporate />
           <span>기업회원 로그인하기</span>

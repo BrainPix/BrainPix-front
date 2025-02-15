@@ -11,10 +11,11 @@
 .individualInfoWrapper > .list {
   @include pretendard-18-500;
 
-  color: $grey-800;
+  color: $grey-900;
   line-height: normal;
   letter-spacing: -0.28px;
   display: flex;
+  align-items: center;
 
   & > .label {
     min-width: 75px;
@@ -34,24 +35,49 @@
   & > * {
     @include pretendard-18-400;
 
-    color: $grey-600;
+    color: $grey-700;
     background-color: $grey-50;
   }
 }
 
-.dropdown {
-  width: 200px;
-  padding: 15px 20px;
-  border-radius: 5px 0 0 5px;
+.dropdownSelected {
+  width: 150px;
   height: 54px;
+  padding: 15px 20px;
+  border: 1px solid $grey-600;
+  border-radius: 5px 0 0;
+}
+
+.dropdown {
+  z-index: 80;
+}
+
+.dropdownOptions {
+  @include pretendard-18-400;
+
+  border: 1px solid $grey-600;
+  width: 150px;
+  gap: 10px;
+  padding: 18px 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 5px 5px;
+  top: 49px;
+  border-top: none;
+
+  & > * {
+    padding: 3px 20px;
+  }
 }
 
 .input {
   padding: 15px 20px;
-  border: 1px solid $grey-500;
+  border: 1px solid $grey-600;
   border-radius: 0 5px 5px 0;
   border-left: none;
   flex-grow: 2;
+  width: 300px;
+  padding-right: 100px;
 
   &:focus {
     outline: none;
@@ -67,7 +93,7 @@
   gap: 8px;
   display: flex;
   align-items: center;
-  color: $grey-500;
+  color: $grey-700;
 
   & > span {
     margin-top: 2px;
@@ -75,14 +101,37 @@
 }
 
 .checkboxLabel {
+  @include flex-center;
+
   width: 16px;
   height: 16px;
   border: 1px solid $grey-500;
   border-radius: 100px;
   cursor: pointer;
   outline: none;
+
+  & > .checked {
+    width: 10px;
+    height: 10px;
+    background-color: $grey-800;
+    border-radius: 10000px;
+    cursor: pointer;
+    outline: none;
+  }
 }
 
 .checkboxInput {
   display: none;
+}
+
+.deleteButton {
+  @include pretendard-14-400;
+
+  padding: 5px 10px;
+  background-color: $grey-400;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: $grey-100;
+  margin-left: auto;
 }

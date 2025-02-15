@@ -10,8 +10,8 @@ import { Input } from './Input';
 
 interface StepOnePropsType {
   onClickNext: () => void;
-  userType: 'individual' | 'corporate';
-  onClickUserTypeButton: (userType: 'individual' | 'corporate') => void;
+  userType: 'personal' | 'corporate';
+  onClickUserTypeButton: (userType: 'personal' | 'corporate') => void;
   registers: Record<string, UseFormRegisterReturn>;
   errors: FieldErrors<FieldValues>;
 }
@@ -33,9 +33,9 @@ export const StepOne = ({
       </div>
       <div className={classNames(styles.userTypeWrapper)}>
         <div
-          onClick={() => onClickUserTypeButton('individual')}
+          onClick={() => onClickUserTypeButton('personal')}
           className={classNames(styles.userType, {
-            [styles.clicked]: userType === 'individual',
+            [styles.clicked]: userType === 'personal',
           })}>
           개인 회원
         </div>

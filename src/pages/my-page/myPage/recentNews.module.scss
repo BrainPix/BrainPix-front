@@ -5,13 +5,23 @@
 }
 
 .title {
-  @include pretendard-32-500;
+  @include pretendard-24-500;
+  @include flex-space-between;
 
   color: $grey-900;
   width: 100%;
   border-bottom: 1px solid $grey-500;
   padding-bottom: 15px;
   margin-bottom: 15px;
+
+  & > button {
+    @include pretendard-18-500;
+
+    color: $grey-700;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
 }
 
 .moreButton {
@@ -23,6 +33,10 @@
   margin-bottom: 15px;
 }
 
+.leftArrow {
+  transform: rotate((180deg));
+}
+
 .bottomArrow {
   transform: rotate(90deg);
 }
@@ -31,11 +45,17 @@
   transform: rotate(270deg);
 }
 
+.arrowButton {
+  border: none;
+  background: none;
+}
+
 .pageNumberWrapper {
   width: fit-content;
   display: flex;
   margin: 0 auto;
   gap: 10px;
+  align-items: center;
   margin-top: 15px;
 
   & > * {
@@ -55,4 +75,25 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.noAlarmText {
+  @include pretendard-22-500;
+
+  color: $grey-700;
+  text-align: center;
+  padding-top: 30px;
+  height: 100px;
+}
+
+.loadingWrapper {
+  @include flex-center;
+
+  width: 100%;
 }

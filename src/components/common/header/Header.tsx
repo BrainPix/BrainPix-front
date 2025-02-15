@@ -49,7 +49,6 @@ export const Header = () => {
             onMouseEnter={() => {
               setHoverIdeaMarket(page === '아이디어 마켓');
               setHoverRequest(page === '요청 과제');
-              console.log(page);
             }}
             onMouseLeave={() => {
               setHoverIdeaMarket(false);

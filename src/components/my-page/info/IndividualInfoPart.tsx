@@ -2,124 +2,143 @@ import { forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import styles from './individualInfoPart.module.scss';
-import { UseFormRegisterReturn } from 'react-hook-form';
-
-interface IndividualInfoRegisters {
-  phone: UseFormRegisterReturn;
-  notion: UseFormRegisterReturn;
-  github: UseFormRegisterReturn;
-}
-
-interface EnterpriseInfoRegisters {
-  homepage: UseFormRegisterReturn;
-  email: UseFormRegisterReturn;
-  phone: UseFormRegisterReturn;
-}
+import { useQueryClient } from '@tanstack/react-query';
+import {
+  IndividualContactType,
+  IndividualProfileType,
+} from '../../../types/profileType';
+import {
+  INFO_TYPE_MAPPER,
+  INFO_TYPE_MAPPER_TO_ENG,
+} from '../../../constants/categoryMapper';
 
 interface IndividualInfoPartPropsType {
   editMode: boolean;
-  userData: {
-    연락처: string;
-    노션: string;
-    깃허브: string;
-  };
-  registers: IndividualInfoRegisters | EnterpriseInfoRegisters;
-  userType: '개인' | '기업';
+  onClickAdd: (data: IndividualContactType) => void;
+  contacts: { type: string; value: string; isPublic: boolean }[];
+  onDelete: (deleteType: string) => void;
 }
 
 export const IndividualInfoPart = forwardRef<
   HTMLInputElement,
   IndividualInfoPartPropsType
->(({ editMode, userData, registers, userType }, ref) => {
-  const [selectedLabel, setSelectedLabel] = useState<string>('연락처');
-  const isIndividualRegisters = 'notion' in registers;
+>(({ editMode, onClickAdd, contacts, onDelete }, ref) => {
+  const queryClient = useQueryClient();
+  const userData = queryClient.getQueryData(['userData']);
+  const userType = localStorage.getItem('myType');
+  const [infoOpenChecked, setInfoOpenChecked] = useState(false);
+
+  const [addInfo, setAddInfo] = useState<IndividualContactType>({
+    type: '',
+    value: '',
+    isPublic: false,
+  });
+
   const LABEL_OPTIONS =
-    userType === '개인'
-      ? ['연락처', '노션', '깃허브']
-      : ['홈페이지', '이메일', '전화번호', '기타'];
+    (userData as IndividualProfileType).userType === 'INDIVIDUAL'
+      ? ['연락처', '노션', '깃허브', '기타']
+      : ['홈페이지', '이메일', '연락처', '기타'];
 
   const handleSelectLabel = (option: string) => {
-    setSelectedLabel(option);
+    setAddInfo((prev) => {
+      return {
+        ...prev,
+        type: INFO_TYPE_MAPPER_TO_ENG[option],
+      };
+    });
   };
 
-  const registerMap = isIndividualRegisters
-    ? {
-        노션: registers.notion,
-        연락처: registers.phone,
-        깃허브: registers.github,
-      }
-    : {
-        홈페이지: registers.homepage,
-        이메일: registers.email,
-        전화번호: registers.phone,
-      };
-
-  const handleRegister = (selectedLabel: string) => {
-    switch (selectedLabel) {
-      case '노션':
-        return registerMap.노션;
-      case '깃허브':
-        return registerMap.깃허브;
-      case '연락처':
-        return registerMap.연락처;
-      case '홈페이지':
-        return registerMap.홈페이지;
-      case '이메일':
-        return registerMap.이메일;
-      case '전화번호':
-        return registerMap.전화번호;
-    }
+  const handleChangeOpenCheckbox = (checked: boolean) => {
+    setInfoOpenChecked(checked);
+    setAddInfo((prev) => ({
+      ...prev,
+      isPublic: checked,
+    }));
   };
 
   return (
     <div>
       <h1 className={classNames(styles.title)}>
-        {userType === '개인' ? '개별 정보' : '기업 정보'}
+        {userType === 'personal' ? '개별 정보' : '기업 정보'}
         {editMode && (
           <span className={classNames(styles.subTitle)}>{'(최대 500자)'}</span>
         )}
       </h1>
       <div className={classNames(styles.individualInfoWrapper)}>
-        {Object.entries(userData).map(([key, value]) => (
-          <div
-            key={key}
-            className={classNames(styles.list)}>
-            <span className={classNames(styles.label)}>{key}</span>
-            <span className={classNames(styles.value)}>{value}</span>
-          </div>
-        ))}
+        {contacts?.map(({ type, value, isPublic }) => {
+          return editMode ? (
+            <div
+              key={type}
+              className={classNames(styles.list)}>
+              <span className={classNames(styles.label)}>
+                {INFO_TYPE_MAPPER[type]}
+              </span>
+              <span className={classNames(styles.value)}>{value}</span>
+              <button
+                type='button'
+                onClick={() => onDelete(type)}
+                className={classNames(styles.deleteButton)}>
+                삭제
+              </button>
+            </div>
+          ) : (
+            isPublic && (
+              <div
+                key={value}
+                className={classNames(styles.list)}>
+                <span className={classNames(styles.label)}>
+                  {INFO_TYPE_MAPPER[type]}
+                </span>
+                <span className={classNames(styles.value)}>{value}</span>
+              </div>
+            )
+          );
+        })}
       </div>
       {editMode && (
         <div className={classNames(styles.editInputWrapper)}>
           <div className={classNames(styles.inputContainer)}>
             <Dropdown
+              dropDownClassName={classNames(styles.dropdown)}
               options={LABEL_OPTIONS}
-              customClassName={classNames(styles.dropdown)}
+              selectedBoxClassName={classNames(styles.dropdownSelected)}
+              optionBoxClassName={classNames(styles.dropdownOptions)}
               onSelect={handleSelectLabel}
             />
             <input
               ref={ref}
+              onChange={(e) =>
+                setAddInfo((prev) => ({ ...prev, value: e.target.value }))
+              }
+              maxLength={500}
               className={classNames(styles.input)}
-              {...handleRegister(selectedLabel)}
             />
             <div>
               <label htmlFor='checkbox'>
                 <div className={classNames(styles.publicCheckWrapper)}>
-                  <div className={classNames(styles.checkboxLabel)} />
+                  <div className={classNames(styles.checkboxLabel)}>
+                    <div
+                      className={classNames({
+                        [styles.checked]: infoOpenChecked,
+                      })}
+                    />
+                  </div>
                   <span>공개</span>
                   {''}
                 </div>
+                <input
+                  id='checkbox'
+                  type='checkbox'
+                  onChange={(e) => handleChangeOpenCheckbox(e.target.checked)}
+                  className={classNames(styles.checkboxInput)}
+                />
               </label>
-              <input
-                id='checkbox'
-                type='checkbox'
-                className={classNames(styles.checkboxInput)}
-              />
             </div>
           </div>
           <button
             type='button'
-            className={classNames('buttonFilled-grey700', styles.addButton)}>
+            onClick={() => onClickAdd(addInfo)}
+            className={classNames('buttonFilled-grey800', styles.addButton)}>
             추가하기
           </button>
         </div>

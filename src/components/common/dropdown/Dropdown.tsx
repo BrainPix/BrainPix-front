@@ -6,8 +6,11 @@ import styles from './dropdown.module.scss';
 interface DropdownProps {
   label?: string;
   options?: string[];
+  defaultValue?: string;
   max_visible_options?: number;
-  customClassName?: string;
+  dropDownClassName?: string;
+  selectedBoxClassName?: string;
+  optionBoxClassName?: string;
   onSelect?: (value: string) => void;
 }
 
@@ -31,12 +34,17 @@ export const Dropdown = ({
   label = '',
   options,
   max_visible_options = 5,
-  customClassName,
+  dropDownClassName,
+  selectedBoxClassName,
+  optionBoxClassName,
   onSelect,
+  defaultValue,
 }: DropdownProps) => {
   const finalOptions = options && options.length > 0 ? options : defaultOptions;
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(options?.[0] || '분야별');
+  const [selected, setSelected] = useState(
+    options?.[0] || defaultValue || '분야별',
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
   const optionsListRef = useRef<HTMLUListElement>(null);
 
@@ -54,14 +62,14 @@ export const Dropdown = ({
 
   return (
     <div
-      className={styles.dropdown}
+      className={classNames(styles.dropdown, dropDownClassName)}
       ref={dropdownRef}>
       {label && <label className={styles.label}>{label}</label>}
       <div
         className={classNames(
           styles.selectBox,
           { [styles.open]: isOpen },
-          customClassName,
+          selectedBoxClassName,
         )}
         onClick={() => setIsOpen(!isOpen)}>
         {selected}
@@ -69,13 +77,13 @@ export const Dropdown = ({
       </div>
       {isOpen && (
         <ul
-          className={styles.optionsList}
+          className={classNames(styles.optionsList, optionBoxClassName)}
           ref={optionsListRef}
           style={{ maxHeight: `calc((40px) * ${max_visible_options})` }}>
           {finalOptions.map((option) => (
             <li
               key={option}
-              className={(classNames(styles.option), customClassName)}
+              className={classNames(styles.option)}
               role='option'
               aria-selected={selected === option}
               tabIndex={0}
