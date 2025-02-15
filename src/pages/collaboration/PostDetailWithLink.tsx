@@ -34,6 +34,7 @@ export const PostDetailWithLink = () => {
     writerId: data.writer.writerId,
     name: data.writer.name,
     profileImageUrl: data.writer.profileImageUrl,
+    role: data.writer.role,
   };
 
   const postHeaderData = {
