@@ -41,7 +41,9 @@ export const AlarmsCard = ({ token }: AlramCardPropsType) => {
           ) : (
             <React.Fragment>
               {alarmsData.length === 0 ? (
-                <div>알림이 없습니다.</div>
+                <div className={classNames(styles.noAlarmText)}>
+                  알림이 없습니다.
+                </div>
               ) : (
                 <div className={classNames(styles.alarmListContainer)}>
                   {alarmsData.data.alarmDetailList.map(

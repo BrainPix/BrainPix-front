@@ -94,6 +94,14 @@
   animation: skeleton-loading 1.5s infinite linear;
 }
 
+.noAlarmText {
+  @include pretendard-22-600;
+  @include flex-center;
+
+  height: 400px;
+  color: $primary-dark;
+}
+
 @keyframes skeleton-loading {
   0% {
     background-position: 100% 0;
