@@ -2,10 +2,10 @@ import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
 import { CollaboPostHeader } from '../../../components/my-page/CollaboPostHeader';
 import WebLinkBox from '../../../components/postdetail/WebLinkBox';
 import { PostFormContent } from '../../../components/my-page/PostFormContent';
-import RecruitmentInfo from '../../../components/postdetail/RecruitmentInfo';
-import RecruitmentStatus from '../../../components/postdetail/RecruitmentStatus';
-import TeamBuildingButton from '../../../components/postdetail/TeamBuildingButton';
-import QnASection from '../../../components/postdetail/QnASection';
+//import RecruitmentInfo from '../../../components/postdetail/RecruitmentInfo';
+//import RecruitmentStatus from '../../../components/postdetail/RecruitmentStatus';
+//import TeamBuildingButton from '../../../components/postdetail/TeamBuildingButton';
+//import QnASection from '../../../components/postdetail/QnASection';
 //import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 import styles from '../../../pages/collaboration/postDetailWithLink.module.scss';
 
@@ -61,17 +61,15 @@ export const CollaborationEdit = () => {
           attachmentTitle={FORM_DATA.attachmentTitle}
           attachmentFileName={FORM_DATA.attachmentFileName}
         />
-        <RecruitmentInfo />
-        <RecruitmentStatus />
+        {/*<RecruitmentInfo />*/}
+        {/*<RecruitmentStatus />*/}
       </div>
       <div className={styles.buttonMargin}>
-        <div className={styles.button}>
-          <TeamBuildingButton />
-        </div>
+        <div className={styles.button}>{/*<TeamBuildingButton /*/}</div>
       </div>
       <div className={styles.margin}>
         {/* 담당자 Q&A, 작성자 정보 */}
-        <QnASection />
+        {/*<QnASection />*/}
         {/*<AuthorInfo />*/}
       </div>
     </>
