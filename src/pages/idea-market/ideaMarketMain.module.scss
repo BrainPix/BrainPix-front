@@ -76,37 +76,6 @@
   position: relative;
   margin: 0 auto;
   overflow: hidden;
-
-  :global {
-    [class*="centerNavigationControls"] {
-      width: 100% !important;
-      position: absolute !important;
-      transform: translateY(200%) !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      z-index: 1;
-    }
-
-    [class*="centerNavigationControls"] > button {
-      border: none !important;
-      background: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-    }
-    
-    [class*="carouselContainer"] {
-      display: flex !important;
-      width: 690px !important;
-      margin: 0 auto !important;
-      overflow: hidden !important;
-    }
-    
-    [class*="contentWrapper"] {
-      justify-content: center !important;
-      gap: 45px !important;
-      transition: transform 0.3s ease-in-out !important;
-    }
-  }
 }
 
 .ideaMarketMain {

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import styles from './ideaMarketMain.module.scss';
+import styles from './ideaMarketMarketPlace.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Dropdown } from '../../components/common/dropdown/Dropdown';
 import Card from '../../components/common/card/Card';
@@ -15,7 +15,7 @@ interface CardData {
   views: number;
 }
 
-export const IdeaMarketMain = () => {
+export const IdeaMarketMarketPlace = () => {
   const navigate = useNavigate();
   const [cardsData, setCardsData] = useState<CardData[]>([]);
   const [ideaData, setIdeaData] = useState<IdeaMarketCheck['data']['content']>(
@@ -27,7 +27,7 @@ export const IdeaMarketMain = () => {
     const fetchIdeas = async () => {
       try {
         const response = await getPopularIdeas({
-          type: 'IDEA_SOLUTION',
+          type: 'MARKET_PLACE',
           page: 0,
           size: 10,
         });
@@ -76,7 +76,7 @@ export const IdeaMarketMain = () => {
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
           <span className={styles.mainTitle}>아이디어 마켓</span>
-          <span className={styles.subtitle}>Idea Solution</span>
+          <span className={styles.subtitle}>Market Place</span>
         </div>
         <button
           className={styles.registerButton}
@@ -87,7 +87,7 @@ export const IdeaMarketMain = () => {
       <div className={styles.carouselWrapper}>
         <div className={styles.ideaMarketMain}>
           <div className={styles.subTitle}>
-            <span>전문가의 손길로 완성되는 아이디어</span>
+            <span>완성된 아이디어 제품과 서비스를 거래하는 공간</span>
             <span className={styles.highlight}></span>
           </div>
           <Carousel
@@ -154,7 +154,7 @@ export const IdeaMarketMain = () => {
             username={idea.writerName}
             description={idea.title}
             price={idea.price}
-            imageUrl={idea.thumbnailImageUrl || undefined}
+            imageUrl={idea.thumbnailImageUrl}
           />
         ))}
       </div>

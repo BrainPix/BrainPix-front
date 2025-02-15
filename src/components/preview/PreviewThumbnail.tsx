@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Bookmark from '../../assets/icons/bookmark.svg?react';
+import DefaultImage from '../../assets/icons/defaultImage.svg?react';
 import styles from './previewThumbnail.module.scss';
 
 interface PreviewThumbnailProps {
@@ -26,39 +27,40 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
 }) => {
   return (
     <div className={classNames(styles.container)}>
-      <div className={classNames(styles.profileSection)}>
-        <div className={styles.profileImage}>
-          {profileImage ? (
-            <img
-              src={profileImage}
-              alt={username}
-            />
-          ) : (
-            <div className={styles.defaultProfile}>{username[0]}</div>
-          )}
-        </div>
-        <div className={styles.userInfo}>
-          {verified && <span className={styles.verifiedBadge}>기업 공개</span>}
-          <span>{username}</span>
-        </div>
-      </div>
-
       <div className={styles.thumbnailImage}>
-        {imageUrl ? (
+        {imageUrl && imageUrl.trim() !== '' && imageUrl !== 'string' ? ( // 'string' 값도 체크
           <img
             src={imageUrl}
             alt={description}
           />
         ) : (
-          <img
-            src='/api/placeholder/120/120'
-            alt='썸네일 이미지'
-          />
+          <DefaultImage />
         )}
+        <div className={styles.overlay}>
+          <span>{description}</span>
+        </div>
       </div>
 
       <div className={styles.contentSection}>
-        <p className={styles.description}>{description}</p>
+        <div className={styles.profileSection}>
+          <div className={styles.profileImage}>
+            {profileImage ? (
+              <img
+                src={profileImage}
+                alt={username}
+              />
+            ) : (
+              <div className={styles.defaultProfile}>{username[0]}</div>
+            )}
+          </div>
+          <div className={styles.userInfo}>
+            {verified && (
+              <span className={styles.verifiedBadge}>기업 공개</span>
+            )}
+            <span>{username}</span>
+          </div>
+        </div>
+
         <div className={styles.priceSection}>
           <span>{price?.toLocaleString() ?? 0}원</span>
           <button

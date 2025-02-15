@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from './pages/layout/Layout';
 import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
+import { IdeaMarketMarketPlace } from './pages/idea-market/IdeaMarketMarketPlace';
 import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaMarketRegisterComplete } from './pages/idea-market/IdeaMarketRegisterComplete';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
@@ -64,6 +65,10 @@ export const routes = createBrowserRouter([
       {
         path: '/idea-market',
         element: <IdeaMarketMain />,
+      },
+      {
+        path: '/idea-market/market-place',
+        element: <IdeaMarketMarketPlace />,
       },
       {
         path: '/idea-market/register',
