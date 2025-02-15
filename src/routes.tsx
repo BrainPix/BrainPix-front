@@ -76,7 +76,7 @@ export const routes = createBrowserRouter([
         element: <IdeaMarketPayment />,
       },
       {
-        path: '/idea-market/payment-processing',
+        path: '/purchase/approve',
         element: <PaymentProcessing />,
       },
       {
