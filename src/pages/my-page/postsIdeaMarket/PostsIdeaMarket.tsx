@@ -39,7 +39,8 @@ export const PostsIdeaMarket = () => {
   } = useQuery<IdeaMarketDetail>({
     queryKey: ['ideaMarketDetail', ideaId],
     queryFn: () => getPostIdeaMarketDetail(Number(ideaId)),
-    enabled: !!ideaId, // postId가 있을 때만 실행
+    enabled: !!ideaId,
+    staleTime: 1000 * 60 * 10,
   });
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;

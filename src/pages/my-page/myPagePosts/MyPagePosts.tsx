@@ -34,7 +34,7 @@ export const MyPagePosts = () => {
   >({
     queryKey: ['myPosts', activeTab],
     queryFn: () => postAPIMap()(0, 10),
-    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+    staleTime: 1000 * 60 * 10,
   });
 
   const posts = data?.content ?? [];
