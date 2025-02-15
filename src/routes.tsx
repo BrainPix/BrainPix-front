@@ -20,7 +20,6 @@ import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsColl
 import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
-import { RequestAssignRegister } from './pages/my-page/postsRequestAssign/RequestAssignRegister';
 import { PurchaseList } from './pages/my-page/apply/PurchaseList';
 import { ApplyRequest } from './pages/my-page/apply/ApplyRequest';
 import { ApplyCollaboration } from './pages/my-page/apply/ApplyCollaboration';
@@ -116,11 +115,11 @@ export const routes = createBrowserRouter([
             element: <PostsIdeaMarket />,
           },
           {
-            path: '/my/posts/request-assign/:postId',
+            path: '/my/posts/request-assign/:taskId',
             element: <PostsRequestAssign />,
           },
           {
-            path: '/my/posts/collaboration/:postId',
+            path: '/my/posts/collaboration/:collaborationId',
             element: <PostsCollaboration />,
           },
           {
@@ -128,20 +127,12 @@ export const routes = createBrowserRouter([
             element: <IdeaMarketEdit />,
           },
           {
-            path: '/my/posts/request-assign/registered/:postId',
+            path: '/my/posts/request-assign/registered/:taskId',
             element: <RequestAssignEdit />,
           },
           {
-            path: '/my/posts/request-assign/register/:postId',
-            element: <RequestAssignRegister />,
-          },
-          {
-            path: '/my/posts/collaboration/registered/:postId',
+            path: '/my/posts/collaboration/registered/:collaborationId',
             element: <CollaborationEdit />,
-          },
-          {
-            path: '/my/posts/request-assign/register/:postId',
-            element: <RequestAssignRegister />,
           },
           {
             path: '/my/portfolio',
