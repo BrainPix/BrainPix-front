@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import styles from './alarmsCard.module.scss';
 import { useQuery } from '@tanstack/react-query';
 
-import Loading from '../../../assets/icons/loading.svg?react';
 import { getAlarms } from '../../../apis/alarmAPI';
 import { getAlarmResponseType } from '../../../types/alarmType';
 
@@ -31,7 +30,14 @@ export const AlarmsCard = ({ token }: AlramCardPropsType) => {
       {token ? (
         <React.Fragment>
           {isFetchingAlarms ? (
-            <Loading />
+            <div className={classNames(styles.alarmListContainer)}>
+              {new Array(5).fill(0).map((_, index) => (
+                <div
+                  className={classNames(styles.listSkeleton)}
+                  key={index}
+                />
+              ))}
+            </div>
           ) : (
             <React.Fragment>
               {alarmsData.length === 0 ? (
