@@ -40,6 +40,10 @@
   &:hover {
     color: $grey-800;
   }
+
+  & > span:hover {
+    color: $primary;
+  }
 }
 
 .optionWrapper {

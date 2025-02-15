@@ -7,6 +7,7 @@ import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 import Label from '../label/Label';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { MY_BASIC_INFO_INIT } from '../../../constants/initValues';
 
 interface MyInfoCardPropsType {
   token: string | null;
@@ -27,7 +28,7 @@ export const MyInfoCard = ({ token, onClickLogout }: MyInfoCardPropsType) => {
     collaborationCount,
     specializations,
     name,
-  } = myBasicInfo.data;
+  } = myBasicInfo?.data ?? MY_BASIC_INFO_INIT;
 
   return (
     <div className={classNames(styles.container)}>
