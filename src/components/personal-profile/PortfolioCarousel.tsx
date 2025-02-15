@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
@@ -15,7 +15,6 @@ interface PortfolioCarouselPropsType {
 }
 
 export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
-  const popupRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const [currentData, setCurrentData] = useState<MyPorfolioType[][]>([]);
   const [clickedPage, setClickedPage] = useState<number>(0);
