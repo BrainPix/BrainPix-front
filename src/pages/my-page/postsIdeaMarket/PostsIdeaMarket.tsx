@@ -23,8 +23,8 @@ export const PostsIdeaMarket = () => {
   // ];
 
   // 게시물 id 받아오기
-  const { postId } = useParams<{ postId: string }>();
-
+  const { ideaId } = useParams<{ ideaId: string }>();
+  //console.log('ideaId', ideaId);
   // POST_DATA에서 postId에 맞는 데이터 찾기
   // const post = POST_DATA.find((post) => post.id === Number(postId));
 
@@ -37,14 +37,13 @@ export const PostsIdeaMarket = () => {
     isLoading,
     isError,
   } = useQuery<IdeaMarketDetail>({
-    queryKey: ['ideaMarketDetail', postId],
-    queryFn: () => getPostIdeaMarketDetail(Number(postId)),
-    enabled: !!postId, // postId가 있을 때만 실행
+    queryKey: ['ideaMarketDetail', ideaId],
+    queryFn: () => getPostIdeaMarketDetail(Number(ideaId)),
+    enabled: !!ideaId, // postId가 있을 때만 실행
   });
-
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
-
+  console.log('아이디어 마켓 상세 조회 페이지 - ideaId', ideaId);
   return (
     <div className={styles.postcardWrapper}>
       <IdeaMarketPostHeader
@@ -52,7 +51,7 @@ export const PostsIdeaMarket = () => {
         category={post.specialization}
         title={post.title}
         price={post.price}
-        postId={post.ideaId}
+        ideaId={Number(ideaId)}
       />
       <PurchaseStatus purchaseHistory={post.purchaseHistory} />
     </div>

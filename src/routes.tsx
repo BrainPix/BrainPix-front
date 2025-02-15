@@ -112,7 +112,7 @@ export const routes = createBrowserRouter([
             element: <MyPagePosts />,
           },
           {
-            path: '/my/posts/idea-market/:postId',
+            path: '/my/posts/idea-market/:ideaId',
             element: <PostsIdeaMarket />,
           },
           {
@@ -124,11 +124,11 @@ export const routes = createBrowserRouter([
             element: <PostsCollaboration />,
           },
           {
-            path: '/my/posts/idea-market/edit/:postId',
+            path: '/my/posts/idea-market/registered/:ideaId',
             element: <IdeaMarketEdit />,
           },
           {
-            path: '/my/posts/request-assign/edit/:postId',
+            path: '/my/posts/request-assign/registered/:postId',
             element: <RequestAssignEdit />,
           },
           {
@@ -136,7 +136,7 @@ export const routes = createBrowserRouter([
             element: <RequestAssignRegister />,
           },
           {
-            path: '/my/posts/collaboration/edit/:postId',
+            path: '/my/posts/collaboration/registered/:postId',
             element: <CollaborationEdit />,
           },
           {

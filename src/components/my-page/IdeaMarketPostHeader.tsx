@@ -6,7 +6,7 @@ interface PostHeaderProps {
   category: string;
   title: string;
   price: number;
-  postId: number;
+  ideaId: number | undefined;
 }
 
 export const IdeaMarketPostHeader = ({
@@ -14,16 +14,16 @@ export const IdeaMarketPostHeader = ({
   category,
   title,
   price,
-  postId,
+  ideaId,
 }: PostHeaderProps) => {
   const navigate = useNavigate();
   const FORMATTEDPRICE = price.toLocaleString();
 
   const handleEditNavigate = () => {
-    if (postId) {
-      navigate(`/my/posts/idea-market/edit/${postId}`);
+    if (ideaId) {
+      navigate(`/my/posts/idea-market/registered/${ideaId}`);
     } else {
-      navigate('/my/posts/idea-market');
+      alert('아이디어 마켓 게시물 정보를 불러올 수 없습니다.');
     }
   };
 

@@ -22,7 +22,7 @@ export const IdeaMarketEdit = () => {
   // };
 
   const { ideaId } = useParams<{ ideaId: string }>();
-
+  console.log('IdeaMarketEdit.tsx - URL Params ideaId:', ideaId);
   const {
     data: post,
     isLoading,
@@ -31,8 +31,9 @@ export const IdeaMarketEdit = () => {
     queryKey: ['ideaMarketDetail', ideaId],
     queryFn: () => getIdeaMarketDetail(Number(ideaId)),
     enabled: !!ideaId,
+    staleTime: 1000 * 60 * 5,
   });
-
+  //console.log('IdeaMarketEdit.tsx - post:', post);
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
 
@@ -44,7 +45,17 @@ export const IdeaMarketEdit = () => {
         profileImage={post?.writer?.profileImageUrl || ''}
       />
       {/* 게시물 제목, 게시물 정보 */}
-      <PostFormIdeaTitle />
+      <PostFormIdeaTitle
+        title={post?.title || ''}
+        category={post?.category || ''}
+        //ideaMarketType={post?.ideaMarketType || ''}
+        //auth={post?.auth || ''}
+        price={post?.price || 0}
+        viewCount={post?.viewCount || 0}
+        saveCount={post?.saveCount || 0}
+        thumbnailImageUrl={post?.thumbnailImageUrl || ''}
+        createdDate={post?.createdDate || ''}
+      />
       {/* 과제 설명, 첨부파일 */}
       <PostFormContent
         descriptionTitle={FORM_DATA.descriptionTitle}
