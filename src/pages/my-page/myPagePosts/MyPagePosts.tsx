@@ -1,20 +1,21 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import {
-  getPostIdeaMarket,
-  getPostRequestTask,
-  getPostCollaboration,
-} from '../../../apis/postManagementAPI.ts';
 import styles from './myPagePosts.module.scss';
 import { TabNavigation } from '../../../components/my-page/TabNavigation.tsx';
 import PreviewThumbnail from '../../../components/preview/PreviewThumbnail.tsx';
+
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import {
   IdeaMarket,
   RequestTask,
   Collaboration,
   PostApiResponse,
 } from '../../../types/postDataType.ts';
+import {
+  getPostIdeaMarket,
+  getPostRequestTask,
+  getPostCollaboration,
+} from '../../../apis/postManagementAPI.ts';
 
 export const MyPagePosts = () => {
   const navigate = useNavigate();
@@ -38,66 +39,7 @@ export const MyPagePosts = () => {
   });
 
   const posts = data?.content ?? [];
-
-  // const posts = [
-  //   {
-  //     id: 1,
-  //     category: PostCategories.IDEA_MARKET,
-  //     user: 'yeonyyy',
-  //     profileImage: null,
-  //     title: '노인층을 위한 키오스크 대체 로봇',
-  //     postImage: null,
-  //     price: 500000,
-  //   },
-  //   {
-  //     id: 2,
-  //     category: PostCategories.REQUEST_ASSIGN,
-  //     user: 'yeonyyy',
-  //     profileImage: null,
-  //     title: 'Web 개발 부탁드립니다.',
-  //     postImage: null,
-  //     deadline: 20,
-  //   },
-  //   {
-  //     id: 3,
-  //     category: PostCategories.COLLABORATION,
-  //     user: 'yeonyyy',
-  //     profileImage: null,
-  //     title: '제목 입니다.',
-  //     postImage: '/image3.png',
-  //     deadline: 20,
-  //     current: 0,
-  //     total: 5,
-  //   },
-  //   {
-  //     id: 4,
-  //     category: PostCategories.IDEA_MARKET,
-  //     user: 'yeonyyy',
-  //     profileImage: '/image1.png',
-  //     title: '테스트!!',
-  //     postImage: null,
-  //     deadline: 20,
-  //     current: 0,
-  //     total: 5,
-  //     saveCount: 17,
-  //     viewCount: 25,
-  //   },
-  //   {
-  //     id: 5,
-  //     category: PostCategories.IDEA_MARKET,
-  //     user: 'yeonyyy',
-  //     profileImage: '/image1234.png',
-  //     title: '안뇽',
-  //     postImage: null,
-  //     deadline: 17,
-  //     saveCount: 17,
-  //     viewCount: 25,
-  //   },
-  // ];
-
-  // const filteredPosts = posts.filter(
-  //   (post) => post.category === categoryMap[activeTab],
-  // );
+  console.log('게시물 데이터:', posts);
 
   return (
     <div className={styles.container}>

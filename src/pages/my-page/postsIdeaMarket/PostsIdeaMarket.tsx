@@ -1,10 +1,11 @@
+import styles from './postsIdeaMarket.module.scss';
+import { PurchaseStatus } from '../../../components/my-page/PurchaseStatus';
+import { IdeaMarketPostHeader } from '../../../components/my-page/IdeaMarketPostHeader';
+
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getPostIdeaMarketDetail } from '../../../apis/postManagementAPI.ts';
 import { IdeaMarketDetail } from '../../../types/postDataType.ts';
-import styles from './postsIdeaMarket.module.scss';
-import { PurchaseStatus } from '../../../components/my-page/PurchaseStatus';
-import { IdeaMarketPostHeader } from '../../../components/my-page/IdeaMarketPostHeader';
 
 export const PostsIdeaMarket = () => {
   // const FORM_DATA = {

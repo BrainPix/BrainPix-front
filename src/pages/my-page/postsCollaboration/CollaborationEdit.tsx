@@ -7,7 +7,7 @@ import RecruitmentStatus from '../../../components/postdetail/RecruitmentStatus'
 import TeamBuildingButton from '../../../components/postdetail/TeamBuildingButton';
 import QnASection from '../../../components/postdetail/QnASection';
 //import AuthorInfo from '../../../components/postdetail/AuthorInfo';
-import styles from '../../../pages/collaboration/postDetailWithLink.module.scss';
+import styles from '../../../pages/request-assign/requestRegisteredPage.module.scss';
 
 export const CollaborationEdit = () => {
   const FORM_DATA = {

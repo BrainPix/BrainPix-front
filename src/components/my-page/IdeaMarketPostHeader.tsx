@@ -6,7 +6,7 @@ interface PostHeaderProps {
   category: string;
   title: string;
   price: number;
-  ideaId: number | undefined;
+  ideaId: number;
 }
 
 export const IdeaMarketPostHeader = ({
