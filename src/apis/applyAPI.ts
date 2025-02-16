@@ -1,18 +1,10 @@
 import axios from 'axios';
+import {
+  ApplyRequestForCollaboration,
+  ApplyRequestForRequest,
+} from '../types/applyTypes';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-interface ApplyRequestForCollaboration {
-  collaborationRecruitmentId: number;
-  isOpenProfile: boolean;
-  message: string;
-}
-
-interface ApplyRequestForRequest {
-  requestRecruitmentId: number;
-  isOpenProfile: boolean;
-  message: string;
-}
 
 export const applyForCollaboration = async (
   collaborationId: number,
