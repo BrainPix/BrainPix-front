@@ -40,6 +40,8 @@ export const CollaborationEdit = () => {
           name={USER_DATA.userName}
           profileImageUrl={USER_DATA.profileImage || '/default-profile.png'}
           buttonPath='/collaboration'
+          postId={POST_DATA.postId}
+          postType='collaborations'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <CollaboPostHeader

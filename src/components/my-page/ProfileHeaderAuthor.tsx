@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import styles from './profileHeaderAuthor.module.scss';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteIdeaMarketPost } from '../../apis/postEditDeleteAPI';
+import { deletePost } from '../../apis/postManagementAPI';
 
 interface ProfileHeaderAuthorProps {
   name: string;
   profileImageUrl: string;
   buttonPath: string;
   postId: number;
+  postType: 'idea-markets' | 'request-tasks' | 'collaborations';
 }
 
 export const ProfileHeaderAuthor = ({
@@ -16,6 +17,7 @@ export const ProfileHeaderAuthor = ({
   profileImageUrl,
   buttonPath,
   postId,
+  postType,
 }: ProfileHeaderAuthorProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -27,11 +29,11 @@ export const ProfileHeaderAuthor = ({
   const handleDeleteClick = () => {
     const isConfirmed = window.confirm('해당 게시글을 삭제하시겠습니까?');
     if (isConfirmed) {
-      deletePost.mutate();
+      deletePostAPI.mutate();
     }
   };
-  const deletePost = useMutation({
-    mutationFn: () => deleteIdeaMarketPost(postId),
+  const deletePostAPI = useMutation({
+    mutationFn: () => deletePost(postId, postType),
     onSuccess: () => {
       alert('해당 아이디어 마켓 게시글이 삭제되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['myPosts'] }); // 삭제 후 리스트 새로고침

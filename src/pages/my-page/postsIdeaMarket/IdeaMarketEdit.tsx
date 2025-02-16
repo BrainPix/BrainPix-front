@@ -65,6 +65,7 @@ export const IdeaMarketEdit = () => {
           profileImageUrl={post?.writer?.profileImageUrl || ''}
           buttonPath='/idea-market'
           postId={post?.ideaId}
+          postType='idea-markets'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <PostTitlePay
