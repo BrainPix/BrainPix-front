@@ -79,7 +79,9 @@ export const PaymentProcessing = () => {
       <div className={styles.spinner}></div>
 
       <h2 className={styles.title}>결제 진행 중입니다.</h2>
-      <p className='subtitle'>결제 완료까지 다소 시간이 걸릴 수 있습니다.</p>
+      <p className={styles.subtitle}>
+        결제 완료까지 다소 시간이 걸릴 수 있습니다.
+      </p>
 
       <p className={styles.description}>
         화면을 벗어나도 결제는 계속 진행되며,
