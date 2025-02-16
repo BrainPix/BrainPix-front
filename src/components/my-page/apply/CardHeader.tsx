@@ -8,6 +8,7 @@ interface CardHeaderProps {
   statusType: string;
   cardTitle?: string;
   showDeleteButton?: boolean;
+  onDelete?: () => void;
 }
 
 export const CardHeader = ({
@@ -16,6 +17,7 @@ export const CardHeader = ({
   statusType,
   cardTitle,
   showDeleteButton,
+  onDelete,
 }: CardHeaderProps) => {
   return (
     <>
@@ -31,7 +33,11 @@ export const CardHeader = ({
           {showDeleteButton && (
             <>
               <div className={styles.divider} />
-              <button className={styles.deleteButton}>삭제</button>
+              <button
+                className={styles.deleteButton}
+                onClick={onDelete}>
+                삭제
+              </button>
             </>
           )}
         </div>
