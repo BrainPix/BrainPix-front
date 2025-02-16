@@ -1,4 +1,4 @@
-.payment-container {
+.paymentContainer {
   flex-direction: column;
   @include flex-center;
   width: 100%;
@@ -51,12 +51,12 @@
   margin-bottom: 30px;
 }
 
-.button-group {
+.buttonGroup {
   display: flex;
   gap: 10px;
 }
 
-.replay-button {
+.replayButton {
   display: inline-flex;
   padding: 10px 20px;
   justify-content: center;
@@ -76,7 +76,7 @@
   }
 }
 
-.main-button {
+.mainButton {
   display: inline-flex;
   padding: 10px 20px;
   justify-content: center;
