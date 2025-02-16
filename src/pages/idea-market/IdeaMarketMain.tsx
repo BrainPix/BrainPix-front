@@ -52,11 +52,10 @@ interface CardData {
 export const IdeaMarketMain = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [cardsData, setCardsData] = useState<CardData[]>([]);
+  const [_cardsData, setCardsData] = useState<CardData[]>([]);
   const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isInitialLoading, setIsInitialLoading] = useState(true); // 초기 로딩용
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [_isUpdating, setIsUpdating] = useState(false);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -131,7 +130,7 @@ export const IdeaMarketMain = () => {
             ? {
                 ...idea,
                 isSavedPost: !idea.isSavedPost,
-                saveCount: idea.saveCount + (idea.isSavedPost ? -1 : 1)
+                saveCount: idea.saveCount + (idea.isSavedPost ? -1 : 1),
               }
             : idea,
         ),
