@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './supportModal.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import ApplyIcon from '../../assets/icons/apply.svg?react';
 import UnapplyIcon from '../../assets/icons/unapply.svg?react';
 import { getCategoryLabel } from '../../utils/categoryMapping';
-import { useNavigate } from 'react-router-dom';
-
 import { useMutation } from '@tanstack/react-query';
 import { applyForCollaboration } from '../../apis/applyAPI';
 import axios from 'axios';
+import { useCollaborationSupport } from '../../hooks/useCollaborationSupport';
 
 interface CollaborationSupportModalProps {
   onClose: () => void;
@@ -33,10 +32,15 @@ export const CollaborationSupportModal = ({
   title,
   collaborationId,
 }: CollaborationSupportModalProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [selectedSupport, setSelectedSupport] = useState<number | null>(null);
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const {
+    selectedSupport,
+    message,
+    isChecked,
+    toggleCheckbox,
+    handleSupportSelection,
+    setMessage,
+    navigate,
+  } = useCollaborationSupport();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -44,14 +48,6 @@ export const CollaborationSupportModal = ({
       document.body.style.overflow = 'auto';
     };
   }, []);
-
-  const toggleCheckbox = () => {
-    setIsChecked((prev) => !prev);
-  };
-
-  const handleSupportSelection = (id: number) => {
-    setSelectedSupport(id === selectedSupport ? null : id);
-  };
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -178,7 +174,9 @@ export const CollaborationSupportModal = ({
                 <CheckLightIcon className={styles.checkIcon} />
               </div>
               <div
-                className={`${styles.checkboxLabel} ${isChecked ? styles.checkedLabel : ''}`}>
+                className={`${styles.checkboxLabel} ${
+                  isChecked ? styles.checkedLabel : ''
+                }`}>
                 프로필 공개
               </div>
             </div>
