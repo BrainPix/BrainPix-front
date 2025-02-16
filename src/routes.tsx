@@ -33,6 +33,7 @@ import { Main } from './pages/main/main';
 import { Signup } from './pages/sign-up/Signup';
 import { Login } from './pages/login/Login';
 import { Test } from './pages/test/Test';
+import { ErrorPage } from './pages/ErrorPage';
 
 export const routes = createBrowserRouter([
   {
@@ -181,5 +182,9 @@ export const routes = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: '*',
+    element: <ErrorPage />,
   },
 ]);
