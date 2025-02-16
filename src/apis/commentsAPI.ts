@@ -98,9 +98,7 @@ export const postReply = async (
 export const deleteComment = async (postId: number, commentId: number) => {
   const token = localStorage.getItem('accessToken');
 
-  if (!token) {
-    throw new Error('로그인이 필요합니다.');
-  }
+  if (!token) throw new Error('Access Token이 없습니다.');
 
   try {
     const { data } = await axios.delete(
@@ -112,18 +110,21 @@ export const deleteComment = async (postId: number, commentId: number) => {
       },
     );
 
-    return data;
+    return {
+      success: true,
+      message: `댓글 삭제 성공: commentId=${commentId}`,
+      data,
+    };
   } catch (error: unknown) {
+    let errorMessage = '댓글 삭제에 실패했습니다.';
+
     if (axios.isAxiosError(error)) {
       console.error(`댓글 삭제 실패:`, error.response?.data || error);
+      errorMessage = error.response?.data?.message || errorMessage;
     } else {
-      console.error(`댓글 삭제 실패:`, error);
+      console.error(`오류:`, error);
     }
-    if (axios.isAxiosError(error)) {
-      alert(error.response?.data?.message || '댓글 삭제에 실패했습니다.');
-    } else {
-      alert('알 수 없는 오류가 발생했습니다.');
-    }
-    throw error;
+
+    throw new Error(errorMessage);
   }
 };
