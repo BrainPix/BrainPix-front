@@ -9,6 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import { applyForCollaboration } from '../../apis/applyAPI';
 import axios from 'axios';
 import { useCollaborationSupport } from '../../hooks/useCollaborationSupport';
+import { useToast } from '../../contexts/toastContext';
 
 interface CollaborationSupportModalProps {
   onClose: () => void;
@@ -41,6 +42,7 @@ export const CollaborationSupportModal = ({
     setMessage,
     navigate,
   } = useCollaborationSupport();
+  const { errorToast, successToast } = useToast();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -52,12 +54,12 @@ export const CollaborationSupportModal = ({
   const mutation = useMutation({
     mutationFn: async () => {
       if (!collaborationId) {
-        alert('협업 게시글 ID가 없습니다. 다시 시도해주세요.');
+        errorToast('협업 게시글 ID가 없습니다. 다시 시도해주세요.');
         return Promise.reject('collaborationId is missing');
       }
 
       if (!selectedSupport) {
-        alert('지원할 모집 부문을 선택해주세요.');
+        errorToast('지원할 모집 부문을 선택해주세요.');
         return Promise.reject('지원할 모집 부문을 선택해주세요.');
       }
 
@@ -66,10 +68,11 @@ export const CollaborationSupportModal = ({
         isOpenProfile: isChecked,
         message,
       };
+
       return applyForCollaboration(collaborationId, requestData);
     },
     onSuccess: () => {
-      alert('지원이 완료되었습니다!');
+      successToast('지원이 완료되었습니다!');
       onClose();
       navigate('/collaboration');
     },
@@ -83,16 +86,16 @@ export const CollaborationSupportModal = ({
       }
 
       if (errorMessage.includes('이미 신청한 분야')) {
-        alert('⚠ 이미 신청함');
+        errorToast('⚠ 이미 신청함');
       } else {
-        alert(`${errorMessage}`);
+        errorToast(`${errorMessage}`);
       }
     },
   });
 
   const handleSubmit = () => {
     if (!selectedSupport) {
-      alert('지원할 모집 부문을 선택해주세요.');
+      errorToast('지원할 모집 부문을 선택해주세요.');
       return;
     }
     mutation.mutate();

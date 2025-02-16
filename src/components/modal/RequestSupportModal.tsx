@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './supportModal.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import ApplyIcon from '../../assets/icons/apply.svg?react';
 import UnapplyIcon from '../../assets/icons/unapply.svg?react';
 import { getCategoryLabel } from '../../utils/categoryMapping';
-import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
 import { applyForRequest } from '../../apis/applyAPI';
 import axios from 'axios';
+import { useCollaborationSupport } from '../../hooks/useCollaborationSupport';
+import { useToast } from '../../contexts/toastContext';
 
 interface RequestSupportModalProps {
   onClose: () => void;
@@ -33,10 +34,16 @@ const RequestSupportModal = ({
   title,
   taskId,
 }: RequestSupportModalProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [selectedSupport, setSelectedSupport] = useState<number | null>(null);
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const {
+    selectedSupport,
+    message,
+    isChecked,
+    toggleCheckbox,
+    handleSupportSelection,
+    setMessage,
+    navigate,
+  } = useCollaborationSupport();
+  const { errorToast, successToast } = useToast();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -45,23 +52,15 @@ const RequestSupportModal = ({
     };
   }, []);
 
-  const toggleCheckbox = () => {
-    setIsChecked((prev) => !prev);
-  };
-
-  const handleSupportSelection = (id: number) => {
-    setSelectedSupport((prev) => (prev === id ? null : id));
-  };
-
   const mutation = useMutation({
     mutationFn: async () => {
       if (!taskId) {
-        alert('요청과제 게시글 ID가 없습니다. 다시 시도해주세요.');
+        errorToast('요청과제 게시글 ID가 없습니다. 다시 시도해주세요.');
         return Promise.reject('taskId is missing');
       }
 
       if (!selectedSupport) {
-        alert('지원할 모집 부문을 선택해주세요.');
+        errorToast('지원할 모집 부문을 선택해주세요.');
         return Promise.reject('지원할 모집 부문을 선택해주세요.');
       }
 
@@ -73,7 +72,7 @@ const RequestSupportModal = ({
       return applyForRequest(taskId, requestData);
     },
     onSuccess: () => {
-      alert('지원이 완료되었습니다!');
+      successToast('지원이 완료되었습니다!');
       onClose();
       navigate('/request-assign');
     },
@@ -87,16 +86,16 @@ const RequestSupportModal = ({
       }
 
       if (errorMessage.includes('이미 신청한 분야')) {
-        alert('⚠ 이미 신청함');
+        errorToast('⚠ 이미 신청함');
       } else {
-        alert(`${errorMessage}`);
+        errorToast(`${errorMessage}`);
       }
     },
   });
 
   const handleSubmit = () => {
     if (!selectedSupport) {
-      alert('지원할 모집 부문을 선택해주세요.');
+      errorToast('지원할 모집 부문을 선택해주세요.');
       return;
     }
     mutation.mutate();
