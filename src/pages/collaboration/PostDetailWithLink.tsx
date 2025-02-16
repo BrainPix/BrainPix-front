@@ -110,7 +110,6 @@ export const PostDetailWithLink = () => {
       <div className={styles.margin}>
         <QnASection
           postId={Number(collaborationId)}
-          profileImageUrl={authorInfoData.profileImageUrl}
           userId={userId}
         />
         <AuthorInfo {...authorInfoData} />

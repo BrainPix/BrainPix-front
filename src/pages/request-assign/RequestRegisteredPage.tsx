@@ -74,7 +74,6 @@ export const RequestRegisteredPage = () => {
       <RecruitInfo recruitments={data.recruitments} />
       <QnASection
         postId={Number(taskId)}
-        profileImageUrl={writerData.profileImageUrl}
         userId={userId}
       />
       <AuthorInfo {...writerData} />
