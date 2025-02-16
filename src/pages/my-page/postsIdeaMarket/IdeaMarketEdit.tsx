@@ -3,7 +3,7 @@ import PostTitlePay from '../../../components/registeredPage/PostTitlePay';
 import IdeaDescription from '../../../components/registeredPage/IdeaDescription';
 import QnASection from '../../../components/postdetail/QnASection';
 import AuthorInfo from '../../../components/postdetail/AuthorInfo';
-import styles from '../../../pages/idea-market/IdeaRegisteredPage.module.scss';
+import styles from '../../../pages/idea-market/ideaRegisteredPage.module.scss';
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
