@@ -122,6 +122,7 @@ export const RequestAssignMain = () => {
           .map((_, index) => (
             <PreviewThumbnail
               key={index}
+              ideaId={index}
               username='최규호'
               description='BrainPix 페이지'
               price={500000}

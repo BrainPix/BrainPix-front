@@ -20,6 +20,8 @@ interface PreviewThumbnailProps {
   views?: number;
   size?: 'normal' | 'large';
   onBookmarkClick?: () => void;
+  verified?: boolean;
+  onClick?: () => void;
 }
 
 const categoryMap: Record<string, string> = {
@@ -52,6 +54,8 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
   views = 0,
   size = 'normal',
   onBookmarkClick = () => {},
+  verified = false,
+  onClick,
 }) => {
   const navigate = useNavigate();
 
@@ -81,7 +85,8 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
     <div
       className={classNames(styles.container, {
         [styles.containerLarge]: size === 'large',
-      })}>
+      })}
+      onClick={onClick}>
       {/* 🔹 이미지 영역 */}
       <div
         className={styles.thumbnailImage}
@@ -120,6 +125,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
             )}
           </div>
           <span className={styles.username}>{username}</span>
+          {verified && <span className={styles.verifiedBadge}>기업 공개</span>}
         </div>
 
         <div className={styles.priceSection}>

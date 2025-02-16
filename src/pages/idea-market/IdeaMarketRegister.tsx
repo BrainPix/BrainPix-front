@@ -228,7 +228,9 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     }
   };
 
-  // handleSubmit 함수 수정
+  const accessToken = localStorage.getItem('accessToken');
+  console.log('🔑 저장된 Access Token:', accessToken);
+
   const handleSubmit = async () => {
     try {
       let imageUrl = '';

@@ -93,10 +93,6 @@ export const CollaborationRegister: React.FC<
     navigate('/idea-market/registered/:ideaId');
   };
 
-  const _handleEditClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  };
-
   useEffect(() => {
     return () => {
       if (previewImageUrl) {

@@ -19,7 +19,7 @@ export const IdeaMarketMarketPlace = () => {
   const navigate = useNavigate();
   const [cardsData, setCardsData] = useState<CardData[]>([]);
   const [ideaData, setIdeaData] = useState<IdeaMarketCheck['data']['content']>(
-    [],
+    [] as unknown as IdeaMarketCheck['data']['content'],
   );
   const [isLoading, setIsLoading] = useState(true);
 
@@ -151,6 +151,7 @@ export const IdeaMarketMarketPlace = () => {
         {ideaData.map((idea) => (
           <PreviewThumbnail
             key={idea.ideaId}
+            ideaId={idea.ideaId}
             username={idea.writerName}
             description={idea.title}
             price={idea.price}

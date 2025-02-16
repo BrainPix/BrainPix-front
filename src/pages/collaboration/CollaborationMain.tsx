@@ -58,6 +58,7 @@ export const CollaborationMain = () => {
           .fill(null)
           .map((_, index) => (
             <PreviewThumbnail
+              ideaId={1}
               key={index}
               username='최규호'
               description='BrainPix 페이지'
