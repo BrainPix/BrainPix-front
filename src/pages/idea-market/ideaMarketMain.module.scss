@@ -211,3 +211,91 @@
   gap: 47px;
   justify-content: center;
 }
+
+.carouselItem {
+  width: 200px;  /* 🔹 Carousel 내 카드 크기 200x286 */
+  height: 286px; /* 🔹 고정 크기 설정 */
+  display: flex;
+  justify-content: center;
+}
+
+/* 🔹 PreviewThumbnail 크기 조정 */
+.previewThumbnail {
+  width: 200px;
+  height: 286px;
+  border-radius: 5px;
+  border: 0.5px solid $grey-400;
+  display: flex;
+  flex-direction: column;
+  background: $grey-50;
+  overflow: hidden;
+}
+
+/* 🔹 이미지 크기 조정 (200x200) */
+.thumbnailImage {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  background-color: $grey-400;
+  overflow: hidden;
+
+  img, svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 🔹 비율 유지하면서 꽉 채우기 */
+  }
+}
+
+.select {
+  position: relative;
+  display: flex;
+  width: 240px;
+  height: 51px;
+  padding: 15px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid $grey-400;
+  background: $grey-50;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 15px;
+  color: $grey-800;
+
+  &:hover {
+    border-color: $grey-500;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $grey-600;
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid $grey-400;
+  border-radius: 0 0 5px 5px;
+  z-index: 1000;
+  margin-top: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownItem {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: $grey-700;
+  font-family: $font-family;
+  font-size: 15px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $grey-50;
+    color: $grey-900;
+  }
+}

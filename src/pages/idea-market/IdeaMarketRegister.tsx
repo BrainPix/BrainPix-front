@@ -11,6 +11,79 @@ import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
+// 타입 정의
+interface IdeaMarketPriceDto {
+  price: number;
+  totalQuantity: number;
+}
+
+// 카테고리 enum 타입
+type SpecializationType =
+  | 'ADVERTISING_PROMOTION'
+  | 'DESIGN'
+  | 'LESSON'
+  | 'MARKETING'
+  | 'DOCUMENT_WRITING'
+  | 'MEDIA_CONTENT'
+  | 'TRANSLATION_INTERPRETATION'
+  | 'TAX_LAW_LABOR'
+  | 'CUSTOM_PRODUCTION'
+  | 'STARTUP_BUSINESS'
+  | 'FOOD_BEVERAGE'
+  | 'IT_TECH'
+  | 'OTHERS';
+
+// 아이디어 마켓 타입
+type IdeaMarketType = 'IDEA_SOLUTION' | 'MARKET_PLACE';
+
+// 공개 범위 타입
+type PostAuth = 'ALL' | 'COMPANY' | 'ME';
+
+interface IdeaMarketRequestData {
+  title: string;
+  content: string;
+  specialization: SpecializationType;
+  openMyProfile: boolean;
+  postAuth: PostAuth;
+  ideaMarketType: IdeaMarketType;
+  priceDto: IdeaMarketPriceDto;
+  imageList: string[];
+  attachmentFileList: string[];
+}
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const categoryToEnum: Record<string, SpecializationType> = {
+  '광고 · 홍보': 'ADVERTISING_PROMOTION',
+  디자인: 'DESIGN',
+  레슨: 'LESSON',
+  마케팅: 'MARKETING',
+  '문서 · 글쓰기': 'DOCUMENT_WRITING',
+  '미디어 · 콘텐츠': 'MEDIA_CONTENT',
+  '번역 및 통역': 'TRANSLATION_INTERPRETATION',
+  '세무 · 법무 · 노무': 'TAX_LAW_LABOR',
+  주문제작: 'CUSTOM_PRODUCTION',
+  '창업 · 사업': 'STARTUP_BUSINESS',
+  '푸드 및 음료': 'FOOD_BEVERAGE',
+  'IT · 테크': 'IT_TECH',
+  기타: 'OTHERS',
+};
+
+// 공개 범위 매핑
+const visibilityToEnum: Record<string, PostAuth> = {
+  전체공개: 'ALL',
+  기업공개: 'COMPANY',
+  비공개: 'ME',
+};
+
+// 페이지 타입 매핑
+const pageTypeToEnum: Record<string, IdeaMarketType> = {
+  'Idea Solution': 'IDEA_SOLUTION',
+  'Market Place': 'MARKET_PLACE',
+};
+
 interface IdeaMarketRegisterProps {
   [key: string]: never;
 }
@@ -31,7 +104,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     '전체공개' | '기업공개' | '비공개'
   >('전체공개');
   const [price, setPrice] = useState<string>('0');
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
   const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
 
   const ideaNameInputRef = useRef<HTMLInputElement>(null);
@@ -96,72 +169,177 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     navigate(-1); // Goes back to the previous page
   };
 
+  const getPresignedUrl = async (file: File): Promise<string> => {
+    try {
+      const fileName = encodeURIComponent(file.name);
+      const contentType = encodeURIComponent(file.type);
+
+      const response = await fetch(
+        `${BASE_URL}/files/presigned-url?fileName=${fileName}&contentType=${contentType}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Presigned URL 요청 실패 - 상태 코드: ${response.status}`,
+        );
+      }
+
+      const presignedUrl = await response.text(); // JSON이 아니라 단순 URL 반환이므로 .text() 사용
+      console.log('📌 Presigned URL:', presignedUrl);
+      return presignedUrl;
+    } catch (error) {
+      console.error('❌ Presigned URL 요청 에러:', error);
+      throw error;
+    }
+  };
+
+  const uploadImageToPresignedUrl = async (
+    file: File,
+    presignedUrl: string,
+  ): Promise<string> => {
+    try {
+      const response = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `이미지 Presigned URL 업로드 실패 - 상태 코드: ${response.status}`,
+        );
+      }
+
+      // 업로드 성공 시, 최종 URL 반환 (presignedUrl에서 파일명만 추출하여 최종 저장 URL을 구성)
+      const imageUrl = presignedUrl.split('?')[0];
+      console.log('✅ Presigned URL 업로드 성공, 저장된 이미지 URL:', imageUrl);
+      return imageUrl;
+    } catch (error) {
+      console.error('❌ 이미지 업로드 에러:', error);
+      throw error;
+    }
+  };
+
+  // handleSubmit 함수 수정
   const handleSubmit = async () => {
     try {
-      const formData = new FormData();
+      let imageUrl = '';
 
-      const ideaMarketData = {
+      // 파일 업로드 과정
+      const currentFileInput = fileInputRef.current;
+      if (currentFileInput?.files && currentFileInput.files.length > 0) {
+        const imageFile = currentFileInput.files[0];
+
+        // 1️⃣ Presigned URL 가져오기
+        const presignedUrl = await getPresignedUrl(imageFile);
+
+        // 2️⃣ Presigned URL을 사용하여 이미지 업로드
+        imageUrl = await uploadImageToPresignedUrl(imageFile, presignedUrl);
+      }
+
+      // 3️⃣ 게시글 요청 데이터 생성
+      const requestData: IdeaMarketRequestData = {
         title: ideaNameInputRef.current?.value || '',
-        content: content,
-        specialization: category,
+        content: content.substring(0, 50000),
+        specialization: categoryToEnum[category],
         openMyProfile: isPortfolioVisible,
-        postAuth:
-          visibility === '전체공개'
-            ? 'ALL'
-            : visibility === '기업공개'
-              ? 'COMPANY'
-              : 'ME',
-        ideaMarketType:
-          pageType === 'Idea Solution' ? 'IDEA_SOLUTION' : 'MARKET_PLACE',
+        postAuth: visibilityToEnum[visibility],
+        ideaMarketType: pageTypeToEnum[pageType],
         priceDto: {
           price: parseInt(price),
           totalQuantity: quantity,
         },
+        imageList: imageUrl ? [imageUrl] : [], // Presigned URL로 업로드한 이미지 URL 추가
+        attachmentFileList: [], // PDF는 그대로 유지
       };
 
-      formData.append('data', JSON.stringify(ideaMarketData));
+      console.log('📌 최종 요청 데이터:', requestData);
 
-      // 이미지 파일 추가
-      if (previewImageUrl) {
-        const imageFile = await fetch(previewImageUrl).then((r) => r.blob());
-        formData.append('imageList', imageFile);
-      }
-
-      // PDF 파일 추가
-      if (pdfFile) {
-        formData.append('attachmentFileList', pdfFile);
-      }
-
-      // API 호출
-      const response = await fetch('/idea-markets', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('API 호출 실패');
-      }
-
-      // 성공시 완료 페이지로 이동
+      await submitIdeaMarket(requestData);
       navigate('/idea-market/register-complete');
     } catch (error) {
-      console.error('등록 실패:', error);
-      // 에러 처리 (예: 알림 표시)
+      console.error('❌ 등록 실패:', error);
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
+  const submitIdeaMarket = async (
+    data: IdeaMarketRequestData,
+  ): Promise<Response> => {
+    try {
+      const requestData = {
+        title: data.title,
+        content: data.content,
+        specialization: data.specialization,
+        openMyProfile: data.openMyProfile,
+        postAuth: data.postAuth,
+        ideaMarketType: data.ideaMarketType,
+        priceDto: {
+          price: data.priceDto.price,
+          totalQuantity: data.priceDto.totalQuantity,
+        },
+        imageList: data.imageList,
+        attachmentFileList: data.attachmentFileList,
+      };
+
+      console.log('Request Data Object:', requestData);
+      console.log('Stringified Request Data:', JSON.stringify(requestData));
+      console.log('Access Token:', localStorage.getItem('accessToken'));
+
+      const response = await fetch(`${BASE_URL}/idea-markets`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      console.log('Response Status:', response.status);
+      console.log('Response OK:', response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server Error Response:', errorText);
+        console.error('Response Headers:', [...response.headers.entries()]);
+        throw new Error(`API 호출 실패 (${response.status}): ${errorText}`);
+      }
+
+      const responseData = await response.json();
+      console.log('Successful Response Data:', responseData);
+
+      return response;
+    } catch (error) {
+      console.error('Request Error Details:', {
+        error,
+      });
+      throw error;
+    }
+  };
+
+  // useEffect 로그
   useEffect(() => {
+    console.log('Current previewImageUrl:', previewImageUrl);
     return () => {
-      // 컴포넌트가 언마운트될 때 URL 정리
       if (previewImageUrl) {
+        console.log('Cleaning up URL:', previewImageUrl);
         URL.revokeObjectURL(previewImageUrl);
       }
     };
   }, [previewImageUrl]);
 
-  const modules = useMemo(
-    () => ({
+  // Quill modules 로그
+  const modules = useMemo(() => {
+    console.log('Initializing Quill modules');
+    return {
       toolbar: {
         container: [
           [{ font: [] }, { size: [] }, { align: [] }],
@@ -169,6 +347,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         ],
         handlers: {
           image: () => {
+            console.log('Image handler triggered');
             const input = document.createElement('input');
             input.setAttribute('type', 'file');
             input.setAttribute('accept', 'image/*');
@@ -177,13 +356,33 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
             input.onchange = async () => {
               const file = input.files?.[0];
               if (file) {
+                console.log('Selected file:', {
+                  name: file.name,
+                  size: file.size,
+                  type: file.type,
+                });
+
+                if (file.size > MAX_FILE_SIZE) {
+                  console.warn('File size exceeds limit:', file.size);
+                  alert('이미지 파일 크기는 5MB를 초과할 수 없습니다.');
+                  return;
+                }
+
                 const reader = new FileReader();
                 reader.onload = () => {
+                  console.log('File read completed');
                   const quill = quillRef.current?.getEditor();
                   if (quill) {
                     const range = quill.getSelection(true);
+                    console.log('Quill selection range:', range);
                     quill.insertEmbed(range.index, 'image', reader.result);
+                    console.log('Image embedded in editor');
+                  } else {
+                    console.warn('Quill editor not found');
                   }
+                };
+                reader.onerror = (error) => {
+                  console.error('FileReader error:', error);
                 };
                 reader.readAsDataURL(file);
               }
@@ -191,9 +390,8 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
           },
         },
       },
-    }),
-    [],
-  );
+    };
+  }, []);
 
   // Quill 에디터 스타일 설정
   const formats = ['font', 'size', 'align', 'link', 'image'];

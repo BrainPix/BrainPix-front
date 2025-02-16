@@ -6,7 +6,7 @@ export interface IdeaMarketCheck {
     content: [
       {
         ideaId: 0;
-        auth: 'string';
+        auth: 'ALL' | 'COMPANY' | 'ME';
         writerImageUrl: 'string';
         writerName: 'string';
         thumbnailImageUrl: 'string';
