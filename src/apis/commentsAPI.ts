@@ -112,7 +112,6 @@ export const deleteComment = async (postId: number, commentId: number) => {
       },
     );
 
-    console.log(`댓글 삭제 성공: commentId=${commentId}`);
     return data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
