@@ -1,4 +1,4 @@
-import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
+import { ProfileHeaderAuthor } from '../../../components/my-page/ProfileHeaderAuthor';
 import { CollaboPostHeader } from '../../../components/my-page/CollaboPostHeader';
 import WebLinkBox from '../../../components/postdetail/WebLinkBox';
 import { PostFormContent } from '../../../components/my-page/PostFormContent';
@@ -36,11 +36,10 @@ export const CollaborationEdit = () => {
     <>
       <div className={styles.margin}>
         {/* 게시물 작성자 */}
-        <PostFormAuthor
-          userName={USER_DATA.userName}
-          profileImage={USER_DATA.profileImage}
-          postId={POST_DATA.postId}
-          editPath='/my/posts/collaboration/registered'
+        <ProfileHeaderAuthor
+          name={USER_DATA.userName}
+          profileImageUrl={USER_DATA.profileImage || '/default-profile.png'}
+          buttonPath='/collaboration'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <CollaboPostHeader

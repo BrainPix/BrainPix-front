@@ -1,4 +1,4 @@
-import ProfileHeader from '../../../components/registeredPage/ProfileHeader';
+import { ProfileHeaderAuthor } from '../../../components/my-page/ProfileHeaderAuthor';
 import PostTitlePay from '../../../components/registeredPage/PostTitlePay';
 import IdeaDescription from '../../../components/registeredPage/IdeaDescription';
 import QnASection from '../../../components/postdetail/QnASection';
@@ -49,7 +49,9 @@ export const IdeaMarketEdit = () => {
     enabled: isReady,
     staleTime: 1000 * 60 * 10,
   });
+
   console.log('IdeaMarketEdit.tsx - post:', post);
+
   if (!isReady) return <div>페이지 로딩 중...</div>;
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
@@ -58,10 +60,10 @@ export const IdeaMarketEdit = () => {
     <>
       <div className={styles.margin}>
         {/* 게시물 작성자, 게시물 정보 */}
-        <ProfileHeader
+        <ProfileHeaderAuthor
           name={post?.writer?.name || ''}
           profileImageUrl={post?.writer?.profileImageUrl || ''}
-          openMyProfile={() => console.log('프로필 페이지로 이동')} // 임시 지정
+          buttonPath='/idea-market'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <PostTitlePay
