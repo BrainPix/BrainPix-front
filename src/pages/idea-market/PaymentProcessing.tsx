@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
 import { kakaoPayApprove } from '../../apis/kakaoAPI';
-import './paymentProcessing.module.scss';
+import styles from './paymentProcessing.module.scss';
 
 export const PaymentProcessing = () => {
   const navigate = useNavigate();
@@ -75,27 +75,27 @@ export const PaymentProcessing = () => {
   };
 
   return (
-    <div className='payment-container'>
-      <div className='spinner'></div>
+    <div className={styles.paymentContainer}>
+      <div className={styles.spinner}></div>
 
-      <h2 className='title'>결제 진행 중입니다.</h2>
+      <h2 className={styles.title}>결제 진행 중입니다.</h2>
       <p className='subtitle'>결제 완료까지 다소 시간이 걸릴 수 있습니다.</p>
 
-      <p className='description'>
+      <p className={styles.description}>
         화면을 벗어나도 결제는 계속 진행되며,
         <br />
         주문결과는 ‘마이페이지 지원현황 아이디어마켓’에서 확인 할 수 있습니다.
       </p>
 
-      <div className='button-group'>
+      <div className={styles.buttonGroup}>
         <button
-          className='replay-button'
+          className={styles.replayButton}
           onClick={goBackTwice}>
           아이디어 다시보기
           <IdeaReplayIcon />
         </button>
         <button
-          className='main-button'
+          className={styles.mainButton}
           onClick={() => navigate('/idea-market')}>
           메인 페이지
         </button>
