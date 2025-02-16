@@ -40,7 +40,7 @@ export const CollaborationEdit = () => {
           userName={USER_DATA.userName}
           profileImage={USER_DATA.profileImage}
           postId={POST_DATA.postId}
-          editPath='/my/posts/collaboration/register'
+          editPath='/my/posts/collaboration/registered'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <CollaboPostHeader
