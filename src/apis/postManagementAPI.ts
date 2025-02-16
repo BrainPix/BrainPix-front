@@ -22,7 +22,7 @@ export const getPostIdeaMarket = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -55,7 +55,7 @@ export const getPostRequestTask = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -88,7 +88,7 @@ export const getPostCollaboration = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -120,7 +120,7 @@ export const getPostIdeaMarketDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -147,7 +147,7 @@ export const getPostRequestTaskDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -174,7 +174,7 @@ export const getPostCollaborationDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -201,7 +201,7 @@ export const postAcceptRequestApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -230,7 +230,7 @@ export const postRejectRequestApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -259,7 +259,7 @@ export const postAcceptCollaborationApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -288,7 +288,7 @@ export const postRejectCollaborationApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {

@@ -14,7 +14,7 @@ export const getPurchases = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -45,7 +45,7 @@ export const getAcceptedRequestTasks = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -77,7 +77,7 @@ export const getRejectedRequestTasks = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -106,7 +106,7 @@ export const deleteRejectedRequestTasks = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -132,7 +132,7 @@ export const getAcceptedCollaborations = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -166,7 +166,7 @@ export const getRejectedCollaborations = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -195,7 +195,7 @@ export const deleteRejectedCollaborations = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
