@@ -7,10 +7,9 @@ import React from 'react';
 interface QnASectionProps {
   postId: number;
   userId: number; //props로 userId 받기
-  profileImageUrl: string;
 }
 
-const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
+const QnASection = ({ postId, userId }: QnASectionProps) => {
   const {
     commentsQuery,
     postCommentMutation,
@@ -111,7 +110,7 @@ const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
             className={styles.qnaItem}>
             <div className={styles.profile}>
               <img
-                src={profileImageUrl || '/default-profile.png'}
+                src={comment.profileImageUrl || '/default-profile.png'}
                 alt='프로필'
                 className={styles.profileIcon}
               />
@@ -162,7 +161,7 @@ const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
                       className={styles.qnaItemReply}>
                       <div className={styles.profile}>
                         <img
-                          src={profileImageUrl || '/default-profile.png'}
+                          src={child.profileImageUrl || '/default-profile.png'}
                           alt='프로필'
                           className={styles.profileIcon}
                         />
