@@ -1,0 +1,61 @@
+.container {
+  flex-direction: column;
+  @include flex-center;
+  height: 100vh;
+  width: 100%;
+  background: $grey-50;
+  text-align: center;
+}
+
+.title {
+  color: $grey-900;
+  text-align: center;
+  @include pretendard-32-600;
+  letter-spacing: -0.28px;
+  margin-bottom: 20px;
+  margin-top: 30 px;
+}
+
+.subtitle {
+  color: $grey-700;
+  text-align: center;
+  @include pretendard-20-500;
+  letter-spacing: -0.2px;
+  margin-bottom: 40px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.replayButton {
+  display: inline-flex;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 35px;
+  background: $grey-900;
+  color: #fafafa;
+  @include pretendard-16-500;
+  letter-spacing: -0.16px;
+  border: none;
+  cursor: pointer;
+}
+
+.mainButton {
+  display: inline-flex;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 35px;
+  background: $grey-100;
+  color: $grey-900;
+  @include pretendard-16-500;
+  letter-spacing: -0.16px;
+  cursor: pointer;
+  border: $grey-500 1px solid;
+}
