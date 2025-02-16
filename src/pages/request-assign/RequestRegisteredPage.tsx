@@ -8,14 +8,14 @@ import styles from './requestRegisteredPage.module.scss';
 import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
-import { RequsetDetail } from '../../types/detailPageType';
+import { RequestDetail } from '../../types/detailPageType';
 import { getRequestDetail } from '../../apis/detailPageAPI';
 
 export const RequestRegisteredPage = () => {
   const { taskId } = useParams<{ taskId: string }>();
   //const validIdeaId = ideaId ? Number(taskId) : undefined;
 
-  const { data, isLoading, error } = useQuery<RequsetDetail, Error>({
+  const { data, isLoading, error } = useQuery<RequestDetail, Error>({
     queryKey: ['requsetDetaill', taskId],
     queryFn: () => getRequestDetail(Number(taskId)),
     enabled: !!taskId,
