@@ -1,4 +1,4 @@
-import ProfileHeader from '../../../components/registeredPage/ProfileHeader';
+import { ProfileHeaderAuthor } from '../../../components/my-page/ProfileHeaderAuthor';
 import PostTitleApply from '../../../components/registeredPage/PostTitleApply';
 import AssignmentDescription from '../../../components/registeredPage/AssignmentDescription';
 import RecruitInfo from '../../../components/registeredPage/RecruitInfo';
@@ -9,7 +9,7 @@ import styles from '../../../pages/request-assign/requestRegisteredPage.module.s
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { RequsetDetail } from '../../../types/detailPageType';
+import { RequestDetail } from '../../../types/detailPageType';
 import { getRequestDetail } from '../../../apis/detailPageAPI';
 
 export const RequestAssignEdit = () => {
@@ -30,8 +30,8 @@ export const RequestAssignEdit = () => {
     data: post,
     isLoading,
     error,
-  } = useQuery<RequsetDetail, Error>({
-    queryKey: ['requsetDetaill', resolvedTaskId],
+  } = useQuery<RequestDetail, Error>({
+    queryKey: ['RequestDetail', resolvedTaskId],
     queryFn: () => getRequestDetail(resolvedTaskId!),
     enabled: isReady,
     staleTime: 1000 * 60 * 10,
@@ -44,10 +44,12 @@ export const RequestAssignEdit = () => {
     <>
       <div className={styles.margin}>
         {/* 게시물 작성자, 게시물 정보 */}
-        <ProfileHeader
+        <ProfileHeaderAuthor
           name={post?.writer?.name || ''}
           profileImageUrl={post?.writer?.profileImageUrl || ''}
-          openMyProfile={() => console.log('프로필 페이지로 이동')} // 임시 지정
+          buttonPath='/request-assign'
+          postId={Number(taskId)}
+          postType='request-tasks'
         />
         <PostTitleApply
           thumbnailImageUrl={post?.thumbnailImageUrl || ''}
