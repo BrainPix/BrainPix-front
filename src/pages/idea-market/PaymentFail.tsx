@@ -8,7 +8,7 @@ export const PaymentFail = () => {
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
-  const ideaId = searchParams.get('ideaId') || sessionStorage.getItem('ideaId');
+  const ideaId = searchParams.get('ideaId') || localStorage.getItem('ideaId');
 
   const handleGoBack = () => {
     if (ideaId) {
