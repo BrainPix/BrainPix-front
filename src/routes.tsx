@@ -100,7 +100,7 @@ export const routes = createBrowserRouter([
         element: <CollaborationMain />,
       },
       {
-        path: '/personal-profile/:id',
+        path: '/personal-profile/:id/:userType',
         element: <PersonalProfile />,
       },
       {

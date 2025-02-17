@@ -11,6 +11,22 @@ export interface IdeaMarket {
   viewCount?: number;
 }
 
+export interface getOtherPostsType {
+  postId: number;
+  openScope: string;
+  specialization: string;
+  title: string;
+  writerName: string;
+  savedCount: number;
+  viewCount: number;
+  deadline: string;
+  thumbnailImage: string;
+  writerImageUrl: string;
+  price: number;
+  currentMembers: number;
+  totalMembers: number;
+}
+
 export interface RequestTask {
   ideaId: number;
   auth: string;

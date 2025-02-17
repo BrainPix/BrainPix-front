@@ -1,6 +1,6 @@
 export const PERSONAL_RPOFILE_INIT = {
   userType: '',
-  specializations: '',
+  specializations: [''],
   name: '',
   selfIntroduction: '',
   contacts: [
@@ -27,7 +27,7 @@ export const PERSONAL_RPOFILE_INIT = {
 export const COMPANY_RPOFILE_INIT = {
   userId: '',
   userType: '',
-  specializations: '',
+  specializations: [''],
   name: '',
   selfIntroduction: '',
   businessInformation: '',

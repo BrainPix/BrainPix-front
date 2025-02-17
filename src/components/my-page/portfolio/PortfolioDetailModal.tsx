@@ -68,8 +68,9 @@ export const PortfolioDetailModal = forwardRef<
       putPorfolioDetail(cardId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clickedCardData'] });
-      queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
+      queryClient.resetQueries({ queryKey: ['myPortfolios'] });
       successToast('수정이 완료되었습니다.');
+      onClose();
     },
     onError: () => errorToast('게시글 수정에 실패하였습니다.'),
   });
@@ -78,7 +79,7 @@ export const PortfolioDetailModal = forwardRef<
     mutationFn: () => deletePorfolioDetail(cardId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clickedCardData'] });
-      queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
+      queryClient.resetQueries({ queryKey: ['myPortfolios'] });
       successToast('삭제가 완료되었습니다.');
       onClose();
     },
