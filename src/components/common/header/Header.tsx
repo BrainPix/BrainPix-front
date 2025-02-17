@@ -136,7 +136,7 @@ export const Header = () => {
             className={classNames(styles.hoverMenu, styles.ideaMarket)}
             onMouseEnter={() => setHoverIdeaMarket(true)}
             onMouseLeave={() => setHoverIdeaMarket(false)}>
-            <a href='/idea-market/idea-solution'>Idea Solution</a>
+            <a href='/idea-market'>Idea Solution</a>
             <a href='/idea-market/market-place'>Market Place</a>
           </div>
         )}

@@ -6,7 +6,7 @@ export const IdeaMarketRegisterComplete = () => {
   const navigate = useNavigate();
 
   const handleRegisteredClick = () => {
-    navigate('/idea-market/registered');
+    navigate('/idea-market/registered/:ideaId');
   };
 
   const handleMyPageClick = () => {
