@@ -1,6 +1,6 @@
 export const PERSONAL_RPOFILE_INIT = {
   userType: '',
-  specializations: '',
+  specializations: [''],
   name: '',
   selfIntroduction: '',
   contacts: [
@@ -27,7 +27,7 @@ export const PERSONAL_RPOFILE_INIT = {
 export const COMPANY_RPOFILE_INIT = {
   userId: '',
   userType: '',
-  specializations: '',
+  specializations: [''],
   name: '',
   selfIntroduction: '',
   businessInformation: '',
@@ -46,4 +46,15 @@ export const PORTFOLIO_DETAIL_INIT = {
   endDate: '',
   content: '',
   profileImage: '',
+};
+
+export const MY_BASIC_INFO_INIT = {
+  name: '',
+  userType: '',
+  specializations: ['ADVERTISING_PROMOTION'],
+  ideaCount: 0,
+  collaborationCount: 0,
+  selfIntroduction: '',
+  profileImage: '',
+  userId: 0,
 };

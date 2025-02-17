@@ -54,7 +54,7 @@ export const IdeaMarketMain = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [_cardsData, setCardsData] = useState<CardData[]>([]);
   const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
-  const [isInitialLoading, setIsInitialLoading] = useState(true); // 초기 로딩용
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [_isUpdating, setIsUpdating] = useState(false);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
@@ -77,7 +77,6 @@ export const IdeaMarketMain = () => {
         const response = await getIdeaList(params);
 
         if (response.success) {
-          // response.data.content가 이미 IdeaData[] 타입을 가지도록 수정
           const filteredData =
             viewOption === 'company'
               ? response.data.content.filter((item) => item.auth === 'COMPANY')
@@ -112,7 +111,6 @@ export const IdeaMarketMain = () => {
     [fetchIdeas, selectedCategory],
   );
 
-  // handleCategorySelect 함수는 그대로 유지
   const handleCategorySelect = useCallback(
     (category: string) => {
       setSelectedCategory(category);
@@ -152,7 +150,6 @@ export const IdeaMarketMain = () => {
         );
       }
     } catch (err) {
-      // 타입 가드를 사용하여 error 타입 처리
       setIdeaData((prevData) =>
         prevData.map((idea) =>
           idea.ideaId === ideaId
@@ -174,7 +171,7 @@ export const IdeaMarketMain = () => {
   };
 
   useEffect(() => {
-    fetchIdeas(); // 초기 데이터 로드
+    fetchIdeas();
   }, [fetchIdeas]);
 
   useEffect(() => {
@@ -199,7 +196,7 @@ export const IdeaMarketMain = () => {
         key={category}
         className={styles.dropdownItem}
         onClick={(e) => {
-          e.stopPropagation(); // 이벤트 버블링 방지
+          e.stopPropagation();
           handleCategorySelect(category);
         }}>
         {category}
@@ -232,29 +229,30 @@ export const IdeaMarketMain = () => {
           </div>
           <Carousel
             buttonPosition='center'
-            cardWidth={200} // 🔹 카드 전체 크기 조정
+            cardWidth={200}
             cardCount={3}
             gap={45}
-            dataLength={ideaData.length} // 🔹 `ideaData` 그대로 활용
-          >
+            dataLength={ideaData.length}>
             {ideaData.map((idea) => (
               <div
                 key={idea.ideaId}
                 className={styles.carouselItem}>
                 <PreviewThumbnail
-                  ideaId={idea.ideaId}
-                  username={idea.writerName}
-                  description={idea.title}
-                  price={idea.price}
-                  imageUrl={idea.thumbnailImageUrl || ''}
-                  profileImage={idea.writerImageUrl}
-                  isBookmarked={idea.isSavedPost}
-                  saves={idea.saveCount}
-                  views={idea.viewCount}
-                  auth={idea.auth}
-                  category={idea.category}
-                  size='large'
-                  onBookmarkClick={() => handleBookmarkClick(idea.ideaId)}
+                  data={{
+                    ideaId: idea.ideaId,
+                    username: idea.writerName,
+                    description: idea.title,
+                    price: idea.price,
+                    imageUrl: idea.thumbnailImageUrl || '',
+                    profileImage: idea.writerImageUrl,
+                    isBookmarked: idea.isSavedPost,
+                    saves: idea.saveCount,
+                    views: idea.viewCount,
+                    auth: idea.auth,
+                    category: idea.category,
+                    size: 'large',
+                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+                  }}
                 />
               </div>
             ))}
@@ -318,18 +316,20 @@ export const IdeaMarketMain = () => {
         {ideaData.map((idea) => (
           <PreviewThumbnail
             key={idea.ideaId}
-            ideaId={idea.ideaId}
-            username={idea.writerName}
-            description={idea.title}
-            price={idea.price}
-            imageUrl={idea.thumbnailImageUrl || undefined}
-            profileImage={idea.writerImageUrl}
-            isBookmarked={idea.isSavedPost}
-            saves={idea.saveCount}
-            views={idea.viewCount}
-            auth={idea.auth} // postAuth 대신 auth 사용
-            category={idea.category} // specialization 대신 category 사용
-            onBookmarkClick={() => handleBookmarkClick(idea.ideaId)}
+            data={{
+              ideaId: idea.ideaId,
+              username: idea.writerName,
+              description: idea.title,
+              price: idea.price,
+              imageUrl: idea.thumbnailImageUrl || undefined,
+              profileImage: idea.writerImageUrl,
+              isBookmarked: idea.isSavedPost,
+              saves: idea.saveCount,
+              views: idea.viewCount,
+              auth: idea.auth,
+              category: idea.category,
+              onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+            }}
           />
         ))}
       </div>

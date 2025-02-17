@@ -5,20 +5,20 @@
   margin-top: 40px;
   margin-bottom: 153px;
 }
-  
+
 .formGroup {
   margin-bottom: 1.5rem;
 }
-  
+
 .categoryGroup {
   width: 380px;
   margin-bottom: 0;
 }
-  
+
 .pageTypeGroup {
   position: relative;
 }
-  
+
 .pageDescription {
   position: absolute;
   margin-top: 5px;
@@ -44,7 +44,7 @@
   .descriptionText {
     color: $primary-300;
     font-family: $font-family;
-    font-size: 16px;
+    font-size: $font-size-small;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -83,7 +83,7 @@
     }
   }
 }
-  
+
 .labelWrapper {
   margin-bottom: 20px;
   display: flex;
@@ -91,42 +91,41 @@
   gap: 0.5rem;
   color: $grey-800;
   font-family: $font-family;
-  font-size: 20px;
+  font-size: $font-size-base;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
 }
-  
+
 .required {
   color: $red;
 }
-  
+
 .select {
+  @include flex-space-between;
+
   position: relative;
-  display: flex;
   width: 380px;
   height: 51px;
   padding: 15px 20px;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 5px;
   border: 1px solid $grey-400;
   background: $grey-50;
   cursor: pointer;
 }
-  
+
 .dropdownMenu {
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
-  background: white;
+  background: $grey-50;
   border: 1px solid $grey-400;
   border-radius: 0 0 5px 5px;
   z-index: 1000;
 }
-  
+
 .dropdownItem {
   padding: 12px 20px;
   cursor: pointer;
@@ -135,7 +134,7 @@
     background: $grey-50;
   }
 }
-  
+
 .pageTypeWrapper {
   display: flex;
   width: 380px;
@@ -143,10 +142,10 @@
   align-items: center;
   border: 1px solid $grey-300;
   border-radius: 5px;
-  background: white;
+  background: $grey-50;
   overflow: hidden;
 }
-  
+
 .pageTypeButton {
   width: 50%;
   height: 100%;

@@ -1,16 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import styles from './login.module.scss';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { loginRegisters } from '../../constants/registers';
+import Logo from '../../assets/icons/logo.svg?react';
 import { postLogin } from '../../apis/authAPI';
 import { LoginPayload } from '../../types/authType';
 import Delete from '../../assets/icons/delete.svg?react';
 import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
 import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
 import { ToastContext } from '../../contexts/toastContext';
+import { getMyBasicInfo } from '../../apis/mypageAPI';
 
 interface LoginPropsType {
   userType: 'personal' | 'corporate';
@@ -20,6 +22,7 @@ export const Login = ({ userType }: LoginPropsType) => {
   const [member, setMember] = useState<'personal' | 'corporate'>(userType);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const { errorToast, successToast } = useContext(ToastContext);
+  const [isLoginSuccess, setIsLoginSuccess] = useState(false);
 
   const {
     register,
@@ -29,18 +32,35 @@ export const Login = ({ userType }: LoginPropsType) => {
     setValue,
   } = useForm({ mode: 'onSubmit' });
 
+  const { data: myInfo, isFetching: isFetchingToGetMyInfo } = useQuery({
+    queryFn: getMyBasicInfo,
+    queryKey: ['myBasicInfo'],
+    enabled: isLoginSuccess === true,
+  });
+
+  useEffect(() => {
+    if (myInfo?.data.userId) {
+      localStorage.setItem('userId', myInfo.data.userId);
+    }
+  }, [myInfo]);
+
   const { mutate: loginMutate } = useMutation({
     mutationFn: (formData: LoginPayload) => postLogin(formData),
     onSuccess: (response) => {
       localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('myType', userType);
+      setIsLoginSuccess(true);
       successToast('로그인에 성공하였습니다.');
-      setTimeout(() => (location.href = '/idea-market'), 2000);
+      setTimeout(() => (location.href = '/idea-market'), 1000);
     },
     onError: () => {
       errorToast('로그인에 실패하였습니다.');
     },
   });
+
+  if (isFetchingToGetMyInfo) {
+    return <div>사용자 정보를 가져오는 중입니다...</div>;
+  }
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {
     const { id, password } = payload;
@@ -52,7 +72,7 @@ export const Login = ({ userType }: LoginPropsType) => {
 
   return (
     <div className={classNames(styles.container)}>
-      <div className={classNames(styles.logo)}>로고</div>
+      <Logo className={classNames(styles.logo)} />
       <h1 className={classNames(styles.title)}>로그인</h1>
       <div className={classNames(styles.loginContainer)}>
         <div className={classNames(styles.buttonWrapper)}>

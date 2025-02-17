@@ -169,8 +169,8 @@ export const StepTwo = ({
                     styles.emailButton,
                     fieldState('email').invalid &&
                       !(emailCheckResult === '실패')
-                      ? 'buttonFilled-grey400'
-                      : 'buttonFilled-grey800',
+                      ? 'buttonFilled-grey500'
+                      : 'buttonFilled-grey900',
                   )}>
                   {sendEmailButtonText}
                 </button>
@@ -207,7 +207,7 @@ export const StepTwo = ({
           className={classNames(
             styles.submitButton,
             isValid && emailCheckResult === '성공'
-              ? 'buttonFilled-grey800'
+              ? 'buttonFilled-grey900'
               : 'buttonFilled-grey500',
           )}
           type='submit'>

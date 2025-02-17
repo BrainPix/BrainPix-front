@@ -6,7 +6,7 @@ import UnclickBookmark from '../../assets/icons/unclickBookmark.svg?react';
 import DefaultImage from '../../assets/icons/defaultImage.svg?react';
 import styles from './previewThumbnail.module.scss';
 
-interface PreviewThumbnailProps {
+interface PreviewThumbnailType {
   ideaId: number;
   imageUrl?: string;
   profileImage?: string;
@@ -22,6 +22,10 @@ interface PreviewThumbnailProps {
   onBookmarkClick?: () => void;
   verified?: boolean;
   onClick?: () => void;
+}
+
+interface PreviewThumbnailProps {
+  data: PreviewThumbnailType;
 }
 
 const categoryMap: Record<string, string> = {
@@ -40,26 +44,27 @@ const categoryMap: Record<string, string> = {
   OTHERS: '기타',
 };
 
-const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
-  ideaId,
-  imageUrl = '',
-  profileImage = '',
-  username = '',
-  description = '',
-  price = 0,
-  isBookmarked = false,
-  auth = 'ALL',
-  category = '',
-  saves = 0,
-  views = 0,
-  size = 'normal',
-  onBookmarkClick = () => {},
-  verified = false,
-  onClick,
-}) => {
+const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
+  const {
+    ideaId,
+    imageUrl = '',
+    profileImage = '',
+    username = '',
+    description = '',
+    price = 0,
+    isBookmarked = false,
+    auth = 'ALL',
+    category = '',
+    saves = 0,
+    views = 0,
+    size = 'normal',
+    onBookmarkClick = () => {},
+    verified = false,
+    onClick,
+  } = data;
+
   const navigate = useNavigate();
 
-  // 공개 여부 변환
   const authText =
     auth === 'ALL' ? '전체 공개' : auth === 'COMPANY' ? '기업 공개' : '비공개';
   const authClass =
@@ -69,10 +74,8 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
         ? styles.company
         : styles.private;
 
-  // 카테고리 변환 (영어 → 한글)
   const categoryText = categoryMap[category] || category;
 
-  // 이미지 클릭 핸들러
   const handleImageClick = () => {
     if (ideaId) {
       navigate(`/idea-market/registered/${ideaId}`);
@@ -87,7 +90,6 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
         [styles.containerLarge]: size === 'large',
       })}
       onClick={onClick}>
-      {/* 🔹 이미지 영역 */}
       <div
         className={styles.thumbnailImage}
         onClick={handleImageClick}
@@ -111,7 +113,6 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
         </div>
       </div>
 
-      {/* 🔹 프로필 및 가격 정보 */}
       <div className={styles.contentSection}>
         <div className={styles.profileSection}>
           <div className={styles.profileImage}>
@@ -132,7 +133,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
           <span className={styles.price}>{price.toLocaleString()}원</span>
           <button
             onClick={(e) => {
-              e.stopPropagation(); // 이미지 클릭 이벤트와 충돌 방지
+              e.stopPropagation();
               onBookmarkClick();
             }}
             className={styles.bookmarkButton}>
@@ -144,7 +145,6 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
           </button>
         </div>
 
-        {/* 🔹 저장 및 조회 수 */}
         <div className={styles.stats}>
           저장 {saves} · 조회 {views}
         </div>

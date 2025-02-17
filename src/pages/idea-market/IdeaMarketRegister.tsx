@@ -71,14 +71,28 @@ const categoryToEnum: Record<string, SpecializationType> = {
   기타: 'OTHERS',
 };
 
-// 공개 범위 매핑
+const OPTIONS = [
+  '광고 · 홍보',
+  '디자인',
+  '레슨',
+  '마케팅',
+  '문서 · 글쓰기',
+  '미디어 · 콘텐츠',
+  '번역 및 통역',
+  '세무 · 법무 · 노무',
+  '주문제작',
+  '창업 · 사업',
+  '푸드 및 음료',
+  'IT · 테크',
+  '기타',
+];
+
 const visibilityToEnum: Record<string, PostAuth> = {
   전체공개: 'ALL',
   기업공개: 'COMPANY',
   비공개: 'ME',
 };
 
-// 페이지 타입 매핑
 const pageTypeToEnum: Record<string, IdeaMarketType> = {
   'Idea Solution': 'IDEA_SOLUTION',
   'Market Place': 'MARKET_PLACE',
@@ -116,7 +130,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     const file = event.target.files?.[0];
     if (file) {
       setAttachedFile(file);
-      // 이미지 URL 생성
       const imageUrl = URL.createObjectURL(file);
       setPreviewImageUrl(imageUrl);
     }
@@ -161,12 +174,11 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
   };
 
   const handleEditClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 상위 컴포넌트로의 이벤트 전파 방지
-    // Edit 버튼 클릭 시 처리할 로직
+    e.stopPropagation();
   };
 
   const handleCancel = () => {
-    navigate(-1); // Goes back to the previous page
+    navigate(-1);
   };
 
   const getPresignedUrl = async (file: File): Promise<string> => {
@@ -190,7 +202,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         );
       }
 
-      const presignedUrl = await response.text(); // JSON이 아니라 단순 URL 반환이므로 .text() 사용
+      const presignedUrl = await response.text();
       console.log('📌 Presigned URL:', presignedUrl);
       return presignedUrl;
     } catch (error) {
@@ -218,7 +230,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         );
       }
 
-      // 업로드 성공 시, 최종 URL 반환 (presignedUrl에서 파일명만 추출하여 최종 저장 URL을 구성)
       const imageUrl = presignedUrl.split('?')[0];
       console.log('✅ Presigned URL 업로드 성공, 저장된 이미지 URL:', imageUrl);
       return imageUrl;
@@ -235,19 +246,15 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     try {
       let imageUrl = '';
 
-      // 파일 업로드 과정
       const currentFileInput = fileInputRef.current;
       if (currentFileInput?.files && currentFileInput.files.length > 0) {
         const imageFile = currentFileInput.files[0];
 
-        // 1️⃣ Presigned URL 가져오기
         const presignedUrl = await getPresignedUrl(imageFile);
 
-        // 2️⃣ Presigned URL을 사용하여 이미지 업로드
         imageUrl = await uploadImageToPresignedUrl(imageFile, presignedUrl);
       }
 
-      // 3️⃣ 게시글 요청 데이터 생성
       const requestData: IdeaMarketRequestData = {
         title: ideaNameInputRef.current?.value || '',
         content: content.substring(0, 50000),
@@ -259,8 +266,8 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
           price: parseInt(price),
           totalQuantity: quantity,
         },
-        imageList: imageUrl ? [imageUrl] : [], // Presigned URL로 업로드한 이미지 URL 추가
-        attachmentFileList: [], // PDF는 그대로 유지
+        imageList: imageUrl ? [imageUrl] : [],
+        attachmentFileList: [],
       };
 
       console.log('📌 최종 요청 데이터:', requestData);
@@ -327,7 +334,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     }
   };
 
-  // useEffect 로그
   useEffect(() => {
     console.log('Current previewImageUrl:', previewImageUrl);
     return () => {
@@ -338,7 +344,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     };
   }, [previewImageUrl]);
 
-  // Quill modules 로그
   const modules = useMemo(() => {
     console.log('Initializing Quill modules');
     return {
@@ -395,7 +400,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     };
   }, []);
 
-  // Quill 에디터 스타일 설정
   const formats = ['font', 'size', 'align', 'link', 'image'];
 
   return (
@@ -416,71 +420,14 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
             {isDropdownOpen ? <UpButton /> : <DownButton />}
             {isDropdownOpen && (
               <div className={styles.dropdownMenu}>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('광고 · 홍보')}>
-                  광고 · 홍보
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('디자인')}>
-                  디자인
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('레슨')}>
-                  레슨
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('마케팅')}>
-                  마케팅
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('문서 · 글쓰기')}>
-                  문서 · 글쓰기
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('미디어 · 콘텐츠')}>
-                  미디어 · 콘텐츠
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('변역 및 통역')}>
-                  번역 및 통역
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('세무 · 법무 · 노무')}>
-                  세무 · 법무 · 노무
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('주문제작')}>
-                  주문제작
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('창업 · 사업')}>
-                  창업 · 사업
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('푸드 및 음료')}>
-                  푸드 및 음료
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('IT · 테크')}>
-                  IT · 테크
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('기타')}>
-                  기타
-                </div>
+                {OPTIONS.map((option) => (
+                  <div
+                    key={option}
+                    className={styles.dropdownItem}
+                    onClick={() => setCategory(option)}>
+                    {option}
+                  </div>
+                ))}
               </div>
             )}
           </div>

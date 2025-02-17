@@ -151,11 +151,20 @@ export const IdeaMarketMarketPlace = () => {
         {ideaData.map((idea) => (
           <PreviewThumbnail
             key={idea.ideaId}
-            ideaId={idea.ideaId}
-            username={idea.writerName}
-            description={idea.title}
-            price={idea.price}
-            imageUrl={idea.thumbnailImageUrl}
+            data={{
+              ideaId: idea.ideaId,
+              username: idea.writerName,
+              description: idea.title,
+              price: idea.price,
+              imageUrl: idea.thumbnailImageUrl,
+              profileImage: idea.writerImageUrl,
+              isBookmarked: idea.isSavedPost,
+              saves: idea.saveCount,
+              views: idea.viewCount,
+              auth: idea.auth,
+              category: idea.category,
+              onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+            }}
           />
         ))}
       </div>

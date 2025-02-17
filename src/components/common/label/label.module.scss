@@ -1,68 +1,68 @@
 .label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 35px;
-    padding: 5px 10px;
-    line-height: normal;
-    letter-spacing: -0.16px;
-    gap: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 35px;
+  padding: 5px 10px;
+  line-height: normal;
+  letter-spacing: -0.16px;
+  gap: 10px;
+  width: fit-content;
 }
 
 // 기업
 .corporate {
-    background-color: $orange;
-    color: $grey-50;
-    @include pretendard-14-500;
+  background-color: $orange;
+  color: $grey-50;
+  @include pretendard-14-500;
 }
 
 // 기업 공개
 .corporatePublic {
-    color: $grey-50;
-    background: $grey-800;
-    @include pretendard-16-400;
+  color: $grey-50;
+  background: $grey-800;
+  @include pretendard-16-400;
 }
 
 // 개인
 .personal {
-    background: $primary;
-    color: $grey-50;
-    @include pretendard-14-500;
+  background: $primary;
+  color: $grey-50;
+  @include pretendard-14-500;
 }
-
 
 // 자체 공모
 .selfOffer {
-    background: #8A8A8A;
-    color: #000;
-    @include pretendard-16-400;
+  background: #8a8a8a;
+  color: #000;
+  @include pretendard-16-400;
 }
 
-//전체 공개
+// 전체 공개
 .entire {
-    background: $grey-800;
-    color: $grey-50;
-    @include pretendard-16-400;
+  background: $grey-800;
+  color: $grey-50;
+  @include pretendard-16-400;
 }
 
-//수락됨
+// 수락됨
 .accept {
-    border-radius: 17.5px;
-    background: $primary;
-    color: $grey-50;
-    @include pretendard-14-500;
+  border-radius: 17.5px;
+  background: $primary;
+  color: $grey-50;
+  @include pretendard-14-500;
 }
 
-//거절됨
+// 거절됨
 .reject {
-    border-radius: 17.5px;
-    background: $red;
-    color: $grey-50;
-    @include pretendard-14-500;
+  border-radius: 17.5px;
+  background: $red;
+  color: $grey-50;
+  @include pretendard-14-500;
 }
 
-//구매 완료
+// 구매 완료
 .purchaseCompleted {
-    background: $grey-700;
-    color: $grey-50;
+  background: $grey-700;
+  color: $grey-50;
 }
