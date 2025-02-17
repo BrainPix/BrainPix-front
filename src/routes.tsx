@@ -28,6 +28,7 @@ import { ApplyRequest } from './pages/my-page/apply/ApplyRequest';
 import { ApplyCollaboration } from './pages/my-page/apply/ApplyCollaboration';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 import { Message } from './pages/my-page/message/Message';
+import { SavedPosts } from './pages/my-page/saved-posts/SavedPosts';
 import { Main } from './pages/main/main';
 import { Signup } from './pages/sign-up/Signup';
 import { Login } from './pages/login/Login';
@@ -168,6 +169,10 @@ export const routes = createBrowserRouter([
           {
             path: '/my/message',
             element: <Message />,
+          },
+          {
+            path: '/my/save',
+            element: <SavedPosts />,
           },
         ],
       },
