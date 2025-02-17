@@ -70,7 +70,7 @@ const PostTitleApply = ({
     <div className={styles.container}>
       <div className={styles.leftSection}>
         <img
-          src={thumbnailImageUrl || '/default-thumbnail.png'}
+          src={thumbnailImageUrl}
           alt='썸네일'
           className={styles.thumbnail}
           onError={imageErrorHandler}

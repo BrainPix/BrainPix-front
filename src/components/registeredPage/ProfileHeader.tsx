@@ -16,7 +16,7 @@ const ProfileHeader = ({
     <div className={styles.container}>
       <div className={styles.profileContainer}>
         <img
-          src={profileImageUrl || '/default-profile.png'}
+          src={profileImageUrl}
           alt='프로필 이미지'
           className={styles.profileIcon}
           onError={imageErrorHandler}

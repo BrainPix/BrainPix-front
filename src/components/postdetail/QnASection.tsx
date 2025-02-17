@@ -111,7 +111,7 @@ const QnASection = ({ postId, userId }: QnASectionProps) => {
             className={styles.qnaItem}>
             <div className={styles.profile}>
               <img
-                src={comment.profileImageUrl || '/default-profile.png'}
+                src={comment.profileImageUrl}
                 alt='프로필'
                 className={styles.profileIcon}
                 onError={imageErrorHandler}
@@ -163,7 +163,7 @@ const QnASection = ({ postId, userId }: QnASectionProps) => {
                       className={styles.qnaItemReply}>
                       <div className={styles.profile}>
                         <img
-                          src={child.profileImageUrl || '/default-profile.png'}
+                          src={child.profileImageUrl}
                           alt='프로필'
                           className={styles.profileIcon}
                           onError={imageErrorHandler}

@@ -34,7 +34,7 @@ const AuthorInfo = ({
       <div className={styles.content}>
         <div className={styles.profile}>
           <img
-            src={profileImageUrl || '/default-profile.png'}
+            src={profileImageUrl}
             alt='프로필 이미지'
             className={styles.profileIcon}
             onError={imageErrorHandler}

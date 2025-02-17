@@ -12,7 +12,7 @@ const SellerInfo = ({ name, profileImageUrl, email }: SellerInfoProps) => {
       <div className={styles.title}>판매자 정보</div>
       <div className={styles.infoBox}>
         <img
-          src={profileImageUrl || '/default-profile.png'}
+          src={profileImageUrl}
           alt='판매자 프로필'
           className={styles.profile}
         />

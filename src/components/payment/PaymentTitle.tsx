@@ -54,7 +54,7 @@ const PaymentTitle = ({
       <div className={styles.title}>결제하기</div>
       <div className={styles.content}>
         <img
-          src={thumbnailImageUrl || '/default-thumbnail.png'}
+          src={thumbnailImageUrl}
           alt='상품 썸네일'
           className={styles.image}
         />
