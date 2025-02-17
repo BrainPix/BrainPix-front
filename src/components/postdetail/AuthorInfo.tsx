@@ -25,9 +25,9 @@ const AuthorInfo = ({
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>작성자 정보</h1>
-        <button className={styles.arrowButton}>
+        <div className={styles.arrowButton}>
           <ArrowIcon className={styles.arrowIcon} />
-        </button>
+        </div>
       </div>
       <div className={styles.divider}></div>
       <div className={styles.content}>

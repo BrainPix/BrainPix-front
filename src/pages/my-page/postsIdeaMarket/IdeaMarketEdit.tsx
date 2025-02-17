@@ -10,21 +10,11 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getIdeaMarketDetail } from '../../../apis/detailPageAPI';
 import { IdeaMarketDetail } from '../../../types/detailPageType';
+import { getUserIdFromToken } from '../../../utils/auth';
 
 export const IdeaMarketEdit = () => {
-  // const FORM_DATA = {
-  //   descriptionTitle: '아이디어 설명',
-  //   description: '아이디어 설명입니다롱',
-  //   attachmentTitle: '첨부파일',
-  //   attachmentFileName: '첨부파일 제목 입니다... .pdf',
-  // };
-  // const post = {
-  //   postId: 2,
-  //   userName: 'SEO YEON',
-  //   profileImage: null,
-  // };
-
   const { ideaId } = useParams<{ ideaId: string }>();
+  const userId = getUserIdFromToken();
   const [resolvedIdeaId, setResolvedIdeaId] = useState<number | null>(null);
   const [isReady, setIsReady] = useState(false);
   console.log('IdeaMarketEdit.tsx - URL Params ideaId:', ideaId);
@@ -52,6 +42,29 @@ export const IdeaMarketEdit = () => {
 
   console.log('IdeaMarketEdit.tsx - post:', post);
 
+  const postData = {
+    ideaId: Number(ideaId),
+    title: post?.title ?? '',
+    category: post?.category ?? '',
+    ideaMarketType: post?.ideaMarketType ?? '',
+    auth: post?.auth ?? '',
+    price: post?.price ?? 0,
+    viewCount: post?.viewCount ?? 0,
+    saveCount: post?.saveCount ?? 0,
+    thumbnailImageUrl: post?.thumbnailImageUrl ?? '',
+    createdDate: post?.createdDate ?? '',
+  };
+
+  const writerData = {
+    writerId: post?.writer?.writerId ?? 0,
+    name: post?.writer?.name ?? '',
+    profileImageUrl: post?.writer?.profileImageUrl ?? '',
+    role: post?.writer?.role ?? '',
+    specialization: post?.writer?.specialization ?? '',
+    totalIdeas: post?.writer?.totalIdeas ?? 0,
+    totalCollaborations: post?.writer?.totalCollaborations ?? 0,
+  };
+
   if (!isReady) return <div>페이지 로딩 중...</div>;
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
@@ -68,33 +81,20 @@ export const IdeaMarketEdit = () => {
           postType='idea-markets'
         />
         {/* 게시물 제목, 게시물 정보 */}
-        <PostTitlePay
-          title={post?.title || ''}
-          category={post?.category || ''}
-          ideaMarketType={post?.ideaMarketType || ''}
-          auth={post?.auth || ''}
-          price={post?.price || 0}
-          viewCount={post?.viewCount || 0}
-          saveCount={post?.saveCount || 0}
-          thumbnailImageUrl={post?.thumbnailImageUrl || ''}
-          createdDate={post?.createdDate || ''}
-        />
+        <PostTitlePay {...postData} />
         {/* 과제 설명, 첨부파일 */}
         <IdeaDescription
           content={post?.content || ''}
           attachments={post?.attachments || []}
         />
         {/* 담당자 Q&A */}
-        <QnASection />
-        {/* 작성자 정보 */}
-        <AuthorInfo
-          name={post?.writer?.name || ''}
+        <QnASection
+          userId={userId}
+          postId={Number(ideaId)}
           profileImageUrl={post?.writer?.profileImageUrl || ''}
-          role={post?.writer?.role || ''}
-          specialization={post?.writer?.specialization || ''}
-          totalIdeas={post?.writer?.totalIdeas || 0}
-          totalCollaborations={post?.writer?.totalCollaborations || 0}
         />
+        {/* 작성자 정보 */}
+        <AuthorInfo {...writerData} />
       </div>
     </>
   );

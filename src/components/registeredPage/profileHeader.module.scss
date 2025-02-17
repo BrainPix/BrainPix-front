@@ -29,7 +29,8 @@
 
 .viewProfile {
   @include pretendard-16-400;
-
+  border: none;
+  background-color: white;
   position: absolute;
   right: 16px;
   color: $grey-500;

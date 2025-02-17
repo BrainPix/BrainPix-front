@@ -1,11 +1,16 @@
 .label {
+  background-color: $primary-dark;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: $primary-dark;
   border-radius: 35px;
   padding: 5px 10px;
-  //margin-bottom: 17px;
+  line-height: normal;
+  letter-spacing: -0.16px;
+  gap: 10px;
+  width: auto;
+  height: auto;
+  width: fit-content;
 }
 
 .text {
