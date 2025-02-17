@@ -22,7 +22,6 @@ export const PostHeader = ({
 }: PostHeaderProps) => {
   const navigate = useNavigate();
   const dDay = deadline ? calculateDday(deadline) : undefined;
-  //console.log('dDay: ', dDay);
   const handleEditNavigate = () => {
     let editPath = '/';
     if (tab === '요청 과제') {

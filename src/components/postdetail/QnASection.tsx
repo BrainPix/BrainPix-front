@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useQnA } from '../../hooks/useQnA';
 import styles from './qnaSection.module.scss';
 import { Comment } from '../../types/commentsType';
@@ -25,11 +25,6 @@ const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
     {},
   );
   const [activeReply, setActiveReply] = useState<number | null>(null);
-
-  useEffect(() => {
-    console.log('내 userId:', userId);
-    console.log('댓글 데이터:', commentsQuery.data);
-  }, [userId, commentsQuery.data]);
 
   const handleDeleteComment = (commentId: number) => {
     deleteCommentMutation.mutate({ commentId });

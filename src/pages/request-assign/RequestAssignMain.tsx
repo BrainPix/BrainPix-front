@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios from 'axios';
 import styles from './requestAssignMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
@@ -92,8 +91,6 @@ export const RequestAssignMain = () => {
             })),
           );
         }
-      } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
       } finally {
         setIsInitialLoading(false);
         setIsUpdating(false);
@@ -149,7 +146,7 @@ export const RequestAssignMain = () => {
           ),
         );
       }
-    } catch (err) {
+    } catch {
       setIdeaData((prevData) =>
         prevData.map((idea) =>
           idea.ideaId === ideaId
@@ -161,12 +158,6 @@ export const RequestAssignMain = () => {
             : idea,
         ),
       );
-
-      if (axios.isAxiosError(err)) {
-        console.error('북마크 처리 실패:', err.message);
-      } else {
-        console.error('북마크 처리 중 에러:', err);
-      }
     }
   };
 

@@ -55,7 +55,6 @@ export const IdeaRegisteredPage = () => {
   };
 
   const userId = getUserIdFromToken();
-  console.log('내 userId:', userId);
 
   return (
     <div className={styles.margin}>

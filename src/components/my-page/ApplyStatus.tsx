@@ -26,12 +26,10 @@ export const ApplyStatus = ({
   //   { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
   // ];
   {
-    console.log('지원 현황: ', applicationStatus);
   }
 
   const handleAccept = async (id?: number) => {
     if (!id) {
-      console.error('ID가 없습니다.');
       return;
     }
 
@@ -43,15 +41,13 @@ export const ApplyStatus = ({
       }
       alert('요청 과제의 지원이 수락되었습니다.');
       window.location.reload(); // 성공 시 새로고침
-    } catch (error) {
-      console.error('요청 과제의 지원 수락 중 오류 발생:', error);
+    } catch {
       alert('요청 과제의 지원 수락에 실패했습니다.');
     }
   };
 
   const handleReject = async (id?: number) => {
     if (!id) {
-      console.error('ID가 없습니다.');
       return;
     }
 
@@ -63,8 +59,7 @@ export const ApplyStatus = ({
       }
       alert('협업 광장의 지원이 거절되었습니다.');
       window.location.reload(); // 성공 시 새로고침
-    } catch (error) {
-      console.error('협업 광장의 지원 거절 중 오류 발생:', error);
+    } catch {
       alert('협업 광장의 지원 거절에 실패했습니다.');
     }
   };

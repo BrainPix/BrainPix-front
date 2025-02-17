@@ -88,8 +88,7 @@ export const CollaborationRegister: React.FC<
     navigate(-1);
   };
 
-  const onSubmit = (data: FormValues) => {
-    console.log('Form submitted:', data);
+  const onSubmit = (_data: FormValues) => {
     navigate('/idea-market/registered/:ideaId');
   };
 

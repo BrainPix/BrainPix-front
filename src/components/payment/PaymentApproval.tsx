@@ -14,18 +14,15 @@ const PaymentApproval = () => {
   const { mutate: approvePayment, isPending } = useMutation({
     mutationFn: kakaoPayApprove,
     onSuccess: () => {
-      console.log('결제 승인 성공');
       navigate(`/purchase/success/${ideaId}`);
     },
-    onError: (error) => {
-      console.error('결제 승인 실패:', error);
+    onError: () => {
       navigate(`/purchase/fail/${ideaId}`);
     },
   });
 
   useEffect(() => {
     if (!pgToken || !orderId || !ideaId) {
-      console.error('결제 승인 필수 값이 누락됨');
       navigate('/purchase/fail');
       return;
     }

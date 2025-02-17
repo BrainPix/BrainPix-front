@@ -21,11 +21,7 @@ const ProfileHeader = ({
         />
         <span className={styles.name}>{name || '사용자'}</span>
       </div>
-      <button
-        className={styles.viewProfile}
-        onClick={() => console.log(`유저 ${writerId} 프로필 페이지로 이동`)}>
-        프로필 보기
-      </button>
+      <button className={styles.viewProfile}>프로필 보기</button>
     </div>
   );
 };

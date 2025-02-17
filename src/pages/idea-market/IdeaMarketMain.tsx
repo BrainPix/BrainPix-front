@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios from 'axios';
 import styles from './ideaMarketMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
@@ -92,8 +91,8 @@ export const IdeaMarketMain = () => {
             })),
           );
         }
-      } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
+      } catch {
+        throw Error;
       } finally {
         setIsInitialLoading(false);
         setIsUpdating(false);
@@ -149,7 +148,7 @@ export const IdeaMarketMain = () => {
           ),
         );
       }
-    } catch (err) {
+    } catch {
       setIdeaData((prevData) =>
         prevData.map((idea) =>
           idea.ideaId === ideaId
@@ -161,12 +160,6 @@ export const IdeaMarketMain = () => {
             : idea,
         ),
       );
-
-      if (axios.isAxiosError(err)) {
-        console.error('북마크 처리 실패:', err.message);
-      } else {
-        console.error('북마크 처리 중 에러:', err);
-      }
     }
   };
 

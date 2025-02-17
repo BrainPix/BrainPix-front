@@ -12,17 +12,17 @@ interface CurrentPeopleProps {
   }[];
 }
 
-export const CurrentPeople = ({ currentMembers }: CurrentPeopleProps) => {
-  // const CURRENT_MEMBERS = [
-  //   {
-  //     id: 'serqe',
-  //     role: '디자이너',
-  //     current: 1,
-  //   },
-  // ];
-  {
-    console.log('해당 요청 과제의 현재 인원 : ', currentMembers);
-  }
+// export const CurrentPeople = ({ currentMembers }: CurrentPeopleProps) => {
+//   // const CURRENT_MEMBERS = [
+//   //   {
+//   //     id: 'serqe',
+//   //     role: '디자이너',
+//   //     current: 1,
+//   //   },
+//   // ];
+//   {
+//     console.log('해당 요청 과제의 현재 인원 : ', currentMembers);
+//   }
   return (
     <div className={styles.container}>
       <div className={styles.tableTitle}>현재 인원</div>

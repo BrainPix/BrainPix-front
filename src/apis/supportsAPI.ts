@@ -3,8 +3,6 @@ import { Purchase, RequestTasks, Collaborations } from '../types/supportsType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-console.log('API BASE_URL: ', BASE_URL);
-
 export const getPurchases = async (
   page = 0,
   size = 10,
@@ -13,7 +11,6 @@ export const getPurchases = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
     return [];
   }
@@ -26,13 +23,9 @@ export const getPurchases = async (
       params: { page, size },
     });
 
-    console.log('API 응답 데이터:', response.data);
-    console.log('API 응답 데이터 content:', response.data?.data?.content);
-
     return response.data?.data?.content ?? [];
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    return [];
+  } catch {
+    throw Error;
   }
 };
 
@@ -44,9 +37,7 @@ export const getAcceptedRequestTasks = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
-    return [];
   }
 
   try {
@@ -57,11 +48,9 @@ export const getAcceptedRequestTasks = async (
       params: { page, size },
     });
 
-    //console.log('수락된 요청 과제 데이터:', response.data);
     return response.data?.data?.content ?? [];
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    return [];
+  } catch {
+    throw Error;
   }
 };
 
@@ -72,13 +61,8 @@ export const getRejectedRequestTasks = async (
   const url = `${BASE_URL}/supports/request-tasks/rejected`;
   const API_TOKEN = localStorage.getItem('accessToken');
 
-  console.log('요청 URL:', url);
-  console.log('요청 파라미터:', { page, size });
-
   if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
-    return [];
   }
 
   try {
@@ -89,12 +73,9 @@ export const getRejectedRequestTasks = async (
       params: { page, size },
     });
 
-    console.log('거절된 요청 과제 데이터:', response.data);
-    console.log('거절된 요청 과제 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    return [];
+  } catch {
+    throw Error;
   }
 };
 
@@ -105,7 +86,6 @@ export const deleteRejectedRequestTasks = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
   }
 
@@ -115,11 +95,8 @@ export const deleteRejectedRequestTasks = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log(`요청 과제 ${purchasingId}번 게시글 삭제 성공`);
-  } catch (error) {
-    console.error('삭제 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -131,9 +108,7 @@ export const getAcceptedCollaborations = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
-    return [];
   }
 
   try {
@@ -144,13 +119,9 @@ export const getAcceptedCollaborations = async (
       params: { page, size },
     });
 
-    console.log('협업 광장 : 지원 완료');
-    console.log('수락된 협업 광장 데이터:', response.data);
-    console.log('수락된 협업 광장 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    return [];
+  } catch {
+    throw Error;
   }
 };
 
@@ -161,13 +132,8 @@ export const getRejectedCollaborations = async (
   const url = `${BASE_URL}/supports/collaborations/rejected`;
   const API_TOKEN = localStorage.getItem('accessToken');
 
-  console.log('요청 URL:', url);
-  console.log('요청 파라미터:', { page, size });
-
   if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
-    return [];
   }
 
   try {
@@ -178,12 +144,9 @@ export const getRejectedCollaborations = async (
       params: { page, size },
     });
 
-    console.log('거절된 협업 광장 데이터:', response.data);
-    console.log('거절된 협업 광장 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    return [];
+  } catch {
+    throw Error();
   }
 };
 
@@ -194,7 +157,6 @@ export const deleteRejectedCollaborations = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
   }
 
@@ -204,10 +166,7 @@ export const deleteRejectedCollaborations = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log(`협업 광장 ${collectionGatheringId}번 게시글 삭제 성공`);
-  } catch (error) {
-    console.error('삭제 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };

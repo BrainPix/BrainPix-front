@@ -149,8 +149,7 @@ export const MyPagePosts = () => {
                         navigate(`/my/posts/collaboration/${post.ideaId}`);
                       }
                     },
-                    onBookmarkClick: () =>
-                      console.log(`Bookmark clicked for ${post.ideaId}`),
+                    onBookmarkClick: () => {},
                   }}
                 />
               ))}

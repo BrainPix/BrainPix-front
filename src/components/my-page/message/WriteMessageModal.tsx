@@ -80,7 +80,6 @@ export const WriteMessageModal = forwardRef<
         content: payload.content,
         receiverNickname: receiver || '',
       };
-      console.log(requestBody);
       sendMessageMutate(requestBody as sendMessagePayloadType);
     };
 
