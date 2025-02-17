@@ -1,0 +1,113 @@
+.wrapper {
+  position: absolute;
+  top: 40px;
+  z-index: 100;
+  background-color: $primary-50;
+  border-radius: 10px;
+  box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 10%);
+  width: 450px;
+  min-height: 500px;
+  padding-bottom: 10px;
+}
+
+.title {
+  @include pretendard-20-600;
+  @include flex-space-between;
+
+  padding: 10px 20px;
+  color: $grey-900;
+}
+
+.moreButton {
+  @include pretendard-14-400;
+
+  color: $grey-700;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.noToken {
+  @include flex-center;
+  @include pretendard-20-500;
+
+  height: 100%;
+  color: $grey-800;
+  flex-direction: column;
+  gap: 15px;
+
+  & > .loginButton {
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+    color: $grey-50;
+  }
+}
+
+.alarmListContainer {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list {
+  @include pretendard-16-400;
+
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 5px;
+  background-color: $grey-50;
+  padding: 10px;
+  box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 7%);
+
+  & > .root {
+    color: $primary;
+  }
+
+  & > .content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.isRead {
+    opacity: 0.6;
+  }
+}
+
+.listSkeleton {
+  width: 100%;
+  min-height: 75px;
+  border-radius: 5px;
+  background: linear-gradient(
+    90deg,
+    $grey-200 25%,
+    $grey-300 50%,
+    $grey-200 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+}
+
+.noAlarmText {
+  @include pretendard-22-600;
+  @include flex-center;
+
+  height: 400px;
+  color: $primary-dark;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}

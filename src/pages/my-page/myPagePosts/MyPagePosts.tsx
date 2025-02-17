@@ -61,31 +61,36 @@ export const MyPagePosts = () => {
               {posts.map((post) => (
                 <PreviewThumbnail
                   key={post.ideaId}
-                  imageUrl={
-                    'thumbnailImageUrl' in post &&
-                    post.thumbnailImageUrl !== null
-                      ? post.thumbnailImageUrl
-                      : undefined
-                  }
-                  //profileImage={profileImage || ''}
-                  description={post.title}
-                  username={post.writerName}
-                  price={'price' in post ? post.price : undefined}
-                  isBookmarked={false}
-                  onBookmarkClick={() =>
-                    console.log(`Bookmark clicked for ${post.ideaId}`)
-                  }
-                  verified={true}
-                  onClick={() => {
-                    if (activeTab === TABS[0]) {
-                      navigate(`/my/posts/idea-market/${post.ideaId}`);
-                    }
-                    if (activeTab === TABS[1]) {
-                      navigate(`/my/posts/request-assign/${post.ideaId}`);
-                    }
-                    if (activeTab === TABS[2]) {
-                      navigate(`/my/posts/collaboration/${post.ideaId}`);
-                    }
+                  data={{
+                    ideaId: post.ideaId,
+                    imageUrl:
+                      'thumbnailImageUrl' in post &&
+                      post.thumbnailImageUrl !== null
+                        ? post.thumbnailImageUrl
+                        : undefined,
+                    profileImage: undefined,
+                    username: post.writerName,
+                    description: post.title,
+                    price: 'price' in post ? post.price : undefined,
+                    isBookmarked: false,
+                    auth: 'ALL',
+                    category: '',
+                    saves: 0,
+                    views: 0,
+                    verified: true,
+                    onClick: () => {
+                      if (activeTab === TABS[0]) {
+                        navigate(`/my/posts/idea-market/${post.ideaId}`);
+                      }
+                      if (activeTab === TABS[1]) {
+                        navigate(`/my/posts/request-assign/${post.ideaId}`);
+                      }
+                      if (activeTab === TABS[2]) {
+                        navigate(`/my/posts/collaboration/${post.ideaId}`);
+                      }
+                    },
+                    onBookmarkClick: () =>
+                      console.log(`Bookmark clicked for ${post.ideaId}`),
                   }}
                 />
               ))}

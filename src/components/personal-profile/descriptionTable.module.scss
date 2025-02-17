@@ -8,7 +8,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   margin-bottom: 130px;
-  color: $grey-800;
+  color: $grey-900;
 }
 
 .descriptionWrapper {
@@ -22,11 +22,15 @@
 }
 
 .row {
+  @include pretendard-18-400;
+
   & > * {
     padding-bottom: 10px;
   }
 
   & > th {
+    @include pretendard-18-500;
+
     width: 80px;
     text-align: left;
     padding-right: 30px;
@@ -39,17 +43,21 @@
 
 .skillsContainer,
 .careersContainer {
+  @include pretendard-14-500;
+
   display: flex;
   flex-direction: column;
-  border: 1px solid $grey-500;
+  border: 1px solid $grey-600;
   border-radius: 5px;
   border-bottom: none;
   overflow: hidden;
   line-height: normal;
 
   & > .label {
+    @include pretendard-16-500;
+
     background-color: $grey-100;
-    color: $grey-600;
+    color: $grey-700;
   }
 }
 
@@ -58,18 +66,14 @@
   text-align: center;
   padding: 10px 0;
   align-items: center;
-  border-bottom: 1px solid $grey-500;
+  border-bottom: 1px solid $grey-600;
 
   & > .name {
-    width: 120px;
-  }
-
-  & > .content {
-    width: 160px;
+    width: 50%;
   }
 
   & > .level {
-    width: 80px;
+    width: 50%;
   }
 }
 
@@ -79,7 +83,7 @@
   align-items: center;
   padding: 10px 0;
   text-align: center;
-  border-bottom: 1px solid $grey-500;
+  border-bottom: 1px solid $grey-600;
 
   & > .name {
     width: 180px;

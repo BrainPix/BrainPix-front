@@ -17,6 +17,7 @@ import { PostPortfolioPayload } from '../../../types/myPageType';
 import { postPorfolio } from '../../../apis/portfolio';
 import { getPresignedURL } from '../../../apis/commonAPI';
 import { ToastContext } from '../../../contexts/toastContext';
+import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 
 interface AddPortfolioModalPropsType {
   onClose: () => void;
@@ -41,7 +42,7 @@ export const AddPortfolioModal = forwardRef<
   const { mutate: postPortfolioMutate } = useMutation({
     mutationFn: (formData: PostPortfolioPayload) => postPorfolio(formData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myPorfolios'] });
+      queryClient.resetQueries({ queryKey: ['myPortfolios'] });
       successToast('게시글 등록에 성공하였습니다.');
       onClose();
     },
@@ -108,6 +109,7 @@ export const AddPortfolioModal = forwardRef<
               alt='선택된 이미지'
               src={selectedImage}
               className={classNames(styles.imageInputLabel)}
+              onError={imageErrorHandler}
             />
           )}
           <label htmlFor='imageInput'>

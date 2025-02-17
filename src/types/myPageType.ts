@@ -7,6 +7,7 @@ import {
 
 export interface MyBaseInfoType {
   name: string;
+  userId: number;
   userType: string;
   specializations: string[];
   ideaCount: number;

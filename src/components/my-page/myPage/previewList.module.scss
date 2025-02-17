@@ -2,7 +2,7 @@
   @include pretendard-18-500;
 
   width: 100%;
-  border: 1px solid $grey-500;
+  border: 1px solid $grey-600;
   padding: 20px;
   border-radius: 5px;
   display: flex;
@@ -33,7 +33,7 @@
   @include pretendard-16-500;
 
   border: none;
-  color: $primary;
+  color: $primary-400;
   background: none;
 }
 

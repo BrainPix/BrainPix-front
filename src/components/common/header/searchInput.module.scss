@@ -4,12 +4,13 @@ $rounded-top: 5px 5px 0 0;
 .input {
   width: 500px;
   padding: 10px 15px;
-  background-color: $grey-200;
-  border: none;
+  border: 1px solid $primary;
   display: flex;
   align-items: center;
   gap: 8px;
   position: relative;
+  background: none;
+  margin: 0 20px;
 
   &.roundedAll {
     border-radius: $rounded-all;
@@ -25,16 +26,17 @@ $rounded-top: 5px 5px 0 0;
 
   position: absolute;
   padding: 23px 0;
-  color: $grey-600;
+  color: $grey-700;
   display: flex;
   z-index: 1000;
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  top: 40px;
+  top: 45px;
   left: 0;
   border-radius: 0 0 10px 10px;
-  background-color: #d9d9d9;
+  background-color: $grey-50;
+  box-shadow: -1px 6px 16px 3px rgb(0 0 0 / 5%);
 }
 
 .spaceBetween {
@@ -68,7 +70,6 @@ $rounded-top: 5px 5px 0 0;
 
   width: 90%;
   border: none;
-  background-color: $grey-200;
   color: $grey-600;
 
   &:focus {
@@ -82,4 +83,11 @@ $rounded-top: 5px 5px 0 0;
   &:hover {
     text-decoration: underline;
   }
+}
+
+.noHistoryText {
+  @include pretendard-20-500;
+  @include flex-center;
+
+  height: 200px;
 }
