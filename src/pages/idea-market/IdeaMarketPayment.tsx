@@ -12,7 +12,6 @@ import { IdeaMarketPurchase } from '../../types/purchaseType';
 export const IdeaMarketPayment = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
   const parsedIdeaId = ideaId && !isNaN(Number(ideaId)) ? Number(ideaId) : null;
-  console.log('useParams에서 가져온 parsedIdeaId:', parsedIdeaId);
   const [quantity, setQuantity] = useState(1);
 
   const { data, isLoading, error } = useQuery<IdeaMarketPurchase, Error>({

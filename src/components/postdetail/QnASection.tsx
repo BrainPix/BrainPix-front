@@ -27,8 +27,8 @@ const QnASection = ({ postId, userId }: QnASectionProps) => {
   const [activeReply, setActiveReply] = useState<number | null>(null);
 
   useEffect(() => {
-    console.log('내 userId:', userId);
-    console.log('댓글 데이터:', commentsQuery.data);
+    //console.log('내 userId:', userId);
+    //console.log('댓글 데이터:', commentsQuery.data);
   }, [userId, commentsQuery.data]);
 
   const handleDeleteComment = (commentId: number) => {

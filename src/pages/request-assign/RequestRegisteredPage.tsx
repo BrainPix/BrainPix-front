@@ -58,7 +58,6 @@ export const RequestRegisteredPage = () => {
   };
 
   const userId = getUserIdFromToken();
-  console.log('내 userId:', userId);
 
   return (
     <div className={styles.margin}>

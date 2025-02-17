@@ -25,8 +25,6 @@ export const PostDetailWithLink = () => {
     staleTime: 1000 * 60 * 5, // 5분
   });
 
-  console.log('API 응답 데이터:', data);
-
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>오류 발생!</div>;
   if (!data) return null;
@@ -86,7 +84,6 @@ export const PostDetailWithLink = () => {
   };
 
   const userId = getUserIdFromToken();
-  console.log('내 userId:', userId);
 
   return (
     <>

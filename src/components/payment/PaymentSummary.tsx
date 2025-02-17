@@ -18,7 +18,6 @@ interface PaymentSummaryProps {
 
 const PaymentSummary = ({ price, quantity, sellerId }: PaymentSummaryProps) => {
   const { ideaId } = useParams<{ ideaId: string }>();
-  console.log('PaymentSummary.tsx에서 받은 ideaId:', ideaId);
   const ideaIdNumber = ideaId ? Number(ideaId) : 0;
 
   const [totalPrice, setTotalPrice] = useState(price * quantity);
