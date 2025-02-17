@@ -99,4 +99,6 @@ export interface CollaborationDetail {
     domain: string;
   }[];
   openMyProfile: boolean;
+  isSavedPost: boolean;
+  isMyPost: boolean;
 }
