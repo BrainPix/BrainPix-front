@@ -1,8 +1,14 @@
-import { forwardRef, useContext, useEffect, useState } from 'react';
+import React, {
+  forwardRef,
+  useContext,
+  useEffect,
+  useState,
+  KeyboardEvent,
+} from 'react';
 import classNames from 'classnames';
 import { FieldValues, useForm } from 'react-hook-form';
-
 import styles from './writeMessageModal.module.scss';
+
 import {
   PreviousMessageType,
   sendMessagePayloadType,
@@ -10,6 +16,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { sendMessages } from '../../../apis/messageAPI';
 import { ToastContext } from '../../../contexts/toastContext';
+import Delete from '../../../assets/icons/delete.svg?react';
 
 interface WriteMessageModalPropsType {
   onClose: () => void;
@@ -23,8 +30,11 @@ export const WriteMessageModal = forwardRef<
   WriteMessageModalPropsType
 >(({ onClose, onClickReply, type = 'detail', previousMessage }, ref) => {
   const [myName, setMyName] = useState('');
+  const [receiver, setReceiver] = useState<string | null>(null);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch, setValue } = useForm({
+    mode: 'onBlur',
+  });
   const { errorToast, successToast } = useContext(ToastContext);
 
   const { mutate: sendMessageMutate } = useMutation({
@@ -47,7 +57,27 @@ export const WriteMessageModal = forwardRef<
   }, []);
 
   const handleSubmitHandler = async (payload: FieldValues) => {
-    sendMessageMutate(payload as sendMessagePayloadType);
+    const requestBody = {
+      title: payload.title,
+      content: payload.content,
+      receiverNickname: receiver || '',
+    };
+    console.log(requestBody);
+    sendMessageMutate(requestBody as sendMessagePayloadType);
+  };
+
+  const handleChangeReceiverInput = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setReceiver(watch('receiver'));
+      setValue('receiver', '');
+    }
+  };
+
+  const handleChangeTitleInput = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
   };
 
   const PreviousData = `To. ${previousMessage?.receiver} \nFrom. ${myName} \n${previousMessage?.previousContent}`;
@@ -72,17 +102,41 @@ export const WriteMessageModal = forwardRef<
           </div>
           <div className={classNames(styles.inputWrapper)}>
             <span>받는 사람</span>
-            {type === 'detail' ? (
-              <input className={classNames(styles.textInput)} />
-            ) : (
+            {previousMessage?.receiver ? (
               <div className={classNames(styles.nameTag, styles.receiver)}>
                 {previousMessage?.receiver}
+              </div>
+            ) : (
+              <div className={classNames(styles.withNameTag)}>
+                {receiver ? (
+                  <div className={classNames(styles.nameTag, styles.receiver)}>
+                    {receiver}
+                    <Delete
+                      width={10}
+                      height={10}
+                      stroke='#fafafa'
+                      className={classNames(styles.deleteIcon)}
+                      onClick={() => setReceiver(null)}
+                    />
+                  </div>
+                ) : (
+                  <input
+                    className={classNames(styles.textInput)}
+                    onKeyDown={handleChangeReceiverInput}
+                    {...register('receiver')}
+                    onBlur={() => {
+                      setReceiver(watch('receiver'));
+                      setValue('receiver', '');
+                    }}
+                  />
+                )}
               </div>
             )}
           </div>
           <div className={classNames(styles.inputWrapper)}>
             <span>제목</span>
             <input
+              onKeyDown={handleChangeTitleInput}
               className={classNames(styles.textInput, {
                 [styles.reply]: type === 'reply',
               })}

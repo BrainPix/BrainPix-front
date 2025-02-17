@@ -17,8 +17,8 @@ export const Message = () => {
 
   const MENU: Record<MessagesKeyType, string> = {
     ALL: '전체 메세지',
-    READ: '보낸 메세지',
-    UNREAD: '받은 메세지',
+    SEND: '보낸 메세지',
+    RECEIVED: '받은 메세지',
   };
 
   type MenuValueType = (typeof MENU)[MessagesKeyType];
@@ -36,8 +36,8 @@ export const Message = () => {
     queryKey: ['messages', selectedStatus],
     initialPageParam: 0,
     queryFn: ({ pageParam = 0 }) => getMessages(selectedStatus, pageParam),
-    getNextPageParam: (lastPage, pages) => {
-      if (lastPage.currentPage < pages[0].totalPages) {
+    getNextPageParam: (lastPage) => {
+      if (lastPage.data.hasNext) {
         return lastPage?.currentPage + 1;
       }
     },
@@ -105,13 +105,14 @@ export const Message = () => {
         {messages?.pages.map((messagesData, pageIdx) => (
           <React.Fragment key={pageIdx}>
             {messagesData.data.messageDetailList.map(
-              ({ messageId, title, sendDate }: getMessageResponseType) => (
+              ({
+                messageId,
+                title,
+                sendDate,
+                senderNickname,
+              }: getMessageResponseType) => (
                 <div
                   key={messageId}
-                  onClick={() => {
-                    handleChangeModalType('show');
-                    setIsOpenWriteModal(true);
-                  }}
                   className={classNames(styles.messageCardContainer)}>
                   <div
                     key={messageId}
@@ -122,12 +123,18 @@ export const Message = () => {
                       <div className={classNames(styles.rootWrapper)}>
                         <div className={classNames(styles.root)}>경로</div>
                       </div>
-                      <p className={classNames(styles.name)}>{title}</p>
+                      <p className={classNames(styles.name)}>
+                        {senderNickname}
+                      </p>
                       <p className={classNames(styles.content)}>{title}</p>
                     </div>
                     <div className={classNames(styles.rightWrapper)}>
                       {sendDate}
                       <button
+                        onClick={() => {
+                          handleChangeModalType('show');
+                          setIsOpenWriteModal(true);
+                        }}
                         className={classNames(
                           'buttonFilled-grey800',
                           styles.moreButton,

@@ -7,7 +7,7 @@ export interface MessageType {
   isRead: boolean;
 }
 
-export type MessagesKeyType = 'ALL' | 'READ' | 'UNREAD';
+export type MessagesKeyType = 'ALL' | 'SEND' | 'RECEIVED';
 export type MessagesType = Record<MessagesKeyType, MessageType[]>;
 
 export interface PreviousMessageType {

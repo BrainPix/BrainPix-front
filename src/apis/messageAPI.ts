@@ -1,14 +1,11 @@
 import axios from 'axios';
-import { sendMessagePayloadType } from '../types/messageType';
+import { MessagesKeyType, sendMessagePayloadType } from '../types/messageType';
 
 const BASE_URL = `${import.meta.env.VITE_BASE_URL}/messages`;
 
-export const getMessages = async (
-  status: 'ALL' | 'READ' | 'UNREAD',
-  page: number,
-) => {
+export const getMessages = async (status: MessagesKeyType, page: number) => {
   const token = localStorage.getItem('accessToken');
-  const url = `${BASE_URL}?status=${status}&page=${page}&size=5`;
+  const url = `${BASE_URL}?status=${status}&page=${page}&size=3`;
 
   if (token) {
     const { data } = await axios(url, {
