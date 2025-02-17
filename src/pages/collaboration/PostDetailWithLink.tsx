@@ -70,7 +70,6 @@ export const PostDetailWithLink = () => {
       userId: m.userId,
       name: m.name,
       domain: m.domain,
-      openMyProfile: m.openMyProfile,
     })),
   };
 

@@ -97,7 +97,6 @@ export interface CollaborationDetail {
     userId: number;
     name: string;
     domain: string;
-    openMyProfile: boolean;
   }[];
   openMyProfile: boolean;
 }
