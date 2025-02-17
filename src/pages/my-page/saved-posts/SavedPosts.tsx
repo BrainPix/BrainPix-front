@@ -64,32 +64,38 @@ export const SavedPosts = () => {
               {posts.map((post) => (
                 <PreviewThumbnail
                   key={post.ideaId}
-                  imageUrl={
-                    'thumbnailImageUrl' in post &&
-                    post.thumbnailImageUrl !== null
-                      ? post.thumbnailImageUrl
-                      : undefined
-                  }
-                  //profileImage={profileImage || ''}
-                  description={post.title}
-                  username={post.writerName}
-                  price={'price' in post ? post.price : undefined}
-                  isBookmarked={bookmarkedPosts.has(post.ideaId)}
-                  onBookmarkClick={(e) => {
-                    e.stopPropagation();
-                    toggleBookmark(post.ideaId);
-                  }}
-                  verified={true}
-                  onClick={() => {
-                    if (activeTab === TABS[0]) {
-                      navigate(`/idea-market/registered/${post.ideaId}`);
-                    }
-                    if (activeTab === TABS[1]) {
-                      navigate(`/request-assign/registered/${post.ideaId}`);
-                    }
-                    if (activeTab === TABS[2]) {
-                      navigate(`/collaboration/registered/${post.ideaId}`);
-                    }
+                  data={{
+                    ideaId: post.ideaId,
+                    imageUrl:
+                      'thumbnailImageUrl' in post &&
+                      post.thumbnailImageUrl !== null
+                        ? post.thumbnailImageUrl
+                        : undefined,
+                    profileImage: undefined,
+                    username: post.writerName,
+                    description: post.title,
+                    price: 'price' in post ? post.price : undefined,
+                    isBookmarked: bookmarkedPosts.has(post.ideaId),
+                    auth: 'ALL',
+                    category: '',
+                    saves: 0,
+                    views: 0,
+                    verified: true,
+                    onClick: () => {
+                      if (activeTab === TABS[0]) {
+                        navigate(`/idea-market/registered/${post.ideaId}`);
+                      }
+                      if (activeTab === TABS[1]) {
+                        navigate(`/request-assign/registered/${post.ideaId}`);
+                      }
+                      if (activeTab === TABS[2]) {
+                        navigate(`/collaboration/registered/${post.ideaId}`);
+                      }
+                    },
+                    onBookmarkClick: (e) => {
+                      e.stopPropagation();
+                      toggleBookmark(post.ideaId);
+                    },
                   }}
                 />
               ))}

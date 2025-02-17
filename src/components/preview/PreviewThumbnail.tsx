@@ -134,7 +134,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onBookmarkClick();
+              onBookmarkClick(e);
             }}
             className={styles.bookmarkButton}>
             {isBookmarked ? (
