@@ -11,6 +11,19 @@ export interface IdeaMarket {
   viewCount?: number;
 }
 
+export interface RequestTask {
+  ideaId: number;
+  auth: string;
+  writerImageUrl: string;
+  writerName: string;
+  specialization: string;
+  title: string;
+  thumbnailImageUrl: string | null;
+  deadLine?: string;
+  saveCount?: number;
+  viewCount?: number;
+}
+
 export interface getOtherPostsType {
   postId: number;
   openScope: string;
@@ -25,19 +38,6 @@ export interface getOtherPostsType {
   price: number;
   currentMembers: number;
   totalMembers: number;
-}
-
-export interface RequestTask {
-  ideaId: number;
-  auth: string;
-  writerImageUrl: string;
-  writerName: string;
-  specialization: string;
-  title: string;
-  thumbnailImageUrl: string | null;
-  deadLine?: string;
-  saveCount?: number;
-  viewCount?: number;
 }
 
 export interface Collaboration {

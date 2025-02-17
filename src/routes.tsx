@@ -40,7 +40,7 @@ export const routes = createBrowserRouter([
     element: <Test />,
   },
   {
-    path: '/',
+    path: '/login',
     element: <Main />,
   },
   {
@@ -59,6 +59,10 @@ export const routes = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
+      {
+        path: '/',
+        element: <IdeaMarketMain />,
+      },
       {
         path: '/idea-market',
         element: <IdeaMarketMain />,

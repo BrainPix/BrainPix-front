@@ -196,6 +196,7 @@ export const PortfolioDetailModal = forwardRef<
                 alt='포트폴리오 이미지'
                 src={selectedImage || profileImage}
                 className={classNames(styles.imageInputLabel)}
+                onError={imageErrorHandler}
               />
               <label htmlFor='imageInput'>
                 <div className={classNames(styles.imageInputLabel)}>

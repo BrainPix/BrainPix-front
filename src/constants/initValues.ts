@@ -47,3 +47,14 @@ export const PORTFOLIO_DETAIL_INIT = {
   content: '',
   profileImage: '',
 };
+
+export const MY_BASIC_INFO_INIT = {
+  name: '',
+  userType: '',
+  specializations: ['ADVERTISING_PROMOTION'],
+  ideaCount: 0,
+  collaborationCount: 0,
+  selfIntroduction: '',
+  profileImage: '',
+  userId: 0,
+};

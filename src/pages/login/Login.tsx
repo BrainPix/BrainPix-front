@@ -5,6 +5,7 @@ import styles from './login.module.scss';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { loginRegisters } from '../../constants/registers';
+import Logo from '../../assets/icons/logo.svg?react';
 import { postLogin } from '../../apis/authAPI';
 import { LoginPayload } from '../../types/authType';
 import Delete from '../../assets/icons/delete.svg?react';
@@ -50,7 +51,7 @@ export const Login = ({ userType }: LoginPropsType) => {
       localStorage.setItem('myType', userType);
       setIsLoginSuccess(true);
       successToast('로그인에 성공하였습니다.');
-      setTimeout(() => (location.href = '/idea-market'), 2000);
+      setTimeout(() => (location.href = '/idea-market'), 1000);
     },
     onError: () => {
       errorToast('로그인에 실패하였습니다.');
@@ -71,7 +72,7 @@ export const Login = ({ userType }: LoginPropsType) => {
 
   return (
     <div className={classNames(styles.container)}>
-      <div className={classNames(styles.logo)}>로고</div>
+      <Logo className={classNames(styles.logo)} />
       <h1 className={classNames(styles.title)}>로그인</h1>
       <div className={classNames(styles.loginContainer)}>
         <div className={classNames(styles.buttonWrapper)}>
