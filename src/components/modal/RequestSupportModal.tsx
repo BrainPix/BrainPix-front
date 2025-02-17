@@ -93,14 +93,6 @@ const RequestSupportModal = ({
     },
   });
 
-  const handleSubmit = () => {
-    if (!selectedSupport) {
-      errorToast('지원할 모집 부문을 선택해주세요.');
-      return;
-    }
-    mutation.mutate();
-  };
-
   return (
     <div
       className={styles.overlay}
@@ -139,16 +131,15 @@ const RequestSupportModal = ({
               {recruitments.map((recruitment) => (
                 <div
                   key={recruitment.recruitmentId}
-                  className={styles.supportRow}>
+                  className={styles.supportRow}
+                  onClick={() =>
+                    handleSupportSelection(recruitment.recruitmentId)
+                  }>
                   <span className={styles.field}>{recruitment.domain}</span>
                   <span className={styles.status}>
                     {recruitment.occupiedQuantity} / {recruitment.totalQuantity}
                   </span>
-                  <div
-                    className={styles.radioWrapper}
-                    onClick={() =>
-                      handleSupportSelection(recruitment.recruitmentId)
-                    }>
+                  <div className={styles.radioWrapper}>
                     {selectedSupport === recruitment.recruitmentId ? (
                       <ApplyIcon className={styles.radioIcon} />
                     ) : (
@@ -189,8 +180,14 @@ const RequestSupportModal = ({
               </button>
               <button
                 className={styles.submitButton}
-                onClick={handleSubmit}
-                disabled={mutation.isPending || !selectedSupport}>
+                onClick={() => {
+                  if (!selectedSupport) {
+                    errorToast('지원할 모집 부문을 선택해주세요.');
+                    return;
+                  }
+                  mutation.mutate();
+                }}
+                disabled={mutation.isPending}>
                 {mutation.isPending ? '지원 중...' : '지원하기'}
               </button>
             </div>
