@@ -10,7 +10,7 @@ interface PreviewThumbnailProps {
   description?: string;
   price?: number;
   isBookmarked?: boolean;
-  onBookmarkClick?: () => void;
+  onBookmarkClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   verified?: boolean;
   onClick?: () => void;
 }
