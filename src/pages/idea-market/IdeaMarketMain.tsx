@@ -227,36 +227,38 @@ export const IdeaMarketMain = () => {
             <span>전문가의 손길로 완성되는 아이디어</span>
             <span className={styles.highlight}></span>
           </div>
-          <Carousel
-            buttonPosition='center'
-            cardWidth={200}
-            cardCount={3}
-            gap={45}
-            dataLength={ideaData.length}>
-            {ideaData.map((idea) => (
-              <div
-                key={idea.ideaId}
-                className={styles.carouselItem}>
-                <PreviewThumbnail
-                  data={{
-                    ideaId: idea.ideaId,
-                    username: idea.writerName,
-                    description: idea.title,
-                    price: idea.price,
-                    imageUrl: idea.thumbnailImageUrl || '',
-                    profileImage: idea.writerImageUrl,
-                    isBookmarked: idea.isSavedPost,
-                    saves: idea.saveCount,
-                    views: idea.viewCount,
-                    auth: idea.auth,
-                    category: idea.category,
-                    size: 'large',
-                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
-                  }}
-                />
-              </div>
-            ))}
-          </Carousel>
+          <div>
+            <Carousel
+              buttonPosition='center'
+              cardWidth={200}
+              cardCount={3}
+              gap={45}
+              dataLength={ideaData.length}>
+              {ideaData.map((idea) => (
+                <div
+                  key={idea.ideaId}
+                  className={styles.carouselItem}>
+                  <PreviewThumbnail
+                    data={{
+                      ideaId: idea.ideaId,
+                      username: idea.writerName,
+                      description: idea.title,
+                      price: idea.price,
+                      imageUrl: idea.thumbnailImageUrl || '',
+                      profileImage: idea.writerImageUrl,
+                      isBookmarked: idea.isSavedPost,
+                      saves: idea.saveCount,
+                      views: idea.viewCount,
+                      auth: idea.auth,
+                      category: idea.category,
+                      size: 'large',
+                      onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+                    }}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
         </div>
       </div>
       <div className={styles.headerComponents}>

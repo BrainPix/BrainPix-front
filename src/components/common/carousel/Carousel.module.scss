@@ -9,7 +9,7 @@
 
 .container {
   position: relative;
-  width: 100%;
+  min-width: 100%;
 }
 
 .manageText {
@@ -25,18 +25,22 @@
 }
 
 .carouselWrapper {
-  width: 800px;
-  position: relative;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
 }
 
 .carouselContainer {
-  width: 690px;
+  width: 100%;
   height: max-content;
   overflow: hidden;
   margin: 0 auto;
   display: flex;
+
+  &.buttonCenter {
+    max-width: 690px;
+    margin-left: 55px;
+  }
 }
 
 .contentWrapper {
@@ -48,8 +52,10 @@
 
 .labelContainer {
   @include flex-space-between;
+
   margin-bottom: 15px;
   width: 100%;
+
   & > .label {
     @include pretendard-20-500;
   }
@@ -59,10 +65,13 @@
   display: flex;
   width: fit-content;
   margin-bottom: 10px;
+
   & > button {
     @include navigation-button-style(24px);
+
     border: none;
   }
+
   & > .disabled {
     stroke: #bdbdbd;
   }
@@ -70,21 +79,23 @@
 
 .centerNavigationControls {
   @include flex-space-between;
-  width: 100%;
+
+  min-width: 800px;
   position: absolute;
   transform: translateY(200%);
   display: flex;
   justify-content: space-between;
-  z-index: 1;
-  
+  z-index: 10;
+
   & > button {
     @include navigation-button-style(45px);
+
     border: none;
     background: none;
     box-shadow: none;
     padding: 0;
   }
-  
+
   & > .disabled {
     border-color: $grey-400;
     stroke: $grey-400;
