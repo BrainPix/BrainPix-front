@@ -1,7 +1,7 @@
 import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
 import { PostFormIdeaTitle } from '../../../components/my-page/PostFormIdeaTitle';
 import { PostFormContent } from '../../../components/my-page/PostFormContent';
-import QnASection from '../../../components/postdetail/QnASection';
+//import QnASection from '../../../components/postdetail/QnASection';
 //import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 
 export const IdeaMarketEdit = () => {
@@ -33,7 +33,7 @@ export const IdeaMarketEdit = () => {
         attachmentFileName={FORM_DATA.attachmentFileName}
       />
       {/* 담당자 Q&A */}
-      <QnASection />
+      {/*<QnASection />*/}
 
       {/* 작성자 정보 */}
       {/*<AuthorInfo />*/}

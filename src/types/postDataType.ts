@@ -1,37 +1,25 @@
-export enum PostCategories {
-  IDEA_MARKET = 'ideaMarket',
-  REQUEST_ASSIGN = 'requestTask',
-  COLLABORATION = 'collaboration',
-}
-
-export interface PostProps {
-  id: number;
-  category: PostCategories;
-  fieldOfPost?: string;
-  user: string;
-  profileImage: string | null;
+export interface IdeaMarket {
+  ideaId: number;
+  auth: string;
+  writerImageUrl: string;
+  writerName: string;
+  specialization: string;
   title: string;
-  postImage: string | null;
-  price?: number;
-  deadline?: number;
-  current?: number; // 현재 인원
-  total?: number; // 총 모집 인원
+  thumbnailImageUrl: string | null;
+  price: number;
   saveCount?: number;
   viewCount?: number;
 }
 
-export interface getOtherPostsType {
-  postId: number;
-  openScope: string;
+export interface RequestTask {
+  ideaId: number;
+  auth: string;
+  writerImageUrl: string;
+  writerName: string;
   specialization: string;
   title: string;
-  writerName: string;
-  savedCount: number;
-  viewCount: number;
-  deadline: string;
-  thumbnailImage: string;
-  writerImageUrl: string;
-  price: number;
-  currentMembers: number;
-  totalMembers: number;
+  thumbnailImageUrl: string | null;
+  deadLine?: string;
+  saveCount?: number;
+  viewCount?: number;
 }

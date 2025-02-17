@@ -37,6 +37,15 @@ export const TASK_TYPE_LABELS: Record<string, string> = {
   MARKET_PLACE: '마켓 플레이스',
 };
 
+// 보수 지급 형태 라벨
+export const PAYMENT_DURATION_LABELS: Record<string, string> = {
+  ONCE: '건당',
+  DAILY: '일간',
+  WEEKLY: '주간',
+  MONTHLY: '월간',
+  NOT_APPLICABLE: '추후 협의',
+};
+
 export const INFO_TYPE_MAPPER: Record<string, string> = {
   PHONE: '연락처',
   EMAIL: '이메일',

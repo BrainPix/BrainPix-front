@@ -12,6 +12,7 @@ interface PreviewThumbnailProps {
   isBookmarked?: boolean;
   onBookmarkClick?: () => void;
   verified?: boolean;
+  onClick?: () => void;
 }
 
 const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
@@ -23,9 +24,12 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({
   isBookmarked = false,
   onBookmarkClick = () => {},
   verified = false,
+  onClick,
 }) => {
   return (
-    <div className={classNames(styles.container)}>
+    <div
+      className={classNames(styles.container)}
+      onClick={onClick}>
       <div className={classNames(styles.profileSection)}>
         <div className={styles.profileImage}>
           {profileImage ? (

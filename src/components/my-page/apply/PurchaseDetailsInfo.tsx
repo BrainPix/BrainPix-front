@@ -1,5 +1,5 @@
 import styles from './itemDetailsInfo.module.scss';
-import arrowItemDetailsButtonIcon from '../../../assets/icons/arrowButton.svg';
+import arrowItemDetailsButtonIcon from '../../../assets/icons/arrow-button.svg';
 
 interface PurchaseDetailsInfoProps {
   tab: string;
