@@ -1,5 +1,4 @@
 import styles from './authorInfo.module.scss';
-import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
 import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
@@ -26,9 +25,6 @@ const AuthorInfo = ({
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>작성자 정보</h1>
-        <div className={styles.arrowButton}>
-          <ArrowIcon className={styles.arrowIcon} />
-        </div>
       </div>
       <div className={styles.divider}></div>
       <div className={styles.content}>
