@@ -1,15 +1,15 @@
 import styles from './profileHeader.module.scss';
 
 interface ProfileHeaderProps {
+  writerId: number;
   name: string;
   profileImageUrl: string;
-  openMyProfile: () => void; // 프로필 페이지로 이동하는 함수
 }
 
 const ProfileHeader = ({
+  writerId,
   name,
   profileImageUrl,
-  openMyProfile,
 }: ProfileHeaderProps) => {
   return (
     <div className={styles.container}>
@@ -19,13 +19,13 @@ const ProfileHeader = ({
           alt='프로필 이미지'
           className={styles.profileIcon}
         />
-        <span className={styles.name}>{name || '?'}</span>
+        <span className={styles.name}>{name || '사용자'}</span>
       </div>
-      <span
+      <button
         className={styles.viewProfile}
-        onClick={openMyProfile}>
+        onClick={() => console.log(`유저 ${writerId} 프로필 페이지로 이동`)}>
         프로필 보기
-      </span>
+      </button>
     </div>
   );
 };

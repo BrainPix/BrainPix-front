@@ -1,4 +1,4 @@
-import { createContext, useState, PropsWithChildren } from 'react';
+import { createContext, useState, PropsWithChildren, useContext } from 'react';
 import { Toast } from '../components/common/toast/Toast';
 
 const initValue = {
@@ -9,6 +9,14 @@ const initValue = {
 };
 
 export const ToastContext = createContext(initValue);
+
+export const useToast = () => {
+  const context = useContext(ToastContext);
+  if (!context) {
+    throw new Error('ToastProvider x');
+  }
+  return context;
+};
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
   const [isVisibleToast, setIsVisibleToast] = useState(false);

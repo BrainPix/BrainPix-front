@@ -22,6 +22,7 @@ interface PostTitlePayProps {
   viewCount: number;
   saveCount: number;
   createdDate: string;
+  ideaId: number;
 }
 
 const PostTitlePay = ({
@@ -34,6 +35,7 @@ const PostTitlePay = ({
   viewCount,
   saveCount,
   createdDate,
+  ideaId,
 }: PostTitlePayProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
@@ -45,7 +47,7 @@ const PostTitlePay = ({
   };
 
   const handlePurchaseClick = () => {
-    navigate('/idea-market/payment');
+    navigate('/idea-market/payment/' + ideaId);
   };
 
   return (
