@@ -23,7 +23,7 @@ export const PostsRequestAssign = () => {
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !post) return <div>요청 과제 게시글을 찾을 수 없습니다.</div>;
-  console.log('요청 과제 상세 조회 페이지 - taskId', taskId);
+
   return (
     <>
       <PostHeader

@@ -11,8 +11,6 @@ import {
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-console.log('API BASE_URL: ', BASE_URL);
-
 export const getPostIdeaMarket = async (
   page = 0,
   size = 10,
@@ -32,12 +30,6 @@ export const getPostIdeaMarket = async (
       },
       params: { page, size },
     });
-
-    console.log('아이디어 마켓 API 응답 데이터:', response.data);
-    console.log(
-      '아이디어 마켓 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
 
     return response.data.data;
   } catch (error) {
@@ -66,12 +58,6 @@ export const getPostRequestTask = async (
       params: { page, size },
     });
 
-    console.log('요청 과제 API 응답 데이터:', response.data);
-    console.log(
-      '요청 과제 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
-
     return response.data.data;
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -99,12 +85,6 @@ export const getPostCollaboration = async (
       params: { page, size },
     });
 
-    console.log('협업 광장 API 응답 데이터:', response.data);
-    console.log(
-      '협업 광장 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
-
     return response.data.data;
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -129,8 +109,6 @@ export const getPostIdeaMarketDetail = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log('아이디어 마켓 상세 조회 API 응답 데이터:', response.data);
 
     return response.data.data;
   } catch (error) {
@@ -157,8 +135,6 @@ export const getPostRequestTaskDetail = async (
       },
     });
 
-    console.log('요청 과제 상세 조회 API 응답 데이터:', response.data);
-
     return response.data.data;
   } catch (error) {
     console.error('요청 과제 상세 조회 API 요청 실패:', error);
@@ -183,8 +159,6 @@ export const getPostCollaborationDetail = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log('협업 광장 상세 조회 API 응답 데이터:', response.data);
 
     return response.data.data;
   } catch (error) {
@@ -329,7 +303,6 @@ export const deletePost = async (
       },
     });
 
-    console.log(`${postType}의 ${postId}번 게시글 삭제 성공:`, response.data);
     return response.data;
   } catch (error) {
     console.error('아이디어 마켓 게시글 삭제 실패:', error);

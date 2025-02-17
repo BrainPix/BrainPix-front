@@ -19,11 +19,8 @@ export const RequestAssignEdit = () => {
   const [resolvedTaskId, setResolvedTaskId] = useState<number | null>(null);
   const [isReady, setIsReady] = useState(false);
 
-  console.log('RequestAssignEdit.tsx - URL Params taskId:', taskId);
-
   useEffect(() => {
     if (taskId) {
-      console.log('useEffect - taskId 업데이트됨:', taskId);
       setResolvedTaskId(Number(taskId));
       setIsReady(true);
     }
@@ -39,8 +36,6 @@ export const RequestAssignEdit = () => {
     enabled: isReady,
     staleTime: 1000 * 60 * 10,
   });
-
-  console.log('RequestAssignEdit.tsx - post:', post);
 
   const postData = {
     taskId: Number(taskId),
@@ -74,7 +69,6 @@ export const RequestAssignEdit = () => {
   return (
     <>
       <div className={styles.margin}>
-        {/* 게시물 작성자, 게시물 정보 */}
         <ProfileHeaderAuthor
           name={post?.writer?.name || ''}
           profileImageUrl={post?.writer?.profileImageUrl || ''}
@@ -83,24 +77,16 @@ export const RequestAssignEdit = () => {
           postType='request-tasks'
         />
         <PostTitleApply {...postData} />
-
-        {/* 과제 설명, 첨부파일 */}
         <AssignmentDescription
           content={post?.content || ''}
           attachments={post?.attachments || []}
         />
-
-        {/* 모집 정보 */}
         <RecruitInfo />
-
-        {/* 담당자 Q&A */}
         <QnASection
           userId={userId}
           postId={Number(taskId)}
           profileImageUrl={post?.writer?.profileImageUrl || ''}
         />
-
-        {/* 작성자 정보 */}
         <AuthorInfo {...writerData} />
       </div>
     </>

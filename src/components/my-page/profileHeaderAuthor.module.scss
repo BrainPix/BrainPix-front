@@ -1,7 +1,5 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-space-between;
   width: 800px;
   position: relative;
   padding: 30px 0px;

@@ -39,7 +39,6 @@ export const MyPagePosts = () => {
   });
 
   const posts = data?.content ?? [];
-  console.log('게시물 데이터:', posts);
 
   return (
     <div className={styles.container}>
@@ -58,7 +57,6 @@ export const MyPagePosts = () => {
         ) : (
           <>
             <div className={styles.count}>총 게시글 {posts.length}</div>
-            {/* 게시물 리스트 */}
             <div className={styles.postList}>
               {posts.map((post) => (
                 <PreviewThumbnail
@@ -73,11 +71,11 @@ export const MyPagePosts = () => {
                   description={post.title}
                   username={post.writerName}
                   price={'price' in post ? post.price : undefined}
-                  isBookmarked={false} // 북마크 여부는 추후 API 연동 필요
+                  isBookmarked={false}
                   onBookmarkClick={() =>
                     console.log(`Bookmark clicked for ${post.ideaId}`)
                   }
-                  verified={true} // 검증 여부 (필요시 데이터에서 가져오기)
+                  verified={true}
                   onClick={() => {
                     if (activeTab === TABS[0]) {
                       navigate(`/my/posts/idea-market/${post.ideaId}`);

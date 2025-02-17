@@ -17,15 +17,11 @@ export const IdeaMarketEdit = () => {
   const userId = getUserIdFromToken();
   const [resolvedIdeaId, setResolvedIdeaId] = useState<number | null>(null);
   const [isReady, setIsReady] = useState(false);
-  console.log('IdeaMarketEdit.tsx - URL Params ideaId:', ideaId);
 
-  // ideaId가 존재할 때만 resolvedIdeaId를 설정하고 렌더링 진행
-  // 새로고침 시 ideaId가 존재하지 않아 렌더링이 중단되는 것을 방지
   useEffect(() => {
     if (ideaId) {
-      console.log('useEffect - ideaId 업데이트됨:', ideaId);
       setResolvedIdeaId(Number(ideaId));
-      setIsReady(true); // 데이터 준비 완료
+      setIsReady(true);
     }
   }, [ideaId]);
 
@@ -39,8 +35,6 @@ export const IdeaMarketEdit = () => {
     enabled: isReady,
     staleTime: 1000 * 60 * 10,
   });
-
-  console.log('IdeaMarketEdit.tsx - post:', post);
 
   const postData = {
     ideaId: Number(ideaId),
@@ -72,7 +66,6 @@ export const IdeaMarketEdit = () => {
   return (
     <>
       <div className={styles.margin}>
-        {/* 게시물 작성자, 게시물 정보 */}
         <ProfileHeaderAuthor
           name={post?.writer?.name || ''}
           profileImageUrl={post?.writer?.profileImageUrl || ''}
@@ -80,20 +73,16 @@ export const IdeaMarketEdit = () => {
           postId={post?.ideaId}
           postType='idea-markets'
         />
-        {/* 게시물 제목, 게시물 정보 */}
         <PostTitlePay {...postData} />
-        {/* 과제 설명, 첨부파일 */}
         <IdeaDescription
           content={post?.content || ''}
           attachments={post?.attachments || []}
         />
-        {/* 담당자 Q&A */}
         <QnASection
           userId={userId}
           postId={Number(ideaId)}
           profileImageUrl={post?.writer?.profileImageUrl || ''}
         />
-        {/* 작성자 정보 */}
         <AuthorInfo {...writerData} />
       </div>
     </>

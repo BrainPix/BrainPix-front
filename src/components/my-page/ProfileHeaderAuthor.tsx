@@ -36,7 +36,7 @@ export const ProfileHeaderAuthor = ({
     mutationFn: () => deletePost(postId, postType),
     onSuccess: () => {
       alert('해당 아이디어 마켓 게시글이 삭제되었습니다.');
-      queryClient.invalidateQueries({ queryKey: ['myPosts'] }); // 삭제 후 리스트 새로고침
+      queryClient.invalidateQueries({ queryKey: ['myPosts'] });
       navigate('/my/posts'); // 삭제 후 마이페이지 - 게시물 관리 페이지로 이동
     },
     onError: () => {
@@ -46,7 +46,6 @@ export const ProfileHeaderAuthor = ({
 
   return (
     <>
-      {/* 게시글 작성자의 프로필 헤더 */}
       <div className={styles.container}>
         <div className={styles.profileContainer}>
           <img

@@ -20,9 +20,10 @@ export const PostsIdeaMarket = () => {
     enabled: !!ideaId,
     staleTime: 1000 * 60 * 10,
   });
+
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
-  console.log('아이디어 마켓 상세 조회 페이지 - ideaId', ideaId);
+
   return (
     <div className={styles.postcardWrapper}>
       <IdeaMarketPostHeader

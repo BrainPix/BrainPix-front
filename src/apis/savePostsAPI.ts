@@ -28,12 +28,6 @@ export const getSavedIdeaMarkets = async (
       params: { page, size },
     });
 
-    console.log('저장된 아이디어 마켓 게시물 API 응답 데이터:', response.data);
-    console.log(
-      '저장된 아이디어 마켓 게시물 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
-
     return response.data.data;
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -61,12 +55,6 @@ export const getSavedRequestTasks = async (
       params: { page, size },
     });
 
-    console.log('저장된 요청 과제 게시물 API 응답 데이터:', response.data);
-    console.log(
-      '저장된 요청 과제 게시물 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
-
     return response.data.data;
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -93,12 +81,6 @@ export const getSavedCollaborationHubs = async (
       },
       params: { page, size },
     });
-
-    console.log('저장된 협업 광장 게시물 API 응답 데이터:', response.data);
-    console.log(
-      '저장된 협업 광장 게시물 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
 
     return response.data.data;
   } catch (error) {
