@@ -38,13 +38,8 @@ import { Message } from './pages/my-page/message/Message';
 import { Main } from './pages/main/main';
 import { Signup } from './pages/sign-up/Signup';
 import { Login } from './pages/login/Login';
-import { Test } from './pages/test/Test';
 
 export const routes = createBrowserRouter([
-  {
-    path: '/test',
-    element: <Test />,
-  },
   {
     path: '/login',
     element: <Main />,
