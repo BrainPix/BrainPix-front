@@ -52,13 +52,13 @@ export const PersonalProfile = () => {
       : ((selectedCompanylUserInfo as CompanyProfileType) ??
         COMPANY_RPOFILE_INIT);
 
-  const { name, specializations } = userData;
+  const { nickname, specializations } = userData;
 
   return (
     <div className={classNames(styles.container)}>
       <ProfileCard
         userType={userType || ''}
-        userName={name}
+        userName={nickname}
         specializations={specializations}
         profileImage={
           userType === 'personal'

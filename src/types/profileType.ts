@@ -3,7 +3,7 @@ export interface IndividualProfileType {
   userId: number;
   profileImage: string;
   specializations: string[];
-  name: string;
+  nickname: string;
   selfIntroduction: string;
   contacts: {
     type: string;
@@ -25,7 +25,7 @@ export interface CompanyProfileType {
   imageUrl: string;
   userType: string;
   specializations: string[];
-  name: string;
+  nickname: string;
   selfIntroduction: string;
   businessInformation: string;
   companyInformations: [

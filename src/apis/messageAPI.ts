@@ -15,6 +15,18 @@ export const getMessages = async (status: MessagesKeyType, page: number) => {
   }
 };
 
+export const getMessagesDetail = async (id: string) => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/${id}`;
+
+  if (token) {
+    const { data } = await axios(url, {
+      headers: { Authorization: token },
+    });
+    return data;
+  }
+};
+
 export const sendMessages = async (payload: sendMessagePayloadType) => {
   const token = localStorage.getItem('accessToken');
   const url = `${BASE_URL}`;

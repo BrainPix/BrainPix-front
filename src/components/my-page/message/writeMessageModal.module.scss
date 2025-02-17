@@ -1,9 +1,12 @@
 .container {
   width: 620px;
   position: fixed;
-  top: 10%;
+  top: 1%;
   right: 10px;
   z-index: 10;
+  height: fit-content;
+  max-height: 98vh;
+  overflow-y: scroll;
   background-color: $grey-50;
   box-shadow: 5px 5px 11px 1px rgb(0 0 0 / 24%);
   padding: 40px;
@@ -64,7 +67,7 @@
   letter-spacing: -0.16px;
 
   &.sender {
-    border: 1px solid $grey-500;
+    border: 1px solid $grey-600;
   }
 
   &.receiver {
@@ -86,7 +89,7 @@
   color: $grey-800;
   flex-grow: 2;
   border: none;
-  border-bottom: 1px solid $grey-500;
+  border-bottom: 1px solid $grey-600;
   background: none;
 
   &:focus {
@@ -125,7 +128,7 @@
   background: none;
   border-radius: 5px;
   padding: 20px;
-  border: 1px solid $grey-400;
+  border: 1px solid $grey-600;
   margin: 0;
 
   &:focus {
@@ -172,4 +175,17 @@
 .replyBottom {
   border-radius: 0 0 5px 5px;
   border-top: none;
+  display: flex;
+  flex-direction: column;
+
+  & > .receiver,
+  & > .sender {
+    @include pretendard-14-600;
+
+    color: $grey-600;
+  }
+
+  & > .content {
+    margin-top: 59px;
+  }
 }

@@ -11,8 +11,9 @@ export type MessagesKeyType = 'ALL' | 'SEND' | 'RECEIVED';
 export type MessagesType = Record<MessagesKeyType, MessageType[]>;
 
 export interface PreviousMessageType {
-  receiver: string;
-  previousContent: string;
+  receiverNickname: string;
+  title?: string;
+  content?: string;
 }
 
 export interface getMessageResponseType {

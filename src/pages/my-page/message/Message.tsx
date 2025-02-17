@@ -29,6 +29,7 @@ export const Message = () => {
     'write' | 'reply' | 'show'
   >('show');
   const [isOpenWriteModal, setIsOpenWriteModal] = useState(false);
+  const [clickedMessageId, setClickedMessageId] = useState<string>('');
 
   const writeMessageModalRef = useRef(null);
 
@@ -47,8 +48,10 @@ export const Message = () => {
     setIsOpenWriteModal(false);
   };
 
-  const handleChangeModalType = (type: 'write' | 'reply' | 'show') => {
-    setWriteModalType(type);
+  const handleClickMessage = (messageId: string) => {
+    setWriteModalType('show');
+    setIsOpenWriteModal(true);
+    setClickedMessageId(messageId);
   };
 
   const handleClickReplyButton = () => {
@@ -68,7 +71,11 @@ export const Message = () => {
           onClickReply={handleClickReplyButton}
           ref={writeMessageModalRef}
           type={writeModalType}
-          // previousMessage={PREVIOUS_MESSAGE_TEMP}
+          clickedMessageId={
+            writeModalType === 'show' || writeModalType === 'reply'
+              ? clickedMessageId
+              : ''
+          }
         />
       )}
       <div className={classNames(styles.titleWrapper)}>
@@ -131,10 +138,7 @@ export const Message = () => {
                     <div className={classNames(styles.rightWrapper)}>
                       {sendDate}
                       <button
-                        onClick={() => {
-                          handleChangeModalType('show');
-                          setIsOpenWriteModal(true);
-                        }}
+                        onClick={() => handleClickMessage(messageId)}
                         className={classNames(
                           'buttonFilled-grey800',
                           styles.moreButton,
@@ -148,66 +152,6 @@ export const Message = () => {
             )}
           </React.Fragment>
         ))}
-        {/* {Object.entries(MENU).map(([key, value]) => {
-          const messageKey = key as MessagesKeyType;
-          return (
-            clickedMenu === value &&
-            (MESSAGES_TEMP[messageKey].length === 0 ? (
-              <div
-                key={key}
-                className={classNames(styles.noMessageTextContainer)}>
-                {noMessage[messageKey]}
-              </div>
-            ) : (
-              <div
-                key={key}
-                onClick={() => {
-                  handleChangeModalType('show');
-                  setIsOpenWriteModal(true);
-                }}
-                className={classNames(styles.messageCardContainer)}>
-                {MESSAGES_TEMP[messageKey].map((message) => (
-                  <div
-                    key={message.id}
-                    className={classNames(styles.messageCardWrapper, {
-                      [styles.isRead]: message.isRead,
-                    })}>
-                    <div className={classNames(styles.leftWrapper)}>
-                      <div className={classNames(styles.rootWrapper)}>
-                        {message.root.map((root, idx) => (
-                          <div
-                            key={root}
-                            className={classNames(styles.root)}>
-                            {root}
-                            {idx !== message.root.length - 1 && (
-                              <span className={classNames(styles.divider)}>
-                                {'>'}
-                              </span>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                      <p className={classNames(styles.name)}>{message.name}</p>
-                      <p className={classNames(styles.content)}>
-                        {message.content}
-                      </p>
-                    </div>
-                    <div className={classNames(styles.rightWrapper)}>
-                      {message.date}
-                      <button
-                        className={classNames(
-                          'buttonFilled-grey800',
-                          styles.moreButton,
-                        )}>
-                        자세히
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))
-          ); */}
-        {/* })} */}
       </div>
     </div>
   );
