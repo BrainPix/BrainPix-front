@@ -2,7 +2,7 @@
   @include pretendard-14-400;
 
   border-radius: 5px;
-  border: 1px solid $grey-500;
+  border: 1px solid $grey-600;
   padding: 10px 20px;
   background: none;
   flex-grow: 2;
@@ -10,7 +10,7 @@
   &::placeholder {
     @include pretendard-14-400;
 
-    color: $grey-500;
+    color: $grey-600;
   }
 
   &:focus {
@@ -29,7 +29,7 @@
 .label {
   @include pretendard-20-500;
 
-  color: $grey-800;
+  color: $grey-900;
   margin-bottom: 20px;
   margin-top: 15px;
 }

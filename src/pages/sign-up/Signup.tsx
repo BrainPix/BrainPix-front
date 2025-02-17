@@ -4,6 +4,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styles from './signup.module.scss';
 import { useMutation } from '@tanstack/react-query';
 
+import Logo from '../../assets/icons/logo.svg?react';
 import { SignupRegisters } from '../../constants/registers';
 import { StepOne } from '../../components/sign-up/StepOne';
 import { StepTwo } from '../../components/sign-up/StepTwo';
@@ -126,7 +127,7 @@ export const Signup = () => {
       className={classNames(styles.container)}
       onSubmit={handleSubmit(handleSubmitHandler)}>
       <form className={classNames(styles.contentContainer)}>
-        <div className={classNames(styles.logo)}>로고</div>
+        <Logo className={classNames(styles.logo)} />
         {step === 1 && (
           <StepOne
             onClickUserTypeButton={handleClickUserTypeButton}

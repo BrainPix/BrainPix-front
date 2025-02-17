@@ -121,31 +121,36 @@ export const MyPagePosts = () => {
               {posts.map((post) => (
                 <PreviewThumbnail
                   key={post.ideaId}
-                  imageUrl={
-                    'thumbnailImageUrl' in post &&
-                    post.thumbnailImageUrl !== null
-                      ? post.thumbnailImageUrl
-                      : undefined
-                  }
-                  //profileImage={profileImage || ''}
-                  description={post.title}
-                  username={post.writerName}
-                  price={'price' in post ? post.price : undefined}
-                  isBookmarked={false} // 북마크 여부는 추후 API 연동 필요
-                  onBookmarkClick={() =>
-                    console.log(`Bookmark clicked for ${post.ideaId}`)
-                  }
-                  verified={true} // 검증 여부 (필요시 데이터에서 가져오기)
-                  onClick={() => {
-                    if (activeTab === TABS[0]) {
-                      navigate(`/my/posts/idea-market/${post.ideaId}`);
-                    }
-                    if (activeTab === TABS[1]) {
-                      navigate(`/my/posts/request-assign/${post.ideaId}`);
-                    }
-                    if (activeTab === TABS[2]) {
-                      navigate(`/my/posts/collaboration/${post.ideaId}`);
-                    }
+                  data={{
+                    ideaId: post.ideaId,
+                    imageUrl:
+                      'thumbnailImageUrl' in post &&
+                      post.thumbnailImageUrl !== null
+                        ? post.thumbnailImageUrl
+                        : undefined,
+                    profileImage: undefined, // 주석 처리된 profileImage 처리
+                    username: post.writerName,
+                    description: post.title,
+                    price: 'price' in post ? post.price : undefined,
+                    isBookmarked: false,
+                    auth: 'ALL', // 기본값 추가
+                    category: '', // 기본값 추가
+                    saves: 0, // 기본값 추가
+                    views: 0, // 기본값 추가
+                    verified: true,
+                    onClick: () => {
+                      if (activeTab === TABS[0]) {
+                        navigate(`/my/posts/idea-market/${post.ideaId}`);
+                      }
+                      if (activeTab === TABS[1]) {
+                        navigate(`/my/posts/request-assign/${post.ideaId}`);
+                      }
+                      if (activeTab === TABS[2]) {
+                        navigate(`/my/posts/collaboration/${post.ideaId}`);
+                      }
+                    },
+                    onBookmarkClick: () =>
+                      console.log(`Bookmark clicked for ${post.ideaId}`),
                   }}
                 />
               ))}

@@ -15,7 +15,7 @@ interface RequestAssignRegisterProps {
   [key: string]: never;
 }
 
-export const RequestAssignRegister: React.FC<
+export const RequestAssignRegisterNow: React.FC<
   RequestAssignRegisterProps
 > = () => {
   const navigate = useNavigate();
@@ -75,6 +75,22 @@ export const RequestAssignRegister: React.FC<
     const numberValue = value === '' ? 0 : parseInt(value, 10);
     setQuantity(numberValue);
   };
+
+  const OPTIONS = [
+    '광고 · 홍보',
+    '디자인',
+    '레슨',
+    '마케팅',
+    '문서 · 글쓰기',
+    '미디어 · 콘텐츠',
+    '번역 및 통역',
+    '세무 · 법무 · 노무',
+    '주문제작',
+    '창업 · 사업',
+    '푸드 및 음료',
+    'IT · 테크',
+    '기타',
+  ];
 
   const handleIncrement = () => {
     setQuantity((prev) => prev + 1);
@@ -166,31 +182,14 @@ export const RequestAssignRegister: React.FC<
             {isDropdownOpen ? <UpButton /> : <DownButton />}
             {isDropdownOpen && (
               <div className={styles.dropdownMenu}>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('광고 · 홍보')}>
-                  광고 · 홍보
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('디자인')}>
-                  디자인
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('레슨')}>
-                  레슨
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('마케팅')}>
-                  마케팅
-                </div>
-                <div
-                  className={styles.dropdownItem}
-                  onClick={() => setCategory('문서 · 글쓰기')}>
-                  문서 · 글쓰기
-                </div>
+                {OPTIONS.map((option) => (
+                  <div
+                    key={option}
+                    className={styles.dropdownItem}
+                    onClick={() => setCategory(option)}>
+                    {option}
+                  </div>
+                ))}
               </div>
             )}
           </div>

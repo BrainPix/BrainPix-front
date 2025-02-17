@@ -13,6 +13,8 @@ interface CarouselProps {
   children: ReactNode;
   editMode?: boolean;
   onClickManagetText?: () => void;
+  onClickNext?: () => void;
+  onClickPrevious?: () => void;
 }
 
 export const Carousel = ({
@@ -25,6 +27,8 @@ export const Carousel = ({
   editMode = false,
   onClickManagetText,
   children,
+  onClickNext,
+  onClickPrevious,
 }: CarouselProps) => {
   const [currentPage, setCurrentPage] = useState(0);
   const TRANSITION_NUMBER = (cardWidth + gap) * cardCount;
@@ -32,9 +36,11 @@ export const Carousel = ({
 
   const handleClickNextButton = () => {
     setCurrentPage((prev) => prev + 1);
+    onClickNext?.();
   };
   const handleClickPreviousButton = () => {
     setCurrentPage((prev) => prev - 1);
+    onClickPrevious?.();
   };
   return (
     <div className={classNames(styles.container)}>

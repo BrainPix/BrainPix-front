@@ -51,6 +51,12 @@
     color: $grey-700;
   }
 
+  &Outlined-grey600 {
+    @include outline-button-style($grey-600);
+
+    color: $grey-700;
+  }
+
   &Outlined-grey700 {
     @include outline-button-style($grey-700);
   }
@@ -81,6 +87,10 @@
 
   &Filled-grey300 {
     @include filled-button-style($grey-300);
+  }
+
+  &Filled-grey900 {
+    @include filled-button-style($grey-900);
   }
 
   &Filled-primary {

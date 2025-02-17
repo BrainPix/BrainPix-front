@@ -24,23 +24,32 @@
   stroke: $grey-800;
 }
 
+.carouselWrapper {
+  width: 800px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .carouselContainer {
-  width: 100%;
+  width: 690px;
   height: max-content;
   overflow: hidden;
+  margin: 0 auto;
+  display: flex;
 }
 
 .contentWrapper {
   display: flex;
   transition: transform 0.3s ease-in-out;
+  justify-content: center;
+  gap: 45px;
 }
 
 .labelContainer {
   @include flex-space-between;
-
   margin-bottom: 15px;
   width: 100%;
-
   & > .label {
     @include pretendard-20-500;
   }
@@ -50,13 +59,10 @@
   display: flex;
   width: fit-content;
   margin-bottom: 10px;
-
   & > button {
     @include navigation-button-style(24px);
-
     border: none;
   }
-
   & > .disabled {
     stroke: #bdbdbd;
   }
@@ -64,17 +70,21 @@
 
 .centerNavigationControls {
   @include flex-space-between;
-
-  width: 120%;
+  width: 100%;
   position: absolute;
-  transform: translateY(200%) translateX(-10%);
-
+  transform: translateY(200%);
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  
   & > button {
     @include navigation-button-style(45px);
-
-    border: 1px solid $grey-800;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
   }
-
+  
   & > .disabled {
     border-color: $grey-400;
     stroke: $grey-400;
