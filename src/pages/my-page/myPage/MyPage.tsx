@@ -110,7 +110,7 @@ export const MyPage = () => {
           <a href='/my/recent-news'>자세히</a>
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          {alarms.data.alarmDetailList
+          {alarms?.data.alarmDetailList
             .slice(0, 3)
             .map((alarmData: getAlarmResponseType) => (
               <PreviewList
