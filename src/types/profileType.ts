@@ -22,7 +22,7 @@ export interface IndividualProfileType {
 
 export interface CompanyProfileType {
   userId: 0;
-  profileImage: string;
+  imageUrl: string;
   userType: string;
   specializations: string[];
   name: string;

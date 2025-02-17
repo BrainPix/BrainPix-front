@@ -23,7 +23,7 @@ export const IdeaMarketPostHeader = ({
     if (postId) {
       navigate(`/my/posts/idea-market/edit/${postId}`);
     } else {
-      navigate('/my/posts//idea-market');
+      navigate('/my/posts/idea-market');
     }
   };
 

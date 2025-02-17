@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { Carousel } from '../../common/carousel/Carousel';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getPorfolios } from '../../../apis/portfolio';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 import { PortfolioDetailModal } from '../portfolio/PortfolioDetailModal';
+import React from 'react';
 
 interface PortfolioParttPropsType {
   editMode: boolean;
@@ -22,36 +23,47 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
   const [openPopup, setOpenPopup] = useState(false);
   const [clickedCardId, setClickedCardId] = useState(-1);
   const [userId, setUserId] = useState(-1);
+  const [currentData, setCurrentData] = useState<MyPorfolioType[][]>([]);
+  const [clickedPage, setClickedPage] = useState<number>(0);
 
   useEffect(() => {
-    const MyUserId = localStorage.getItem('userId');
-    if (MyUserId) {
-      setUserId(Number(MyUserId));
+    const myUserId = localStorage.getItem('userId');
+    if (myUserId) {
+      setUserId(Number(myUserId));
     }
-  }, []);
+  }, [userId]);
 
-  const { data: myPorfolios, isFetching: isGetPortfoliosFetching } =
-    useInfiniteQuery({
-      queryKey: ['myPortfolios'],
-      queryFn: ({ pageParam = 0 }) => getPorfolios(pageParam, userId),
-      initialPageParam: 0,
-      getNextPageParam: (lastPage, pages) => {
-        if (lastPage.currentPage < pages[0].totalPages) {
-          return lastPage?.currentPage + 1;
-        }
-      },
-      enabled: false,
+  const { data: myPorfolios } = useQuery({
+    queryKey: ['myPorfolios', clickedPage],
+    queryFn: () =>
+      getPorfolios({ page: clickedPage, size: 4, userId: Number(userId) }),
+    enabled: userId !== -1,
+  });
+
+  useEffect(() => {
+    if (!myPorfolios || userId === -1) return;
+
+    if (!currentData.length) {
+      const dataArray = new Array(myPorfolios?.totalPages).fill([]);
+      dataArray[0] = myPorfolios.content;
+      return setCurrentData(dataArray);
+    }
+    const updatedData = currentData.map((value, idx) => {
+      return idx === clickedPage ? myPorfolios.content : value;
     });
+    setCurrentData(updatedData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickedPage, myPorfolios, userId]);
 
   const handleClosePopup = () => {
     setOpenPopup(false);
   };
 
-  useOutsideClick({ ref: popupRef, handler: handleClosePopup });
+  const handleClickNext = () => {
+    setClickedPage((prev) => prev + 1);
+  };
 
-  if (isGetPortfoliosFetching) {
-    return <div>로딩 중..</div>;
-  }
+  useOutsideClick({ ref: popupRef, handler: handleClosePopup });
 
   return (
     <div className={classNames(styles.portfolioWrapper)}>
@@ -69,29 +81,34 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
           cardCount={4}
           buttonPosition='top'
           label='포트폴리오'
+          onClickNext={handleClickNext}
           editMode={editMode}
           onClickManagetText={() => navigate('/my/portfolio')}
-          dataLength={myPorfolios && myPorfolios.pages[0].totalElements}>
-          {myPorfolios?.pages[0].content.map(
-            ({ id, title, createdDate, profileImage }: MyPorfolioType) => (
-              <div
-                key={id}
-                className={classNames(styles.portfolio)}
-                onClick={() => {
-                  setOpenPopup(true);
-                  setClickedCardId(id);
-                }}>
-                <img
-                  className={classNames(styles.image)}
-                  alt='포트폴리오 대표사진'
-                  src={profileImage}
-                  onError={imageErrorHandler}
-                />
-                <div className={classNames(styles.title)}>{title}</div>
-                <div className={classNames(styles.date)}>{createdDate}</div>
-              </div>
-            ),
-          )}
+          dataLength={myPorfolios?.totalElements}>
+          {currentData.map((portfolios, pageIdx) => (
+            <React.Fragment key={pageIdx}>
+              {portfolios.map(
+                ({ id, title, createdDate, profileImage }: MyPorfolioType) => (
+                  <div
+                    key={id}
+                    className={classNames(styles.portfolio)}
+                    onClick={() => {
+                      setOpenPopup(true);
+                      setClickedCardId(id);
+                    }}>
+                    <img
+                      className={classNames(styles.image)}
+                      alt='포트폴리오 대표사진'
+                      src={profileImage}
+                      onError={imageErrorHandler}
+                    />
+                    <div className={classNames(styles.title)}>{title}</div>
+                    <div className={classNames(styles.date)}>{createdDate}</div>
+                  </div>
+                ),
+              )}
+            </React.Fragment>
+          ))}
         </Carousel>
       </div>
     </div>

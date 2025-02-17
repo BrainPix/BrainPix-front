@@ -1,33 +1,104 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './supportModal.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
 import ApplyIcon from '../../assets/icons/apply.svg?react';
 import UnapplyIcon from '../../assets/icons/unapply.svg?react';
+import { getCategoryLabel } from '../../utils/categoryMapping';
+
+import { useMutation } from '@tanstack/react-query';
+import { applyForRequest } from '../../apis/applyAPI';
+import axios from 'axios';
+import { useCollaborationSupport } from '../../hooks/useCollaborationSupport';
+import { useToast } from '../../contexts/toastContext';
 
 interface RequestSupportModalProps {
   onClose: () => void;
+  recruitments: {
+    recruitmentId: number;
+    domain: string;
+    occupiedQuantity: number;
+    totalQuantity: number;
+  }[];
+  category: string;
+  writerName: string;
+  title: string;
+  taskId: number;
 }
 
-const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [selectedSupport, setSelectedSupport] = useState<string | null>(null);
+const RequestSupportModal = ({
+  onClose,
+  recruitments,
+  category,
+  writerName,
+  title,
+  taskId,
+}: RequestSupportModalProps) => {
+  const {
+    selectedSupport,
+    message,
+    isChecked,
+    toggleCheckbox,
+    handleSupportSelection,
+    setMessage,
+    navigate,
+  } = useCollaborationSupport();
+  const { errorToast, successToast } = useToast();
 
   useEffect(() => {
-    // 모달이 열리면 body 스크롤 비활성화
     document.body.style.overflow = 'hidden';
     return () => {
-      // 모달이 닫히면 body 스크롤 활성화
       document.body.style.overflow = 'auto';
     };
   }, []);
 
-  const toggleCheckbox = () => {
-    setIsChecked((prev) => !prev);
-  };
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (!taskId) {
+        errorToast('요청과제 게시글 ID가 없습니다. 다시 시도해주세요.');
+        return Promise.reject('taskId is missing');
+      }
 
-  const handleSupportSelection = (id: string) => {
-    setSelectedSupport((prev) => (prev === id ? null : id));
+      if (!selectedSupport) {
+        errorToast('지원할 모집 부문을 선택해주세요.');
+        return Promise.reject('지원할 모집 부문을 선택해주세요.');
+      }
+
+      const requestData = {
+        requestRecruitmentId: selectedSupport,
+        isOpenProfile: isChecked,
+        message,
+      };
+      return applyForRequest(taskId, requestData);
+    },
+    onSuccess: () => {
+      successToast('지원이 완료되었습니다!');
+      onClose();
+      navigate('/request-assign');
+    },
+    onError: (error: unknown) => {
+      console.error('지원 요청 실패:', error);
+
+      let errorMessage = '지원 요청 중 오류가 발생했습니다.';
+
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.message || errorMessage;
+      }
+
+      if (errorMessage.includes('이미 신청한 분야')) {
+        errorToast('⚠ 이미 신청함');
+      } else {
+        errorToast(`${errorMessage}`);
+      }
+    },
+  });
+
+  const handleSubmit = () => {
+    if (!selectedSupport) {
+      errorToast('지원할 모집 부문을 선택해주세요.');
+      return;
+    }
+    mutation.mutate();
   };
 
   return (
@@ -46,45 +117,56 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
             <div className={styles.breadcrumb}>
               <span>요청과제</span>
               <ArrowIcon className={styles.arrowIcon} />
-              <span>디자인</span>
+              <span>{getCategoryLabel(category)}</span>
             </div>
             <div className={styles.companyInfo}>
-              <h2>SY TECH</h2>
-              <h1>Web 서비스 제안</h1>
+              <h2>{writerName}</h2>
+              <h1>{title}</h1>
             </div>
           </div>
           <h2 className={styles.sectionTitle}>지원 부문</h2>
-          <hr className={styles.divider} />
-          <div className={styles.supportTable}>
-            <div className={styles.tableHeader}>
-              <span className={styles.column}>지원 분야</span>
-              <span className={styles.column}>인원 현황</span>
-              <span className={styles.column}>지원</span>
-            </div>
-            {[
-              { id: 'PM', field: 'PM', status: '1 / 1' },
-              { id: '디자이너', field: '디자이너', status: '1 / 2' },
-            ].map((support) => (
-              <div
-                key={support.id}
-                className={styles.supportRow}>
-                <span className={styles.field}>{support.field}</span>
-                <span className={styles.status}>{support.status}</span>
-                <div
-                  className={styles.radioWrapper}
-                  onClick={() => handleSupportSelection(support.id)}>
-                  {selectedSupport === support.id ? (
-                    <ApplyIcon className={styles.radioIcon} />
-                  ) : (
-                    <UnapplyIcon className={styles.radioIcon} />
-                  )}
-                </div>
+          {recruitments.length === 0 ? (
+            <p className={styles.noRecruitments}>
+              지원할 모집 부문이 없습니다.
+            </p>
+          ) : (
+            <div className={styles.supportTable}>
+              <div className={styles.tableHeader}>
+                <span className={styles.column}>지원 분야</span>
+                <span className={styles.column}>인원 현황</span>
+                <span className={styles.column}>지원</span>
               </div>
-            ))}
-          </div>
+              {recruitments.map((recruitment) => (
+                <div
+                  key={recruitment.recruitmentId}
+                  className={styles.supportRow}>
+                  <span className={styles.field}>{recruitment.domain}</span>
+                  <span className={styles.status}>
+                    {recruitment.occupiedQuantity} / {recruitment.totalQuantity}
+                  </span>
+                  <div
+                    className={styles.radioWrapper}
+                    onClick={() =>
+                      handleSupportSelection(recruitment.recruitmentId)
+                    }>
+                    {selectedSupport === recruitment.recruitmentId ? (
+                      <ApplyIcon className={styles.radioIcon} />
+                    ) : (
+                      <UnapplyIcon className={styles.radioIcon} />
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <h2 className={styles.sectionTitle}>추가 메시지</h2>
-          <textarea className={styles.textarea} />
+          <textarea
+            className={styles.textarea}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder='지원 동기 및 추가 메시지를 입력하세요.'
+          />
           <div className={styles.footer}>
             <div
               className={styles.checkbox}
@@ -105,7 +187,12 @@ const RequestSupportModal = ({ onClose }: RequestSupportModalProps) => {
                 onClick={onClose}>
                 닫기
               </button>
-              <button className={styles.submitButton}>지원하기</button>
+              <button
+                className={styles.submitButton}
+                onClick={handleSubmit}
+                disabled={mutation.isPending || !selectedSupport}>
+                {mutation.isPending ? '지원 중...' : '지원하기'}
+              </button>
             </div>
           </div>
         </div>

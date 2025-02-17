@@ -44,14 +44,16 @@ export const Portfolio = () => {
     isFetching: isGetPorfoliosPending,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ['myPorfolios'],
-    queryFn: ({ pageParam = 0 }) => getPorfolios(pageParam, userId),
+    queryKey: ['myPortfolios'],
+    queryFn: ({ pageParam = 0 }) =>
+      getPorfolios({ page: pageParam, size: 8, userId }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.currentPage < pages[0].totalPages) {
         return lastPage?.currentPage + 1;
       }
     },
+    enabled: userId !== -1,
   });
 
   const [isOpenAddPortfolioModal, setIsOpenAddPortfolioModal] = useState(false);

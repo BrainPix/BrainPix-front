@@ -18,6 +18,7 @@ import {
   COMPANY_RPOFILE_INIT,
   PERSONAL_RPOFILE_INIT,
 } from '../../constants/initValues';
+import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
 
 export const PersonalProfile = () => {
   const { id, userType } = useParams();
@@ -51,7 +52,7 @@ export const PersonalProfile = () => {
       : ((selectedCompanylUserInfo as CompanyProfileType) ??
         COMPANY_RPOFILE_INIT);
 
-  const { name, specializations, profileImage } = userData;
+  const { name, specializations } = userData;
 
   return (
     <div className={classNames(styles.container)}>
@@ -59,10 +60,14 @@ export const PersonalProfile = () => {
         userType={userType || ''}
         userName={name}
         specializations={specializations}
-        profileImage={profileImage}
+        profileImage={
+          userType === 'personal'
+            ? (userData as IndividualProfileType).profileImage
+            : (userData as CompanyProfileType).imageUrl
+        }
       />
       <DescriptionTable userData={userData} />
-      {/* <PortfolioCarousel size={4} /> */}
+      <PortfolioCarousel size={4} />
       <PostsCarousel />
     </div>
   );

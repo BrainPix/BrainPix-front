@@ -50,6 +50,8 @@
   @include pretendard-18-400;
 
   color: $grey-600;
+  display: flex;
+  gap: 5px;
 }
 
 .editButton {

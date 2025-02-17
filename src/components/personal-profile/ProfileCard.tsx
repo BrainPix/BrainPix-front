@@ -42,7 +42,11 @@ export const ProfileCard = ({
         />
       )}
       <div className={classNames(styles.profileContainer)}>
-        <div className={classNames(styles.profileImage)} />
+        <img
+          className={classNames(styles.profileImage)}
+          alt='프로필 이미지'
+          src={profileImage}
+        />
         <div className={classNames(styles.profileNameContainer)}>
           <Label
             text={userType === 'personal' ? '개인' : '기업'}

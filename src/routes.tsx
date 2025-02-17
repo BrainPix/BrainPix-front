@@ -4,10 +4,13 @@ import { IdeaMarketMain } from './pages/idea-market/IdeaMarketMain';
 import { IdeaMarketRegister } from './pages/idea-market/IdeaMarketRegister';
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
+import { PaymentProcessing } from './pages/idea-market/PaymentProcessing';
+import { PaymentFail } from './pages/idea-market/PaymentFail';
+import { PaymentCancel } from './pages/idea-market/PaymentCancel';
+import { PaymentSuccess } from './pages/idea-market/PaymentSuccess';
 import { RequestRegisteredPage } from './pages/request-assign/RequestRegisteredPage';
 import { CollaborationMain } from './pages/collaboration/CollaborationMain';
 import { PersonalProfile } from './pages/personal-profile/PersonalProfile';
-import { PostDetailWithoutLink } from './pages/collaboration/PostDetailWithoutLink';
 import { PostDetailWithLink } from './pages/collaboration/PostDetailWithLink';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
 import { MyPage } from './pages/my-page/myPage/MyPage';
@@ -37,7 +40,7 @@ export const routes = createBrowserRouter([
     element: <Test />,
   },
   {
-    path: '/',
+    path: '/login',
     element: <Main />,
   },
   {
@@ -57,6 +60,10 @@ export const routes = createBrowserRouter([
     element: <Layout />,
     children: [
       {
+        path: '/',
+        element: <IdeaMarketMain />,
+      },
+      {
         path: '/idea-market',
         element: <IdeaMarketMain />,
       },
@@ -69,15 +76,31 @@ export const routes = createBrowserRouter([
         element: <IdeaRegisteredPage />,
       },
       {
-        path: '/idea-market/payment',
+        path: '/idea-market/payment/:ideaId',
         element: <IdeaMarketPayment />,
+      },
+      {
+        path: '/purchase/approve',
+        element: <PaymentProcessing />,
+      },
+      {
+        path: '/idea-market/payment-fail',
+        element: <PaymentFail />,
+      },
+      {
+        path: '/idea-market/payment-cancel',
+        element: <PaymentCancel />,
+      },
+      {
+        path: '/idea-market/payment-success',
+        element: <PaymentSuccess />,
       },
       {
         path: '/request-assign/registered/:taskId',
         element: <RequestRegisteredPage />,
       },
       {
-        path: 'collaboration',
+        path: '/collaboration',
         element: <CollaborationMain />,
       },
       {
@@ -85,11 +108,7 @@ export const routes = createBrowserRouter([
         element: <PersonalProfile />,
       },
       {
-        path: '/collaboration/postdetailwithoutlink',
-        element: <PostDetailWithoutLink />,
-      },
-      {
-        path: '/collaboration/postdetailwithlink',
+        path: '/collaboration/postdetailwithlink/:collaborationId',
         element: <PostDetailWithLink />,
       },
       {

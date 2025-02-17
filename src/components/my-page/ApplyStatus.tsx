@@ -1,9 +1,73 @@
+import {
+  postAcceptRequestApplication,
+  postRejectRequestApplication,
+  postAcceptCollaborationApplication,
+  postRejectCollaborationApplication,
+} from '../../apis/postManagementAPI';
 import styles from './applyStatus.module.scss';
 
-export const ApplyStatus = () => {
-  const APPLY_RECORDS = [
-    { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
-  ];
+interface ApplyStatusProps {
+  applicationStatus: {
+    applicantId: string;
+    role: string;
+    approvedCount: number;
+    totalCount: number;
+    purchasingId?: number;
+    gatheringId?: number;
+  }[];
+  postType: 'request-task' | 'collaboration';
+}
+
+export const ApplyStatus = ({
+  applicationStatus,
+  postType,
+}: ApplyStatusProps) => {
+  // const APPLY_RECORDS = [
+  //   { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
+  // ];
+  {
+    console.log('지원 현황: ', applicationStatus);
+  }
+
+  const handleAccept = async (id?: number) => {
+    if (!id) {
+      console.error('ID가 없습니다.');
+      return;
+    }
+
+    try {
+      if (postType === 'request-task') {
+        await postAcceptRequestApplication(id);
+      } else {
+        await postAcceptCollaborationApplication(id);
+      }
+      alert('요청 과제의 지원이 수락되었습니다.');
+      window.location.reload(); // 성공 시 새로고침
+    } catch (error) {
+      console.error('요청 과제의 지원 수락 중 오류 발생:', error);
+      alert('요청 과제의 지원 수락에 실패했습니다.');
+    }
+  };
+
+  const handleReject = async (id?: number) => {
+    if (!id) {
+      console.error('ID가 없습니다.');
+      return;
+    }
+
+    try {
+      if (postType === 'request-task') {
+        await postRejectRequestApplication(id);
+      } else {
+        await postRejectCollaborationApplication(id);
+      }
+      alert('협업 광장의 지원이 거절되었습니다.');
+      window.location.reload(); // 성공 시 새로고침
+    } catch (error) {
+      console.error('협업 광장의 지원 거절 중 오류 발생:', error);
+      alert('협업 광장의 지원 거절에 실패했습니다.');
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -19,21 +83,41 @@ export const ApplyStatus = () => {
           <span className={styles.divider} />
           <span />
         </div>
-        {APPLY_RECORDS.map((apply) => (
+        {applicationStatus.map((apply) => (
           <div
-            key={apply.id}
+            key={apply.applicantId}
             className={styles.tableRow}>
-            <span>{apply.id}</span>
+            <span>{apply.applicantId}</span>
             <span className={styles.divider} />
             <span>{apply.role}</span>
             <span className={styles.divider} />
             <span>
-              {apply.current} / {apply.total}
+              {apply.approvedCount} / {apply.totalCount}
             </span>
             <span className={styles.divider} />
             <div className={styles.buttonGroup}>
-              <button className={styles.button}>수락</button>
-              <button className={styles.button}>거절</button>
+              <button
+                className={styles.button}
+                onClick={() =>
+                  handleAccept(
+                    postType === 'request-task'
+                      ? apply.purchasingId
+                      : apply.gatheringId,
+                  )
+                }>
+                수락
+              </button>
+              <button
+                className={styles.button}
+                onClick={() =>
+                  handleReject(
+                    postType === 'request-task'
+                      ? apply.purchasingId
+                      : apply.gatheringId,
+                  )
+                }>
+                거절
+              </button>
             </div>
           </div>
         ))}

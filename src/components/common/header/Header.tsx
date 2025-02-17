@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './header.module.scss';
 
 import { SearchInput } from './SearchInput';
+import Logo from '../../../assets/icons/logo.svg?react';
 import Alarm from '../../../assets/icons/alarm.svg?react';
+import { useNavigate } from 'react-router-dom';
+import { useOutsideClick } from '../../../hooks/useOutsideClick';
+import { MyInfoCard } from './MyInfoCard';
+import { ToastContext } from '../../../contexts/toastContext';
+import { AlarmsCard } from './AlarmsCard';
 
 const OPTION_MENU = {
   등록하기: '/register',
   요청하기: '/request',
-  마이: '/my',
 };
+
+const OPTION_MENU_NO_USER = {
+  로그인: '/login',
+  회원가입: '/sign-up',
+};
+
 const PAGE_MENU = {
   '아이디어 마켓': '/idea-market',
   '요청 과제': '/request-assign',
@@ -18,27 +29,87 @@ const PAGE_MENU = {
 
 export const Header = () => {
   const location = window.location.pathname;
+  const navigate = useNavigate();
+  const { successToast } = useContext(ToastContext);
+  const alaramContainerRef = useRef<HTMLDivElement>(null);
+  const myInfoContainerRef = useRef<HTMLDivElement>(null);
 
   const [hoverIdeaMarket, setHoverIdeaMarket] = useState(false);
   const [hoverRequest, setHoverRequest] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const [openAlarm, setOpenAlarm] = useState(false);
+  const [openMyInfo, setOpenMyInfo] = useState(false);
+
+  useOutsideClick({
+    ref: alaramContainerRef,
+    handler: () => setOpenAlarm(false),
+  });
+
+  useOutsideClick({
+    ref: myInfoContainerRef,
+    handler: () => setOpenMyInfo(false),
+  });
+
+  const handleClickLogoutButton = () => {
+    localStorage.removeItem('accessToken');
+    setToken(null);
+    successToast('로그아웃 되었습니다.');
+  };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) setToken(accessToken);
+  }, []);
 
   return (
     <div>
       <div className={classNames(styles.container)}>
+        <Logo
+          className={classNames(styles.logo)}
+          onClick={() => navigate('/')}
+        />
         <SearchInput />
         <menu>
           <div className={classNames(styles.optionContainer)}>
             <div className={classNames(styles.optionWrapper)}>
-              {Object.entries(OPTION_MENU).map(([menu, link]) => (
-                <a
-                  href={link}
-                  key={menu}>
-                  {menu}
-                </a>
-              ))}
+              {Object.entries(token ? OPTION_MENU : OPTION_MENU_NO_USER).map(
+                ([menu, link]) => (
+                  <a
+                    href={link}
+                    key={menu}>
+                    {menu}
+                  </a>
+                ),
+              )}
+              {token && (
+                <div
+                  className={classNames(styles.myInfoContainer)}
+                  ref={myInfoContainerRef}>
+                  <div className={classNames(styles.icon)}>
+                    <span onClick={() => setOpenMyInfo((prev) => !prev)}>
+                      마이
+                    </span>
+                    {openMyInfo && (
+                      <div
+                        className={classNames(styles.wrapper, styles.myInfo)}>
+                        <MyInfoCard
+                          token={token}
+                          onClickLogout={handleClickLogoutButton}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-            <div className={classNames(styles.alarmWrapper)}>
-              <Alarm />
+            <div
+              className={classNames(styles.alarmContainer)}
+              ref={alaramContainerRef}>
+              <Alarm
+                onClick={() => setOpenAlarm((prev) => !prev)}
+                className={classNames(styles.alarmIcon)}
+              />
+              {openAlarm && <AlarmsCard token={token} />}
             </div>
           </div>
         </menu>
