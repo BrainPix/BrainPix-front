@@ -1,5 +1,6 @@
 import styles from './profileHeader.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 interface ProfileHeaderProps {
   writerId: number;
@@ -27,6 +28,7 @@ const ProfileHeader = ({
           src={profileImageUrl || '/default-profile.png'}
           alt={`${name}의 프로필 이미지`}
           className={styles.profileIcon}
+          onError={imageErrorHandler}
         />
         <div className={styles.textContainer}>
           <span className={styles.name}>{name || '사용자'}</span>

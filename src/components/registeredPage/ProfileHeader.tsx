@@ -1,4 +1,5 @@
 import styles from './profileHeader.module.scss';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 interface ProfileHeaderProps {
   writerId: number;
@@ -18,6 +19,7 @@ const ProfileHeader = ({
           src={profileImageUrl || '/default-profile.png'}
           alt='프로필 이미지'
           className={styles.profileIcon}
+          onError={imageErrorHandler}
         />
         <span className={styles.name}>{name || '사용자'}</span>
       </div>

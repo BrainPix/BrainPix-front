@@ -1,6 +1,7 @@
 import styles from './authorInfo.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 import { getCategoryLabel } from '../../utils/categoryMapping';
 
@@ -36,6 +37,7 @@ const AuthorInfo = ({
             src={profileImageUrl || '/default-profile.png'}
             alt='프로필 이미지'
             className={styles.profileIcon}
+            onError={imageErrorHandler}
           />
           <div className={styles.textContainer}>
             <span className={styles.name}>{name}</span>

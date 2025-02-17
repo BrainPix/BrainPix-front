@@ -3,6 +3,7 @@ import { useQnA } from '../../hooks/useQnA';
 import styles from './qnaSection.module.scss';
 import { Comment } from '../../types/commentsType';
 import React from 'react';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 interface QnASectionProps {
   postId: number;
@@ -113,6 +114,7 @@ const QnASection = ({ postId, userId }: QnASectionProps) => {
                 src={comment.profileImageUrl || '/default-profile.png'}
                 alt='프로필'
                 className={styles.profileIcon}
+                onError={imageErrorHandler}
               />
             </div>
             <div className={styles.content}>
@@ -164,6 +166,7 @@ const QnASection = ({ postId, userId }: QnASectionProps) => {
                           src={child.profileImageUrl || '/default-profile.png'}
                           alt='프로필'
                           className={styles.profileIcon}
+                          onError={imageErrorHandler}
                         />
                       </div>
                       <div className={styles.content}>
