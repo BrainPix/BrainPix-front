@@ -1,4 +1,5 @@
 import styles from './sellerInfo.module.scss';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 interface SellerInfoProps {
   name: string;
@@ -15,6 +16,7 @@ const SellerInfo = ({ name, profileImageUrl, email }: SellerInfoProps) => {
           src={profileImageUrl}
           alt='판매자 프로필'
           className={styles.profile}
+          onError={imageErrorHandler}
         />
         <div className={styles.name}>{name}</div>
         <div className={styles.email}>{email}</div>
