@@ -85,8 +85,6 @@ export const MyPage = () => {
     '협업 경험': collaborationCount,
   };
 
-  console.log(myIdeas);
-
   return (
     <div>
       <MyProfileCard userData={myBaseInfo} />
@@ -119,18 +117,18 @@ export const MyPage = () => {
       <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.title)}>
           최근 소식
-          {alarms?.data && alarms?.data?.alarmDetailList.length !== 0 && (
+          {alarms?.alarmDetailList.length !== 0 && (
             <a href='/my/recent-news'>자세히</a>
           )}
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          {!alarms?.data || alarms?.data?.alarmDetailList.length === 0 ? (
+          {!alarms?.alarmDetailList || alarms?.alarmDetailList.length === 0 ? (
             <div className={classNames(styles.noDataText)}>
               최근 소식이 없습니다.
             </div>
           ) : (
             <React.Fragment>
-              {alarms?.data?.alarmDetailList
+              {alarms?.alarmDetailList
                 .slice(0, 3)
                 .map((alarmData: getAlarmResponseType) => (
                   <PreviewList

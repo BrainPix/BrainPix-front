@@ -70,27 +70,34 @@
   cursor: pointer;
 }
 
+.contentWrapper {
+  display: flex;
+  gap: 10px;
+
+  & > span {
+    color: $grey-700;
+  }
+}
+
 .leftWrapper {
   & > .rootWrapper {
     @include pretendard-14-400;
 
     color: $grey-600;
     display: flex;
-    margin-bottom: 5px;
   }
 
   & > .name {
     @include pretendard-16-500;
 
     color: $grey-700;
-    margin-bottom: 5px;
     line-height: 20px;
   }
 
   & > .content {
     @include pretendard-18-500;
 
-    color: $grey-800;
+    color: $grey-900;
   }
 }
 

@@ -37,7 +37,7 @@ export const RecentNews = () => {
       if (observer.isIntersecting) {
         fetchNextPage();
         const totalCurrentCardLength = alarmsInTrash?.pages.reduce(
-          (acc, page) => acc + page.data.alarmDetailList.length,
+          (acc, page) => acc + page.alarmDetailList.length,
           0,
         );
 
@@ -77,7 +77,7 @@ export const RecentNews = () => {
   });
 
   useEffect(() => {
-    if (alarms?.data.totalPage < 5) {
+    if (alarms?.totalPage < 5) {
       const pages = new Array(alarms.data.totalPage)
         .fill(0)
         .map((_, idx) => idx + 1);
@@ -118,16 +118,14 @@ export const RecentNews = () => {
       <div>
         <h1 className={classNames(styles.title)}>최근 소식</h1>
         <div className={classNames(styles.listContainer)}>
-          {alarms?.data.alarmDetailList.map(
-            (alarmData: getAlarmResponseType) => (
-              <PreviewList
-                iconType='trash'
-                key={alarmData.alarmId}
-                alarmData={alarmData}
-                onClickIcon={handleClickIcon}
-              />
-            ),
-          )}
+          {alarms?.alarmDetailList.map((alarmData: getAlarmResponseType) => (
+            <PreviewList
+              iconType='trash'
+              key={alarmData.alarmId}
+              alarmData={alarmData}
+              onClickIcon={handleClickIcon}
+            />
+          ))}
         </div>
         <div className={classNames(styles.pageNumberWrapper)}>
           <button
@@ -157,8 +155,7 @@ export const RecentNews = () => {
             className={classNames(styles.arrowButton)}
             onClick={handleClickNextArrow}
             disabled={
-              currentPageNums[currentPageNums.length - 1] >=
-              alarms.data.totalPage
+              currentPageNums[currentPageNums.length - 1] >= alarms.totalPage
             }>
             <Arrow
               width={20}
@@ -196,7 +193,7 @@ export const RecentNews = () => {
           <div className={classNames(styles.trashListWrapper)}>
             {alarmsInTrash?.pages.map((alarms, pageIdx) => (
               <React.Fragment key={pageIdx}>
-                {alarms.data.alarmDetailList.map(
+                {alarms.alarmDetailList.map(
                   (alarmData: getAlarmResponseType, idx: number) => (
                     <PreviewList
                       key={alarmData.alarmId}

@@ -181,6 +181,7 @@ export const Message = () => {
                   sendDate,
                   senderNickname,
                   isRead,
+                  messageType,
                 }: getMessagesResponseType,
                 idx: number,
               ) => (
@@ -204,7 +205,16 @@ export const Message = () => {
                       <p className={classNames(styles.name)}>
                         {senderNickname}
                       </p>
-                      <p className={classNames(styles.content)}>{title}</p>
+                      <div className={classNames(styles.contentWrapper)}>
+                        {selectedStatus === 'ALL' && (
+                          <span>
+                            {messageType === 'RECEIVED'
+                              ? '[받은 메세지]'
+                              : '[보낸 메세지]'}
+                          </span>
+                        )}
+                        <p className={classNames(styles.content)}>{title}</p>
+                      </div>
                     </div>
                     <div className={classNames(styles.rightWrapper)}>
                       {sendDate}
