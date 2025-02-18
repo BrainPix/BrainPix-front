@@ -10,12 +10,6 @@ interface PurchaseStatusProps {
 }
 
 export const PurchaseStatus = ({ purchaseHistory }: PurchaseStatusProps) => {
-  // const PURCHASE_RECORDS = [
-  //   { id: 'drerwr', payment: '카카오페이', price: 1000 },
-  //   { id: 'drerwr', payment: '카카오페이', price: 1000 },
-  // ];
-  console.log('purchaseHistory', purchaseHistory);
-
   if (!purchaseHistory || !Array.isArray(purchaseHistory)) {
     return <div>구매 내역이 없습니다.</div>;
   }
