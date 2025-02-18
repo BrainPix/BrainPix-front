@@ -1,42 +1,56 @@
-export interface IndividualProfileType {
-  userType: string;
+interface CommonProfileType {
+  specializations: string[];
+  selfIntroduction: string;
+}
+
+export interface IndividualProfileResponseType extends CommonProfileType {
   userId: number;
   profileImage: string;
-  specializations: string[];
+  userType: string;
   nickname: string;
-  selfIntroduction: string;
   contacts: {
     type: string;
     value: string;
+    isPubilc: boolean;
   }[];
   stacks: {
     stackName: string;
     proficiency: string;
+    stackOpen: boolean;
   }[];
   careers: {
     content: string;
     startDate: string;
     endDate: string;
+    careerOpen: boolean;
   }[];
 }
 
-export interface CompanyProfileType {
-  userId: 0;
-  imageUrl: string;
-  userType: string;
-  specializations: string[];
-  nickname: string;
-  selfIntroduction: string;
-  businessInformation: string;
-  companyInformations: [
-    {
-      type: string;
-      value: string;
-    },
-  ];
+export interface putIndividualProfilePayloadType extends CommonProfileType {
+  profileImage: string;
+  contacts: ContactType[];
+  stacks: IndividualSkillTypePayloadType[];
+  stackOpen: boolean;
+  careers: IndividualCareerResponseType[];
+  careerOpen: boolean;
 }
 
-export interface IndividualContactType {
+export interface CompanyProfileResponseType extends CommonProfileType {
+  userId: number;
+  imageUrl: string;
+  userType: string;
+  nickname: string;
+  businessInformation: string;
+  companyInformations: ContactType[];
+}
+
+export interface putComanyProfilePayloadType extends CommonProfileType {
+  profileImage: string;
+  businessInformation: string;
+  companyInformations: ContactType[];
+}
+
+export interface ContactType {
   type: string;
   value: string;
   isPublic: boolean;
