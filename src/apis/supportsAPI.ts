@@ -3,8 +3,6 @@ import { Purchase, RequestTasks, Collaborations } from '../types/supportsType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-console.log('API BASE_URL: ', BASE_URL);
-
 export const getPurchases = async (
   page = 0,
   size = 10,
@@ -14,7 +12,7 @@ export const getPurchases = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -25,9 +23,6 @@ export const getPurchases = async (
       },
       params: { page, size },
     });
-
-    console.log('API 응답 데이터:', response.data);
-    console.log('API 응답 데이터 content:', response.data?.data?.content);
 
     return response.data?.data?.content ?? [];
   } catch (error) {
@@ -45,7 +40,7 @@ export const getAcceptedRequestTasks = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -57,7 +52,6 @@ export const getAcceptedRequestTasks = async (
       params: { page, size },
     });
 
-    //console.log('수락된 요청 과제 데이터:', response.data);
     return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -72,12 +66,9 @@ export const getRejectedRequestTasks = async (
   const url = `${BASE_URL}/supports/request-tasks/rejected`;
   const API_TOKEN = localStorage.getItem('accessToken');
 
-  console.log('요청 URL:', url);
-  console.log('요청 파라미터:', { page, size });
-
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -89,8 +80,6 @@ export const getRejectedRequestTasks = async (
       params: { page, size },
     });
 
-    console.log('거절된 요청 과제 데이터:', response.data);
-    console.log('거절된 요청 과제 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -106,7 +95,7 @@ export const deleteRejectedRequestTasks = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -115,8 +104,6 @@ export const deleteRejectedRequestTasks = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log(`요청 과제 ${purchasingId}번 게시글 삭제 성공`);
   } catch (error) {
     console.error('삭제 요청 실패:', error);
     throw error;
@@ -132,7 +119,7 @@ export const getAcceptedCollaborations = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -144,9 +131,6 @@ export const getAcceptedCollaborations = async (
       params: { page, size },
     });
 
-    console.log('협업 광장 : 지원 완료');
-    console.log('수락된 협업 광장 데이터:', response.data);
-    console.log('수락된 협업 광장 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -161,12 +145,9 @@ export const getRejectedCollaborations = async (
   const url = `${BASE_URL}/supports/collaborations/rejected`;
   const API_TOKEN = localStorage.getItem('accessToken');
 
-  console.log('요청 URL:', url);
-  console.log('요청 파라미터:', { page, size });
-
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
     return [];
   }
 
@@ -178,8 +159,6 @@ export const getRejectedCollaborations = async (
       params: { page, size },
     });
 
-    console.log('거절된 협업 광장 데이터:', response.data);
-    console.log('거절된 협업 광장 데이터:', response.data?.data);
     return response.data?.data?.content ?? [];
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -195,7 +174,7 @@ export const deleteRejectedCollaborations = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -204,8 +183,6 @@ export const deleteRejectedCollaborations = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log(`협업 광장 ${collectionGatheringId}번 게시글 삭제 성공`);
   } catch (error) {
     console.error('삭제 요청 실패:', error);
     throw error;

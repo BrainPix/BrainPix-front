@@ -17,44 +17,6 @@ export const ApplyCollaboration = () => {
     labelText: '기업',
     labelType: 'corporate',
   };
-  // const APPLY_DATA = [
-  //   {
-  //     id: 1,
-  //     status: '수락됨',
-  //     statusType: 'accept',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '협업 광장',
-  //     category: '디자인',
-  //     itemName: '앱 개발 팀원 모집',
-  //     part: '디자이너',
-  //   },
-  //   {
-  //     id: 2,
-  //     status: '거절됨',
-  //     statusType: 'reject',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '협업 광장',
-  //     category: '디자인',
-  //     itemName: '앱 개발 팀원 모집',
-  //     part: '디자이너',
-  //   },
-  // ];
-  // const TABLE_DATA = [
-  //   {
-  //     id: 'qweqr',
-  //     role: '디자이너',
-  //     current: 1,
-  //     total: 2,
-  //   },
-  //   {
-  //     id: 'qweqr',
-  //     role: '디자이너',
-  //     current: 1,
-  //     total: 2,
-  //   },
-  // ];
 
   const queryClient = useQueryClient();
 
@@ -63,7 +25,7 @@ export const ApplyCollaboration = () => {
       deleteRejectedCollaborations(collectionGatheringId),
     onSuccess: () => {
       alert('거절된 협업 광장의 지원 내역이 삭제되었습니다.');
-      queryClient.invalidateQueries({ queryKey: ['RejectedCollaborations'] }); // 삭제 후 리스트 새로고침
+      queryClient.invalidateQueries({ queryKey: ['RejectedCollaborations'] });
     },
     onError: () => {
       alert('삭제에 실패했습니다.');
@@ -99,33 +61,6 @@ export const ApplyCollaboration = () => {
       <div className={styles.error}>데이터를 불러오는 데 실패했습니다.</div>
     );
   }
-
-  // const content: Collaborations[] = [
-  //   {
-  //     collectionGatheringId: 0,
-  //     firstImage: 'string',
-  //     postCreatedAt: 'yyyy-MM-dd',
-  //     postTitle: 'string',
-  //     specialization: 'ADVERTISING_PROMOTION',
-  //     domain: 'string',
-  //     writerName: 'string',
-  //     writerType: 'string',
-  //     teamInfoList: [
-  //       {
-  //         domain: 'string',
-  //         occupied: 0,
-  //         total: 0,
-  //         joiners: [
-  //           {
-  //             joinerID: 'user123',
-  //             userType: '디자이너',
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //     collaborationId: 0,
-  //   },
-  // ];
 
   return (
     <div className={styles.container}>

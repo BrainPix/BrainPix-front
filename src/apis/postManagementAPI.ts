@@ -11,8 +11,6 @@ import {
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-console.log('API BASE_URL: ', BASE_URL);
-
 export const getPostIdeaMarket = async (
   page = 0,
   size = 10,
@@ -22,7 +20,7 @@ export const getPostIdeaMarket = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -32,12 +30,6 @@ export const getPostIdeaMarket = async (
       },
       params: { page, size },
     });
-
-    console.log('아이디어 마켓 API 응답 데이터:', response.data);
-    console.log(
-      '아이디어 마켓 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
 
     return response.data.data;
   } catch (error) {
@@ -55,7 +47,7 @@ export const getPostRequestTask = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -65,12 +57,6 @@ export const getPostRequestTask = async (
       },
       params: { page, size },
     });
-
-    console.log('요청 과제 API 응답 데이터:', response.data);
-    console.log(
-      '요청 과제 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
 
     return response.data.data;
   } catch (error) {
@@ -88,7 +74,7 @@ export const getPostCollaboration = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -98,12 +84,6 @@ export const getPostCollaboration = async (
       },
       params: { page, size },
     });
-
-    console.log('협업 광장 API 응답 데이터:', response.data);
-    console.log(
-      '협업 광장 API 응답 데이터 content:',
-      response.data?.data?.content,
-    );
 
     return response.data.data;
   } catch (error) {
@@ -120,7 +100,7 @@ export const getPostIdeaMarketDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -129,8 +109,6 @@ export const getPostIdeaMarketDetail = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log('아이디어 마켓 상세 조회 API 응답 데이터:', response.data);
 
     return response.data.data;
   } catch (error) {
@@ -147,7 +125,7 @@ export const getPostRequestTaskDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -156,8 +134,6 @@ export const getPostRequestTaskDetail = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log('요청 과제 상세 조회 API 응답 데이터:', response.data);
 
     return response.data.data;
   } catch (error) {
@@ -174,7 +150,7 @@ export const getPostCollaborationDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -183,8 +159,6 @@ export const getPostCollaborationDetail = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-
-    console.log('협업 광장 상세 조회 API 응답 데이터:', response.data);
 
     return response.data.data;
   } catch (error) {
@@ -201,7 +175,7 @@ export const postAcceptRequestApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -230,7 +204,7 @@ export const postRejectRequestApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -259,7 +233,7 @@ export const postAcceptCollaborationApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -288,7 +262,7 @@ export const postRejectCollaborationApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
+    window.location.href = 'login/personal';
   }
 
   try {
@@ -305,6 +279,33 @@ export const postRejectCollaborationApplication = async (
     console.log('협업 광장의 지원 거절 성공:', response.data);
   } catch (error) {
     console.error('협업 광장의 지원 거절 실패:', error);
+    throw error;
+  }
+};
+
+export const deletePost = async (
+  postId: number,
+  postType: 'idea-markets' | 'request-tasks' | 'collaborations',
+): Promise<void> => {
+  const url = `${BASE_URL}/${postType}/${postId}`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = '/login/personal';
+    throw new Error('인증되지 않은 사용자입니다.');
+  }
+
+  try {
+    const response = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('아이디어 마켓 게시글 삭제 실패:', error);
     throw error;
   }
 };
