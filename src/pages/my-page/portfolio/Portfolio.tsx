@@ -112,6 +112,11 @@ export const Portfolio = () => {
           추가하기
         </button>
       </div>
+      {myPorfolios?.pages[0].content.length == 0 && (
+        <div className={classNames(styles.noDataText)}>
+          포트폴리오가 없습니다.
+        </div>
+      )}
       <div className={classNames(styles.portfolioContainer)}>
         {myPorfolios?.pages.map((portfolios, pageIdx) => (
           <React.Fragment key={portfolios.currentPage}>

@@ -166,6 +166,11 @@ export const Message = () => {
         ))}
       </div>
       <div className={classNames(styles.messageCardContainer)}>
+        {messages?.pages[0].data.messageDetailList.length === 0 && (
+          <div className={classNames(styles.noDataText)}>
+            메세지가 없습니다.
+          </div>
+        )}
         {messages?.pages.map((messagesData, pageIdx) => (
           <React.Fragment key={pageIdx}>
             {messagesData.data.messageDetailList.map(

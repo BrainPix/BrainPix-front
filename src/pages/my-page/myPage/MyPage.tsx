@@ -101,10 +101,20 @@ export const MyPage = () => {
         ))}
       </div>
       <div className={classNames(styles.contentContainer)}>
-        <div className={classNames(styles.title)}>자기소개</div>
-        <p className={classNames(styles.introduceContent)}>
-          {selfIntroduction}
-        </p>
+        <div className={classNames(styles.title)}>
+          {myBaseInfoData?.data.userType === 'INDIVIDUAL'
+            ? '자기 소개'
+            : '기업 소개'}
+        </div>
+        {selfIntroduction ? (
+          <p className={classNames(styles.introduceContent)}>
+            {selfIntroduction}
+          </p>
+        ) : (
+          <div className={classNames(styles.noDataText)}>
+            자기소개를 작성해주세요.
+          </div>
+        )}
       </div>
       <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.title)}>
