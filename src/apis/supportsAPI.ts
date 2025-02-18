@@ -11,6 +11,7 @@ export const getPurchases = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
     return [];
   }
@@ -37,7 +38,9 @@ export const getAcceptedRequestTasks = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
+    return [];
   }
 
   try {
@@ -62,7 +65,9 @@ export const getRejectedRequestTasks = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
+    return [];
   }
 
   try {
@@ -86,6 +91,7 @@ export const deleteRejectedRequestTasks = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
   }
 
@@ -95,8 +101,11 @@ export const deleteRejectedRequestTasks = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-  } catch {
-    throw Error;
+
+    console.log(`요청 과제 ${purchasingId}번 게시글 삭제 성공`);
+  } catch (error) {
+    console.error('삭제 요청 실패:', error);
+    throw error;
   }
 };
 
@@ -108,7 +117,9 @@ export const getAcceptedCollaborations = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
+    return [];
   }
 
   try {
@@ -133,7 +144,9 @@ export const getRejectedCollaborations = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
+    return [];
   }
 
   try {
@@ -157,6 +170,7 @@ export const deleteRejectedCollaborations = async (
   const API_TOKEN = localStorage.getItem('accessToken');
 
   if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
     window.location.href = 'login/individual';
   }
 
@@ -166,7 +180,10 @@ export const deleteRejectedCollaborations = async (
         Authorization: `Bearer ${API_TOKEN}`,
       },
     });
-  } catch {
-    throw Error;
+
+    console.log(`협업 광장 ${collectionGatheringId}번 게시글 삭제 성공`);
+  } catch (error) {
+    console.error('삭제 요청 실패:', error);
+    throw error;
   }
 };

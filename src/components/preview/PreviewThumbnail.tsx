@@ -19,7 +19,7 @@ interface PreviewThumbnailType {
   saves?: number;
   views?: number;
   size?: 'normal' | 'large';
-  onBookmarkClick?: () => void;
+  onBookmarkClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   verified?: boolean;
   onClick?: () => void;
 }
@@ -132,7 +132,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onBookmarkClick();
+              onBookmarkClick(e);
             }}
             className={styles.bookmarkButton}>
             {isBookmarked ? (
