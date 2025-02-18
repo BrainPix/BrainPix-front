@@ -28,3 +28,10 @@ export interface sendMessagePayloadType {
   title: string;
   content: string;
 }
+
+export interface sendMessageCountResponseType {
+  data: {
+    readMessageCount: number;
+    unreadMessageCount: number;
+  };
+}

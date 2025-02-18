@@ -38,3 +38,15 @@ export const sendMessages = async (payload: sendMessagePayloadType) => {
     return data;
   }
 };
+
+export const getMessageCount = async () => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/count`;
+
+  if (token) {
+    const { data } = await axios(url, {
+      headers: { Authorization: token },
+    });
+    return data;
+  }
+};

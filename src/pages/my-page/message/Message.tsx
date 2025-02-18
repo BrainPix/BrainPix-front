@@ -5,11 +5,12 @@ import styles from './message.module.scss';
 import {
   getMessageResponseType,
   MessagesKeyType,
+  sendMessageCountResponseType,
 } from '../../../types/messageType';
 import { WriteMessageModal } from '../../../components/my-page/message/WriteMessageModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { getMessages } from '../../../apis/messageAPI';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { getMessageCount, getMessages } from '../../../apis/messageAPI';
 
 export const Message = () => {
   const READ_COUNT = 1;
@@ -42,6 +43,11 @@ export const Message = () => {
         return lastPage?.currentPage + 1;
       }
     },
+  });
+
+  const { data: messageCount } = useQuery<sendMessageCountResponseType>({
+    queryKey: ['messageCount'],
+    queryFn: getMessageCount,
   });
 
   const handleCloseWriteModal = () => {
@@ -80,9 +86,11 @@ export const Message = () => {
       )}
       <div className={classNames(styles.titleWrapper)}>
         <span className={classNames(styles.title)}>메신저</span>
-        <span className={classNames(styles.readCount)}>읽음 {READ_COUNT}</span>
         <span className={classNames(styles.readCount)}>
-          안 읽음 {UNREAD_COUNT}
+          읽음 {messageCount?.data.readMessageCount}
+        </span>
+        <span className={classNames(styles.readCount)}>
+          안 읽음 {messageCount?.data.unreadMessageCount}
         </span>
         <button
           onClick={() => {
