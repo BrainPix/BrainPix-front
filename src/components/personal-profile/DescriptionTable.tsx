@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import styles from './descriptionTable.module.scss';
 
 import {
-  CompanyProfileType,
-  IndividualProfileType,
+  CompanyProfileResponseType,
+  IndividualProfileResponseType,
 } from '../../types/profileType';
 import {
   INFO_TYPE_MAPPER,
@@ -14,7 +14,7 @@ import { PERSONAL_RPOFILE_INIT } from '../../constants/initValues';
 import { useParams } from 'react-router-dom';
 
 interface DescriptionTablePropsType {
-  userData: IndividualProfileType | CompanyProfileType;
+  userData: IndividualProfileResponseType | CompanyProfileResponseType;
 }
 
 export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
@@ -38,7 +38,7 @@ export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
         <table className={classNames(styles.infoTable)}>
           <tbody>
             {userType === 'personal'
-              ? (userData as IndividualProfileType)?.contacts.map(
+              ? (userData as IndividualProfileResponseType)?.contacts.map(
                   ({ type, value }) => (
                     <tr
                       className={classNames(styles.row)}
@@ -48,16 +48,16 @@ export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
                     </tr>
                   ),
                 )
-              : (userData as CompanyProfileType)?.companyInformations.map(
-                  ({ type, value }) => (
-                    <tr
-                      className={classNames(styles.row)}
-                      key={type}>
-                      <th>{INFO_TYPE_MAPPER[type]}</th>
-                      <td>{value}</td>
-                    </tr>
-                  ),
-                )}
+              : (
+                  userData as CompanyProfileResponseType
+                )?.companyInformations.map(({ type, value }) => (
+                  <tr
+                    className={classNames(styles.row)}
+                    key={type}>
+                    <th>{INFO_TYPE_MAPPER[type]}</th>
+                    <td>{value}</td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
@@ -72,7 +72,7 @@ export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
                   <hr className={classNames(styles.skillDivider)} />
                   <div className={classNames(styles.level)}>수준</div>
                 </div>
-                {(userData as IndividualProfileType).stacks.map(
+                {(userData as IndividualProfileResponseType).stacks.map(
                   ({ stackName, proficiency }) => (
                     <div
                       key={stackName}
@@ -96,7 +96,7 @@ export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
                   <hr className={classNames(styles.careerDivider)} />
                   <div className={classNames(styles.date)}>기간</div>
                 </div>
-                {(userData as IndividualProfileType).careers.map(
+                {(userData as IndividualProfileResponseType).careers.map(
                   ({ content, startDate, endDate }) => (
                     <div
                       key={content}
@@ -115,7 +115,9 @@ export const DescriptionTable = ({ userData }: DescriptionTablePropsType) => {
         ) : (
           <div className={classNames(styles.descriptionWrapper)}>
             <h2 className={classNames(styles.title)}>사업 내용</h2>
-            <p>{(userData as CompanyProfileType).businessInformation}</p>
+            <p>
+              {(userData as CompanyProfileResponseType).businessInformation}
+            </p>
           </div>
         ))}
     </div>

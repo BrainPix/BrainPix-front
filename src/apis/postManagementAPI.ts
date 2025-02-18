@@ -165,20 +165,19 @@ export const postAcceptRequestApplication = async (
     window.location.href = 'login/individual';
   }
 
-  // try {
-  //   const response = await axios.post(
-  //     url,
-  //     {},
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${API_TOKEN}`,
-  //       },
-  //     },
-  //   );
-
-  // } catch {
-  //   throw Error;
-  // }
+  try {
+    axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+      },
+    );
+  } catch {
+    throw Error;
+  }
 };
 
 export const postRejectRequestApplication = async (
@@ -191,19 +190,19 @@ export const postRejectRequestApplication = async (
     window.location.href = 'login/individual';
   }
 
-  // try {
-  //   const response = await axios.post(
-  //     url,
-  //     {},
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${API_TOKEN}`,
-  //       },
-  //     },
-  //   );
-  // } catch {
-  //   throw Error;
-  // }
+  try {
+    await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+      },
+    );
+  } catch {
+    throw Error;
+  }
 };
 
 export const postAcceptCollaborationApplication = async (

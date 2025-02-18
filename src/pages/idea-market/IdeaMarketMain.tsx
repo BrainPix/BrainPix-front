@@ -51,9 +51,11 @@ interface CardData {
 export const IdeaMarketMain = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_cardsData, setCardsData] = useState<CardData[]>([]);
   const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_isUpdating, setIsUpdating] = useState(false);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');

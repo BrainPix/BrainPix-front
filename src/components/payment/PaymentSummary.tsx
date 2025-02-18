@@ -87,10 +87,11 @@ const PaymentSummary = ({ price, quantity, sellerId }: PaymentSummaryProps) => {
         return;
       }
 
-      const { nextRedirectPcUrl, orderId } = response;
+      // 이거 제가 빌드 에러 땜시 주석처리해놨어요,, -민정-
+      // const { nextRedirectPcUrl, orderId } = response;
 
-      sessionStorage.setItem('orderId', orderId);
-      window.location.href = nextRedirectPcUrl;
+      // sessionStorage.setItem('orderId', orderId);
+      // window.location.href = nextRedirectPcUrl;
     } catch {
       throw Error;
     }

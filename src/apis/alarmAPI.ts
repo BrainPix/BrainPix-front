@@ -13,7 +13,7 @@ export const getAlarms = async (page: number) => {
       },
     });
 
-    return data;
+    return data?.data;
   }
 };
 

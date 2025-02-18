@@ -11,6 +11,7 @@ import {
   INFO_TYPE_MAPPER,
   INFO_TYPE_MAPPER_TO_ENG,
 } from '../../../constants/categoryMapper';
+import { formatPhone } from '../../../utils/formatPhone';
 
 interface IndividualInfoPartPropsType {
   editMode: boolean;
@@ -27,12 +28,12 @@ export const IndividualInfoPart = forwardRef<
   const userData = queryClient.getQueryData(['userData']);
   const [userType, setUserType] = useState('');
   const [infoOpenChecked, setInfoOpenChecked] = useState(false);
-
   const [addInfo, setAddInfo] = useState<ContactType>({
     type: '',
     value: '',
     isPublic: false,
   });
+  const [selectedType, setSelectedType] = useState('PHONE');
 
   useEffect(() => {
     const myUserType = localStorage.getItem('myType');
@@ -45,6 +46,7 @@ export const IndividualInfoPart = forwardRef<
       : ['홈페이지', '이메일', '연락처', '기타'];
 
   const handleSelectLabel = (option: string) => {
+    setSelectedType(option);
     setAddInfo((prev) => {
       return {
         ...prev,
@@ -112,10 +114,13 @@ export const IndividualInfoPart = forwardRef<
             />
             <input
               ref={ref}
-              onChange={(e) =>
-                setAddInfo((prev) => ({ ...prev, value: e.target.value }))
-              }
-              maxLength={500}
+              onChange={(e) => {
+                if (selectedType === '연락처') {
+                  e.target.value = formatPhone(e.target.value);
+                }
+                setAddInfo((prev) => ({ ...prev, value: e.target.value }));
+              }}
+              maxLength={selectedType === '연락처' ? 13 : 500}
               className={classNames(styles.input)}
             />
             <div>

@@ -6,11 +6,7 @@ interface ProfileHeaderProps {
   profileImageUrl: string;
 }
 
-const ProfileHeader = ({
-  writerId,
-  name,
-  profileImageUrl,
-}: ProfileHeaderProps) => {
+const ProfileHeader = ({ name, profileImageUrl }: ProfileHeaderProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>

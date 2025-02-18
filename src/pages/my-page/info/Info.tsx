@@ -108,7 +108,7 @@ export const Info = () => {
   });
 
   useEffect(() => {
-    if (personalData?.contacts) {
+    if (personalData?.contacts !== undefined) {
       setValue('selfIntroduction', personalData.selfIntroduction);
       const updatedSpecializations = personalData.specializations.map(
         (value: string) => {
@@ -122,7 +122,7 @@ export const Info = () => {
       setSelectedProfileImage(personalData.profileImage);
     }
 
-    if (companyData?.businessInformation) {
+    if (companyData?.businessInformation !== undefined) {
       setValue('selfIntroduction', companyData.selfIntroduction);
       const updatedSpecializations = companyData.specializations?.map(
         (value: string) => {
@@ -131,7 +131,8 @@ export const Info = () => {
       );
       setSelectedSpecialization(updatedSpecializations);
       setContacts(companyData.companyInformations ?? []);
-      setSelectedProfileImage(personalData.imageUrl);
+      setSelectedProfileImage(companyData.imageUrl);
+      console.log(companyData);
     }
   }, [personalData, companyData, setValue]);
 

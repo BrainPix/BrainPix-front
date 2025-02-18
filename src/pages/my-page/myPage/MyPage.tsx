@@ -85,6 +85,8 @@ export const MyPage = () => {
     '협업 경험': collaborationCount,
   };
 
+  console.log(myIdeas);
+
   return (
     <div>
       <MyProfileCard userData={myBaseInfo} />
@@ -107,22 +109,37 @@ export const MyPage = () => {
       <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.title)}>
           최근 소식
-          <a href='/my/recent-news'>자세히</a>
+          {alarms?.data && alarms?.data?.alarmDetailList.length !== 0 && (
+            <a href='/my/recent-news'>자세히</a>
+          )}
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          {alarms?.data.alarmDetailList
-            .slice(0, 3)
-            .map((alarmData: getAlarmResponseType) => (
-              <PreviewList
-                key={alarmData.alarmId}
-                alarmData={alarmData}
-              />
-            ))}
+          {!alarms?.data || alarms?.data?.alarmDetailList.length === 0 ? (
+            <div className={classNames(styles.noDataText)}>
+              최근 소식이 없습니다.
+            </div>
+          ) : (
+            <React.Fragment>
+              {alarms?.data?.alarmDetailList
+                .slice(0, 3)
+                .map((alarmData: getAlarmResponseType) => (
+                  <PreviewList
+                    key={alarmData.alarmId}
+                    alarmData={alarmData}
+                  />
+                ))}
+            </React.Fragment>
+          )}
         </div>
       </div>
       <div>
         <div className={classNames(styles.title)}>내 아이디어</div>
         <div className={classNames(styles.recentNewsWrapper)}>
+          {myIdeas?.pages[0]?.data.content.length == 0 && (
+            <div className={classNames(styles.noDataText)}>
+              작성된 아이디어가 없습니다.
+            </div>
+          )}
           {myIdeas?.pages.map((ideas, pageIdx) => (
             <React.Fragment key={pageIdx}>
               {ideas.data.content.map(
