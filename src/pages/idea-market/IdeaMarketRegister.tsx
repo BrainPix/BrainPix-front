@@ -11,13 +11,18 @@ import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 
-// 타입 정의
-interface IdeaMarketPriceDto {
-  price: number;
-  totalQuantity: number;
+interface IdeaMarketRequestData {
+  title: string;
+  content: string;
+  specialization: SpecializationType;
+  openMyProfile: boolean;
+  imageList: string[];
+  attachmentFileList: string[];
+  postAuth: PostAuth;
+  ideaMarketType: IdeaMarketType;
+  priceDto: IdeaMarketPriceDto;
 }
 
-// 카테고리 enum 타입
 type SpecializationType =
   | 'ADVERTISING_PROMOTION'
   | 'DESIGN'
@@ -33,22 +38,13 @@ type SpecializationType =
   | 'IT_TECH'
   | 'OTHERS';
 
-// 아이디어 마켓 타입
-type IdeaMarketType = 'IDEA_SOLUTION' | 'MARKET_PLACE';
-
-// 공개 범위 타입
 type PostAuth = 'ALL' | 'COMPANY' | 'ME';
 
-interface IdeaMarketRequestData {
-  title: string;
-  content: string;
-  specialization: SpecializationType;
-  openMyProfile: boolean;
-  postAuth: PostAuth;
-  ideaMarketType: IdeaMarketType;
-  priceDto: IdeaMarketPriceDto;
-  imageList: string[];
-  attachmentFileList: string[];
+type IdeaMarketType = 'IDEA_SOLUTION' | 'MARKET_PLACE';
+
+interface IdeaMarketPriceDto {
+  price: number;
+  totalQuantity: number;
 }
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -203,7 +199,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
       }
 
       const presignedUrl = await response.text();
-      console.log('📌 Presigned URL:', presignedUrl);
       return presignedUrl;
     } catch (error) {
       console.error('❌ Presigned URL 요청 에러:', error);
@@ -239,20 +234,45 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     }
   };
 
-  const accessToken = localStorage.getItem('accessToken');
-  console.log('🔑 저장된 Access Token:', accessToken);
+  const uploadPdfToPresignedUrl = async (
+    file: File,
+    presignedUrl: string,
+  ): Promise<string> => {
+    try {
+      const response = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': 'application/pdf',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`PDF 업로드 실패`);
+      }
+
+      return presignedUrl.split('?')[0];
+    } catch (error) {
+      console.error('PDF 업로드 에러:', error);
+      throw error;
+    }
+  };
 
   const handleSubmit = async () => {
     try {
       let imageUrl = '';
+      let pdfUrl = '';
 
       const currentFileInput = fileInputRef.current;
       if (currentFileInput?.files && currentFileInput.files.length > 0) {
         const imageFile = currentFileInput.files[0];
-
         const presignedUrl = await getPresignedUrl(imageFile);
-
         imageUrl = await uploadImageToPresignedUrl(imageFile, presignedUrl);
+      }
+
+      if (pdfFile) {
+        const pdfPresignedUrl = await getPresignedUrl(pdfFile);
+        pdfUrl = await uploadPdfToPresignedUrl(pdfFile, pdfPresignedUrl);
       }
 
       const requestData: IdeaMarketRequestData = {
@@ -267,22 +287,19 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
           totalQuantity: quantity,
         },
         imageList: imageUrl ? [imageUrl] : [],
-        attachmentFileList: [],
+        attachmentFileList: pdfUrl ? [pdfUrl] : [],
       };
 
-      console.log('📌 최종 요청 데이터:', requestData);
-
-      await submitIdeaMarket(requestData);
-      navigate('/idea-market/register-complete');
+      const response = await submitIdeaMarket(requestData);
+      navigate(`/idea-market/register-complete?ideaId=${response.id}`);
     } catch (error) {
-      console.error('❌ 등록 실패:', error);
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
   const submitIdeaMarket = async (
     data: IdeaMarketRequestData,
-  ): Promise<Response> => {
+  ): Promise<{ id: number }> => {
     try {
       const requestData = {
         title: data.title,
@@ -299,10 +316,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         attachmentFileList: data.attachmentFileList,
       };
 
-      console.log('Request Data Object:', requestData);
-      console.log('Stringified Request Data:', JSON.stringify(requestData));
-      console.log('Access Token:', localStorage.getItem('accessToken'));
-
       const response = await fetch(`${BASE_URL}/idea-markets`, {
         method: 'POST',
         headers: {
@@ -312,20 +325,12 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         body: JSON.stringify(requestData),
       });
 
-      console.log('Response Status:', response.status);
-      console.log('Response OK:', response.ok);
-
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Server Error Response:', errorText);
-        console.error('Response Headers:', [...response.headers.entries()]);
-        throw new Error(`API 호출 실패 (${response.status}): ${errorText}`);
+        throw new Error(`API 호출 실패`);
       }
 
       const responseData = await response.json();
-      console.log('Successful Response Data:', responseData);
-
-      return response;
+      return responseData;
     } catch (error) {
       console.error('Request Error Details:', {
         error,

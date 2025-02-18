@@ -1,71 +1,187 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import axios from 'axios';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import styles from './ideaMarketMarketPlace.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
-import { Dropdown } from '../../components/common/dropdown/Dropdown';
-import Card from '../../components/common/card/Card';
 import { Carousel } from '../../components/common/carousel/Carousel';
-import { getPopularIdeas } from '../../apis/mainPageAPI';
-import { IdeaMarketCheck } from '../../types/mainType';
+import {
+  toggleIdeaBookmark,
+  getIdeaList,
+  GetIdeaListRequest,
+} from '../../apis/mainPageAPI';
+import DownButton from '../../assets/icons/categoryDownButton.svg?react';
+import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 
-interface CardData {
-  id: number;
-  isBookmarked?: boolean;
-  saves: number;
-  views: number;
+const categoryMapReverse: Record<string, string> = {
+  '광고 · 홍보': 'ADVERTISING_PROMOTION',
+  디자인: 'DESIGN',
+  레슨: 'LESSON',
+  마케팅: 'MARKETING',
+  '문서 · 글쓰기': 'DOCUMENT_WRITING',
+  '미디어 · 콘텐츠': 'MEDIA_CONTENT',
+  '번역 및 통역': 'TRANSLATION_INTERPRETATION',
+  '세무 · 법무 · 노무': 'TAX_LAW_LABOR',
+  주문제작: 'CUSTOM_PRODUCTION',
+  '창업 · 사업': 'STARTUP_BUSINESS',
+  '푸드 및 음료': 'FOOD_BEVERAGE',
+  'IT · 테크': 'IT_TECH',
+  기타: 'OTHERS',
+};
+
+interface IdeaData {
+  ideaId: number;
+  auth: 'ALL' | 'COMPANY' | 'ME';
+  writerImageUrl: string;
+  writerName: string;
+  thumbnailImageUrl: string;
+  title: string;
+  price: number;
+  category: string;
+  saveCount: number;
+  viewCount: number;
+  isSavedPost: boolean;
 }
 
+type SortType =
+  | 'NEWEST'
+  | 'OLDEST'
+  | 'POPULAR'
+  | 'HIGHEST_PRICE'
+  | 'LOWEST_PRICE';
+
+const sortMap: Record<string, SortType> = {
+  newest: 'NEWEST',
+  oldest: 'OLDEST',
+  popular: 'POPULAR',
+  highView: 'HIGHEST_PRICE',
+  lowView: 'LOWEST_PRICE',
+};
+
 export const IdeaMarketMarketPlace = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [cardsData, setCardsData] = useState<CardData[]>([]);
-  const [ideaData, setIdeaData] = useState<IdeaMarketCheck['data']['content']>(
-    [] as unknown as IdeaMarketCheck['data']['content'],
-  );
-  const [isLoading, setIsLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
+  const [sortType, setSortType] = useState<SortType>('NEWEST');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { data: ideaListResponse, isLoading } = useQuery({
+    queryKey: ['ideaList', selectedCategory, viewOption, sortType],
+    queryFn: async () => {
+      const params: GetIdeaListRequest = {
+        type: 'IDEA_SOLUTION',
+        page: 0,
+        size: 10,
+        sortType: sortType,
+      };
+
+      if (selectedCategory !== '카테고리') {
+        params.category = categoryMapReverse[selectedCategory];
+      }
+
+      return await getIdeaList(params);
+    },
+  });
+
+  const { data: popularIdeaResponse } = useQuery({
+    queryKey: ['popularIdeas'],
+    queryFn: async () => {
+      const params: GetIdeaListRequest = {
+        type: 'IDEA_SOLUTION',
+        page: 0,
+        size: 9,
+        sortType: 'POPULAR',
+      };
+
+      return await getIdeaList(params);
+    },
+  });
+
+  const popularIdeaData = useMemo(() => {
+    if (!popularIdeaResponse?.success) return [];
+    return popularIdeaResponse.data.content.slice(0, 9);
+  }, [popularIdeaResponse]);
+
+  const ideaData = useMemo(() => {
+    if (!ideaListResponse?.success) return [];
+
+    return ideaListResponse.data.content.filter((item) =>
+      viewOption === 'company' ? item.auth === 'COMPANY' : item.auth === 'ALL',
+    );
+  }, [ideaListResponse, viewOption]);
+
+  const handleViewOptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newViewOption = event.target.value as 'all' | 'company';
+    setViewOption(newViewOption);
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setIsDropdownOpen(false);
+  };
+
+  const handleBookmarkClick = async (ideaId: number) => {
+    try {
+      const response = await toggleIdeaBookmark(ideaId);
+      if (response.success) {
+        queryClient.invalidateQueries({ queryKey: ['ideaList'] });
+      }
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        console.error('북마크 처리 실패:', err.message);
+      } else {
+        console.error('북마크 처리 중 에러:', err);
+      }
+    }
+  };
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const sortMap: Record<string, SortType> = {
+      newest: 'NEWEST',
+      oldest: 'OLDEST',
+      popular: 'POPULAR',
+      highView: 'HIGHEST_PRICE',
+      lowView: 'LOWEST_PRICE',
+    };
+
+    const newSortType = sortMap[event.target.value] as SortType;
+    setSortType(newSortType);
+  };
 
   useEffect(() => {
-    const fetchIdeas = async () => {
-      try {
-        const response = await getPopularIdeas({
-          type: 'MARKET_PLACE',
-          page: 0,
-          size: 10,
-        });
-
-        if (response.success) {
-          const formattedCardsData = response.data.content.map((item) => ({
-            id: item.ideaId,
-            isBookmarked: item.isSavedPost,
-            saves: item.saveCount,
-            views: item.viewCount,
-          }));
-
-          setCardsData(formattedCardsData);
-          setIdeaData(response.data.content);
-        }
-      } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
-      } finally {
-        setIsLoading(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
       }
     };
 
-    fetchIdeas();
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
-  const handleBookmarkClick = (cardId: number) => {
-    setCardsData((prevData) =>
-      prevData.map((card) =>
-        card.id === cardId
-          ? {
-              ...card,
-              isBookmarked: !card.isBookmarked,
-              saves: card.saves + (card.isBookmarked ? -1 : 1),
-            }
-          : card,
-      ),
-    );
-  };
+  const dropdownItems = useMemo(() => {
+    return Object.keys(categoryMapReverse).map((category) => (
+      <div
+        key={category}
+        className={styles.dropdownItem}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleCategorySelect(category);
+        }}>
+        {category}
+      </div>
+    ));
+  }, []);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -95,16 +211,29 @@ export const IdeaMarketMarketPlace = () => {
             cardWidth={200}
             cardCount={3}
             gap={45}
-            dataLength={cardsData.length}>
-            {cardsData.map((card) => (
-              <Card
-                key={card.id}
-                id={card.id}
-                isBookmarked={card.isBookmarked}
-                saves={card.saves}
-                views={card.views}
-                onBookmarkClick={handleBookmarkClick}
-              />
+            dataLength={popularIdeaData.length}>
+            {popularIdeaData.map((idea) => (
+              <div
+                key={idea.ideaId}
+                className={styles.carouselItem}>
+                <PreviewThumbnail
+                  data={{
+                    ideaId: idea.ideaId,
+                    username: idea.writerName,
+                    description: idea.title,
+                    price: idea.price,
+                    imageUrl: idea.thumbnailImageUrl || '',
+                    profileImage: idea.writerImageUrl,
+                    isBookmarked: idea.isSavedPost,
+                    saves: idea.saveCount,
+                    views: idea.viewCount,
+                    auth: idea.auth,
+                    category: idea.category,
+                    size: 'large',
+                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+                  }}
+                />
+              </div>
             ))}
           </Carousel>
         </div>
@@ -113,14 +242,27 @@ export const IdeaMarketMarketPlace = () => {
         <div className={styles.leftComponents}>
           <div className={styles.ideaText}>맞춤형 아이디어 모아보기</div>
           <div className={styles.filterWrapper}>
-            <Dropdown />
+            <div
+              ref={dropdownRef}
+              className={styles.select}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsDropdownOpen((prev) => !prev);
+              }}>
+              <span>{selectedCategory}</span>
+              {isDropdownOpen ? <UpButton /> : <DownButton />}
+              {isDropdownOpen && (
+                <div className={styles.dropdownMenu}>{dropdownItems}</div>
+              )}
+            </div>
             <div className={styles.viewOptions}>
               <label className={styles.radioWrapper}>
                 <input
                   type='radio'
                   name='viewOption'
                   value='all'
-                  defaultChecked
+                  checked={viewOption === 'all'}
+                  onChange={handleViewOptionChange}
                 />
                 <span className={styles.radioLabel}>기업 공개 제외</span>
               </label>
@@ -129,6 +271,8 @@ export const IdeaMarketMarketPlace = () => {
                   type='radio'
                   name='viewOption'
                   value='company'
+                  checked={viewOption === 'company'}
+                  onChange={handleViewOptionChange}
                 />
                 <span className={styles.radioLabel}>기업 공개만</span>
               </label>
@@ -137,12 +281,19 @@ export const IdeaMarketMarketPlace = () => {
         </div>
         <div className={styles.rightComponents}>
           <div className={styles.sortDropdown}>
-            <select className={styles.sortSelect}>
+            <select
+              className={styles.sortSelect}
+              onChange={handleSortChange}
+              value={
+                Object.entries(sortMap).find(
+                  ([_, value]) => value === sortType,
+                )?.[0] || 'newest'
+              }>
               <option value='newest'>최신순</option>
-              <option value='popular'>오래된순</option>
-              <option value='low'>저가순</option>
-              <option value='highView'>낮은 가격순</option>
-              <option value='lowView'>높은 가격순</option>
+              <option value='oldest'>오래된순</option>
+              <option value='popular'>저장순</option>
+              <option value='highView'>높은 가격순</option>
+              <option value='lowView'>낮은 가격순</option>
             </select>
           </div>
         </div>
@@ -156,7 +307,7 @@ export const IdeaMarketMarketPlace = () => {
               username: idea.writerName,
               description: idea.title,
               price: idea.price,
-              imageUrl: idea.thumbnailImageUrl,
+              imageUrl: idea.thumbnailImageUrl || undefined,
               profileImage: idea.writerImageUrl,
               isBookmarked: idea.isSavedPost,
               saves: idea.saveCount,

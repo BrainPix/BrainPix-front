@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import styles from './requestAssignMain.module.scss';
+import styles from './requestAssignTechZone.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
 import {
@@ -59,7 +59,7 @@ const sortMap: Record<string, SortType> = {
   lowView: 'LOWEST_PRICE',
 };
 
-export const RequestAssignMain = () => {
+export const RequestAssignTechZone = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -192,18 +192,18 @@ export const RequestAssignMain = () => {
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
           <span className={styles.mainTitle}>요청 과제</span>
-          <span className={styles.subtitle}>Open Idea</span>
+          <span className={styles.subtitle}>Tech Zone</span>
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/request-assign/register')}>
+          onClick={() => navigate('/idea-market/register')}>
           요청 과제 등록하기
         </button>
       </div>
       <div className={styles.carouselWrapper}>
         <div className={styles.ideaMarketMain}>
           <div className={styles.subTitle}>
-            <span>누구나 참여할 수 있는 창의적인 아이디어 과제</span>
+            <span>전문 지식이 필요한 기술 중심 프로젝트</span>
             <span className={styles.highlight}></span>
           </div>
           <Carousel

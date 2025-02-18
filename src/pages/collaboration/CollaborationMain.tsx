@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import styles from './collaborationMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
-import { Carousel } from '../../components/common/carousel/Carousel';
 import {
   toggleIdeaBookmark,
   getIdeaList,
@@ -212,56 +211,17 @@ export const CollaborationMain = () => {
     <>
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
-          <span className={styles.mainTitle}>아이디어 마켓</span>
-          <span className={styles.subtitle}>Idea Solution</span>
+          <span className={styles.mainTitle}>협업 광장</span>
         </div>
         <button
           className={styles.registerButton}
           onClick={() => navigate('/idea-market/register')}>
-          아이디어 등록하기
+          팀원 모집 등록하기
         </button>
       </div>
-      <div className={styles.carouselWrapper}>
-        <div className={styles.ideaMarketMain}>
-          <div className={styles.subTitle}>
-            <span>전문가의 손길로 완성되는 아이디어</span>
-            <span className={styles.highlight}></span>
-          </div>
-          <Carousel
-            buttonPosition='center'
-            cardWidth={200}
-            cardCount={3}
-            gap={45}
-            dataLength={ideaData.length}>
-            {ideaData.map((idea) => (
-              <div
-                key={idea.ideaId}
-                className={styles.carouselItem}>
-                <PreviewThumbnail
-                  data={{
-                    ideaId: idea.ideaId,
-                    username: idea.writerName,
-                    description: idea.title,
-                    price: idea.price,
-                    imageUrl: idea.thumbnailImageUrl || '',
-                    profileImage: idea.writerImageUrl,
-                    isBookmarked: idea.isSavedPost,
-                    saves: idea.saveCount,
-                    views: idea.viewCount,
-                    auth: idea.auth,
-                    category: idea.category,
-                    size: 'large',
-                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
-                  }}
-                />
-              </div>
-            ))}
-          </Carousel>
-        </div>
-      </div>
+
       <div className={styles.headerComponents}>
         <div className={styles.leftComponents}>
-          <div className={styles.ideaText}>맞춤형 아이디어 모아보기</div>
           <div className={styles.filterWrapper}>
             <div
               ref={dropdownRef}

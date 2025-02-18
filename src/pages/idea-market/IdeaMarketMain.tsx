@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import axios from 'axios';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import styles from './ideaMarketMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
@@ -42,126 +43,95 @@ interface IdeaData {
   viewCount: number;
   isSavedPost: boolean;
 }
-interface CardData {
-  id: number;
-  isBookmarked?: boolean;
-  saves: number;
-  views: number;
-}
+
+type SortType =
+  | 'NEWEST'
+  | 'OLDEST'
+  | 'POPULAR'
+  | 'HIGHEST_PRICE'
+  | 'LOWEST_PRICE';
+
+const sortMap: Record<string, SortType> = {
+  newest: 'NEWEST',
+  oldest: 'OLDEST',
+  popular: 'POPULAR',
+  highView: 'HIGHEST_PRICE',
+  lowView: 'LOWEST_PRICE',
+};
 
 export const IdeaMarketMain = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [_cardsData, setCardsData] = useState<CardData[]>([]);
-  const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const [_isUpdating, setIsUpdating] = useState(false);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
+  const [sortType, setSortType] = useState<SortType>('NEWEST');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const fetchIdeas = useCallback(
-    async (category?: string) => {
-      try {
-        setIsUpdating(true);
-        const params: GetIdeaListRequest = {
-          type: 'IDEA_SOLUTION',
-          page: 0,
-          size: 10,
-        };
+  const { data: ideaListResponse, isLoading } = useQuery({
+    queryKey: ['ideaList', selectedCategory, viewOption, sortType],
+    queryFn: async () => {
+      const params: GetIdeaListRequest = {
+        type: 'IDEA_SOLUTION',
+        page: 0,
+        size: 10,
+        sortType: sortType,
+      };
 
-        if (category && category !== '분야별') {
-          params.category = categoryMapReverse[category];
-        }
-
-        const response = await getIdeaList(params);
-
-        if (response.success) {
-          const filteredData =
-            viewOption === 'company'
-              ? response.data.content.filter((item) => item.auth === 'COMPANY')
-              : response.data.content.filter((item) => item.auth !== 'COMPANY');
-
-          setIdeaData(filteredData);
-          setCardsData(
-            filteredData.map((item) => ({
-              id: item.ideaId,
-              isBookmarked: item.isSavedPost,
-              saves: item.saveCount,
-              views: item.viewCount,
-            })),
-          );
-        }
-      } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
-      } finally {
-        setIsInitialLoading(false);
-        setIsUpdating(false);
+      if (selectedCategory !== '카테고리') {
+        params.category = categoryMapReverse[selectedCategory];
       }
-    },
-    [viewOption],
-  );
 
-  const handleViewOptionChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newViewOption = event.target.value as 'all' | 'company';
-      setViewOption(newViewOption);
-      fetchIdeas(selectedCategory);
+      return await getIdeaList(params);
     },
-    [fetchIdeas, selectedCategory],
-  );
+  });
 
-  const handleCategorySelect = useCallback(
-    (category: string) => {
-      setSelectedCategory(category);
-      setIsDropdownOpen(false);
-      fetchIdeas(category);
+  const { data: popularIdeaResponse } = useQuery({
+    queryKey: ['popularIdeas'],
+    queryFn: async () => {
+      const params: GetIdeaListRequest = {
+        type: 'IDEA_SOLUTION',
+        page: 0,
+        size: 9,
+        sortType: 'POPULAR',
+      };
+
+      return await getIdeaList(params);
     },
-    [fetchIdeas],
-  );
+  });
+
+  const popularIdeaData = useMemo(() => {
+    if (!popularIdeaResponse?.success) return [];
+    return popularIdeaResponse.data.content.slice(0, 9);
+  }, [popularIdeaResponse]);
+
+  const ideaData = useMemo(() => {
+    if (!ideaListResponse?.success) return [];
+
+    return ideaListResponse.data.content.filter((item) =>
+      viewOption === 'company' ? item.auth === 'COMPANY' : item.auth === 'ALL',
+    );
+  }, [ideaListResponse, viewOption]);
+
+  const handleViewOptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newViewOption = event.target.value as 'all' | 'company';
+    setViewOption(newViewOption);
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setIsDropdownOpen(false);
+  };
 
   const handleBookmarkClick = async (ideaId: number) => {
     try {
-      setIdeaData((prevData) =>
-        prevData.map((idea) =>
-          idea.ideaId === ideaId
-            ? {
-                ...idea,
-                isSavedPost: !idea.isSavedPost,
-                saveCount: idea.saveCount + (idea.isSavedPost ? -1 : 1),
-              }
-            : idea,
-        ),
-      );
-
       const response = await toggleIdeaBookmark(ideaId);
-
-      if (!response.success) {
-        setIdeaData((prevData) =>
-          prevData.map((idea) =>
-            idea.ideaId === ideaId
-              ? {
-                  ...idea,
-                  isSavedPost: !idea.isSavedPost,
-                  saveCount: idea.saveCount + (idea.isSavedPost ? 1 : -1),
-                }
-              : idea,
-          ),
-        );
+      if (response.success) {
+        queryClient.invalidateQueries({ queryKey: ['ideaList'] });
       }
     } catch (err) {
-      setIdeaData((prevData) =>
-        prevData.map((idea) =>
-          idea.ideaId === ideaId
-            ? {
-                ...idea,
-                isSavedPost: !idea.isSavedPost,
-                saveCount: idea.saveCount + (idea.isSavedPost ? 1 : -1),
-              }
-            : idea,
-        ),
-      );
-
       if (axios.isAxiosError(err)) {
         console.error('북마크 처리 실패:', err.message);
       } else {
@@ -170,9 +140,18 @@ export const IdeaMarketMain = () => {
     }
   };
 
-  useEffect(() => {
-    fetchIdeas();
-  }, [fetchIdeas]);
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const sortMap: Record<string, SortType> = {
+      newest: 'NEWEST',
+      oldest: 'OLDEST',
+      popular: 'POPULAR',
+      highView: 'HIGHEST_PRICE',
+      lowView: 'LOWEST_PRICE',
+    };
+
+    const newSortType = sortMap[event.target.value] as SortType;
+    setSortType(newSortType);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -202,9 +181,9 @@ export const IdeaMarketMain = () => {
         {category}
       </div>
     ));
-  }, [handleCategorySelect]);
+  }, []);
 
-  if (isInitialLoading) {
+  if (isLoading) {
     return <div>로딩 중...</div>;
   }
 
@@ -232,8 +211,8 @@ export const IdeaMarketMain = () => {
             cardWidth={200}
             cardCount={3}
             gap={45}
-            dataLength={ideaData.length}>
-            {ideaData.map((idea) => (
+            dataLength={popularIdeaData.length}>
+            {popularIdeaData.map((idea) => (
               <div
                 key={idea.ideaId}
                 className={styles.carouselItem}>
@@ -302,12 +281,19 @@ export const IdeaMarketMain = () => {
         </div>
         <div className={styles.rightComponents}>
           <div className={styles.sortDropdown}>
-            <select className={styles.sortSelect}>
+            <select
+              className={styles.sortSelect}
+              onChange={handleSortChange}
+              value={
+                Object.entries(sortMap).find(
+                  ([_, value]) => value === sortType,
+                )?.[0] || 'newest'
+              }>
               <option value='newest'>최신순</option>
-              <option value='popular'>오래된순</option>
-              <option value='low'>저가순</option>
-              <option value='highView'>낮은 가격순</option>
-              <option value='lowView'>높은 가격순</option>
+              <option value='oldest'>오래된순</option>
+              <option value='popular'>저장순</option>
+              <option value='highView'>높은 가격순</option>
+              <option value='lowView'>낮은 가격순</option>
             </select>
           </div>
         </div>

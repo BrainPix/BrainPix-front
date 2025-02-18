@@ -3,16 +3,14 @@ import { IdeaMarketCheck } from '../types/mainType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-// axios 인스턴스 생성
 const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000, // 10초
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// 요청 인터셉터
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');
@@ -26,12 +24,10 @@ apiClient.interceptors.request.use(
   },
 );
 
-// 응답 인터셉터
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // 토큰 만료 등의 인증 에러
       localStorage.removeItem('accessToken');
       window.location.href = '/login';
     }
@@ -114,7 +110,6 @@ export const getIdeaMarketDetail = async (ideaId: number) => {
   }
 };
 
-// 재시도 로직 추가
 export const withRetry = async <T>(
   fn: () => Promise<T>,
   retries = 3,

@@ -6,10 +6,85 @@ import styles from './requestAssignRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
-import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react';
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
+
+interface RequestAssignRequestData {
+  title: string;
+  content: string;
+  specialization: SpecializationType;
+  openMyProfile: boolean;
+  imageList: string[];
+  attachmentFileList: string[];
+  postAuth: PostAuth;
+  recruitments: RequestTaskRecruitmentDto[];
+  deadline: string;
+  requestTaskType: RequestTaskType;
+}
+
+type SpecializationType =
+  | 'ADVERTISING_PROMOTION'
+  | 'DESIGN'
+  | 'LESSON'
+  | 'MARKETING'
+  | 'DOCUMENT_WRITING'
+  | 'MEDIA_CONTENT'
+  | 'TRANSLATION_INTERPRETATION'
+  | 'TAX_LAW_LABOR'
+  | 'CUSTOM_PRODUCTION'
+  | 'STARTUP_BUSINESS'
+  | 'FOOD_BEVERAGE'
+  | 'IT_TECH'
+  | 'OTHERS';
+
+type PostAuth = 'ALL' | 'COMPANY' | 'ME';
+
+interface RequestTaskRecruitmentDto {
+  domain: string;
+  requestTaskPriceDto: RequestTaskPriceDto;
+}
+
+interface RequestTaskPriceDto {
+  price: number;
+  totalQuantity: number;
+  paymentDuration: PaymentDurationType;
+}
+
+type PaymentDurationType =
+  | 'ONCE'
+  | 'MONTHLY'
+  | 'WEEKLY'
+  | 'DAILY'
+  | 'NOT_APPLICABLE';
+
+type RequestTaskType = 'OPEN_IDEA' | 'TECH_ZONE';
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const OPTIONS = [
+  '광고 · 홍보',
+  '디자인',
+  '레슨',
+  '마케팅',
+  '문서 · 글쓰기',
+  '미디어 · 콘텐츠',
+  '번역 및 통역',
+  '세무 · 법무 · 노무',
+  '주문제작',
+  '창업 · 사업',
+  '푸드 및 음료',
+  'IT · 테크',
+  '기타',
+];
+
+interface RecruitmentField {
+  id: number;
+  field: string;
+  numberOfPeople: number;
+}
 
 interface RequestAssignRegisterProps {
   [key: string]: never;
@@ -35,6 +110,15 @@ export const RequestAssignRegisterNow: React.FC<
   const [price, setPrice] = useState<string>('0');
   const [quantity, setQuantity] = useState<number>(0);
   const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
+  const [recruitmentFields, setRecruitmentFields] = useState<
+    RecruitmentField[]
+  >([{ id: 1, field: '', numberOfPeople: 0 }]);
+
+  const [recruitmentDeadline, setRecruitmentDeadline] = useState({
+    year: '',
+    month: '',
+    day: '',
+  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<ReactQuill>(null);
@@ -44,7 +128,6 @@ export const RequestAssignRegisterNow: React.FC<
     const file = event.target.files?.[0];
     if (file) {
       setAttachedFile(file);
-      // 이미지 URL 생성
       const imageUrl = URL.createObjectURL(file);
       setPreviewImageUrl(imageUrl);
     }
@@ -61,43 +144,27 @@ export const RequestAssignRegisterNow: React.FC<
     }
   };
 
+  const handleAddField = () => {
+    setRecruitmentFields((prev) => [
+      ...prev,
+      { id: prev.length + 1, field: '', numberOfPeople: 0 },
+    ]);
+  };
+
+  const handleFieldChange = (id: number, field: string) => {
+    setRecruitmentFields((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, field } : item)),
+    );
+  };
+
+  const handleNumberChange = (id: number, numberOfPeople: number) => {
+    setRecruitmentFields((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, numberOfPeople } : item)),
+    );
+  };
+
   const handlePdfClick = () => {
     pdfInputRef.current?.click();
-  };
-
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    setPrice(value);
-  };
-
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    const numberValue = value === '' ? 0 : parseInt(value, 10);
-    setQuantity(numberValue);
-  };
-
-  const OPTIONS = [
-    '광고 · 홍보',
-    '디자인',
-    '레슨',
-    '마케팅',
-    '문서 · 글쓰기',
-    '미디어 · 콘텐츠',
-    '번역 및 통역',
-    '세무 · 법무 · 노무',
-    '주문제작',
-    '창업 · 사업',
-    '푸드 및 음료',
-    'IT · 테크',
-    '기타',
-  ];
-
-  const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const handleDecrement = () => {
-    setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
   };
 
   const handlePortfolioVisibility = () => {
@@ -105,8 +172,7 @@ export const RequestAssignRegisterNow: React.FC<
   };
 
   const handleEditClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 상위 컴포넌트로의 이벤트 전파 방지
-    // Edit 버튼 클릭 시 처리할 로직
+    e.stopPropagation();
   };
 
   const handleCancel = () => {
@@ -119,7 +185,6 @@ export const RequestAssignRegisterNow: React.FC<
 
   useEffect(() => {
     return () => {
-      // 컴포넌트가 언마운트될 때 URL 정리
       if (previewImageUrl) {
         URL.revokeObjectURL(previewImageUrl);
       }
@@ -363,54 +428,123 @@ export const RequestAssignRegisterNow: React.FC<
         />
       </div>
 
-      <div className={styles.priceQuantityContainer}>
-        <div className={styles.priceGroup}>
-          <div className={styles.priceLabel}>
-            책정 금액
-            <span className={styles.required}>(필수)</span>
-          </div>
-          <div className={styles.inputWrapper}>
+      <div className={styles.formGroup}>
+        <div className={styles.labelWrapper}>
+          모집 기한 설정 <span className={styles.required}>(필수)</span>
+          <span className={styles.helperText}>*마감 일자를 입력해주세요</span>
+        </div>
+        <div className={styles.recruitmentDateContainer}>
+          <div className={styles.recruitmentDateWrapper}>
             <input
               type='text'
-              value={price}
-              onChange={handlePriceChange}
-              className={styles.input}
+              value={recruitmentDeadline.year}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^0-9]/g, '');
+                setRecruitmentDeadline((prev) => ({ ...prev, year: value }));
+              }}
+              className={styles.recruitmentDateInput}
+              placeholder='YYYY'
+              maxLength={4}
             />
-            <span className={styles.unit}>원</span>
           </div>
-        </div>
+          <span className={styles.recruitmentDateLabel}>년</span>
 
-        {pageType === 'Tech Zone' && (
-          <div className={styles.quantityGroup}>
-            <div className={styles.quantityLabel}>
-              수량 설정
-              <span className={styles.required}>(필수)</span>
-            </div>
-            <div className={styles.inputWrapper}>
+          <div className={styles.recruitmentDateWrapper}>
+            <input
+              type='text'
+              value={recruitmentDeadline.month}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^0-9]/g, '');
+                setRecruitmentDeadline((prev) => ({ ...prev, month: value }));
+              }}
+              className={styles.recruitmentDateInput}
+              placeholder='MM'
+              maxLength={2}
+            />
+          </div>
+          <span className={styles.recruitmentDateLabel}>월</span>
+
+          <div className={styles.recruitmentDateWrapper}>
+            <input
+              type='text'
+              value={recruitmentDeadline.day}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^0-9]/g, '');
+                setRecruitmentDeadline((prev) => ({ ...prev, day: value }));
+              }}
+              className={styles.recruitmentDateInput}
+              placeholder='DD'
+              maxLength={2}
+            />
+          </div>
+          <span className={styles.recruitmentDateLabel}>일</span>
+        </div>
+      </div>
+
+      {pageType === 'Tech Zone' && (
+        <div className={styles.formGroup}>
+          <div className={styles.labelWrapper}>
+            모집 분야 및 인원 설정
+            <span className={styles.required}>(필수)</span>
+          </div>
+          {recruitmentFields.map((field) => (
+            <div
+              key={field.id}
+              className={styles.ideaNameWrapper}>
               <input
                 type='text'
-                value={quantity}
-                onChange={handleQuantityChange}
-                className={styles.input}
+                placeholder='분야별 (텍스트)'
+                value={field.field}
+                onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                className={styles.recruitmentFieldInput}
               />
-              <span className={styles.unit}>개</span>
-              <div className={styles.quantityControlWrapper}>
-                <button
-                  onClick={handleIncrement}
-                  className={styles.quantityButton}>
-                  <UpButton />
-                </button>
-                <button
-                  onClick={handleDecrement}
-                  className={styles.quantityButton}
-                  disabled={quantity === 0}>
-                  {quantity === 0 ? <DisabledDownButton /> : <DownButton />}
-                </button>
-              </div>
+              <input
+                type='text'
+                value={field.numberOfPeople || ''}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  handleNumberChange(field.id, parseInt(value) || 0);
+                }}
+                placeholder='현재 인원 / 모집 인원'
+                className={styles.recruitmentFieldInput}
+              />
+              <input
+                type='text'
+                placeholder='제안 금액'
+                className={styles.recruitmentFieldInput}
+              />
+              <select
+                className={styles.periodSelect}
+                defaultValue='건당'>
+                <option value='건당'>건당</option>
+                <option value='일간'>일간</option>
+                <option value='주간'>주간</option>
+                <option value='월간'>월간</option>
+                <option value='추후협의'>추후 협의</option>
+              </select>
             </div>
+          ))}
+          <div className={styles.recruitmentFieldButtons}>
+            <button
+              onClick={() => {
+                if (recruitmentFields.length > 1) {
+                  setRecruitmentFields((prev) => prev.slice(0, -1));
+                }
+              }}
+              className={`${styles.deleteButton} ${
+                recruitmentFields.length > 1 ? styles.enabled : styles.disabled
+              }`}
+              disabled={recruitmentFields.length <= 1}>
+              <span>삭제하기</span>
+            </button>
+            <button
+              onClick={handleAddField}
+              className={styles.addButton}>
+              <span>추가하기</span>
+            </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       <div className={styles.formGroup}>
         <div className={styles.labelWrapper}>
