@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './info.module.scss';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -35,7 +35,6 @@ import { ToastContext } from '../../../contexts/toastContext';
 
 export const Info = () => {
   const queryClient = useQueryClient();
-  const businessInfoRef = useRef<HTMLTextAreaElement>(null);
 
   const [editMode, setEditMode] = useState(false);
   const [contacts, setContacts] = useState<ContactType[]>([]);
