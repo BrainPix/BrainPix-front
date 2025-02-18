@@ -24,7 +24,7 @@ export interface IdeaMarketDetail {
   attachments: string[];
 }
 
-export interface RequsetDetail {
+export interface RequestDetail {
   taskId: number;
   thumbnailImageUrl: string;
   category: string;

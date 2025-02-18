@@ -1,4 +1,4 @@
-import styles from './myPagePosts.module.scss';
+import styles from '../myPagePosts/myPagePosts.module.scss';
 import { TabNavigation } from '../../../components/my-page/TabNavigation.tsx';
 import PreviewThumbnail from '../../../components/preview/PreviewThumbnail.tsx';
 
@@ -12,22 +12,25 @@ import {
   PostApiResponse,
 } from '../../../types/postDataType.ts';
 import {
-  getPostIdeaMarket,
-  getPostRequestTask,
-  getPostCollaboration,
-} from '../../../apis/postManagementAPI.ts';
+  getSavedIdeaMarkets,
+  getSavedRequestTasks,
+  getSavedCollaborationHubs,
+} from '../../../apis/savePostsAPI.ts';
+import { useBookmark } from '../../../hooks/useBookmark.ts';
 
-export const MyPagePosts = () => {
+export const SavedPosts = () => {
   const navigate = useNavigate();
 
   const TABS = ['아이디어 마켓', '요청 과제', '협업 광장'];
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
+  const { bookmarkedPosts, toggleBookmark } = useBookmark();
+
   const postAPIMap = () => {
-    if (activeTab === TABS[0]) return getPostIdeaMarket;
-    if (activeTab === TABS[1]) return getPostRequestTask;
-    if (activeTab === TABS[2]) return getPostCollaboration;
-    return getPostIdeaMarket;
+    if (activeTab === TABS[0]) return getSavedIdeaMarkets;
+    if (activeTab === TABS[1]) return getSavedRequestTasks;
+    if (activeTab === TABS[2]) return getSavedCollaborationHubs;
+    return getSavedIdeaMarkets;
   };
 
   const { data, isLoading, isError } = useQuery<
@@ -43,7 +46,7 @@ export const MyPagePosts = () => {
   return (
     <div className={styles.container}>
       <div className={styles.postListWrapper}>
-        <div className={styles.title}>게시물 관리</div>
+        <div className={styles.title}>저장된 게시물</div>
         <TabNavigation
           tabs={TABS}
           activeTab={activeTab}
@@ -72,7 +75,7 @@ export const MyPagePosts = () => {
                     username: post.writerName,
                     description: post.title,
                     price: 'price' in post ? post.price : undefined,
-                    isBookmarked: false,
+                    isBookmarked: bookmarkedPosts.has(post.ideaId),
                     auth: 'ALL',
                     category: '',
                     saves: 0,
@@ -80,17 +83,19 @@ export const MyPagePosts = () => {
                     verified: true,
                     onClick: () => {
                       if (activeTab === TABS[0]) {
-                        navigate(`/my/posts/idea-market/${post.ideaId}`);
+                        navigate(`/idea-market/registered/${post.ideaId}`);
                       }
                       if (activeTab === TABS[1]) {
-                        navigate(`/my/posts/request-assign/${post.ideaId}`);
+                        navigate(`/request-assign/registered/${post.ideaId}`);
                       }
                       if (activeTab === TABS[2]) {
-                        navigate(`/my/posts/collaboration/${post.ideaId}`);
+                        navigate(`/collaboration/registered/${post.ideaId}`);
                       }
                     },
-                    onBookmarkClick: () =>
-                      console.log(`Bookmark clicked for ${post.ideaId}`),
+                    onBookmarkClick: (e) => {
+                      e.stopPropagation();
+                      toggleBookmark(post.ideaId);
+                    },
                   }}
                 />
               ))}
