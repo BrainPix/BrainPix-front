@@ -215,7 +215,7 @@ export const CollaborationMain = () => {
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/idea-market/register')}>
+          onClick={() => navigate('/collaboration/register')}>
           팀원 모집 등록하기
         </button>
       </div>

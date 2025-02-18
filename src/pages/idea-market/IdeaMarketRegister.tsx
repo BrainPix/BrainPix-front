@@ -47,10 +47,6 @@ interface IdeaMarketPriceDto {
   totalQuantity: number;
 }
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
 const categoryToEnum: Record<string, SpecializationType> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
   디자인: 'DESIGN',
@@ -67,6 +63,21 @@ const categoryToEnum: Record<string, SpecializationType> = {
   기타: 'OTHERS',
 };
 
+const visibilityToEnum: Record<string, PostAuth> = {
+  전체공개: 'ALL',
+  기업공개: 'COMPANY',
+  비공개: 'ME',
+};
+
+const pageTypeToEnum: Record<string, IdeaMarketType> = {
+  'Idea Solution': 'IDEA_SOLUTION',
+  'Market Place': 'MARKET_PLACE',
+};
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const OPTIONS = [
   '광고 · 홍보',
   '디자인',
@@ -82,17 +93,6 @@ const OPTIONS = [
   'IT · 테크',
   '기타',
 ];
-
-const visibilityToEnum: Record<string, PostAuth> = {
-  전체공개: 'ALL',
-  기업공개: 'COMPANY',
-  비공개: 'ME',
-};
-
-const pageTypeToEnum: Record<string, IdeaMarketType> = {
-  'Idea Solution': 'IDEA_SOLUTION',
-  'Market Place': 'MARKET_PLACE',
-};
 
 interface IdeaMarketRegisterProps {
   [key: string]: never;

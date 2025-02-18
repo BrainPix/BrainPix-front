@@ -10,7 +10,7 @@ import {
   toggleIdeaBookmark,
   getIdeaList,
   GetIdeaListRequest,
-} from '../../apis/mainPageAPI';
+} from '../../apis/requestAssignMainPageAPI';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 
@@ -58,7 +58,7 @@ export const RequestAssignMain = () => {
     queryKey: ['ideaList', selectedCategory, viewOption, sortType],
     queryFn: async () => {
       const params: GetIdeaListRequest = {
-        type: 'IDEA_SOLUTION',
+        type: 'OPEN_IDEA',
         page: 0,
         size: 10,
         sortType: sortType,
@@ -76,7 +76,7 @@ export const RequestAssignMain = () => {
     queryKey: ['popularIdeas'],
     queryFn: async () => {
       const params: GetIdeaListRequest = {
-        type: 'IDEA_SOLUTION',
+        type: 'OPEN_IDEA',
         page: 0,
         size: 9,
         sortType: 'POPULAR',
@@ -200,14 +200,15 @@ export const RequestAssignMain = () => {
             dataLength={popularIdeaData.length}>
             {popularIdeaData.map((idea) => (
               <div
-                key={idea.ideaId}
+                key={idea.taskId}
                 className={styles.carouselItem}>
                 <PreviewThumbnail
                   data={{
-                    ideaId: idea.ideaId,
+                    ideaId: idea.taskId,
+                    routePrefix: 'request-assign',
                     username: idea.writerName,
                     description: idea.title,
-                    price: idea.price,
+                    deadline: idea.deadline,
                     imageUrl: idea.thumbnailImageUrl || '',
                     profileImage: idea.writerImageUrl,
                     isBookmarked: idea.isSavedPost,
@@ -216,7 +217,7 @@ export const RequestAssignMain = () => {
                     auth: idea.auth,
                     category: idea.category,
                     size: 'large',
-                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+                    onBookmarkClick: () => handleBookmarkClick(idea.taskId),
                   }}
                 />
               </div>
@@ -287,12 +288,13 @@ export const RequestAssignMain = () => {
       <div className={styles.thumbnailGrid}>
         {ideaData.map((idea) => (
           <PreviewThumbnail
-            key={idea.ideaId}
+            key={idea.taskId}
             data={{
-              ideaId: idea.ideaId,
+              ideaId: idea.taskId,
+              routePrefix: 'request-assign',
               username: idea.writerName,
               description: idea.title,
-              price: idea.price,
+              deadline: idea.deadline,
               imageUrl: idea.thumbnailImageUrl || undefined,
               profileImage: idea.writerImageUrl,
               isBookmarked: idea.isSavedPost,
@@ -300,7 +302,7 @@ export const RequestAssignMain = () => {
               views: idea.viewCount,
               auth: idea.auth,
               category: idea.category,
-              onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+              onBookmarkClick: () => handleBookmarkClick(idea.taskId),
             }}
           />
         ))}

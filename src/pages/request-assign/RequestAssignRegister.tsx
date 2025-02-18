@@ -60,6 +60,41 @@ type PaymentDurationType =
 
 type RequestTaskType = 'OPEN_IDEA' | 'TECH_ZONE';
 
+const categoryToEnum: Record<string, SpecializationType> = {
+  '광고 · 홍보': 'ADVERTISING_PROMOTION',
+  디자인: 'DESIGN',
+  레슨: 'LESSON',
+  마케팅: 'MARKETING',
+  '문서 · 글쓰기': 'DOCUMENT_WRITING',
+  '미디어 · 콘텐츠': 'MEDIA_CONTENT',
+  '번역 및 통역': 'TRANSLATION_INTERPRETATION',
+  '세무 · 법무 · 노무': 'TAX_LAW_LABOR',
+  주문제작: 'CUSTOM_PRODUCTION',
+  '창업 · 사업': 'STARTUP_BUSINESS',
+  '푸드 및 음료': 'FOOD_BEVERAGE',
+  'IT · 테크': 'IT_TECH',
+  기타: 'OTHERS',
+};
+
+const visibilityToEnum: Record<string, PostAuth> = {
+  전체공개: 'ALL',
+  기업공개: 'COMPANY',
+  비공개: 'ME',
+};
+
+const PaymentDurationEnumMap: Record<string, PaymentDurationType> = {
+  건당: 'ONCE',
+  월간: 'MONTHLY',
+  주간: 'WEEKLY',
+  일간: 'DAILY',
+  추후협의: 'NOT_APPLICABLE',
+};
+
+const RequestTaskTypeEnumMap: Record<string, RequestTaskType> = {
+  OPEN_IDEA: 'OPEN_IDEA',
+  TECH_ZONE: 'TECH_ZONE',
+};
+
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -96,8 +131,8 @@ export const RequestAssignRegisterNow: React.FC<
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [pageType, setPageType] = useState<'Open Idea' | 'Tech Zone'>(
-    'Open Idea',
+  const [pageType, setPageType] = useState<'OPEN_IDEA' | 'TECH_ZONE'>(
+    'OPEN_IDEA',
   );
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
@@ -120,6 +155,7 @@ export const RequestAssignRegisterNow: React.FC<
     day: '',
   });
 
+  const ideaNameInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<ReactQuill>(null);
   const pdfInputRef = useRef<HTMLInputElement>(null);
@@ -179,20 +215,216 @@ export const RequestAssignRegisterNow: React.FC<
     navigate(-1);
   };
 
-  const handleSubmit = () => {
-    navigate('/request-assign/register-complete');
+  const getPresignedUrl = async (file: File): Promise<string> => {
+    try {
+      const fileName = encodeURIComponent(file.name);
+      const contentType = encodeURIComponent(file.type);
+
+      const response = await fetch(
+        `${BASE_URL}/files/presigned-url?fileName=${fileName}&contentType=${contentType}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Presigned URL 요청 실패 - 상태 코드: ${response.status}`,
+        );
+      }
+
+      const presignedUrl = await response.text();
+      return presignedUrl;
+    } catch (error) {
+      console.error('❌ Presigned URL 요청 에러:', error);
+      throw error;
+    }
+  };
+
+  const uploadImageToPresignedUrl = async (
+    file: File,
+    presignedUrl: string,
+  ): Promise<string> => {
+    try {
+      const response = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `이미지 Presigned URL 업로드 실패 - 상태 코드: ${response.status}`,
+        );
+      }
+
+      const imageUrl = presignedUrl.split('?')[0];
+      console.log('✅ Presigned URL 업로드 성공, 저장된 이미지 URL:', imageUrl);
+      return imageUrl;
+    } catch (error) {
+      console.error('❌ 이미지 업로드 에러:', error);
+      throw error;
+    }
+  };
+
+  const uploadPdfToPresignedUrl = async (
+    file: File,
+    presignedUrl: string,
+  ): Promise<string> => {
+    try {
+      const response = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': 'application/pdf',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`PDF 업로드 실패`);
+      }
+
+      return presignedUrl.split('?')[0];
+    } catch (error) {
+      console.error('PDF 업로드 에러:', error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      let imageUrl = '';
+      let pdfUrl = '';
+
+      const currentFileInput = fileInputRef.current;
+      if (currentFileInput?.files && currentFileInput.files.length > 0) {
+        const imageFile = currentFileInput.files[0];
+        const presignedUrl = await getPresignedUrl(imageFile);
+        imageUrl = await uploadImageToPresignedUrl(imageFile, presignedUrl);
+      }
+
+      if (pdfFile) {
+        const pdfPresignedUrl = await getPresignedUrl(pdfFile);
+        pdfUrl = await uploadPdfToPresignedUrl(pdfFile, pdfPresignedUrl);
+      }
+
+      const deadlineString = `${recruitmentDeadline.year}-${recruitmentDeadline.month.padStart(2, '0')}-${recruitmentDeadline.day.padStart(2, '0')} 14:30`;
+
+      const plainContent = content.replace(/<[^>]*>/g, '');
+
+      const requestData: RequestAssignRequestData = {
+        title: ideaNameInputRef.current?.value || '',
+        content: plainContent,
+        specialization: categoryToEnum[category],
+        openMyProfile: isPortfolioVisible,
+        imageList: imageUrl ? [imageUrl] : [],
+        attachmentFileList: pdfUrl ? [pdfUrl] : [],
+        postAuth: visibilityToEnum[visibility],
+        recruitments:
+          pageType === 'TECH_ZONE' && recruitmentFields.length > 0
+            ? recruitmentFields.map((field) => ({
+                domain: field.field || '기본 분야',
+                requestTaskPriceDto: {
+                  price:
+                    field.numberOfPeople > 0
+                      ? field.numberOfPeople * 1000
+                      : 1000,
+                  totalQuantity: field.numberOfPeople || 1,
+                  paymentDuration: 'ONCE',
+                },
+              }))
+            : [
+                {
+                  domain: '기본 분야',
+                  requestTaskPriceDto: {
+                    price: 1000,
+                    totalQuantity: 1,
+                    paymentDuration: 'ONCE',
+                  },
+                },
+              ],
+        deadline: deadlineString,
+        requestTaskType:
+          RequestTaskTypeEnumMap[
+            pageType === 'OPEN_IDEA' ? 'OPEN_IDEA' : 'TECH_ZONE'
+          ],
+      };
+
+      console.log('요청 데이터:', JSON.stringify(requestData, null, 2));
+
+      const response = await submitRequestAssign(requestData);
+      navigate(`/request-assign/register-complete?ideaId=${response.id}`);
+    } catch (error) {
+      console.error('제출 중 에러:', error);
+      alert('등록에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
+  const submitRequestAssign = async (
+    data: RequestAssignRequestData,
+  ): Promise<{ id: number }> => {
+    try {
+      const requestData = {
+        title: data.title,
+        content: data.content,
+        specialization: data.specialization,
+        openMyProfile: data.openMyProfile,
+        imageList: data.imageList,
+        attachmentFileList: data.attachmentFileList,
+        postAuth: data.postAuth,
+        recruitments: data.recruitments.map((recruitment) => ({
+          domain: recruitment.domain,
+          requestTaskPriceDto: {
+            price: recruitment.requestTaskPriceDto.price,
+            totalQuantity: recruitment.requestTaskPriceDto.totalQuantity,
+            paymentDuration: recruitment.requestTaskPriceDto.paymentDuration,
+          },
+        })),
+        deadline: data.deadline,
+        requestTaskType: data.requestTaskType,
+      };
+
+      const response = await fetch(`${BASE_URL}/request-tasks`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API 호출 실패`);
+      }
+
+      const responseData = await response.json();
+      return responseData;
+    } catch (error) {
+      console.error('Request Error Details:', {
+        error,
+      });
+      throw error;
+    }
   };
 
   useEffect(() => {
+    console.log('Current previewImageUrl:', previewImageUrl);
     return () => {
       if (previewImageUrl) {
+        console.log('Cleaning up URL:', previewImageUrl);
         URL.revokeObjectURL(previewImageUrl);
       }
     };
   }, [previewImageUrl]);
 
-  const modules = useMemo(
-    () => ({
+  const modules = useMemo(() => {
+    console.log('Initializing Quill modules');
+    return {
       toolbar: {
         container: [
           [{ font: [] }, { size: [] }, { align: [] }],
@@ -200,6 +432,7 @@ export const RequestAssignRegisterNow: React.FC<
         ],
         handlers: {
           image: () => {
+            console.log('Image handler triggered');
             const input = document.createElement('input');
             input.setAttribute('type', 'file');
             input.setAttribute('accept', 'image/*');
@@ -208,13 +441,33 @@ export const RequestAssignRegisterNow: React.FC<
             input.onchange = async () => {
               const file = input.files?.[0];
               if (file) {
+                console.log('Selected file:', {
+                  name: file.name,
+                  size: file.size,
+                  type: file.type,
+                });
+
+                if (file.size > MAX_FILE_SIZE) {
+                  console.warn('File size exceeds limit:', file.size);
+                  alert('이미지 파일 크기는 5MB를 초과할 수 없습니다.');
+                  return;
+                }
+
                 const reader = new FileReader();
                 reader.onload = () => {
+                  console.log('File read completed');
                   const quill = quillRef.current?.getEditor();
                   if (quill) {
                     const range = quill.getSelection(true);
+                    console.log('Quill selection range:', range);
                     quill.insertEmbed(range.index, 'image', reader.result);
+                    console.log('Image embedded in editor');
+                  } else {
+                    console.warn('Quill editor not found');
                   }
+                };
+                reader.onerror = (error) => {
+                  console.error('FileReader error:', error);
                 };
                 reader.readAsDataURL(file);
               }
@@ -222,11 +475,9 @@ export const RequestAssignRegisterNow: React.FC<
           },
         },
       },
-    }),
-    [],
-  );
+    };
+  }, []);
 
-  // Quill 에디터 스타일 설정
   const formats = ['font', 'size', 'align', 'link', 'image'];
 
   return (
@@ -272,18 +523,18 @@ export const RequestAssignRegisterNow: React.FC<
             role='group'
             aria-labelledby='pageTypeLabel'>
             <button
-              className={`${styles.pageTypeButton} ${pageType === 'Open Idea' ? styles.active : ''}`}
-              onClick={() => setPageType('Open Idea')}>
+              className={`${styles.pageTypeButton} ${pageType === 'OPEN_IDEA' ? styles.active : ''}`}
+              onClick={() => setPageType('OPEN_IDEA')}>
               Open Idea
             </button>
             <button
-              className={`${styles.pageTypeButton} ${pageType === 'Tech Zone' ? styles.active : ''}`}
-              onClick={() => setPageType('Tech Zone')}>
+              className={`${styles.pageTypeButton} ${pageType === 'TECH_ZONE' ? styles.active : ''}`}
+              onClick={() => setPageType('TECH_ZONE')}>
               Tech Zone
             </button>
           </div>
 
-          {pageType === 'Open Idea' && (
+          {pageType === 'OPEN_IDEA' && (
             <div
               className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
               onClick={() => setShowDetail(!showDetail)}>
@@ -311,7 +562,7 @@ export const RequestAssignRegisterNow: React.FC<
             </div>
           )}
 
-          {pageType === 'Tech Zone' && (
+          {pageType === 'TECH_ZONE' && (
             <div
               className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
               onClick={() => setShowDetail(!showDetail)}>
@@ -378,6 +629,7 @@ export const RequestAssignRegisterNow: React.FC<
       <div className={styles.formGroup}>
         <div className={styles.ideaNameWrapper}>
           <input
+            ref={ideaNameInputRef}
             type='text'
             placeholder='과제명이에용..'
             className={styles.ideaNameInput}
@@ -481,7 +733,7 @@ export const RequestAssignRegisterNow: React.FC<
         </div>
       </div>
 
-      {pageType === 'Tech Zone' && (
+      {pageType === 'TECH_ZONE' && (
         <div className={styles.formGroup}>
           <div className={styles.labelWrapper}>
             모집 분야 및 인원 설정

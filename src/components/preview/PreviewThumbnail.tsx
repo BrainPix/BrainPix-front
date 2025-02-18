@@ -13,6 +13,7 @@ interface PreviewThumbnailType {
   username?: string;
   description?: string;
   price?: number;
+  deadline?: number;
   isBookmarked?: boolean;
   auth?: 'ALL' | 'COMPANY' | 'ME';
   category?: string;
@@ -22,6 +23,7 @@ interface PreviewThumbnailType {
   onBookmarkClick?: () => void;
   verified?: boolean;
   onClick?: () => void;
+  routePrefix?: string;
 }
 
 interface PreviewThumbnailProps {
@@ -47,6 +49,7 @@ const categoryMap: Record<string, string> = {
 const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
   const {
     ideaId,
+    routePrefix = 'idea-market',
     imageUrl = '',
     profileImage = '',
     username = '',
@@ -78,7 +81,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
 
   const handleImageClick = () => {
     if (ideaId) {
-      navigate(`/idea-market/registered/${ideaId}`);
+      navigate(`/${routePrefix}/registered/${ideaId}`);
     } else {
       console.error('❌ 오류: ideaId가 없습니다.');
     }
