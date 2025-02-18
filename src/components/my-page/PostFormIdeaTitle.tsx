@@ -1,5 +1,6 @@
 import styles from './postFormIdeaTitle.module.scss';
 import CorporatePublicLabel from '../../components/common/label/Label.tsx';
+import { Image } from '../common/image/Image.tsx';
 //import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 //import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 
@@ -29,7 +30,7 @@ export const PostFormIdeaTitle = () => {
       <div className={styles.imageAndDetails}>
         <div className={styles.imageWrapper}>
           {POST_DATA.mainImage ? (
-            <img
+            <Image
               className={styles.mainImage}
               src={POST_DATA.mainImage}
               alt='대표사진'

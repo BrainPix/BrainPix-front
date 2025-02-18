@@ -3,6 +3,7 @@ import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
 
 import { getCategoryLabel } from '../../utils/categoryMapping';
+import { Image } from '../common/image/Image';
 
 interface AuthorInfoProps {
   name: string;
@@ -32,8 +33,8 @@ const AuthorInfo = ({
       <div className={styles.divider}></div>
       <div className={styles.content}>
         <div className={styles.profile}>
-          <img
-            src={profileImageUrl || '/default-profile.png'}
+          <Image
+            src={profileImageUrl}
             alt='프로필 이미지'
             className={styles.profileIcon}
           />

@@ -1,3 +1,4 @@
+import { Image } from '../common/image/Image';
 import styles from './sellerInfo.module.scss';
 
 interface SellerInfoProps {
@@ -11,8 +12,8 @@ const SellerInfo = ({ name, profileImageUrl, email }: SellerInfoProps) => {
     <div className={styles.sellerInfo}>
       <div className={styles.title}>판매자 정보</div>
       <div className={styles.infoBox}>
-        <img
-          src={profileImageUrl || '/default-profile.png'}
+        <Image
+          src={profileImageUrl}
           alt='판매자 프로필'
           className={styles.profile}
         />

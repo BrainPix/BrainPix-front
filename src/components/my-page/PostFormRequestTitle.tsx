@@ -1,6 +1,8 @@
 import styles from './postFormRequestTitle.module.scss';
+
 import { DeadlineLabel } from '../common/label/DeadlineLabel.tsx';
 import CorporatePublicLabel from '../common/label/Label.tsx';
+import { Image } from '../common/image/Image.tsx';
 
 export const PostFormRequestTitle = () => {
   const POST_DATA = {
@@ -20,7 +22,7 @@ export const PostFormRequestTitle = () => {
       <div className={styles.imageAndDetails}>
         <div className={styles.imageWrapper}>
           {POST_DATA.mainImage ? (
-            <img
+            <Image
               className={styles.mainImage}
               src={POST_DATA.mainImage}
               alt='대표사진'

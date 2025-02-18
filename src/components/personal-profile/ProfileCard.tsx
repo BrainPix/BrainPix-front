@@ -7,7 +7,7 @@ import Label from '../common/label/Label';
 import { CATEGORY_LABELS } from '../../constants/categoryMapper';
 import { WriteMessageModal } from '../my-page/message/WriteMessageModal';
 import { PreviousMessageType } from '../../types/messageType';
-import placeHolderImage from '../../assets/images/placeholderImage.png';
+import { Image } from '../common/image/Image';
 
 interface ProfileCardPropsType {
   userType: string;
@@ -43,10 +43,10 @@ export const ProfileCard = ({
         />
       )}
       <div className={classNames(styles.profileContainer)}>
-        <img
+        <Image
           className={classNames(styles.profileImage)}
           alt='프로필 이미지'
-          src={profileImage || placeHolderImage}
+          src={profileImage}
         />
         <div className={classNames(styles.profileNameContainer)}>
           <Label

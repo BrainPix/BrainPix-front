@@ -1,3 +1,4 @@
+import { Image } from '../common/image/Image';
 import styles from './profileHeader.module.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,8 +24,8 @@ const ProfileHeader = ({
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
-        <img
-          src={profileImageUrl || '/default-profile.png'}
+        <Image
+          src={profileImageUrl}
           alt={`${name}의 프로필 이미지`}
           className={styles.profileIcon}
         />

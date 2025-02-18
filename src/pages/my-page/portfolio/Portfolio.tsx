@@ -12,6 +12,7 @@ import placeholder from '../../../assets/images/brainPixIcon.png';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { Image } from '../../../components/common/image/Image';
 
 export const Portfolio = () => {
   const [lastCardId, setLastCardId] = useState(0);
@@ -130,7 +131,7 @@ export const Portfolio = () => {
                   ref={8 * pageIdx + idx === lastCardId ? setTarget : null}
                   onClick={() => handleClickPorfolioCard(id)}
                   className={classNames(styles.portfolioCardWrapper)}>
-                  <img
+                  <Image
                     alt='포트폴리오 사진'
                     className={classNames(styles.image)}
                     src={profileImage || placeholder}

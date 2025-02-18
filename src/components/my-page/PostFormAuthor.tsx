@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './postFormAuthor.module.scss';
+import { Image } from '../common/image/Image';
 
 interface PostFormAuthorProps {
   userName: string;
@@ -27,7 +28,7 @@ export const PostFormAuthor = ({
         <div className={styles.companyInfo}>
           <div className={styles.companyImage}>
             {profileImage ? (
-              <img
+              <Image
                 className={styles.companyImage}
                 src={profileImage}
                 alt='프로필 사진'

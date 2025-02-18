@@ -8,7 +8,7 @@ import styles from './portfolioCarousel.module.scss';
 import { getPorfolios } from '../../apis/portfolio';
 import { MyPorfolioType } from '../../types/myPageType';
 import React from 'react';
-import { imageErrorHandler } from '../../utils/imageErrorHandler';
+import { Image } from '../common/image/Image';
 
 interface PortfolioCarouselPropsType {
   size: number;
@@ -77,11 +77,10 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
                   <div
                     key={id}
                     className={classNames(styles.portfolio)}>
-                    <img
+                    <Image
                       alt='포트폴리오 대표사진'
                       className={classNames(styles.image)}
                       src={profileImage}
-                      onError={imageErrorHandler}
                     />
                     <div className={classNames(styles.title)}>{title}</div>
                     <div className={classNames(styles.date)}>{createdDate}</div>

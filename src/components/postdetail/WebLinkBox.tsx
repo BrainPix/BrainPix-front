@@ -1,3 +1,4 @@
+import { Image } from '../common/image/Image';
 import styles from './webLinkBox.module.scss';
 
 interface WebLinkBoxProps {
@@ -12,7 +13,7 @@ const WebLinkBox = ({ link, thumbnailImageUrl }: WebLinkBoxProps) => {
     <div
       className={styles.container}
       onClick={() => window.open(link, '_blank', 'noopener noreferrer')}>
-      <img
+      <Image
         src={thumbnailImageUrl || '/default-thumbnail.png'}
         alt='웹 링크 썸네일'
         className={styles.thumbnail}

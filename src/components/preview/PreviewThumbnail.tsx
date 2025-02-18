@@ -5,6 +5,7 @@ import Bookmark from '../../assets/icons/bookmark.svg?react';
 import UnclickBookmark from '../../assets/icons/unclickBookmark.svg?react';
 import DefaultImage from '../../assets/icons/defaultImage.svg?react';
 import styles from './previewThumbnail.module.scss';
+import { Image } from '../common/image/Image';
 
 interface PreviewThumbnailType {
   ideaId: number;
@@ -93,7 +94,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
         onClick={handleImageClick}
         style={{ cursor: 'pointer' }}>
         {imageUrl && imageUrl.trim() !== '' && imageUrl !== 'string' ? (
-          <img
+          <Image
             src={imageUrl}
             alt={description}
           />
@@ -115,7 +116,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
         <div className={styles.profileSection}>
           <div className={styles.profileImage}>
             {profileImage ? (
-              <img
+              <Image
                 src={profileImage}
                 alt={username}
               />

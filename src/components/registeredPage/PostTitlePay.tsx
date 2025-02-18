@@ -11,6 +11,7 @@ import {
   getCategoryLabel,
   getTaskTypeLabel,
 } from '../../utils/categoryMapping';
+import { Image } from '../common/image/Image';
 
 interface PostTitlePayProps {
   thumbnailImageUrl: string;
@@ -53,7 +54,7 @@ const PostTitlePay = ({
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <img
+        <Image
           src={thumbnailImageUrl || '/default-thumbnail.png'}
           alt='썸네일'
           className={styles.thumbnail}
