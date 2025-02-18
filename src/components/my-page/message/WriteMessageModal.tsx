@@ -10,6 +10,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import styles from './writeMessageModal.module.scss';
 
 import {
+  getMessageDetailResponseType,
   PreviousMessageType,
   sendMessagePayloadType,
 } from '../../../types/messageType';
@@ -60,7 +61,7 @@ export const WriteMessageModal = forwardRef<
     },
   });
 
-  const { data: clickedMessage } = useQuery({
+  const { data: clickedMessage } = useQuery<getMessageDetailResponseType>({
     queryKey: ['clickedMessage'],
     queryFn: () => getMessagesDetail(clickedMessageId || ''),
     enabled: clickedMessageId !== '',
@@ -68,7 +69,7 @@ export const WriteMessageModal = forwardRef<
 
   useEffect(() => {
     if (clickedMessage && type === 'reply') {
-      setReceiver(clickedMessage.data.receiverNickname);
+      setReceiver(clickedMessage.receiverNickname);
     }
   }, [clickedMessage, watch, type]);
 
@@ -117,7 +118,9 @@ export const WriteMessageModal = forwardRef<
           <div className={classNames(styles.inputWrapper)}>
             <span>보낸 사람</span>
             <div className={classNames(styles.nameTag, styles.sender)}>
-              {myName}
+              {type === 'write' || type === 'reply'
+                ? myName
+                : clickedMessage?.senderNickname}
             </div>
           </div>
           <div className={classNames(styles.inputWrapper)}>
@@ -149,13 +152,13 @@ export const WriteMessageModal = forwardRef<
             )}
             {(type === 'show' || type === 'reply') && (
               <div className={classNames(styles.nameTag, styles.receiver)}>
-                {clickedMessage?.data.receiverNickname}
+                {clickedMessage?.receiverNickname}
               </div>
             )}
           </div>
           <div className={classNames(styles.inputWrapper)}>
             <span>제목</span>
-            {type === 'show' && <div>{clickedMessage?.data.title}</div>}
+            {type === 'show' && <div>{clickedMessage?.title}</div>}
             {type === 'write' && (
               <input
                 onKeyDown={handleChangeTitleInput}
@@ -187,7 +190,7 @@ export const WriteMessageModal = forwardRef<
           )}
           {type === 'show' && (
             <div className={classNames(styles.contentInput)}>
-              {clickedMessage?.data.content}
+              {clickedMessage?.content}
             </div>
           )}
 
@@ -203,7 +206,7 @@ export const WriteMessageModal = forwardRef<
                 <span
                   className={classNames(
                     styles.receiver,
-                  )}>{`To. ${clickedMessage?.data.receiverNickname}`}</span>
+                  )}>{`To. ${clickedMessage?.receiverNickname}`}</span>
                 <span
                   className={classNames(
                     styles.sender,
@@ -211,7 +214,7 @@ export const WriteMessageModal = forwardRef<
                 <span
                   className={classNames(
                     styles.content,
-                  )}>{`${clickedMessage?.data.content}`}</span>
+                  )}>{`${clickedMessage?.content}`}</span>
               </div>
             </React.Fragment>
           )}

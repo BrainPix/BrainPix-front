@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './message.module.scss';
 
 import {
-  getMessageResponseType,
+  getMessagesResponseType,
   MessagesKeyType,
   sendMessageCountResponseType,
 } from '../../../types/messageType';
@@ -99,11 +99,13 @@ export const Message = () => {
     setIsOpenWriteModal(false);
   };
 
-  const handleClickMessage = async (messageId: string) => {
+  const handleClickMessage = async (messageId: string, isRead: boolean) => {
     setWriteModalType('show');
     setIsOpenWriteModal(true);
     setClickedMessageId(messageId);
-    patchReadMutate(messageId);
+    if (!isRead) {
+      patchReadMutate(messageId);
+    }
   };
 
   const handleClickReplyButton = () => {
@@ -174,7 +176,7 @@ export const Message = () => {
                   sendDate,
                   senderNickname,
                   isRead,
-                }: getMessageResponseType,
+                }: getMessagesResponseType,
                 idx: number,
               ) => (
                 <div
@@ -202,7 +204,7 @@ export const Message = () => {
                     <div className={classNames(styles.rightWrapper)}>
                       {sendDate}
                       <button
-                        onClick={() => handleClickMessage(messageId)}
+                        onClick={() => handleClickMessage(messageId, isRead)}
                         className={classNames(
                           'buttonFilled-grey800',
                           styles.moreButton,

@@ -23,7 +23,7 @@ export const getMessagesDetail = async (id: string) => {
     const { data } = await axios(url, {
       headers: { Authorization: token },
     });
-    return data;
+    return data?.data;
   }
 };
 
