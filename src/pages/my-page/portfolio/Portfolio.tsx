@@ -8,7 +8,6 @@ import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import Loading from '../../../assets/icons/loading.svg?react';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
 import { getPorfolios } from '../../../apis/portfolio';
-import placeholder from '../../../assets/images/brainPixIcon.png';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
@@ -134,7 +133,7 @@ export const Portfolio = () => {
                   <Image
                     alt='포트폴리오 사진'
                     className={classNames(styles.image)}
-                    src={profileImage || placeholder}
+                    src={profileImage}
                     onError={imageErrorHandler}
                   />
                   <p className={classNames(styles.portfolioTitle)}>{title}</p>

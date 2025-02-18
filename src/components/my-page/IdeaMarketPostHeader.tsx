@@ -42,7 +42,7 @@ export const IdeaMarketPostHeader = ({
           <div className={styles.postCardTitle}>{title}</div>
           <div className={styles.price}>{FORMATTEDPRICE} 원</div>
         </div>
-        <div className={styles.ButtonContainer}>
+        <div className={styles.buttonContainer}>
           <button
             className={styles.arrowButton}
             onClick={handleEditNavigate}
