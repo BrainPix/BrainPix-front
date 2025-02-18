@@ -32,7 +32,7 @@ const RecruitmentStatus = ({ members }: RecruitmentStatusProps) => {
               <div className={styles.cell}>{member.domain}</div>
               <div className={styles.cell}>
                 <a
-                  href={`/profile/${member.userId}`} // 이동 확인 필요
+                  href={`/personal-profile/${member.userId}/personal`}
                   className={styles.portfolioLink}>
                   바로가기
                 </a>
