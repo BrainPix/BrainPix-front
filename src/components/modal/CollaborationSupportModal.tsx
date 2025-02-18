@@ -72,7 +72,7 @@ export const CollaborationSupportModal = ({
       return applyForCollaboration(collaborationId, requestData);
     },
     onSuccess: () => {
-      successToast('지원이 완료되었습니다!');
+      successToast('지원이 완료되었습니다! 지원 결과를 기다려주세요');
       onClose();
       navigate('/my/apply-collaboration');
     },
