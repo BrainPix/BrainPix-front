@@ -1,0 +1,77 @@
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.categoryGroup {
+  width: 380px;
+  margin-bottom: 0;
+}
+
+.pageTypeGroup {
+  position: relative;
+}
+
+.pageDescription {
+  position: absolute;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 30px;
+  gap: 10px;
+  border-radius: 5px;
+  background: $grey-200;
+  width: 380px;
+
+  &.detail {
+    height: 108px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .descriptionText {
+    color: $primary-300;
+    font-family: $font-family;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+
+  .infoIcon {
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .detailDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    .mainText {
+      color: $grey-800;
+      font-family: $font-family;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.14px;
+    }
+
+    .subText {
+      color: $grey-700;
+      font-family: $font-family;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.12px;
+    }
+  }
+}

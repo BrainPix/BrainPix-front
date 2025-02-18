@@ -7,6 +7,7 @@ import {
   RequestTaskDetail,
   CollaborationDetail,
   PostApiResponse,
+  IdeaMarketEditType,
 } from '../types/postDataType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -285,7 +286,7 @@ export const postRejectCollaborationApplication = async (
 
 export const putPostIdeaMarket = async (
   ideaId: number,
-  data: IdeaMarketDetail,
+  data: IdeaMarketEditType,
 ) => {
   const url = `${BASE_URL}/idea-markets/${ideaId}`;
   const API_TOKEN = localStorage.getItem('accessToken');

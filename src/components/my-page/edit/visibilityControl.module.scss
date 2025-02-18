@@ -1,0 +1,111 @@
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.labelWrapper {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $grey-800;
+  font-family: $font-family;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.2px;
+}
+
+.required {
+  color: $red;
+}
+
+.visibilityGroupWrapper {
+  margin-top: 10px;
+}
+
+.visibilityWrapper {
+  display: flex;
+  width: 380px;
+  padding: 15px 30px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid $grey-500;
+  background: $grey-50;
+}
+
+.visibilityButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 18px;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.18px;
+  padding: 0;
+
+  &.active {
+    color: $grey-700;
+    font-weight: 500;
+  }
+
+  &:not(.active) {
+    color: $grey-600;
+    font-weight: 400;
+  }
+}
+
+.visibilityContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.portfolioVisibility {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-right: 0;
+  margin-top: 52px;
+}
+
+.portfolioText {
+  color: $grey-500;
+  font-family: $font-family;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.2px;
+  transition: color 0.2s ease;
+
+  &.active {
+    color: $grey-600;
+  }
+}
+
+.editButton {
+  display: flex;
+  padding: 3px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 2px;
+  background: $grey-600;
+  cursor: pointer;
+  border: none;
+
+  span {
+    color: $grey-50;
+    font-family: $font-family;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.14px;
+  }
+}
