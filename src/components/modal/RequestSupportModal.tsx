@@ -74,7 +74,7 @@ const RequestSupportModal = ({
     onSuccess: () => {
       successToast('지원이 완료되었습니다!');
       onClose();
-      navigate('/request-assign');
+      navigate('/my/apply-request');
     },
     onError: (error: unknown) => {
       console.error('지원 요청 실패:', error);
@@ -86,7 +86,7 @@ const RequestSupportModal = ({
       }
 
       if (errorMessage.includes('이미 신청한 분야')) {
-        errorToast('⚠ 이미 신청함');
+        errorToast('이미 신청하셨습니다.');
       } else {
         errorToast(`${errorMessage}`);
       }
