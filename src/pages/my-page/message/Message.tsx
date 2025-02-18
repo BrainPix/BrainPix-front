@@ -11,11 +11,10 @@ import { WriteMessageModal } from '../../../components/my-page/message/WriteMess
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getMessageCount, getMessages } from '../../../apis/messageAPI';
+import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
+import Loading from '../../../assets/icons/loading.svg?react';
 
 export const Message = () => {
-  const READ_COUNT = 1;
-  const UNREAD_COUNT = 1;
-
   const MENU: Record<MessagesKeyType, string> = {
     ALL: '전체 메세지',
     SEND: '보낸 메세지',
@@ -23,6 +22,7 @@ export const Message = () => {
   };
 
   type MenuValueType = (typeof MENU)[MessagesKeyType];
+  const writeMessageModalRef = useRef(null);
 
   const [selectedStatus, setSelectedStatus] = useState<MessagesKeyType>('ALL');
   const [clickedMenu, setClickedMenu] = useState<MenuValueType>('전체 메세지');
@@ -31,16 +31,33 @@ export const Message = () => {
   >('show');
   const [isOpenWriteModal, setIsOpenWriteModal] = useState(false);
   const [clickedMessageId, setClickedMessageId] = useState<string>('');
+  const [lastMessageIndex, setLastMessageIndex] = useState(0);
 
-  const writeMessageModalRef = useRef(null);
-
-  const { data: messages } = useInfiniteQuery({
+  const {
+    data: messages,
+    fetchNextPage,
+    isFetching: isFetchingMessages,
+  } = useInfiniteQuery({
     queryKey: ['messages', selectedStatus],
     initialPageParam: 0,
     queryFn: ({ pageParam = 0 }) => getMessages(selectedStatus, pageParam),
     getNextPageParam: (lastPage) => {
       if (lastPage.data.hasNext) {
-        return lastPage?.currentPage + 1;
+        return lastPage?.data.currentPage + 1;
+      }
+    },
+  });
+
+  const { setTarget } = useIntersectionObserverAPI({
+    onIntersect: (observer) => {
+      if (observer.isIntersecting) {
+        fetchNextPage();
+        const totalCurrentCardLength = messages?.pages.reduce(
+          (acc, page) => acc + page.data.messageDetailList.length,
+          0,
+        );
+
+        setLastMessageIndex(totalCurrentCardLength - 1);
       }
     },
   });
@@ -87,10 +104,10 @@ export const Message = () => {
       <div className={classNames(styles.titleWrapper)}>
         <span className={classNames(styles.title)}>메신저</span>
         <span className={classNames(styles.readCount)}>
-          읽음 {messageCount?.data.readMessageCount}
+          읽음 {messageCount?.readMessageCount}
         </span>
         <span className={classNames(styles.readCount)}>
-          안 읽음 {messageCount?.data.unreadMessageCount}
+          안 읽음 {messageCount?.unreadMessageCount}
         </span>
         <button
           onClick={() => {
@@ -105,6 +122,7 @@ export const Message = () => {
         {Object.entries(MENU).map(([key, value]) => (
           <button
             onClick={() => {
+              setLastMessageIndex(2);
               setClickedMenu(value);
               setSelectedStatus(key as MessagesKeyType);
             }}
@@ -120,14 +138,20 @@ export const Message = () => {
         {messages?.pages.map((messagesData, pageIdx) => (
           <React.Fragment key={pageIdx}>
             {messagesData.data.messageDetailList.map(
-              ({
-                messageId,
-                title,
-                sendDate,
-                senderNickname,
-              }: getMessageResponseType) => (
+              (
+                {
+                  messageId,
+                  title,
+                  sendDate,
+                  senderNickname,
+                }: getMessageResponseType,
+                idx: number,
+              ) => (
                 <div
                   key={messageId}
+                  ref={
+                    3 * pageIdx + idx === lastMessageIndex ? setTarget : null
+                  }
                   className={classNames(styles.messageCardContainer)}>
                   <div
                     key={messageId}
@@ -161,6 +185,7 @@ export const Message = () => {
           </React.Fragment>
         ))}
       </div>
+      {isFetchingMessages && <Loading className={classNames(styles.loading)} />}
     </div>
   );
 };

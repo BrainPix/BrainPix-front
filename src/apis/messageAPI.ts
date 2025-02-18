@@ -47,6 +47,6 @@ export const getMessageCount = async () => {
     const { data } = await axios(url, {
       headers: { Authorization: token },
     });
-    return data;
+    return data?.data;
   }
 };

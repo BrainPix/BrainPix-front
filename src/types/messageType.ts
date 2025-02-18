@@ -30,8 +30,6 @@ export interface sendMessagePayloadType {
 }
 
 export interface sendMessageCountResponseType {
-  data: {
-    readMessageCount: number;
-    unreadMessageCount: number;
-  };
+  readMessageCount: number;
+  unreadMessageCount: number;
 }
