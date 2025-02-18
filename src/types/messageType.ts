@@ -20,7 +20,10 @@ export interface getMessageResponseType {
   messageId: string;
   title: string;
   senderNickname: string;
+  receiverNickname: string;
   sendDate: string;
+  isRead: boolean;
+  messageType: MessagesKeyType;
 }
 
 export interface sendMessagePayloadType {

@@ -50,3 +50,19 @@ export const getMessageCount = async () => {
     return data?.data;
   }
 };
+
+export const patchMessageRead = async (messageId: string) => {
+  const token = localStorage.getItem('accessToken');
+  const url = `${BASE_URL}/${messageId}`;
+
+  if (token) {
+    const { data } = await axios.patch(
+      url,
+      {},
+      {
+        headers: { Authorization: token },
+      },
+    );
+    return data?.data;
+  }
+};

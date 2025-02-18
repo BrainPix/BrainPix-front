@@ -9,8 +9,17 @@ import {
 } from '../../../types/messageType';
 import { WriteMessageModal } from '../../../components/my-page/message/WriteMessageModal';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { getMessageCount, getMessages } from '../../../apis/messageAPI';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import {
+  getMessageCount,
+  getMessages,
+  patchMessageRead,
+} from '../../../apis/messageAPI';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import Loading from '../../../assets/icons/loading.svg?react';
 
@@ -23,6 +32,7 @@ export const Message = () => {
 
   type MenuValueType = (typeof MENU)[MessagesKeyType];
   const writeMessageModalRef = useRef(null);
+  const queryClient = useQueryClient();
 
   const [selectedStatus, setSelectedStatus] = useState<MessagesKeyType>('ALL');
   const [clickedMenu, setClickedMenu] = useState<MenuValueType>('전체 메세지');
@@ -67,14 +77,33 @@ export const Message = () => {
     queryFn: getMessageCount,
   });
 
+  const { mutate: patchReadMutate } = useMutation({
+    mutationFn: (messageId: string) => patchMessageRead(messageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['messages', 'ALL'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['messages', 'SEND'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['messages', 'RECEIVED'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['messageCount'],
+      });
+    },
+  });
+
   const handleCloseWriteModal = () => {
     setIsOpenWriteModal(false);
   };
 
-  const handleClickMessage = (messageId: string) => {
+  const handleClickMessage = async (messageId: string) => {
     setWriteModalType('show');
     setIsOpenWriteModal(true);
     setClickedMessageId(messageId);
+    patchReadMutate(messageId);
   };
 
   const handleClickReplyButton = () => {
@@ -144,6 +173,7 @@ export const Message = () => {
                   title,
                   sendDate,
                   senderNickname,
+                  isRead,
                 }: getMessageResponseType,
                 idx: number,
               ) => (
@@ -152,7 +182,9 @@ export const Message = () => {
                   ref={
                     3 * pageIdx + idx === lastMessageIndex ? setTarget : null
                   }
-                  className={classNames(styles.messageCardContainer)}>
+                  className={classNames(styles.messageCardContainer, {
+                    [styles.isRead]: isRead,
+                  })}>
                   <div
                     key={messageId}
                     className={classNames(styles.messageCardWrapper, {
