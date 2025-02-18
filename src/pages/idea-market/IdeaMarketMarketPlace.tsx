@@ -30,20 +30,6 @@ const categoryMapReverse: Record<string, string> = {
   기타: 'OTHERS',
 };
 
-interface IdeaData {
-  ideaId: number;
-  auth: 'ALL' | 'COMPANY' | 'ME';
-  writerImageUrl: string;
-  writerName: string;
-  thumbnailImageUrl: string;
-  title: string;
-  price: number;
-  category: string;
-  saveCount: number;
-  viewCount: number;
-  isSavedPost: boolean;
-}
-
 type SortType =
   | 'NEWEST'
   | 'OLDEST'
