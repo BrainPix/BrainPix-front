@@ -1,17 +1,27 @@
 import styles from './profileHeader.module.scss';
 import { imageErrorHandler } from '../../utils/imageErrorHandler';
+import { useNavigate } from 'react-router-dom';
 
 interface ProfileHeaderProps {
   writerId: number;
   name: string;
   profileImageUrl: string;
+  role: string;
 }
 
 const ProfileHeader = ({
   writerId,
   name,
   profileImageUrl,
+  role,
 }: ProfileHeaderProps) => {
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    const profileType = role === 'CORPORATE' ? 'corporate' : 'personal';
+    navigate(`/personal-profile/${writerId}/${profileType}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
@@ -25,7 +35,7 @@ const ProfileHeader = ({
       </div>
       <button
         className={styles.viewProfile}
-        onClick={() => console.log(`유저 ${writerId} 프로필 페이지로 이동`)}>
+        onClick={handleProfileClick}>
         프로필 보기
       </button>
     </div>

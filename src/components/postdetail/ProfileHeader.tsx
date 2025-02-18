@@ -19,7 +19,7 @@ const ProfileHeader = ({
 
   const handleProfileClick = () => {
     const profileType = role === 'CORPORATE' ? 'corporate' : 'personal';
-    navigate(`/personal-profile/${writerId}/${profileType}`); //userid로 변경 필요
+    navigate(`/personal-profile/${writerId}/${profileType}`);
   };
   return (
     <div className={styles.container}>
