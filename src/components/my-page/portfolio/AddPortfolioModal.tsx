@@ -18,6 +18,7 @@ import { postPorfolio } from '../../../apis/portfolio';
 import { getPresignedURL } from '../../../apis/commonAPI';
 import { ToastContext } from '../../../contexts/toastContext';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { formatBirth } from '../../../utils/formatBirth';
 
 interface AddPortfolioModalPropsType {
   onClose: () => void;
@@ -150,13 +151,21 @@ export const AddPortfolioModal = forwardRef<
             <h3 className={classNames(styles.inputTitle)}>프로젝트 기간</h3>
             <div className={classNames(styles.dateInputWrapper)}>
               <input
-                placeholder='시작 날짜 선택'
                 {...register('startDate')}
+                placeholder='시작 날짜 선택'
+                maxLength={7}
+                onChange={(e) => {
+                  setValue('startDate', formatBirth(e.target.value));
+                }}
               />
               <hr className={classNames(styles.divider)} />
               <input
-                placeholder='종료 날짜 선택'
                 {...register('endDate')}
+                placeholder='종료 날짜 선택'
+                maxLength={7}
+                onChange={(e) => {
+                  setValue('endDate', formatBirth(e.target.value));
+                }}
               />
             </div>
           </div>

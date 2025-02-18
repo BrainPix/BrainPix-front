@@ -54,6 +54,9 @@
     color: $grey-800;
     margin-bottom: 5px;
     margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   & > .date {

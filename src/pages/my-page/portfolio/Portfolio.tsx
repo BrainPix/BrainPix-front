@@ -15,7 +15,7 @@ import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 
 export const Portfolio = () => {
   const [lastCardId, setLastCardId] = useState(0);
-  const [clickedCardId, setClickedCardId] = useState(18);
+  const [clickedCardId, setClickedCardId] = useState<number>(-1);
   const [userId, setUserId] = useState(-1);
 
   useEffect(() => {
@@ -71,6 +71,7 @@ export const Portfolio = () => {
 
   const handleClosePortfolioDetailModal = () => {
     setIsOpenPortfolioDetailModal(false);
+    setClickedCardId(-1);
   };
 
   const addPortfolioModalRef = useRef(null);
