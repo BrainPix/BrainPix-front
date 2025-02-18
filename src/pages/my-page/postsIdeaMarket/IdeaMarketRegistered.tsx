@@ -12,7 +12,7 @@ import { getIdeaMarketDetail } from '../../../apis/detailPageAPI';
 import { IdeaMarketDetail } from '../../../types/detailPageType';
 import { getUserIdFromToken } from '../../../utils/auth';
 
-export const IdeaMarketEdit = () => {
+export const IdeaMarketRegistered = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
   const userId = getUserIdFromToken();
   const [resolvedIdeaId, setResolvedIdeaId] = useState<number | null>(null);

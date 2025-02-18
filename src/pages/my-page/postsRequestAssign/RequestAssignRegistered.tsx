@@ -13,7 +13,7 @@ import { RequestDetail } from '../../../types/detailPageType';
 import { getRequestDetail } from '../../../apis/detailPageAPI';
 import { getUserIdFromToken } from '../../../utils/auth';
 
-export const RequestAssignEdit = () => {
+export const RequestAssignRegistered = () => {
   const { taskId } = useParams<{ taskId: string }>();
   const userId = getUserIdFromToken();
   const [resolvedTaskId, setResolvedTaskId] = useState<number | null>(null);
