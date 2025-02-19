@@ -44,7 +44,7 @@ export const PaymentProcessing = () => {
     };
 
     approvePayment();
-  }, []);
+  }, [isApproved, navigate, searchParams]);
 
   const goBackTwice = () => {
     window.history.go(-1);
