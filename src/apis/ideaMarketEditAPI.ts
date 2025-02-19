@@ -1,3 +1,25 @@
+import { SpecializationType } from '../types/specializationType';
+
+export type IdeaMarketType = 'IDEA_SOLUTION' | 'MARKET_PLACE';
+export type PostAuth = 'ALL' | 'COMPANY' | 'ME';
+
+export interface IdeaMarketPriceDto {
+  price: number;
+  totalQuantity: number;
+}
+
+export interface IdeaMarketRequestData {
+  title: string;
+  content: string;
+  specialization: SpecializationType;
+  openMyProfile: boolean;
+  postAuth: PostAuth;
+  ideaMarketType: IdeaMarketType;
+  priceDto: IdeaMarketPriceDto;
+  imageList: string[];
+  attachmentFileList: string[];
+}
+
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getPresignedUrl = async (file: File): Promise<string> => {
@@ -34,41 +56,6 @@ export const uploadImageToPresignedUrl = async (
   const imageUrl = presignedUrl.split('?')[0];
   return imageUrl;
 };
-
-export type SpecializationType =
-  | 'ADVERTISING_PROMOTION'
-  | 'DESIGN'
-  | 'LESSON'
-  | 'MARKETING'
-  | 'DOCUMENT_WRITING'
-  | 'MEDIA_CONTENT'
-  | 'TRANSLATION_INTERPRETATION'
-  | 'TAX_LAW_LABOR'
-  | 'CUSTOM_PRODUCTION'
-  | 'STARTUP_BUSINESS'
-  | 'FOOD_BEVERAGE'
-  | 'IT_TECH'
-  | 'OTHERS';
-
-export type IdeaMarketType = 'IDEA_SOLUTION' | 'MARKET_PLACE';
-export type PostAuth = 'ALL' | 'COMPANY' | 'ME';
-
-export interface IdeaMarketPriceDto {
-  price: number;
-  totalQuantity: number;
-}
-
-export interface IdeaMarketRequestData {
-  title: string;
-  content: string;
-  specialization: SpecializationType;
-  openMyProfile: boolean;
-  postAuth: PostAuth;
-  ideaMarketType: IdeaMarketType;
-  priceDto: IdeaMarketPriceDto;
-  imageList: string[];
-  attachmentFileList: string[];
-}
 
 export const submitIdeaMarket = async (
   data: IdeaMarketRequestData,
