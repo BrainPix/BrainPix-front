@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import styles from './paymentTitle.module.scss';
 import UpDownButton from '../../assets/icons/upDownButton.svg?react';
-import { imageErrorHandler } from '../../utils/imageErrorHandler';
+import { Image } from '../common/image/Image';
 
 interface PaymentTitleProps {
   thumbnailImageUrl: string;
@@ -54,11 +54,10 @@ const PaymentTitle = ({
     <div className={styles.paymentTitle}>
       <div className={styles.title}>결제하기</div>
       <div className={styles.content}>
-        <img
+        <Image
           src={thumbnailImageUrl}
           alt='상품 썸네일'
           className={styles.image}
-          onError={imageErrorHandler}
         />
         <div className={styles.text}>
           <div className={styles.price}>{price.toLocaleString()}원</div>

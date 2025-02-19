@@ -27,7 +27,6 @@ import {
   CATEGORY_MAPPER_TO_ENG,
 } from '../../../constants/categoryMapper';
 import ImageInput from '../../../assets/icons/imageInput.svg?react';
-import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 import { QuillToolbar } from './QuillToolbar';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import { PORTFOLIO_DETAIL_INIT } from '../../../constants/initValues';
@@ -35,6 +34,7 @@ import { getPresignedURL } from '../../../apis/commonAPI';
 import axios from 'axios';
 import { ToastContext } from '../../../contexts/toastContext';
 import { DeleteCheckModal } from './DeleteCheckModal';
+import { Image } from '../../common/image/Image';
 
 interface PortfolioDetailModalPropsType {
   onClose: () => void;
@@ -195,11 +195,10 @@ export const PortfolioDetailModal = forwardRef<
               className={classNames(styles.contentContainer)}
               onSubmit={handleSubmit(handleSubmitHandler)}>
               <div className={classNames(styles.imageInputWrapper)}>
-                <img
+                <Image
                   alt='포트폴리오 이미지'
                   src={selectedImage || profileImage}
                   className={classNames(styles.imageInputLabel)}
-                  onError={imageErrorHandler}
                 />
                 <label htmlFor='imageInput'>
                   <div className={classNames(styles.imageInputLabel)}>
@@ -309,11 +308,10 @@ export const PortfolioDetailModal = forwardRef<
                   </div>
                 </div>
                 <div className={classNames(styles.imageInputWrapper)}>
-                  <img
+                  <Image
                     alt='포트폴리오 사진'
                     src={profileImage}
                     className={classNames(styles.imageInputLabel)}
-                    onError={imageErrorHandler}
                   />
                 </div>
                 <div className={classNames(styles.titleWrapper)}>

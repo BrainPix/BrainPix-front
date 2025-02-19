@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -18,13 +19,10 @@ export const kakaoPayReady = async ({
   if (!ideaId) {
     return;
   }
+  const token = checkAccessToken();
+  if (!token) return null;
 
   try {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      return;
-    }
-
     const response = await axios.post(
       `${BASE_URL}/kakao-pay/ready`,
       {
@@ -36,7 +34,7 @@ export const kakaoPayReady = async ({
       },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       },
@@ -63,28 +61,24 @@ export const kakaoPayApprove = async ({
   orderId: string;
   ideaId: number;
 }) => {
-  const accessToken = localStorage.getItem('accessToken');
-  if (!accessToken) {
-    throw Error;
-  }
-
-  if (!pgToken) {
-    throw Error;
-  }
-
-  if (!orderId) {
-    throw Error;
-  }
+  const token = checkAccessToken();
+  if (!token) return null;
 
   const requestData = { pgToken, orderId, ideaId };
 
-  return axios
-    .post(`${BASE_URL}/kakao-pay/approve`, requestData, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/kakao-pay/approve`,
+      requestData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
-    })
-    .then((response) => response.data)
-    .catch(() => Error);
+    );
+    return response.data;
+  } catch {
+    throw Error;
+  }
 };

@@ -1,6 +1,5 @@
 @mixin title-style($color) {
   color: $color;
-  font-family: Pretendard;
   font-size: 32px;
   font-style: normal;
   font-weight: 600;
@@ -14,45 +13,45 @@
   flex-shrink: 0;
   background: $grey-200;
 }
-  
+
 .subTitle {
   margin-top: 39px;
   margin-left: 62px;
   color: $grey-800;
-  font-family: Pretendard;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.24px;
-  
+
   .highlight {
     font-weight: 500;
   }
 }
-  
+
 .title {
   @include title-style($grey-800);
+
   margin-left: 62px;
-    
+
   .highlight {
     @include title-style($red);
   }
 }
-  
+
 .sliderContainer {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-  
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   flex: 1;
 }
-  
+
 .card {
   width: 250px;
   height: 200px;
@@ -62,7 +61,7 @@
   background: $grey-50;
   margin-left: 15px;
 }
-  
+
 .navButton {
   background: none;
   border: none;
@@ -71,32 +70,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:disabled {
     opacity: 0.1;
   }
-  
+
   img {
     width: 24px;
     height: 24px;
   }
 }
-  
+
 .more {
   text-align: right;
   margin-top: 15px;
   margin-right: 85px;
-  
+
   button {
     color: $grey-700;
-    font-family: Pretendard;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.16px;
     border: none;
-  
+
     &:hover {
       color: $grey-900;
     }
@@ -108,7 +106,7 @@
   justify-content: space-between;
   align-items: flex-start;
 }
-  
+
 .headerContent {
   flex: 1;
 }
@@ -124,9 +122,7 @@
   margin-bottom: 32px;
   margin-top: 39px;
   margin-right: 56px;
-  
-  color: #F1F1F1;
-  font-family: Pretendard;
+  color: #f1f1f1;
   font-size: 20px;
   font-style: normal;
   font-weight: 300;

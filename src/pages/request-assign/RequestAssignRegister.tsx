@@ -10,6 +10,7 @@ import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react'
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
+import { Image } from '../../components/common/image/Image';
 
 interface RequestAssignRegisterProps {
   [key: string]: never;
@@ -296,7 +297,7 @@ export const RequestAssignRegisterNow: React.FC<
                 handleImageUpload();
               }
             }}>
-            <img
+            <Image
               src={previewImageUrl}
               alt='Selected'
               className={styles.imagePreview}

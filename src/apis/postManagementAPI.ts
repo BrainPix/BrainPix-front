@@ -8,6 +8,7 @@ import {
   CollaborationDetail,
   PostApiResponse,
 } from '../types/postDataType';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -16,17 +17,12 @@ export const getPostIdeaMarket = async (
   size = 10,
 ): Promise<PostApiResponse<IdeaMarket>> => {
   const url = `${BASE_URL}/post-management/idea-market`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -42,17 +38,12 @@ export const getPostRequestTask = async (
   size = 10,
 ): Promise<PostApiResponse<RequestTask>> => {
   const url = `${BASE_URL}/post-management/request-task`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -68,17 +59,12 @@ export const getPostCollaboration = async (
   size = 10,
 ): Promise<PostApiResponse<Collaboration>> => {
   const url = `${BASE_URL}/post-management/collaboration`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -93,17 +79,12 @@ export const getPostIdeaMarketDetail = async (
   postId: number,
 ): Promise<IdeaMarketDetail> => {
   const url = `${BASE_URL}/post-management/idea-market/${postId}`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -117,17 +98,12 @@ export const getPostRequestTaskDetail = async (
   postId: number,
 ): Promise<RequestTaskDetail> => {
   const url = `${BASE_URL}/post-management/request-task/${postId}`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -141,17 +117,12 @@ export const getPostCollaborationDetail = async (
   postId: number,
 ): Promise<CollaborationDetail> => {
   const url = `${BASE_URL}/post-management/collaboration/${postId}`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -165,12 +136,7 @@ export const postAcceptRequestApplication = async (
   purchasingId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/post-management/request-task/application/${purchasingId}/accept`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     axios.post(
@@ -178,7 +144,7 @@ export const postAcceptRequestApplication = async (
       {},
       {
         headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -191,12 +157,7 @@ export const postRejectRequestApplication = async (
   purchasingId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/post-management/request-task/application/${purchasingId}/reject`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     await axios.post(
@@ -204,7 +165,7 @@ export const postRejectRequestApplication = async (
       {},
       {
         headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -217,12 +178,7 @@ export const postAcceptCollaborationApplication = async (
   gatheringId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/post-management/collaboration/application/${gatheringId}/accept`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     await axios.post(
@@ -230,7 +186,7 @@ export const postAcceptCollaborationApplication = async (
       {},
       {
         headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -243,12 +199,7 @@ export const postRejectCollaborationApplication = async (
   gatheringId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/post-management/collaboration/application/${gatheringId}/reject`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     await axios.post(
@@ -256,7 +207,7 @@ export const postRejectCollaborationApplication = async (
       {},
       {
         headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -270,18 +221,12 @@ export const deletePost = async (
   postType: 'idea-markets' | 'request-tasks' | 'collaborations',
 ): Promise<void> => {
   const url = `${BASE_URL}/${postType}/${postId}`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = '/login/personal';
-    throw new Error('인증되지 않은 사용자입니다.');
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.delete(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

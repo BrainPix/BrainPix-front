@@ -37,10 +37,9 @@ export const RecentNews = () => {
       if (observer.isIntersecting) {
         fetchNextPage();
         const totalCurrentCardLength = alarmsInTrash?.pages.reduce(
-          (acc, page) => acc + page.alarmDetailList.length,
+          (acc, page) => acc + page.data.alarmDetailList.length,
           0,
         );
-
         setLastCardId(totalCurrentCardLength - 1);
       }
     },
@@ -118,7 +117,7 @@ export const RecentNews = () => {
       <div>
         <h1 className={classNames(styles.title)}>최근 소식</h1>
         <div className={classNames(styles.listContainer)}>
-          {alarms?.alarmDetailList.map((alarmData: getAlarmResponseType) => (
+          {alarms?.alarmDetailList?.map((alarmData: getAlarmResponseType) => (
             <PreviewList
               iconType='trash'
               key={alarmData.alarmId}
@@ -193,7 +192,7 @@ export const RecentNews = () => {
           <div className={classNames(styles.trashListWrapper)}>
             {alarmsInTrash?.pages.map((alarms, pageIdx) => (
               <React.Fragment key={pageIdx}>
-                {alarms.alarmDetailList.map(
+                {alarms.data.alarmDetailList.map(
                   (alarmData: getAlarmResponseType, idx: number) => (
                     <PreviewList
                       key={alarmData.alarmId}
