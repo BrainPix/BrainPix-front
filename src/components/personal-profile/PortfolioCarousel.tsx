@@ -48,49 +48,34 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
 
   return (
     <div className={classNames(styles.container)}>
-      {!portfolios ? (
-        <div className={classNames(styles.noDataWrapper)}>
-          <h3 className={classNames(styles.label)}>포트폴리오</h3>
-          <p className={classNames(styles.text)}>포트폴리오가 없습니다.</p>
-          <button
-            onClick={() => navigate('/my/portfolio')}
-            className={classNames(
-              styles.addPortfolioButton,
-              'buttonFilled-primary',
-            )}>
-            포트폴리오 추가하러 가기
-          </button>
-        </div>
-      ) : (
-        <Carousel
-          gap={46.67}
-          cardWidth={165}
-          cardCount={size}
-          buttonPosition='top'
-          label='포트폴리오'
-          onClickNext={handleClickNext}
-          dataLength={portfolios?.totalElements}>
-          {currentData.map((portfolios, pageIdx) => (
-            <React.Fragment key={pageIdx}>
-              {portfolios.map(
-                ({ id, title, createdDate, profileImage }: MyPorfolioType) => (
-                  <div
-                    key={id}
-                    className={classNames(styles.portfolio)}>
-                    <Image
-                      alt='포트폴리오 대표사진'
-                      className={classNames(styles.image)}
-                      src={profileImage}
-                    />
-                    <div className={classNames(styles.title)}>{title}</div>
-                    <div className={classNames(styles.date)}>{createdDate}</div>
-                  </div>
-                ),
-              )}
-            </React.Fragment>
-          ))}
-        </Carousel>
-      )}
+      <Carousel
+        gap={46.67}
+        cardWidth={165}
+        cardCount={size}
+        buttonPosition='top'
+        label='포트폴리오'
+        onClickNext={handleClickNext}
+        dataLength={portfolios?.totalElements}>
+        {currentData.map((portfolios, pageIdx) => (
+          <React.Fragment key={pageIdx}>
+            {portfolios.map(
+              ({ id, title, createdDate, profileImage }: MyPorfolioType) => (
+                <div
+                  key={id}
+                  className={classNames(styles.portfolio)}>
+                  <Image
+                    alt='포트폴리오 대표사진'
+                    className={classNames(styles.image)}
+                    src={profileImage}
+                  />
+                  <div className={classNames(styles.title)}>{title}</div>
+                  <div className={classNames(styles.date)}>{createdDate}</div>
+                </div>
+              ),
+            )}
+          </React.Fragment>
+        ))}
+      </Carousel>
     </div>
   );
 };
