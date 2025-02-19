@@ -84,8 +84,8 @@ const PostTitleApply = ({
           JSON.stringify(savedBookmarks.filter((id: number) => id !== taskId)),
         );
       }
-    } catch (error) {
-      console.error('북마크 저장/해제 실패:', error);
+    } catch {
+      throw Error;
     }
   };
 

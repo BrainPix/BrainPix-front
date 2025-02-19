@@ -63,8 +63,8 @@ const PostHeader = ({
           JSON.stringify(savedBookmarks.filter((id: number) => id !== postId)),
         );
       }
-    } catch (error) {
-      console.error('북마크 저장/해제 실패:', error);
+    } catch {
+      throw Error;
     }
   };
 
