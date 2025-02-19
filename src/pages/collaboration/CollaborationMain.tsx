@@ -5,10 +5,10 @@ import axios from 'axios';
 import styles from './collaborationMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import {
-  toggleIdeaBookmark,
-  getIdeaList,
-  GetIdeaListRequest,
-} from '../../apis/mainPageAPI';
+  toggleCollaborationBookmark,
+  getCollaborationList,
+  GetCollaborationListRequest,
+} from '../../apis/collaborationAPI';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 
@@ -28,43 +28,37 @@ const categoryMapReverse: Record<string, string> = {
   기타: 'OTHERS',
 };
 
-interface IdeaData {
-  ideaId: number;
+interface CollaborationData {
+  collaborationId: number;
   auth: 'ALL' | 'COMPANY' | 'ME';
   writerImageUrl: string;
   writerName: string;
   thumbnailImageUrl: string;
   title: string;
-  price: number;
+  deadline: number;
   category: string;
+  occupiedQuantity: number;
+  totalQuantity: number;
   saveCount: number;
   viewCount: number;
   isSavedPost: boolean;
-}
-interface CardData {
-  id: number;
-  isBookmarked?: boolean;
-  saves: number;
-  views: number;
 }
 
 export const CollaborationMain = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [_cardsData, setCardsData] = useState<CardData[]>([]);
-  const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
-  const [isInitialLoading, setIsInitialLoading] = useState(true); // 초기 로딩용
-  const [_isUpdating, setIsUpdating] = useState(false);
+  const [collaborationData, setCollaborationData] = useState<
+    CollaborationData[]
+  >([]);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const fetchIdeas = useCallback(
+  const fetchCollaborations = useCallback(
     async (category?: string) => {
       try {
-        setIsUpdating(true);
-        const params: GetIdeaListRequest = {
-          type: 'IDEA_SOLUTION',
+        const params: GetCollaborationListRequest = {
           page: 0,
           size: 10,
         };
@@ -73,7 +67,7 @@ export const CollaborationMain = () => {
           params.category = categoryMapReverse[category];
         }
 
-        const response = await getIdeaList(params);
+        const response = await getCollaborationList(params);
 
         if (response.success) {
           const filteredData =
@@ -81,21 +75,12 @@ export const CollaborationMain = () => {
               ? response.data.content.filter((item) => item.auth === 'COMPANY')
               : response.data.content.filter((item) => item.auth !== 'COMPANY');
 
-          setIdeaData(filteredData);
-          setCardsData(
-            filteredData.map((item) => ({
-              id: item.ideaId,
-              isBookmarked: item.isSavedPost,
-              saves: item.saveCount,
-              views: item.viewCount,
-            })),
-          );
+          setCollaborationData(filteredData);
         }
       } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
+        console.error('협업 데이터 로딩 중 에러:', error);
       } finally {
         setIsInitialLoading(false);
-        setIsUpdating(false);
       }
     },
     [viewOption],
@@ -105,62 +90,50 @@ export const CollaborationMain = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const newViewOption = event.target.value as 'all' | 'company';
       setViewOption(newViewOption);
-      fetchIdeas(selectedCategory);
+      fetchCollaborations(selectedCategory);
     },
-    [fetchIdeas, selectedCategory],
+    [fetchCollaborations, selectedCategory],
   );
 
   const handleCategorySelect = useCallback(
     (category: string) => {
       setSelectedCategory(category);
       setIsDropdownOpen(false);
-      fetchIdeas(category);
+      fetchCollaborations(category);
     },
-    [fetchIdeas],
+    [fetchCollaborations],
   );
 
-  const handleBookmarkClick = async (ideaId: number) => {
+  const handleBookmarkClick = async (collaborationId: number) => {
     try {
-      setIdeaData((prevData) =>
-        prevData.map((idea) =>
-          idea.ideaId === ideaId
+      setCollaborationData((prevData) =>
+        prevData.map((collab) =>
+          collab.collaborationId === collaborationId
             ? {
-                ...idea,
-                isSavedPost: !idea.isSavedPost,
-                saveCount: idea.saveCount + (idea.isSavedPost ? -1 : 1),
+                ...collab,
+                isSavedPost: !collab.isSavedPost,
+                saveCount: collab.saveCount + (collab.isSavedPost ? -1 : 1),
               }
-            : idea,
+            : collab,
         ),
       );
 
-      const response = await toggleIdeaBookmark(ideaId);
+      const response = await toggleCollaborationBookmark(collaborationId);
 
       if (!response.success) {
-        setIdeaData((prevData) =>
-          prevData.map((idea) =>
-            idea.ideaId === ideaId
+        setCollaborationData((prevData) =>
+          prevData.map((collab) =>
+            collab.collaborationId === collaborationId
               ? {
-                  ...idea,
-                  isSavedPost: !idea.isSavedPost,
-                  saveCount: idea.saveCount + (idea.isSavedPost ? 1 : -1),
+                  ...collab,
+                  isSavedPost: !collab.isSavedPost,
+                  saveCount: collab.saveCount + (collab.isSavedPost ? 1 : -1),
                 }
-              : idea,
+              : collab,
           ),
         );
       }
     } catch (err) {
-      setIdeaData((prevData) =>
-        prevData.map((idea) =>
-          idea.ideaId === ideaId
-            ? {
-                ...idea,
-                isSavedPost: !idea.isSavedPost,
-                saveCount: idea.saveCount + (idea.isSavedPost ? 1 : -1),
-              }
-            : idea,
-        ),
-      );
-
       if (axios.isAxiosError(err)) {
         console.error('북마크 처리 실패:', err.message);
       } else {
@@ -170,8 +143,8 @@ export const CollaborationMain = () => {
   };
 
   useEffect(() => {
-    fetchIdeas();
-  }, [fetchIdeas]);
+    fetchCollaborations();
+  }, [fetchCollaborations]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -264,31 +237,35 @@ export const CollaborationMain = () => {
           <div className={styles.sortDropdown}>
             <select className={styles.sortSelect}>
               <option value='newest'>최신순</option>
-              <option value='popular'>오래된순</option>
-              <option value='low'>저가순</option>
-              <option value='highView'>낮은 가격순</option>
-              <option value='lowView'>높은 가격순</option>
+              <option value='oldest'>오래된순</option>
+              <option value='popular'>저장순</option>
+              <option value='highView'>높은 모집순</option>
+              <option value='lowView'>낮은 모집순</option>
             </select>
           </div>
         </div>
       </div>
       <div className={styles.thumbnailGrid}>
-        {ideaData.map((idea) => (
+        {collaborationData.map((collab) => (
           <PreviewThumbnail
-            key={idea.ideaId}
+            key={collab.collaborationId}
             data={{
-              ideaId: idea.ideaId,
-              username: idea.writerName,
-              description: idea.title,
-              price: idea.price,
-              imageUrl: idea.thumbnailImageUrl || undefined,
-              profileImage: idea.writerImageUrl,
-              isBookmarked: idea.isSavedPost,
-              saves: idea.saveCount,
-              views: idea.viewCount,
-              auth: idea.auth,
-              category: idea.category,
-              onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+              ideaId: collab.collaborationId,
+              routePrefix: 'collaboration',
+              username: collab.writerName,
+              description: collab.title,
+              deadline: collab.deadline,
+              imageUrl: collab.thumbnailImageUrl || undefined,
+              profileImage: collab.writerImageUrl,
+              isBookmarked: collab.isSavedPost,
+              saves: collab.saveCount,
+              views: collab.viewCount,
+              auth: collab.auth,
+              category: collab.category,
+              occupiedQuantity: collab.occupiedQuantity,
+              totalQuantity: collab.totalQuantity,
+              onBookmarkClick: () =>
+                handleBookmarkClick(collab.collaborationId),
             }}
           />
         ))}

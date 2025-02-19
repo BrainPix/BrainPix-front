@@ -14,6 +14,8 @@ interface PreviewThumbnailType {
   description?: string;
   price?: number;
   deadline?: number;
+  occupiedQuantity?: number;
+  totalQuantity?: number;
   isBookmarked?: boolean;
   auth?: 'ALL' | 'COMPANY' | 'ME';
   category?: string;
@@ -54,6 +56,8 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
     profileImage = '',
     username = '',
     description = '',
+    occupiedQuantity = 0,
+    totalQuantity = 0,
     price = 0,
     isBookmarked = false,
     auth = 'ALL',
@@ -81,7 +85,11 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
 
   const handleImageClick = () => {
     if (ideaId) {
-      navigate(`/${routePrefix}/registered/${ideaId}`);
+      if (routePrefix === 'collaboration') {
+        navigate(`/collaboration/postdetailwithlink/${ideaId}`);
+      } else {
+        navigate(`/${routePrefix}/registered/${ideaId}`);
+      }
     } else {
       console.error('❌ 오류: ideaId가 없습니다.');
     }
@@ -133,7 +141,11 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
         </div>
 
         <div className={styles.priceSection}>
-          <span className={styles.price}>{price.toLocaleString()}원</span>
+          <span className={styles.price}>
+            {price !== undefined
+              ? `${price.toLocaleString()}원`
+              : `${occupiedQuantity}/${totalQuantity}명`}
+          </span>
           <button
             onClick={(e) => {
               e.stopPropagation();

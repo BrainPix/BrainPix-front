@@ -164,29 +164,48 @@ export const CollaborationRegister: React.FC<
   const handleAddField = () => {
     setRecruitmentFields((prev) => [
       ...prev,
-      { id: prev.length + 1, field: '', numberOfPeople: 0 },
+      { domain: '', gatheringDto: { totalQuantity: 1 } },
     ]);
   };
 
-  const handleFieldChange = (id: number, field: string) => {
+  const handleFieldChange = (index: number, domain: string) => {
     setRecruitmentFields((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, field } : item)),
+      prev.map((item, i) => (i === index ? { ...item, domain } : item)),
     );
   };
 
+  const handleQuantityChange = (index: number, totalQuantity: number) => {
+    setRecruitmentFields((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? { ...item, gatheringDto: { ...item.gatheringDto, totalQuantity } }
+          : item,
+      ),
+    );
+  };
+
+  const handleAddInitialMember = () => {
+    setInitialMembers((prev) => [...prev, { domain: '', identifier: '' }]);
+  };
+
+  const handleInitialMemberChange = (
+    index: number,
+    field: 'domain' | 'identifier',
+    value: string,
+  ) => {
+    setInitialMembers((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, [field]: value } : item)),
+    );
+  };
+
+  // 나머지 핸들러는 그대로 유지
   const handleLinkSubmit = (submittedLink: string) => {
     setLink(submittedLink);
   };
 
-  const handleNumberChange = (id: number, numberOfPeople: number) => {
-    setRecruitmentFields((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, numberOfPeople } : item)),
-    );
-  };
-
-  const handleLoadProfile = async (id: number) => {
+  const handleLoadProfile = async (identifier: string) => {
     try {
-      console.log(`Loading profile for ID: ${id}`);
+      console.log(`Loading profile for ID: ${identifier}`);
     } catch (error) {
       console.error('프로필 불러오기 실패:', error);
       alert('프로필을 불러오는데 실패했습니다.');
@@ -311,35 +330,32 @@ export const CollaborationRegister: React.FC<
 
       const plainContent = content.replace(/<[^>]*>/g, '');
 
-      const requestData: RequestAssignRequestData = {
+      const requestData: CollaborationRequestData = {
         title: ideaNameInputRef.current?.value || '',
-        link: link,
         content: plainContent,
         specialization: categoryToEnum[category],
         openMyProfile: isPortfolioVisible,
         imageList: imageUrl ? [imageUrl] : [],
         attachmentFileList: pdfUrl ? [pdfUrl] : [],
         postAuth: visibilityToEnum[visibility],
+        link: link,
         recruitments: recruitmentFields.map((field) => ({
-          domain: field.field || '기본 분야',
-          requestTaskPriceDto: {
-            price:
-              field.numberOfPeople > 0 ? field.numberOfPeople * 1000 : 1000,
-            totalQuantity: field.numberOfPeople || 1,
-            paymentDuration: 'ONCE',
+          domain: field.domain,
+          gatheringDto: {
+            totalQuantity: field.gatheringDto.totalQuantity,
           },
         })),
+        initialMembers: initialMembers.map((member) => ({
+          domain: member.domain,
+          identifier: member.identifier,
+        })),
         deadline: deadlineString,
-        requestTaskType:
-          RequestTaskTypeEnumMap[
-            pageType === 'OPEN_IDEA' ? 'OPEN_IDEA' : 'TECH_ZONE'
-          ],
       };
 
       console.log('요청 데이터:', JSON.stringify(requestData, null, 2));
 
       const response = await submitRequestAssign(requestData);
-      navigate(`/request-assign/register-complete?ideaId=${response.id}`);
+      navigate(`/personal-profile/${response.id}/creator`); // 변경된 부분
     } catch (error) {
       console.error('제출 중 에러:', error);
       alert('등록에 실패했습니다. 다시 시도해주세요.');
@@ -347,36 +363,16 @@ export const CollaborationRegister: React.FC<
   };
 
   const submitRequestAssign = async (
-    data: RequestAssignRequestData,
+    data: CollaborationRequestData,
   ): Promise<{ id: number }> => {
     try {
-      const requestData = {
-        title: data.title,
-        content: data.content,
-        specialization: data.specialization,
-        openMyProfile: data.openMyProfile,
-        imageList: data.imageList,
-        attachmentFileList: data.attachmentFileList,
-        postAuth: data.postAuth,
-        recruitments: data.recruitments.map((recruitment) => ({
-          domain: recruitment.domain,
-          requestTaskPriceDto: {
-            price: recruitment.requestTaskPriceDto.price,
-            totalQuantity: recruitment.requestTaskPriceDto.totalQuantity,
-            paymentDuration: recruitment.requestTaskPriceDto.paymentDuration,
-          },
-        })),
-        deadline: data.deadline,
-        requestTaskType: data.requestTaskType,
-      };
-
-      const response = await fetch(`${BASE_URL}/request-tasks`, {
+      const response = await fetch(`${BASE_URL}/collaborations`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestData),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -601,23 +597,23 @@ export const CollaborationRegister: React.FC<
           모집 분야 및 인원 설정
           <span className={styles.required}>(필수)</span>
         </div>
-        {recruitmentFields.map((field) => (
+        {recruitmentFields.map((field, index) => (
           <div
-            key={field.id}
+            key={index}
             className={styles.ideaNameWrapper}>
             <input
               type='text'
               placeholder='역할 (텍스트)'
-              value={field.field}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
+              value={field.domain}
+              onChange={(e) => handleFieldChange(index, e.target.value)}
               className={styles.recruitmentFieldInput}
             />
             <input
               type='text'
-              value={field.numberOfPeople || ''}
+              value={field.gatheringDto.totalQuantity || ''}
               onChange={(e) => {
                 const value = e.target.value.replace(/[^0-9]/g, '');
-                handleNumberChange(field.id, parseInt(value) || 0);
+                handleQuantityChange(index, parseInt(value) || 1);
               }}
               placeholder='모집 인원'
               className={styles.recruitmentFieldInput}
@@ -626,7 +622,7 @@ export const CollaborationRegister: React.FC<
               className={styles.deleteText}
               onClick={() => {
                 setRecruitmentFields((prev) =>
-                  prev.filter((item) => item.id !== field.id),
+                  prev.filter((_, i) => i !== index),
                 );
               }}>
               삭제
@@ -647,36 +643,38 @@ export const CollaborationRegister: React.FC<
           프로젝트 개최 인원 정보
           <span className={styles.required}>(필수)</span>
         </div>
-        {recruitmentFields.map((field) => (
+        {initialMembers.map((member, index) => (
           <div
-            key={field.id}
+            key={index}
             className={styles.projectMemberWrapper}>
             <input
               type='text'
               placeholder='아이디'
-              value={field.id}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
+              value={member.identifier}
+              onChange={(e) =>
+                handleInitialMemberChange(index, 'identifier', e.target.value)
+              }
               className={styles.recruitmentFieldInput}
             />
             <input
               type='text'
               placeholder='역할 (텍스트)'
-              value={field.field}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
+              value={member.domain}
+              onChange={(e) =>
+                handleInitialMemberChange(index, 'domain', e.target.value)
+              }
               className={styles.recruitmentFieldInput}
             />
             <button
               type='button'
-              onClick={() => handleLoadProfile(field.id)}
+              onClick={() => handleLoadProfile(member.identifier)}
               className={styles.profileLoadButton}>
               프로필 불러오기
             </button>
             <span
               className={styles.deleteText}
               onClick={() => {
-                setRecruitmentFields((prev) =>
-                  prev.filter((item) => item.id !== field.id),
-                );
+                setInitialMembers((prev) => prev.filter((_, i) => i !== index));
               }}>
               삭제
             </span>
@@ -684,7 +682,7 @@ export const CollaborationRegister: React.FC<
         ))}
         <div className={styles.recruitmentFieldButtons}>
           <button
-            onClick={handleAddField}
+            onClick={handleAddInitialMember}
             className={styles.addButton}>
             <span>추가하기</span>
           </button>
