@@ -16,14 +16,12 @@ export const kakaoPayReady = async ({
   vat: number;
 }) => {
   if (!ideaId) {
-    console.error('ideaId가 존재하지 않습니다!');
     return;
   }
 
   try {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
-      console.error('토큰이 없습니다');
       return;
     }
 
@@ -49,13 +47,9 @@ export const kakaoPayReady = async ({
         nextRedirectPcUrl: response.data.data.nextRedirectPcUrl,
         orderId: response.data.data.orderId ?? '',
       };
-    } else {
-      console.error('카카오페이 결제 요청 실패: 응답 실패 코드', response.data);
-      return undefined;
     }
-  } catch (error) {
-    console.error('카카오페이 결제 요청 중 오류 발생:', error);
-    return undefined;
+  } catch {
+    return Error;
   }
 };
 
@@ -71,7 +65,6 @@ export const kakaoPayApprove = async ({
 }) => {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
-    console.error('access_token이 없습니다! 인증 오류 발생');
     throw new Error('인증 오류: 로그인 필요');
   }
 
@@ -89,15 +82,7 @@ export const kakaoPayApprove = async ({
       },
     );
     return response.data;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error(
-        '카카오페이 결제 승인 중 오류 발생:',
-        error.response?.data || error.message,
-      );
-    } else {
-      console.error('카카오페이 결제 승인 중 오류 발생:', error);
-    }
-    throw error;
+  } catch {
+    throw Error;
   }
 };

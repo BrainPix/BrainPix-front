@@ -80,18 +80,8 @@ export const postReply = async (
     );
 
     return data;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error(
-        ' [postReply]  API 요청 실패:',
-        error.response?.data || error,
-      );
-      alert(error.response?.data?.message || '대댓글 작성에 실패했습니다.');
-    } else {
-      console.error(' [postReply]  예기치 않은 오류 발생:', error);
-      alert('알 수 없는 오류가 발생했습니다.');
-    }
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -115,16 +105,7 @@ export const deleteComment = async (postId: number, commentId: number) => {
       message: `댓글 삭제 성공: commentId=${commentId}`,
       data,
     };
-  } catch (error: unknown) {
-    let errorMessage = '댓글 삭제에 실패했습니다.';
-
-    if (axios.isAxiosError(error)) {
-      console.error(`댓글 삭제 실패:`, error.response?.data || error);
-      errorMessage = error.response?.data?.message || errorMessage;
-    } else {
-      console.error(`오류:`, error);
-    }
-
-    throw new Error(errorMessage);
+  } catch {
+    throw new Error('댓글 삭제에 실패했습니다.');
   }
 };

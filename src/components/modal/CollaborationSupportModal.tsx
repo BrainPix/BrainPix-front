@@ -77,8 +77,6 @@ export const CollaborationSupportModal = ({
       navigate('/my/apply-collaboration');
     },
     onError: (error: unknown) => {
-      console.error('지원 요청 실패:', error);
-
       let errorMessage = '지원 요청 중 오류가 발생했습니다.';
 
       if (axios.isAxiosError(error)) {

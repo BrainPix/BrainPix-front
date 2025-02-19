@@ -82,14 +82,8 @@ export const getPopularIdeas = async (params: SearchParams) => {
     }
 
     return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('인기 아이디어 조회 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -103,14 +97,8 @@ export const getIdeaMarketDetail = async (ideaId: number) => {
     }
 
     return response.data.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('아이디어 상세 정보 조회 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -144,14 +132,8 @@ export const toggleIdeaBookmark = async (postId: number) => {
     }
 
     return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('북마크 토글 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -179,13 +161,7 @@ export const getIdeaList = async (params: GetIdeaListRequest) => {
     }
 
     return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('아이디어 목록 조회 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  } catch {
+    throw Error;
   }
 };

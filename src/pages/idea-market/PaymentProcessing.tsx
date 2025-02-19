@@ -15,34 +15,26 @@ export const PaymentProcessing = () => {
     const ideaId = searchParams.get('ideaId');
 
     if (!orderId || !ideaId) {
-      console.error('결제 승인에 필요한 정보가 부족합니다.');
       navigate('/idea-market/payment-fail'); //결제 실패 페이지로 이동
       return;
     }
 
     if (!pgToken) {
-      console.warn('결제가 취소되었습니다.');
       navigate('/idea-market/payment-cancel'); //결제 취소 처리
       return;
     }
 
     if (isApproved) {
-      console.log('이미 결제 승인이 처리되었습니다.');
       return;
     }
 
     const approvePayment = async () => {
       try {
-        console.log('결제 승인 요청 시작:', { pgToken, orderId, ideaId });
-
         const response = await kakaoPayApprove({
           pgToken,
           orderId,
           ideaId: Number(ideaId),
         });
-
-        console.log('결제 승인 성공!', response);
-
         setIsApproved(true);
         sessionStorage.setItem('paymentSuccessData', JSON.stringify(response));
         navigate('/idea-market/payment-success');
@@ -51,13 +43,9 @@ export const PaymentProcessing = () => {
           error instanceof Error &&
           (error as { response?: { status?: number } }).response?.status === 404
         ) {
-          console.warn(
-            '결제 승인 API에서 404 발생, 하지만 성공으로 처리합니다.',
-          );
           sessionStorage.setItem('isApproved', 'true');
           navigate('/idea-market/payment-success');
         } else {
-          console.error('결제 승인 실패:', error);
           sessionStorage.setItem(
             'failReason',
             error instanceof Error ? error.message : '알 수 없는 오류',

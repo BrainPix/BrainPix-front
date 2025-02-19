@@ -43,8 +43,8 @@ export const IdeaMarketMarketPlace = () => {
           setCardsData(formattedCardsData);
           setIdeaData(response.data.content);
         }
-      } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
+      } catch {
+        throw Error;
       } finally {
         setIsLoading(false);
       }

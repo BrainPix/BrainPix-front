@@ -66,12 +66,12 @@ export const INFO_TYPE_MAPPER_TO_ENG: Record<string, string> = {
 
 export const SKILL_PROFICIENCY_MAPPER: Record<string, string> = {
   HIGH: '상',
-  MIDIUM: '중',
+  MEDIUM: '중',
   LOW: '하',
 };
 
 export const SKILL_PROFICIENCY_MAPPER_TO_ENG: Record<string, string> = {
   상: 'HIGH',
-  중: 'MIDIUM',
+  중: 'MEDIUM',
   하: 'LOW',
 };

@@ -9,9 +9,8 @@ export const parseJwt = (token: string) => {
         .join(''),
     );
     return JSON.parse(jsonPayload); // JSON 객체로 변환
-  } catch (e) {
-    console.error('토큰 파싱 오류:', e);
-    return null;
+  } catch {
+    throw Error();
   }
 };
 
