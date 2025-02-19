@@ -9,11 +9,8 @@
   gap: 0.5rem;
   
   .labelText {
+    @include pretendard-20-500;
     color: $grey-800;
-    font-family: $font-family;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
     line-height: normal;
     letter-spacing: -0.2px;
   }
