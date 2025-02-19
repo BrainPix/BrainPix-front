@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './postTitle.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
@@ -12,6 +12,7 @@ import {
   getTaskTypeLabel,
 } from '../../utils/categoryMapping';
 import { Image } from '../common/image/Image';
+import { postSavedPosts } from '../../apis/savePostsAPI';
 
 interface PostTitlePayProps {
   thumbnailImageUrl: string;
@@ -24,6 +25,7 @@ interface PostTitlePayProps {
   saveCount: number;
   createdDate: string;
   ideaId: number;
+  isSavedPost: boolean;
 }
 
 const PostTitlePay = ({
@@ -37,14 +39,43 @@ const PostTitlePay = ({
   saveCount,
   createdDate,
   ideaId,
+  isSavedPost,
 }: PostTitlePayProps) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
   const navigate = useNavigate();
+  const [isBookmarked, setIsBookmarked] = useState(isSavedPost);
+  const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
 
-  const toggleBookmark = () => {
-    setIsBookmarked((prev) => !prev);
-    setCurrentSaveCount((prev) => (isBookmarked ? prev - 1 : prev + 1));
+  useEffect(() => {
+    const savedBookmarks = JSON.parse(
+      localStorage.getItem('bookmarkedPosts') || '[]',
+    );
+    setIsBookmarked(savedBookmarks.includes(ideaId));
+  }, [ideaId]);
+
+  const handleBookmarkClick = async () => {
+    try {
+      await postSavedPosts(ideaId);
+      const updatedBookmarked = !isBookmarked;
+      setIsBookmarked(updatedBookmarked);
+      setCurrentSaveCount((prev) => (updatedBookmarked ? prev + 1 : prev - 1));
+
+      const savedBookmarks = JSON.parse(
+        localStorage.getItem('bookmarkedPosts') || '[]',
+      );
+      if (updatedBookmarked) {
+        localStorage.setItem(
+          'bookmarkedPosts',
+          JSON.stringify([...savedBookmarks, ideaId]),
+        );
+      } else {
+        localStorage.setItem(
+          'bookmarkedPosts',
+          JSON.stringify(savedBookmarks.filter((id: number) => id !== ideaId)),
+        );
+      }
+    } catch (error) {
+      console.error('북마크 저장/해제 실패:', error);
+    }
   };
 
   const handlePurchaseClick = () => {
@@ -84,7 +115,7 @@ const PostTitlePay = ({
           )}
           <button
             className={styles.bookmarkButton}
-            onClick={toggleBookmark}>
+            onClick={handleBookmarkClick}>
             <EmptyCircleIcon
               className={styles.outerCircle}
               style={{
