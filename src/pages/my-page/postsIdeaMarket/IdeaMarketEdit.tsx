@@ -81,7 +81,6 @@ export const IdeaMarketEdit = () => {
         <QnASection
           userId={userId}
           postId={Number(ideaId)}
-          profileImageUrl={post?.writer?.profileImageUrl || ''}
         />
         <AuthorInfo {...writerData} />
       </div>
