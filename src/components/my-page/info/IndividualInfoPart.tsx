@@ -1,20 +1,21 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import styles from './individualInfoPart.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 import {
-  IndividualContactType,
-  IndividualProfileType,
+  ContactType,
+  IndividualProfileResponseType,
 } from '../../../types/profileType';
 import {
   INFO_TYPE_MAPPER,
   INFO_TYPE_MAPPER_TO_ENG,
 } from '../../../constants/categoryMapper';
+import { formatPhone } from '../../../utils/formatPhone';
 
 interface IndividualInfoPartPropsType {
   editMode: boolean;
-  onClickAdd: (data: IndividualContactType) => void;
+  onClickAdd: (data: ContactType) => void;
   contacts: { type: string; value: string; isPublic: boolean }[];
   onDelete: (deleteType: string) => void;
 }
@@ -25,21 +26,27 @@ export const IndividualInfoPart = forwardRef<
 >(({ editMode, onClickAdd, contacts, onDelete }, ref) => {
   const queryClient = useQueryClient();
   const userData = queryClient.getQueryData(['userData']);
-  const userType = localStorage.getItem('myType');
+  const [userType, setUserType] = useState('');
   const [infoOpenChecked, setInfoOpenChecked] = useState(false);
-
-  const [addInfo, setAddInfo] = useState<IndividualContactType>({
+  const [addInfo, setAddInfo] = useState<ContactType>({
     type: '',
     value: '',
     isPublic: false,
   });
+  const [selectedType, setSelectedType] = useState('PHONE');
+
+  useEffect(() => {
+    const myUserType = localStorage.getItem('myType');
+    if (myUserType) setUserType(myUserType);
+  }, []);
 
   const LABEL_OPTIONS =
-    (userData as IndividualProfileType).userType === 'INDIVIDUAL'
+    (userData as IndividualProfileResponseType)?.userType === 'INDIVIDUAL'
       ? ['연락처', '노션', '깃허브', '기타']
       : ['홈페이지', '이메일', '연락처', '기타'];
 
   const handleSelectLabel = (option: string) => {
+    setSelectedType(option);
     setAddInfo((prev) => {
       return {
         ...prev,
@@ -107,10 +114,13 @@ export const IndividualInfoPart = forwardRef<
             />
             <input
               ref={ref}
-              onChange={(e) =>
-                setAddInfo((prev) => ({ ...prev, value: e.target.value }))
-              }
-              maxLength={500}
+              onChange={(e) => {
+                if (selectedType === '연락처') {
+                  e.target.value = formatPhone(e.target.value);
+                }
+                setAddInfo((prev) => ({ ...prev, value: e.target.value }));
+              }}
+              maxLength={selectedType === '연락처' ? 13 : 500}
               className={classNames(styles.input)}
             />
             <div>

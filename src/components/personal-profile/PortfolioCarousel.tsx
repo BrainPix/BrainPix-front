@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Carousel } from '../common/carousel/Carousel';
 import styles from './portfolioCarousel.module.scss';
@@ -16,6 +16,8 @@ interface PortfolioCarouselPropsType {
 
 export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [currentData, setCurrentData] = useState<MyPorfolioType[][]>([]);
   const [clickedPage, setClickedPage] = useState<number>(0);
 
@@ -46,35 +48,50 @@ export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
 
   return (
     <div className={classNames(styles.container)}>
-      <Carousel
-        gap={46.67}
-        cardWidth={165}
-        cardCount={size}
-        buttonPosition='top'
-        label='포트폴리오'
-        onClickNext={handleClickNext}
-        dataLength={portfolios?.totalElements}>
-        {currentData.map((portfolios, pageIdx) => (
-          <React.Fragment key={pageIdx}>
-            {portfolios.map(
-              ({ id, title, createdDate, profileImage }: MyPorfolioType) => (
-                <div
-                  key={id}
-                  className={classNames(styles.portfolio)}>
-                  <img
-                    alt='포트폴리오 대표사진'
-                    className={classNames(styles.image)}
-                    src={profileImage}
-                    onError={imageErrorHandler}
-                  />
-                  <div className={classNames(styles.title)}>{title}</div>
-                  <div className={classNames(styles.date)}>{createdDate}</div>
-                </div>
-              ),
-            )}
-          </React.Fragment>
-        ))}
-      </Carousel>
+      {!portfolios ? (
+        <div className={classNames(styles.noDataWrapper)}>
+          <h3 className={classNames(styles.label)}>포트폴리오</h3>
+          <p className={classNames(styles.text)}>포트폴리오가 없습니다.</p>
+          <button
+            onClick={() => navigate('/my/portfolio')}
+            className={classNames(
+              styles.addPortfolioButton,
+              'buttonFilled-primary',
+            )}>
+            포트폴리오 추가하러 가기
+          </button>
+        </div>
+      ) : (
+        <Carousel
+          gap={46.67}
+          cardWidth={165}
+          cardCount={size}
+          buttonPosition='top'
+          label='포트폴리오'
+          onClickNext={handleClickNext}
+          dataLength={portfolios?.totalElements}>
+          {currentData.map((portfolios, pageIdx) => (
+            <React.Fragment key={pageIdx}>
+              {portfolios.map(
+                ({ id, title, createdDate, profileImage }: MyPorfolioType) => (
+                  <div
+                    key={id}
+                    className={classNames(styles.portfolio)}>
+                    <img
+                      alt='포트폴리오 대표사진'
+                      className={classNames(styles.image)}
+                      src={profileImage}
+                      onError={imageErrorHandler}
+                    />
+                    <div className={classNames(styles.title)}>{title}</div>
+                    <div className={classNames(styles.date)}>{createdDate}</div>
+                  </div>
+                ),
+              )}
+            </React.Fragment>
+          ))}
+        </Carousel>
+      )}
     </div>
   );
 };

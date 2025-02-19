@@ -20,7 +20,7 @@ export const getPostIdeaMarket = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
@@ -32,9 +32,8 @@ export const getPostIdeaMarket = async (
     });
 
     return response.data.data;
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -47,7 +46,7 @@ export const getPostRequestTask = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
@@ -59,9 +58,8 @@ export const getPostRequestTask = async (
     });
 
     return response.data.data;
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -74,7 +72,7 @@ export const getPostCollaboration = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
@@ -86,9 +84,8 @@ export const getPostCollaboration = async (
     });
 
     return response.data.data;
-  } catch (error) {
-    console.error('API 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -100,7 +97,7 @@ export const getPostIdeaMarketDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
@@ -111,9 +108,8 @@ export const getPostIdeaMarketDetail = async (
     });
 
     return response.data.data;
-  } catch (error) {
-    console.error('아이디어 마켓 상세 조회 API 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -125,7 +121,7 @@ export const getPostRequestTaskDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
@@ -136,9 +132,8 @@ export const getPostRequestTaskDetail = async (
     });
 
     return response.data.data;
-  } catch (error) {
-    console.error('요청 과제 상세 조회 API 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -150,7 +145,7 @@ export const getPostCollaborationDetail = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
@@ -161,9 +156,8 @@ export const getPostCollaborationDetail = async (
     });
 
     return response.data.data;
-  } catch (error) {
-    console.error('협업 광장 상세 조회 API 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -175,11 +169,11 @@ export const postAcceptRequestApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
-    const response = await axios.post(
+    axios.post(
       url,
       {},
       {
@@ -188,11 +182,8 @@ export const postAcceptRequestApplication = async (
         },
       },
     );
-
-    console.log('요청 과제의 지원 수락 성공:', response.data);
-  } catch (error) {
-    console.error('요청 과제의 지원 수락 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -204,11 +195,11 @@ export const postRejectRequestApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
-    const response = await axios.post(
+    await axios.post(
       url,
       {},
       {
@@ -217,11 +208,8 @@ export const postRejectRequestApplication = async (
         },
       },
     );
-
-    console.log('요청 과제의 지원 거절 성공:', response.data);
-  } catch (error) {
-    console.error('요청 과제의 지원 거절 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -233,11 +221,11 @@ export const postAcceptCollaborationApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
-    const response = await axios.post(
+    await axios.post(
       url,
       {},
       {
@@ -246,11 +234,8 @@ export const postAcceptCollaborationApplication = async (
         },
       },
     );
-
-    console.log('협업 광장의 지원 수락 성공:', response.data);
-  } catch (error) {
-    console.error('협업 광장의 지원 수락 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -262,11 +247,11 @@ export const postRejectCollaborationApplication = async (
 
   if (!API_TOKEN) {
     console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/personal';
+    window.location.href = 'login/individual';
   }
 
   try {
-    const response = await axios.post(
+    await axios.post(
       url,
       {},
       {
@@ -275,11 +260,8 @@ export const postRejectCollaborationApplication = async (
         },
       },
     );
-
-    console.log('협업 광장의 지원 거절 성공:', response.data);
-  } catch (error) {
-    console.error('협업 광장의 지원 거절 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 

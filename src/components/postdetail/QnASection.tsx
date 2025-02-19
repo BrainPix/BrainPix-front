@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQnA } from '../../hooks/useQnA';
 import styles from './qnaSection.module.scss';
 import { Comment } from '../../types/commentsType';
-import React from 'react';
 import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 interface QnASectionProps {

@@ -27,7 +27,7 @@ export const MyInfoCard = ({ token, onClickLogout }: MyInfoCardPropsType) => {
     ideaCount,
     collaborationCount,
     specializations,
-    name,
+    nickname,
   } = myBasicInfo?.data ?? MY_BASIC_INFO_INIT;
 
   return (
@@ -61,7 +61,7 @@ export const MyInfoCard = ({ token, onClickLogout }: MyInfoCardPropsType) => {
                 text={userType === 'INDIVIDUAL' ? '개인' : '기업'}
                 type={userType === 'INDIVIDUAL' ? 'personal' : 'corporate'}
               />
-              <p className={classNames(styles.userName)}>{name}</p>
+              <p className={classNames(styles.userName)}>{nickname}</p>
             </div>
             <a
               href='/my'

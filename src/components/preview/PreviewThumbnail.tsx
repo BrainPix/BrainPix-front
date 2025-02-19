@@ -79,8 +79,6 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
   const handleImageClick = () => {
     if (ideaId) {
       navigate(`/idea-market/registered/${ideaId}`);
-    } else {
-      console.error('❌ 오류: ideaId가 없습니다.');
     }
   };
 
