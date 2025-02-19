@@ -1,4 +1,6 @@
+import { Image } from '../common/image/Image';
 import styles from './webLinkBox.module.scss';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 interface WebLinkBoxProps {
   link?: string;
@@ -12,10 +14,11 @@ const WebLinkBox = ({ link, thumbnailImageUrl }: WebLinkBoxProps) => {
     <div
       className={styles.container}
       onClick={() => window.open(link, '_blank', 'noopener noreferrer')}>
-      <img
-        src={thumbnailImageUrl || '/default-thumbnail.png'}
+      <Image
+        src={thumbnailImageUrl || ''}
         alt='웹 링크 썸네일'
         className={styles.thumbnail}
+        onError={imageErrorHandler}
       />
       <div className={styles.webLinkBox}>
         <span className={styles.webLinkText}>웹 링크</span>

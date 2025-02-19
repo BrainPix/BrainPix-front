@@ -22,13 +22,13 @@ export const PostHeader = ({
 }: PostHeaderProps) => {
   const navigate = useNavigate();
   const dDay = deadline ? calculateDday(deadline) : undefined;
-  //console.log('dDay: ', dDay);
+
   const handleEditNavigate = () => {
     let editPath = '/';
     if (tab === '요청 과제') {
-      editPath = `/my/posts/request-assign/edit/${postId}`;
+      editPath = `/my/posts/request-assign/registered/${postId}`;
     } else if (tab === '협업 광장') {
-      editPath = `/my/posts/collaboration/edit/${postId}`;
+      editPath = `/my/posts/collaboration/registered/${postId}`;
     }
 
     navigate(editPath);

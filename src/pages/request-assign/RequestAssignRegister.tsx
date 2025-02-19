@@ -9,6 +9,7 @@ import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
+import { Image } from '../../components/common/image/Image';
 
 interface RequestAssignRequestData {
   title: string;
@@ -82,13 +83,13 @@ const visibilityToEnum: Record<string, PostAuth> = {
   비공개: 'ME',
 };
 
-const PaymentDurationEnumMap: Record<string, PaymentDurationType> = {
-  건당: 'ONCE',
-  월간: 'MONTHLY',
-  주간: 'WEEKLY',
-  일간: 'DAILY',
-  추후협의: 'NOT_APPLICABLE',
-};
+// const PaymentDurationEnumMap: Record<string, PaymentDurationType> = {
+//   건당: 'ONCE',
+//   월간: 'MONTHLY',
+//   주간: 'WEEKLY',
+//   일간: 'DAILY',
+//   추후협의: 'NOT_APPLICABLE',
+// };
 
 const RequestTaskTypeEnumMap: Record<string, RequestTaskType> = {
   OPEN_IDEA: 'OPEN_IDEA',
@@ -142,8 +143,6 @@ export const RequestAssignRegisterNow: React.FC<
   const [visibility, setVisibility] = useState<
     '전체공개' | '기업공개' | '비공개'
   >('전체공개');
-  const [price, setPrice] = useState<string>('0');
-  const [quantity, setQuantity] = useState<number>(0);
   const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
   const [recruitmentFields, setRecruitmentFields] = useState<
     RecruitmentField[]
@@ -216,84 +215,66 @@ export const RequestAssignRegisterNow: React.FC<
   };
 
   const getPresignedUrl = async (file: File): Promise<string> => {
-    try {
-      const fileName = encodeURIComponent(file.name);
-      const contentType = encodeURIComponent(file.type);
+    const fileName = encodeURIComponent(file.name);
+    const contentType = encodeURIComponent(file.type);
 
-      const response = await fetch(
-        `${BASE_URL}/files/presigned-url?fileName=${fileName}&contentType=${contentType}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
+    const response = await fetch(
+      `${BASE_URL}/files/presigned-url?fileName=${fileName}&contentType=${contentType}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Presigned URL 요청 실패 - 상태 코드: ${response.status}`,
       );
-
-      if (!response.ok) {
-        throw new Error(
-          `Presigned URL 요청 실패 - 상태 코드: ${response.status}`,
-        );
-      }
-
-      const presignedUrl = await response.text();
-      return presignedUrl;
-    } catch (error) {
-      console.error('❌ Presigned URL 요청 에러:', error);
-      throw error;
     }
+
+    return await response.text();
   };
 
   const uploadImageToPresignedUrl = async (
     file: File,
     presignedUrl: string,
   ): Promise<string> => {
-    try {
-      const response = await fetch(presignedUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': file.type,
-        },
-      });
+    const response = await fetch(presignedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type,
+      },
+    });
 
-      if (!response.ok) {
-        throw new Error(
-          `이미지 Presigned URL 업로드 실패 - 상태 코드: ${response.status}`,
-        );
-      }
-
-      const imageUrl = presignedUrl.split('?')[0];
-      console.log('✅ Presigned URL 업로드 성공, 저장된 이미지 URL:', imageUrl);
-      return imageUrl;
-    } catch (error) {
-      console.error('❌ 이미지 업로드 에러:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(
+        `이미지 Presigned URL 업로드 실패 - 상태 코드: ${response.status}`,
+      );
     }
+
+    return presignedUrl.split('?')[0];
   };
 
   const uploadPdfToPresignedUrl = async (
     file: File,
     presignedUrl: string,
   ): Promise<string> => {
-    try {
-      const response = await fetch(presignedUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': 'application/pdf',
-        },
-      });
+    const response = await fetch(presignedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+    });
 
-      if (!response.ok) {
-        throw new Error(`PDF 업로드 실패`);
-      }
-
-      return presignedUrl.split('?')[0];
-    } catch (error) {
-      console.error('PDF 업로드 에러:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`PDF 업로드 실패`);
     }
+
+    return presignedUrl.split('?')[0];
   };
 
   const handleSubmit = async () => {
@@ -355,12 +336,9 @@ export const RequestAssignRegisterNow: React.FC<
           ],
       };
 
-      console.log('요청 데이터:', JSON.stringify(requestData, null, 2));
-
       const response = await submitRequestAssign(requestData);
       navigate(`/request-assign/register-complete?ideaId=${response.id}`);
-    } catch (error) {
-      console.error('제출 중 에러:', error);
+    } catch {
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
   };
@@ -368,62 +346,51 @@ export const RequestAssignRegisterNow: React.FC<
   const submitRequestAssign = async (
     data: RequestAssignRequestData,
   ): Promise<{ id: number }> => {
-    try {
-      const requestData = {
-        title: data.title,
-        content: data.content,
-        specialization: data.specialization,
-        openMyProfile: data.openMyProfile,
-        imageList: data.imageList,
-        attachmentFileList: data.attachmentFileList,
-        postAuth: data.postAuth,
-        recruitments: data.recruitments.map((recruitment) => ({
-          domain: recruitment.domain,
-          requestTaskPriceDto: {
-            price: recruitment.requestTaskPriceDto.price,
-            totalQuantity: recruitment.requestTaskPriceDto.totalQuantity,
-            paymentDuration: recruitment.requestTaskPriceDto.paymentDuration,
-          },
-        })),
-        deadline: data.deadline,
-        requestTaskType: data.requestTaskType,
-      };
-
-      const response = await fetch(`${BASE_URL}/request-tasks`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
+    const requestData = {
+      title: data.title,
+      content: data.content,
+      specialization: data.specialization,
+      openMyProfile: data.openMyProfile,
+      imageList: data.imageList,
+      attachmentFileList: data.attachmentFileList,
+      postAuth: data.postAuth,
+      recruitments: data.recruitments.map((recruitment) => ({
+        domain: recruitment.domain,
+        requestTaskPriceDto: {
+          price: recruitment.requestTaskPriceDto.price,
+          totalQuantity: recruitment.requestTaskPriceDto.totalQuantity,
+          paymentDuration: recruitment.requestTaskPriceDto.paymentDuration,
         },
-        body: JSON.stringify(requestData),
-      });
+      })),
+      deadline: data.deadline,
+      requestTaskType: data.requestTaskType,
+    };
 
-      if (!response.ok) {
-        throw new Error(`API 호출 실패`);
-      }
+    const response = await fetch(`${BASE_URL}/request-tasks`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
 
-      const responseData = await response.json();
-      return responseData;
-    } catch (error) {
-      console.error('Request Error Details:', {
-        error,
-      });
-      throw error;
+    if (!response.ok) {
+      throw new Error(`API 호출 실패`);
     }
+
+    return await response.json();
   };
 
   useEffect(() => {
-    console.log('Current previewImageUrl:', previewImageUrl);
     return () => {
       if (previewImageUrl) {
-        console.log('Cleaning up URL:', previewImageUrl);
         URL.revokeObjectURL(previewImageUrl);
       }
     };
   }, [previewImageUrl]);
 
   const modules = useMemo(() => {
-    console.log('Initializing Quill modules');
     return {
       toolbar: {
         container: [
@@ -432,7 +399,6 @@ export const RequestAssignRegisterNow: React.FC<
         ],
         handlers: {
           image: () => {
-            console.log('Image handler triggered');
             const input = document.createElement('input');
             input.setAttribute('type', 'file');
             input.setAttribute('accept', 'image/*');
@@ -441,33 +407,18 @@ export const RequestAssignRegisterNow: React.FC<
             input.onchange = async () => {
               const file = input.files?.[0];
               if (file) {
-                console.log('Selected file:', {
-                  name: file.name,
-                  size: file.size,
-                  type: file.type,
-                });
-
                 if (file.size > MAX_FILE_SIZE) {
-                  console.warn('File size exceeds limit:', file.size);
                   alert('이미지 파일 크기는 5MB를 초과할 수 없습니다.');
                   return;
                 }
 
                 const reader = new FileReader();
                 reader.onload = () => {
-                  console.log('File read completed');
                   const quill = quillRef.current?.getEditor();
                   if (quill) {
                     const range = quill.getSelection(true);
-                    console.log('Quill selection range:', range);
                     quill.insertEmbed(range.index, 'image', reader.result);
-                    console.log('Image embedded in editor');
-                  } else {
-                    console.warn('Quill editor not found');
                   }
-                };
-                reader.onerror = (error) => {
-                  console.error('FileReader error:', error);
                 };
                 reader.readAsDataURL(file);
               }
@@ -612,7 +563,7 @@ export const RequestAssignRegisterNow: React.FC<
                 handleImageUpload();
               }
             }}>
-            <img
+            <Image
               src={previewImageUrl}
               alt='Selected'
               className={styles.imagePreview}

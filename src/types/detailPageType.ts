@@ -24,7 +24,7 @@ export interface IdeaMarketDetail {
   attachments: string[];
 }
 
-export interface RequsetDetail {
+export interface RequestDetail {
   taskId: number;
   thumbnailImageUrl: string;
   category: string;
@@ -97,7 +97,8 @@ export interface CollaborationDetail {
     userId: number;
     name: string;
     domain: string;
-    openMyProfile: boolean;
   }[];
   openMyProfile: boolean;
+  isSavedPost: boolean;
+  isMyPost: boolean;
 }

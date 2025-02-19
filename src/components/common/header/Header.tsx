@@ -12,8 +12,8 @@ import { ToastContext } from '../../../contexts/toastContext';
 import { AlarmsCard } from './AlarmsCard';
 
 const OPTION_MENU = {
-  등록하기: '/register',
-  요청하기: '/request',
+  등록하기: '/idea-market/register',
+  요청하기: '/request-assign/register',
 };
 
 const OPTION_MENU_NO_USER = {

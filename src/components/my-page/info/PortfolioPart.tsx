@@ -8,9 +8,9 @@ import { Carousel } from '../../common/carousel/Carousel';
 import { useQuery } from '@tanstack/react-query';
 import { getPorfolios } from '../../../apis/portfolio';
 import { MyPorfolioType } from '../../../types/myPageType';
-import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 import { PortfolioDetailModal } from '../portfolio/PortfolioDetailModal';
 import React from 'react';
+import { Image } from '../../common/image/Image';
 
 interface PortfolioParttPropsType {
   editMode: boolean;
@@ -96,11 +96,10 @@ export const PortfolioPart = ({ editMode }: PortfolioParttPropsType) => {
                       setOpenPopup(true);
                       setClickedCardId(id);
                     }}>
-                    <img
+                    <Image
                       className={classNames(styles.image)}
                       alt='포트폴리오 대표사진'
                       src={profileImage}
-                      onError={imageErrorHandler}
                     />
                     <div className={classNames(styles.title)}>{title}</div>
                     <div className={classNames(styles.date)}>{createdDate}</div>

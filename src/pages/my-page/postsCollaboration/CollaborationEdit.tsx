@@ -1,4 +1,4 @@
-import { PostFormAuthor } from '../../../components/my-page/PostFormAuthor';
+import { ProfileHeaderAuthor } from '../../../components/my-page/ProfileHeaderAuthor';
 import { CollaboPostHeader } from '../../../components/my-page/CollaboPostHeader';
 import WebLinkBox from '../../../components/postdetail/WebLinkBox';
 import { PostFormContent } from '../../../components/my-page/PostFormContent';
@@ -7,7 +7,7 @@ import { PostFormContent } from '../../../components/my-page/PostFormContent';
 //import TeamBuildingButton from '../../../components/postdetail/TeamBuildingButton';
 //import QnASection from '../../../components/postdetail/QnASection';
 //import AuthorInfo from '../../../components/postdetail/AuthorInfo';
-import styles from '../../../pages/collaboration/postDetailWithLink.module.scss';
+import styles from '../../../pages/request-assign/requestRegisteredPage.module.scss';
 
 export const CollaborationEdit = () => {
   const FORM_DATA = {
@@ -36,11 +36,12 @@ export const CollaborationEdit = () => {
     <>
       <div className={styles.margin}>
         {/* 게시물 작성자 */}
-        <PostFormAuthor
-          userName={USER_DATA.userName}
-          profileImage={USER_DATA.profileImage}
+        <ProfileHeaderAuthor
+          name={USER_DATA.userName}
+          profileImageUrl={USER_DATA.profileImage || '/default-profile.png'}
+          buttonPath='/collaboration'
           postId={POST_DATA.postId}
-          editPath='/my/posts/collaboration/register'
+          postType='collaborations'
         />
         {/* 게시물 제목, 게시물 정보 */}
         <CollaboPostHeader

@@ -18,7 +18,6 @@ interface PaymentSummaryProps {
 
 const PaymentSummary = ({ price, quantity, sellerId }: PaymentSummaryProps) => {
   const { ideaId } = useParams<{ ideaId: string }>();
-  console.log('PaymentSummary.tsx에서 받은 ideaId:', ideaId);
   const ideaIdNumber = ideaId ? Number(ideaId) : 0;
 
   const [totalPrice, setTotalPrice] = useState(price * quantity);
@@ -74,14 +73,8 @@ const PaymentSummary = ({ price, quantity, sellerId }: PaymentSummaryProps) => {
   const isPaymentActive = isAllAgreed && selectedMethod === '카카오페이';
 
   const handlePaymentClick = async () => {
-    if (!ideaId) {
-      console.error('ideaId가 없습니다! 결제 요청 중단');
-      return;
-    }
     setIsLoading(true);
     try {
-      console.log('결제 요청 시작! ideaId:', ideaId);
-
       const response = await kakaoPayReady({
         ideaId: Number(ideaId),
         sellerId,
@@ -91,16 +84,16 @@ const PaymentSummary = ({ price, quantity, sellerId }: PaymentSummaryProps) => {
       });
 
       if (!response) {
-        console.error('결제 요청 실패: API 응답이 없음');
         return;
       }
 
-      const { nextRedirectPcUrl, orderId } = response;
+      // 이거 제가 빌드 에러 땜시 주석처리해놨어요,, -민정-
+      // const { nextRedirectPcUrl, orderId } = response;
 
-      sessionStorage.setItem('orderId', orderId);
-      window.location.href = nextRedirectPcUrl;
-    } catch (error) {
-      console.error('카카오페이 결제 요청 실패:', error);
+      // sessionStorage.setItem('orderId', orderId);
+      // window.location.href = nextRedirectPcUrl;
+    } catch {
+      throw Error;
     }
   };
 

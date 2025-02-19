@@ -11,6 +11,7 @@ import {
   getCategoryLabel,
   getTaskTypeLabel,
 } from '../../utils/categoryMapping';
+import { Image } from '../common/image/Image';
 
 interface PostTitleApplyProps {
   thumbnailImageUrl: string;
@@ -68,8 +69,8 @@ const PostTitleApply = ({
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <img
-          src={thumbnailImageUrl || '/default-thumbnail.png'}
+        <Image
+          src={thumbnailImageUrl}
           alt='썸네일'
           className={styles.thumbnail}
         />

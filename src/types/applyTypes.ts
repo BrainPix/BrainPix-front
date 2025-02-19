@@ -9,3 +9,10 @@ export interface ApplyRequestForRequest {
   isOpenProfile: boolean;
   message: string;
 }
+
+export interface DecodedJWTType {
+  apiKey: string;
+  exp: number;
+  iat: number;
+  identification: string;
+}

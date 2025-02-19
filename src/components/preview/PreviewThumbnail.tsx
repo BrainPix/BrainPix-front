@@ -22,7 +22,7 @@ interface PreviewThumbnailType {
   saves?: number;
   views?: number;
   size?: 'normal' | 'large';
-  onBookmarkClick?: () => void;
+  onBookmarkClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   verified?: boolean;
   onClick?: () => void;
   routePrefix?: string;
@@ -91,7 +91,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
         navigate(`/${routePrefix}/registered/${ideaId}`);
       }
     } else {
-      console.error('❌ 오류: ideaId가 없습니다.');
+      alert('페이지를 불러올 수 없습니다.');
     }
   };
 
@@ -149,7 +149,7 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onBookmarkClick();
+              onBookmarkClick(e);
             }}
             className={styles.bookmarkButton}>
             {isBookmarked ? (

@@ -55,7 +55,6 @@ export const IdeaRegisteredPage = () => {
   };
 
   const userId = getUserIdFromToken();
-  console.log('내 userId:', userId);
 
   return (
     <div className={styles.margin}>
@@ -67,7 +66,6 @@ export const IdeaRegisteredPage = () => {
       />
       <QnASection
         postId={Number(ideaId)}
-        profileImageUrl={writerData.profileImageUrl} //유저의 프로필 이미지로 가져와야 함..
         userId={userId}
       />
       <AuthorInfo {...writerData} />

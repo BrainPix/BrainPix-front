@@ -1,8 +1,13 @@
+import { useState } from 'react';
 import classNames from 'classnames';
+
 import Mail from '../../assets/icons/mail.svg?react';
 import styles from './profileCard.module.scss';
 import Label from '../common/label/Label';
 import { CATEGORY_LABELS } from '../../constants/categoryMapper';
+import { WriteMessageModal } from '../my-page/message/WriteMessageModal';
+import { PreviousMessageType } from '../../types/messageType';
+import { Image } from '../common/image/Image';
 
 interface ProfileCardPropsType {
   userType: string;
@@ -17,10 +22,28 @@ export const ProfileCard = ({
   specializations,
   profileImage,
 }: ProfileCardPropsType) => {
+  const [openSendMessageModal, setOpenSendMessageModal] = useState(false);
+
+  const messageData: PreviousMessageType = {
+    receiverNickname: userName,
+    content: '',
+  };
+
+  const handleCloseModal = () => {
+    setOpenSendMessageModal(false);
+  };
+
   return (
     <div className={classNames(styles.container)}>
+      {openSendMessageModal && (
+        <WriteMessageModal
+          type='write'
+          onClose={handleCloseModal}
+          previousMessage={messageData}
+        />
+      )}
       <div className={classNames(styles.profileContainer)}>
-        <img
+        <Image
           className={classNames(styles.profileImage)}
           alt='프로필 이미지'
           src={profileImage}
@@ -30,7 +53,9 @@ export const ProfileCard = ({
             text={userType === 'personal' ? '개인' : '기업'}
             type={userType as 'personal' | 'corporate'}
           />
-          <h1 className={classNames(styles.userName)}>{userName}</h1>
+          <h1 className={classNames(styles.userName)}>
+            {userName || '유저 정보 없음'}
+          </h1>
           <div className={classNames(styles.role)}>
             {specializations.map((role) => (
               <span key={role}>{CATEGORY_LABELS[role]}</span>
@@ -39,7 +64,7 @@ export const ProfileCard = ({
         </div>
       </div>
       <div className={classNames(styles.mailIcon)}>
-        <Mail />
+        <Mail onClick={() => setOpenSendMessageModal(true)} />
       </div>
     </div>
   );

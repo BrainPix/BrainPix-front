@@ -8,6 +8,7 @@ import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
+import { Image } from '../../components/common/image/Image';
 
 interface CollaborationRequestData {
   title: string;
@@ -96,11 +97,11 @@ const OPTIONS = [
   '기타',
 ];
 
-interface RecruitmentField {
-  id: number;
-  field: string;
-  numberOfPeople: number;
-}
+// interface RecruitmentField {
+//   id: number;
+//   field: string;
+//   numberOfPeople: number;
+// }
 
 interface CollaborationRequestDataProps {
   [key: string]: never;
@@ -198,18 +199,12 @@ export const CollaborationRegister: React.FC<
     );
   };
 
-  // 나머지 핸들러는 그대로 유지
-  const handleLinkSubmit = (submittedLink: string) => {
-    setLink(submittedLink);
-  };
+  // const handleLinkSubmit = (submittedLink: string) => {
+  //   setLink(submittedLink);
+  // };
 
-  const handleLoadProfile = async (identifier: string) => {
-    try {
-      console.log(`Loading profile for ID: ${identifier}`);
-    } catch (error) {
-      console.error('프로필 불러오기 실패:', error);
-      alert('프로필을 불러오는데 실패했습니다.');
-    }
+  const handleLoadProfile = async () => {
+    alert('프로필을 불러오는데 실패했습니다.');
   };
 
   const handlePdfClick = () => {
@@ -229,84 +224,66 @@ export const CollaborationRegister: React.FC<
   };
 
   const getPresignedUrl = async (file: File): Promise<string> => {
-    try {
-      const fileName = encodeURIComponent(file.name);
-      const contentType = encodeURIComponent(file.type);
+    const fileName = encodeURIComponent(file.name);
+    const contentType = encodeURIComponent(file.type);
 
-      const response = await fetch(
-        `${BASE_URL}/files/presigned-url?fileName=${fileName}&contentType=${contentType}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
+    const response = await fetch(
+      `${BASE_URL}/files/presigned-url?fileName=${fileName}&contentType=${contentType}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Presigned URL 요청 실패 - 상태 코드: ${response.status}`,
       );
-
-      if (!response.ok) {
-        throw new Error(
-          `Presigned URL 요청 실패 - 상태 코드: ${response.status}`,
-        );
-      }
-
-      const presignedUrl = await response.text();
-      return presignedUrl;
-    } catch (error) {
-      console.error('❌ Presigned URL 요청 에러:', error);
-      throw error;
     }
+
+    return await response.text();
   };
 
   const uploadImageToPresignedUrl = async (
     file: File,
     presignedUrl: string,
   ): Promise<string> => {
-    try {
-      const response = await fetch(presignedUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': file.type,
-        },
-      });
+    const response = await fetch(presignedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type,
+      },
+    });
 
-      if (!response.ok) {
-        throw new Error(
-          `이미지 Presigned URL 업로드 실패 - 상태 코드: ${response.status}`,
-        );
-      }
-
-      const imageUrl = presignedUrl.split('?')[0];
-      console.log('✅ Presigned URL 업로드 성공, 저장된 이미지 URL:', imageUrl);
-      return imageUrl;
-    } catch (error) {
-      console.error('❌ 이미지 업로드 에러:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(
+        `이미지 Presigned URL 업로드 실패 - 상태 코드: ${response.status}`,
+      );
     }
+
+    return presignedUrl.split('?')[0];
   };
 
   const uploadPdfToPresignedUrl = async (
     file: File,
     presignedUrl: string,
   ): Promise<string> => {
-    try {
-      const response = await fetch(presignedUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': 'application/pdf',
-        },
-      });
+    const response = await fetch(presignedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+    });
 
-      if (!response.ok) {
-        throw new Error(`PDF 업로드 실패`);
-      }
-
-      return presignedUrl.split('?')[0];
-    } catch (error) {
-      console.error('PDF 업로드 에러:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`PDF 업로드 실패`);
     }
+
+    return presignedUrl.split('?')[0];
   };
 
   const handleSubmit = async () => {
@@ -352,12 +329,9 @@ export const CollaborationRegister: React.FC<
         deadline: deadlineString,
       };
 
-      console.log('요청 데이터:', JSON.stringify(requestData, null, 2));
-
       const response = await submitRequestAssign(requestData);
       navigate(`/personal-profile/${response.id}/creator`); // 변경된 부분
-    } catch (error) {
-      console.error('제출 중 에러:', error);
+    } catch {
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
   };
@@ -365,42 +339,31 @@ export const CollaborationRegister: React.FC<
   const submitRequestAssign = async (
     data: CollaborationRequestData,
   ): Promise<{ id: number }> => {
-    try {
-      const response = await fetch(`${BASE_URL}/collaborations`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+    const response = await fetch(`${BASE_URL}/collaborations`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
-      if (!response.ok) {
-        throw new Error(`API 호출 실패`);
-      }
-
-      const responseData = await response.json();
-      return responseData;
-    } catch (error) {
-      console.error('Request Error Details:', {
-        error,
-      });
-      throw error;
+    if (!response.ok) {
+      throw new Error(`API 호출 실패`);
     }
+
+    return await response.json();
   };
 
   useEffect(() => {
-    console.log('Current previewImageUrl:', previewImageUrl);
     return () => {
       if (previewImageUrl) {
-        console.log('Cleaning up URL:', previewImageUrl);
         URL.revokeObjectURL(previewImageUrl);
       }
     };
   }, [previewImageUrl]);
 
   const modules = useMemo(() => {
-    console.log('Initializing Quill modules');
     return {
       toolbar: {
         container: [
@@ -409,7 +372,6 @@ export const CollaborationRegister: React.FC<
         ],
         handlers: {
           image: () => {
-            console.log('Image handler triggered');
             const input = document.createElement('input');
             input.setAttribute('type', 'file');
             input.setAttribute('accept', 'image/*');
@@ -418,33 +380,18 @@ export const CollaborationRegister: React.FC<
             input.onchange = async () => {
               const file = input.files?.[0];
               if (file) {
-                console.log('Selected file:', {
-                  name: file.name,
-                  size: file.size,
-                  type: file.type,
-                });
-
                 if (file.size > MAX_FILE_SIZE) {
-                  console.warn('File size exceeds limit:', file.size);
                   alert('이미지 파일 크기는 5MB를 초과할 수 없습니다.');
                   return;
                 }
 
                 const reader = new FileReader();
                 reader.onload = () => {
-                  console.log('File read completed');
                   const quill = quillRef.current?.getEditor();
                   if (quill) {
                     const range = quill.getSelection(true);
-                    console.log('Quill selection range:', range);
                     quill.insertEmbed(range.index, 'image', reader.result);
-                    console.log('Image embedded in editor');
-                  } else {
-                    console.warn('Quill editor not found');
                   }
-                };
-                reader.onerror = (error) => {
-                  console.error('FileReader error:', error);
                 };
                 reader.readAsDataURL(file);
               }
@@ -509,7 +456,7 @@ export const CollaborationRegister: React.FC<
                 handleImageUpload();
               }
             }}>
-            <img
+            <Image
               src={previewImageUrl}
               alt='Selected'
               className={styles.imagePreview}

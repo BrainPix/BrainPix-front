@@ -10,6 +10,7 @@ import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react'
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
+import { Image } from '../../components/common/image/Image';
 
 interface IdeaMarketRequestData {
   title: string;
@@ -200,9 +201,8 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
 
       const presignedUrl = await response.text();
       return presignedUrl;
-    } catch (error) {
-      console.error('❌ Presigned URL 요청 에러:', error);
-      throw error;
+    } catch {
+      throw Error;
     }
   };
 
@@ -226,11 +226,9 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
       }
 
       const imageUrl = presignedUrl.split('?')[0];
-      console.log('✅ Presigned URL 업로드 성공, 저장된 이미지 URL:', imageUrl);
       return imageUrl;
-    } catch (error) {
-      console.error('❌ 이미지 업로드 에러:', error);
-      throw error;
+    } catch {
+      throw Error;
     }
   };
 
@@ -238,24 +236,19 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     file: File,
     presignedUrl: string,
   ): Promise<string> => {
-    try {
-      const response = await fetch(presignedUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': 'application/pdf',
-        },
-      });
+    const response = await fetch(presignedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+    });
 
-      if (!response.ok) {
-        throw new Error(`PDF 업로드 실패`);
-      }
-
-      return presignedUrl.split('?')[0];
-    } catch (error) {
-      console.error('PDF 업로드 에러:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`PDF 업로드 실패`);
     }
+
+    return presignedUrl.split('?')[0];
   };
 
   const handleSubmit = async () => {
@@ -292,7 +285,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
 
       const response = await submitIdeaMarket(requestData);
       navigate(`/idea-market/register-complete?ideaId=${response.id}`);
-    } catch (error) {
+    } catch {
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
   };
@@ -300,57 +293,46 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
   const submitIdeaMarket = async (
     data: IdeaMarketRequestData,
   ): Promise<{ id: number }> => {
-    try {
-      const requestData = {
-        title: data.title,
-        content: data.content,
-        specialization: data.specialization,
-        openMyProfile: data.openMyProfile,
-        postAuth: data.postAuth,
-        ideaMarketType: data.ideaMarketType,
-        priceDto: {
-          price: data.priceDto.price,
-          totalQuantity: data.priceDto.totalQuantity,
-        },
-        imageList: data.imageList,
-        attachmentFileList: data.attachmentFileList,
-      };
+    const requestData = {
+      title: data.title,
+      content: data.content,
+      specialization: data.specialization,
+      openMyProfile: data.openMyProfile,
+      postAuth: data.postAuth,
+      ideaMarketType: data.ideaMarketType,
+      priceDto: {
+        price: data.priceDto.price,
+        totalQuantity: data.priceDto.totalQuantity,
+      },
+      imageList: data.imageList,
+      attachmentFileList: data.attachmentFileList,
+    };
 
-      const response = await fetch(`${BASE_URL}/idea-markets`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      });
+    const response = await fetch(`${BASE_URL}/idea-markets`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
 
-      if (!response.ok) {
-        throw new Error(`API 호출 실패`);
-      }
-
-      const responseData = await response.json();
-      return responseData;
-    } catch (error) {
-      console.error('Request Error Details:', {
-        error,
-      });
-      throw error;
+    if (!response.ok) {
+      throw new Error(`API 호출 실패`);
     }
+
+    return await response.json();
   };
 
   useEffect(() => {
-    console.log('Current previewImageUrl:', previewImageUrl);
     return () => {
       if (previewImageUrl) {
-        console.log('Cleaning up URL:', previewImageUrl);
         URL.revokeObjectURL(previewImageUrl);
       }
     };
   }, [previewImageUrl]);
 
   const modules = useMemo(() => {
-    console.log('Initializing Quill modules');
     return {
       toolbar: {
         container: [
@@ -359,7 +341,6 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
         ],
         handlers: {
           image: () => {
-            console.log('Image handler triggered');
             const input = document.createElement('input');
             input.setAttribute('type', 'file');
             input.setAttribute('accept', 'image/*');
@@ -368,33 +349,18 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
             input.onchange = async () => {
               const file = input.files?.[0];
               if (file) {
-                console.log('Selected file:', {
-                  name: file.name,
-                  size: file.size,
-                  type: file.type,
-                });
-
                 if (file.size > MAX_FILE_SIZE) {
-                  console.warn('File size exceeds limit:', file.size);
                   alert('이미지 파일 크기는 5MB를 초과할 수 없습니다.');
                   return;
                 }
 
                 const reader = new FileReader();
                 reader.onload = () => {
-                  console.log('File read completed');
                   const quill = quillRef.current?.getEditor();
                   if (quill) {
                     const range = quill.getSelection(true);
-                    console.log('Quill selection range:', range);
                     quill.insertEmbed(range.index, 'image', reader.result);
-                    console.log('Image embedded in editor');
-                  } else {
-                    console.warn('Quill editor not found');
                   }
-                };
-                reader.onerror = (error) => {
-                  console.error('FileReader error:', error);
                 };
                 reader.readAsDataURL(file);
               }
@@ -539,7 +505,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
                 handleImageUpload();
               }
             }}>
-            <img
+            <Image
               src={previewImageUrl}
               alt='Selected'
               className={styles.imagePreview}

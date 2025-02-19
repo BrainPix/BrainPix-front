@@ -8,14 +8,14 @@ import styles from './requestRegisteredPage.module.scss';
 import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
-import { RequsetDetail } from '../../types/detailPageType';
+import { RequestDetail } from '../../types/detailPageType';
 import { getRequestDetail } from '../../apis/detailPageAPI';
 import { getUserIdFromToken } from '../../utils/auth';
 
 export const RequestRegisteredPage = () => {
   const { taskId } = useParams<{ taskId: string }>();
 
-  const { data, isLoading, error } = useQuery<RequsetDetail, Error>({
+  const { data, isLoading, error } = useQuery<RequestDetail, Error>({
     queryKey: ['requestDetail', taskId],
     queryFn: () => getRequestDetail(Number(taskId)),
     enabled: !!taskId,
@@ -39,7 +39,7 @@ export const RequestRegisteredPage = () => {
     saveCount: data.saveCount ?? 0,
     createdDate: data.createdDate ?? '',
     writerName: data.writer?.name ?? '',
-    taskId: data.taskId ?? 0,
+    taskId: Number(taskId),
   };
 
   const writerData = {
@@ -58,7 +58,6 @@ export const RequestRegisteredPage = () => {
   };
 
   const userId = getUserIdFromToken();
-  console.log('내 userId:', userId);
 
   return (
     <div className={styles.margin}>
@@ -74,7 +73,6 @@ export const RequestRegisteredPage = () => {
       <RecruitInfo recruitments={data.recruitments} />
       <QnASection
         postId={Number(taskId)}
-        profileImageUrl={writerData.profileImageUrl}
         userId={userId}
       />
       <AuthorInfo {...writerData} />

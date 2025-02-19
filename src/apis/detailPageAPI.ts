@@ -1,12 +1,15 @@
 import axios from 'axios';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getIdeaMarketDetail = async (ideaId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/idea-markets/${ideaId}`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -14,14 +17,18 @@ export const getIdeaMarketDetail = async (ideaId: number) => {
     });
 
     return data.data;
+  } catch {
+    throw Error;
   }
 };
 
 export const getRequestDetail = async (taskId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/request-tasks/${taskId}`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -29,14 +36,18 @@ export const getRequestDetail = async (taskId: number) => {
     });
 
     return data.data;
+  } catch {
+    throw Error;
   }
 };
 
 export const getCollaborationDetail = async (collaborationId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/collaborations/${collaborationId}`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,5 +55,7 @@ export const getCollaborationDetail = async (collaborationId: number) => {
     });
 
     return data.data;
+  } catch {
+    throw Error;
   }
 };

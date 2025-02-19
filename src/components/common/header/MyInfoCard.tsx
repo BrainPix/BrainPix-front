@@ -6,7 +6,7 @@ import styles from './myInfoCard.module.scss';
 import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 import Label from '../label/Label';
-import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { Image } from '../image/Image';
 import { MY_BASIC_INFO_INIT } from '../../../constants/initValues';
 
 interface MyInfoCardPropsType {
@@ -27,7 +27,7 @@ export const MyInfoCard = ({ token, onClickLogout }: MyInfoCardPropsType) => {
     ideaCount,
     collaborationCount,
     specializations,
-    name,
+    nickname,
   } = myBasicInfo?.data ?? MY_BASIC_INFO_INIT;
 
   return (
@@ -50,9 +50,8 @@ export const MyInfoCard = ({ token, onClickLogout }: MyInfoCardPropsType) => {
       ) : (
         <React.Fragment>
           <div className={classNames(styles.infoWrapper)}>
-            <img
+            <Image
               alt='프로필 이미지'
-              onError={imageErrorHandler}
               className={classNames(styles.profileImage)}
               src={profileImage}
             />
@@ -61,7 +60,7 @@ export const MyInfoCard = ({ token, onClickLogout }: MyInfoCardPropsType) => {
                 text={userType === 'INDIVIDUAL' ? '개인' : '기업'}
                 type={userType === 'INDIVIDUAL' ? 'personal' : 'corporate'}
               />
-              <p className={classNames(styles.userName)}>{name}</p>
+              <p className={classNames(styles.userName)}>{nickname}</p>
             </div>
             <a
               href='/my'

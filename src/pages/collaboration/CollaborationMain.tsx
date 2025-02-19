@@ -11,7 +11,7 @@ import {
 } from '../../apis/collaborationAPI';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
-import LoadingPage from '../../components/common/loading/loadingPage';
+import LoadingPage from '../../components/common/loading/LoadingPage';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -78,8 +78,8 @@ export const CollaborationMain = () => {
 
           setCollaborationData(filteredData);
         }
-      } catch (error) {
-        console.error('협업 데이터 로딩 중 에러:', error);
+      } catch {
+        alert('데이터 로딩에 실패했습니다.');
       } finally {
         setIsInitialLoading(false);
       }
@@ -134,12 +134,8 @@ export const CollaborationMain = () => {
           ),
         );
       }
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        console.error('북마크 처리 실패:', err.message);
-      } else {
-        console.error('북마크 처리 중 에러:', err);
-      }
+    } catch {
+      alert('북마크 처리에 실패했습니다.');
     }
   };
 

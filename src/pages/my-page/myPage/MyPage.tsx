@@ -99,30 +99,55 @@ export const MyPage = () => {
         ))}
       </div>
       <div className={classNames(styles.contentContainer)}>
-        <div className={classNames(styles.title)}>자기소개</div>
-        <p className={classNames(styles.introduceContent)}>
-          {selfIntroduction}
-        </p>
+        <div className={classNames(styles.title)}>
+          {myBaseInfoData?.data.userType === 'INDIVIDUAL'
+            ? '자기 소개'
+            : '기업 소개'}
+        </div>
+        {selfIntroduction ? (
+          <p className={classNames(styles.introduceContent)}>
+            {selfIntroduction}
+          </p>
+        ) : (
+          <div className={classNames(styles.noDataText)}>
+            자기소개를 작성해주세요.
+          </div>
+        )}
       </div>
       <div className={classNames(styles.contentContainer)}>
         <div className={classNames(styles.title)}>
           최근 소식
-          <a href='/my/recent-news'>자세히</a>
+          {alarms?.alarmDetailList.length !== 0 && (
+            <a href='/my/recent-news'>자세히</a>
+          )}
         </div>
         <div className={classNames(styles.recentNewsWrapper)}>
-          {alarms.data.alarmDetailList
-            .slice(0, 3)
-            .map((alarmData: getAlarmResponseType) => (
-              <PreviewList
-                key={alarmData.alarmId}
-                alarmData={alarmData}
-              />
-            ))}
+          {!alarms?.alarmDetailList || alarms?.alarmDetailList.length === 0 ? (
+            <div className={classNames(styles.noDataText)}>
+              최근 소식이 없습니다.
+            </div>
+          ) : (
+            <React.Fragment>
+              {alarms?.alarmDetailList
+                .slice(0, 3)
+                .map((alarmData: getAlarmResponseType) => (
+                  <PreviewList
+                    key={alarmData.alarmId}
+                    alarmData={alarmData}
+                  />
+                ))}
+            </React.Fragment>
+          )}
         </div>
       </div>
       <div>
         <div className={classNames(styles.title)}>내 아이디어</div>
         <div className={classNames(styles.recentNewsWrapper)}>
+          {myIdeas?.pages[0]?.data.content.length == 0 && (
+            <div className={classNames(styles.noDataText)}>
+              작성된 아이디어가 없습니다.
+            </div>
+          )}
           {myIdeas?.pages.map((ideas, pageIdx) => (
             <React.Fragment key={pageIdx}>
               {ideas.data.content.map(

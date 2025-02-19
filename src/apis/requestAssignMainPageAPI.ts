@@ -61,53 +61,33 @@ interface BookmarkResponse {
 }
 
 export const getPopularIdeas = async (params: SearchParams) => {
-  try {
-    const response = await apiClient.get<RequestAssignCheck>(
-      'request-tasks/search/popular',
-      {
-        params: {
-          type: params.type,
-          page: params.page ?? 0,
-          size: params.size ?? 10,
-        },
+  const response = await apiClient.get<RequestAssignCheck>(
+    'request-tasks/search/popular',
+    {
+      params: {
+        type: params.type,
+        page: params.page ?? 0,
+        size: params.size ?? 10,
       },
-    );
+    },
+  );
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('인기 아이디어 조회 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data;
 };
 
 export const getRequestAssignDetail = async (taskId: number) => {
-  try {
-    const response = await apiClient.get<RequestAssignCheck>(`
-      request-tasks/${taskId}`);
+  const response = await apiClient.get<RequestAssignCheck>(`
+    request-tasks/${taskId}`);
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('아이디어 상세 정보 조회 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data.data;
 };
 
 export const withRetry = async <T>(
@@ -125,62 +105,38 @@ export const withRetry = async <T>(
 };
 
 export const toggleIdeaBookmark = async (postId: number) => {
-  try {
-    const response = await apiClient.post<BookmarkResponse>(
-      'saved-posts',
-      null,
-      {
-        params: { postId },
-      },
-    );
+  const response = await apiClient.post<BookmarkResponse>('saved-posts', null, {
+    params: { postId },
+  });
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('북마크 토글 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data;
 };
 
 export const getIdeaList = async (params: GetIdeaListRequest) => {
-  try {
-    const response = await apiClient.post<RequestAssignCheck>(
-      'request-tasks/search',
-      {
-        type: params.type,
-        category: params.category,
-        keyword: params.keyword,
-        onlyCompany: params.onlyCompany,
-        sortType: params.sortType,
+  const response = await apiClient.post<RequestAssignCheck>(
+    'request-tasks/search',
+    {
+      type: params.type,
+      category: params.category,
+      keyword: params.keyword,
+      onlyCompany: params.onlyCompany,
+      sortType: params.sortType,
+    },
+    {
+      params: {
+        page: params.page ?? 0,
+        size: params.size ?? 10,
       },
-      {
-        params: {
-          page: params.page ?? 0,
-          size: params.size ?? 10,
-        },
-      },
-    );
+    },
+  );
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('아이디어 목록 조회 실패:', error.message);
-      if (error.response) {
-        console.error('서버 응답:', error.response.data);
-      }
-    }
-    throw error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data;
 };

@@ -8,14 +8,14 @@ import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import Loading from '../../../assets/icons/loading.svg?react';
 import { PortfolioDetailModal } from '../../../components/my-page/portfolio/PortfolioDetailModal';
 import { getPorfolios } from '../../../apis/portfolio';
-import placeholder from '../../../assets/images/brainPixIcon.png';
 import { MyPorfolioType } from '../../../types/myPageType';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { Image } from '../../../components/common/image/Image';
 
 export const Portfolio = () => {
   const [lastCardId, setLastCardId] = useState(0);
-  const [clickedCardId, setClickedCardId] = useState(18);
+  const [clickedCardId, setClickedCardId] = useState<number>(-1);
   const [userId, setUserId] = useState(-1);
 
   useEffect(() => {
@@ -71,6 +71,7 @@ export const Portfolio = () => {
 
   const handleClosePortfolioDetailModal = () => {
     setIsOpenPortfolioDetailModal(false);
+    setClickedCardId(-1);
   };
 
   const addPortfolioModalRef = useRef(null);
@@ -111,6 +112,11 @@ export const Portfolio = () => {
           추가하기
         </button>
       </div>
+      {myPorfolios?.pages[0].content.length == 0 && (
+        <div className={classNames(styles.noDataText)}>
+          포트폴리오가 없습니다.
+        </div>
+      )}
       <div className={classNames(styles.portfolioContainer)}>
         {myPorfolios?.pages.map((portfolios, pageIdx) => (
           <React.Fragment key={portfolios.currentPage}>
@@ -124,10 +130,10 @@ export const Portfolio = () => {
                   ref={8 * pageIdx + idx === lastCardId ? setTarget : null}
                   onClick={() => handleClickPorfolioCard(id)}
                   className={classNames(styles.portfolioCardWrapper)}>
-                  <img
+                  <Image
                     alt='포트폴리오 사진'
                     className={classNames(styles.image)}
-                    src={profileImage || placeholder}
+                    src={profileImage}
                     onError={imageErrorHandler}
                   />
                   <p className={classNames(styles.portfolioTitle)}>{title}</p>

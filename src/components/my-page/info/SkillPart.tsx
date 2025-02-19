@@ -15,6 +15,7 @@ interface FieldValuesType {
   selfIntroduction: string;
   stackOpen: boolean;
   careerOpen: boolean;
+  businessInfo: string;
 }
 
 interface SkillPartPropsType {

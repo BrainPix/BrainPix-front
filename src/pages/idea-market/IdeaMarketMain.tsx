@@ -117,12 +117,8 @@ export const IdeaMarketMain = () => {
       if (response.success) {
         queryClient.invalidateQueries({ queryKey: ['ideaList'] });
       }
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        console.error('북마크 처리 실패:', err.message);
-      } else {
-        console.error('북마크 처리 중 에러:', err);
-      }
+    } catch {
+      alert('북마크 처리에 실패했습니다.');
     }
   };
 

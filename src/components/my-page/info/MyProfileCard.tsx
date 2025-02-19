@@ -5,17 +5,17 @@ import axios from 'axios';
 
 import Label from '../../common/label/Label';
 import {
-  CompanyProfileType,
-  IndividualProfileType,
+  CompanyProfileResponseType,
+  IndividualProfileResponseType,
 } from '../../../types/profileType';
 import { getPresignedURL } from '../../../apis/commonAPI';
 import { ChangeEvent, useContext } from 'react';
 import { ToastContext } from '../../../contexts/toastContext';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
-import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { Image } from '../../common/image/Image';
 
 interface MyProfileCardPropsType {
-  userData: IndividualProfileType | CompanyProfileType;
+  userData: IndividualProfileResponseType | CompanyProfileResponseType;
   status: 'main' | 'edit' | 'save';
   onClickButton?: () => void;
   selectedImage: string;
@@ -63,11 +63,10 @@ export const MyProfileCard = ({
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.profileContainer)}>
         {selectedImage ? (
-          <img
+          <Image
             className={classNames(styles.profile)}
             src={selectedImage}
             alt='프로필 이미지'
-            onError={imageErrorHandler}
           />
         ) : (
           <div className={classNames(styles.profile)} />
@@ -77,7 +76,7 @@ export const MyProfileCard = ({
             text={userType}
             type={userType === '기업' ? 'corporate' : 'personal'}
           />
-          <h1 className={classNames(styles.name)}>{userData.name}</h1>
+          <h1 className={classNames(styles.name)}>{userData.nickname}</h1>
           {(status === 'edit' || status === 'save') && (
             <div className={classNames(styles.position)}>
               {userData.specializations.map((specialization) => (
