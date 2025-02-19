@@ -63,6 +63,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
 
   .title {
     @include pretendard-24-500;
@@ -92,7 +93,9 @@
   .row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+    flex-wrap: wrap;
   }
 
   .label {
@@ -100,15 +103,20 @@
 
     color: $grey-700;
     letter-spacing: -0.28px;
+    flex: 1;
+    min-width: 150px;
   }
 
   .value {
     @include pretendard-20-400;
 
-    width: 200px;
+    min-width: 200px;
     text-align: right;
     color: $grey-700;
     letter-spacing: -0.28px;
+    flex: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .total {
@@ -118,7 +126,6 @@
   }
 
   .totalLabel {
-    // color: $grey-700;
     @include pretendard-20-400;
 
     letter-spacing: -0.28px;
