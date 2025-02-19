@@ -94,8 +94,6 @@ export const Signup = () => {
   };
 
   const handleClickNextButton = async () => {
-    await trigger();
-
     if (
       !(
         getFieldState('id').invalid ||
