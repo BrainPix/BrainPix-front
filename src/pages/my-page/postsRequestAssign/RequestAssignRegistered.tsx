@@ -85,7 +85,6 @@ export const RequestAssignRegistered = () => {
         <QnASection
           userId={userId}
           postId={Number(taskId)}
-          profileImageUrl={post?.writer?.profileImageUrl || ''}
         />
         <AuthorInfo {...writerData} />
       </div>

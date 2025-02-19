@@ -1,12 +1,12 @@
 import {
   IndividualCareerResponseType,
-  IndividualContactType,
+  ContactType,
   IndividualSkillTypePayloadType,
   IndividualSkillTypeResponseType,
 } from './profileType';
 
 export interface MyBaseInfoType {
-  name: string;
+  nickname: string;
   userId: number;
   userType: string;
   specializations: string[];
@@ -19,7 +19,7 @@ export interface MyBaseInfoType {
 export interface IndividualInfoType {
   profileImage: string;
   selfIntroduction: string;
-  contacts: IndividualContactType[];
+  contacts: ContactType[];
   stackOpen: boolean;
   careers: IndividualCareerResponseType[];
   careerOpen: boolean;
@@ -73,6 +73,6 @@ export interface putCompanyInfoPayload {
   profileImage: string;
   selfIntroduction: string;
   businessInformation: string;
-  companyInformations: IndividualContactType[];
+  companyInformations: ContactType[];
   specializations: string[];
 }

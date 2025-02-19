@@ -14,7 +14,7 @@ export const MyProfileCard = ({ userData }: MyProfileCardPropsType) => {
   type LabelType = 'corporate' | 'corporatePublic' | 'personal' | 'selfOffer';
   const userType = localStorage.getItem('myType');
 
-  const { name } = userData;
+  const { nickname } = userData;
 
   return (
     <div className={classNames(styles.container)}>
@@ -33,7 +33,7 @@ export const MyProfileCard = ({ userData }: MyProfileCardPropsType) => {
           type={(userType as LabelType) || 'corporate'}
           text={(userType && formatToLabelText(userType as LabelType)) ?? ''}
         />
-        <h1 className={classNames(styles.name)}>{name}</h1>
+        <h1 className={classNames(styles.name)}>{nickname}</h1>
       </div>
     </div>
   );

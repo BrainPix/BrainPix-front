@@ -110,3 +110,28 @@
 .bookmark {
   margin-left: auto;
 }
+
+.noDataWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  & > .label {
+    @include pretendard-20-500;
+
+    color: $grey-900;
+  }
+
+  & > .text {
+    color: $grey-600;
+    margin: 0 auto;
+  }
+
+  & > .addPortfolioButton {
+    padding: 10px 20px;
+    margin: 0 auto;
+    border-radius: 10px;
+    width: fit-content;
+    cursor: pointer;
+  }
+}

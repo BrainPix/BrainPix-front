@@ -95,6 +95,7 @@ export const Carousel = ({
             <Arrow
               width={40}
               height={40}
+              stroke='#555555'
               color={currentPage <= 0 ? '#9e9e9e' : 'black'}
               onClick={handleClickPreviousButton}
               className={classNames(styles.left)}
@@ -110,11 +111,15 @@ export const Carousel = ({
             <Arrow
               width={40}
               height={40}
+              stroke='#555555'
             />
           </button>
         </div>
       )}
-      <div className={classNames(styles.carouselContainer)}>
+      <div
+        className={classNames(styles.carouselContainer, {
+          [styles.buttonCenter]: buttonPosition === 'center',
+        })}>
         <div
           className={classNames(styles.contentWrapper)}
           style={{

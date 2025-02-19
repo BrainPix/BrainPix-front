@@ -7,18 +7,41 @@ export interface MessageType {
   isRead: boolean;
 }
 
-export type MessagesKeyType = 'ALL' | 'READ' | 'UNREAD';
+export type MessagesKeyType = 'ALL' | 'SEND' | 'RECEIVED';
 export type MessagesType = Record<MessagesKeyType, MessageType[]>;
 
 export interface PreviousMessageType {
-  receiver: string;
-  sender: string;
-  previousContent: string;
+  receiverNickname: string;
+  title?: string;
+  content?: string;
 }
 
-export interface getMessageResponseType {
+export interface getMessagesResponseType {
   messageId: string;
   title: string;
   senderNickname: string;
+  receiverNickname: string;
   sendDate: string;
+  isRead: boolean;
+  messageType: MessagesKeyType;
+}
+
+export interface getMessageDetailResponseType {
+  id: string;
+  title: string;
+  senderNickname: string;
+  receiverNickname: string;
+  sendTime: string;
+  content: string;
+}
+
+export interface sendMessagePayloadType {
+  receiverNickname: string;
+  title: string;
+  content: string;
+}
+
+export interface sendMessageCountResponseType {
+  readMessageCount: number;
+  unreadMessageCount: number;
 }

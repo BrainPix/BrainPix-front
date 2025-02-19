@@ -6,6 +6,7 @@ import DotIcon from '../../assets/icons/dot.svg?react';
 import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 import {
   getCategoryLabel,
@@ -54,9 +55,10 @@ const PostTitlePay = ({
     <div className={styles.container}>
       <div className={styles.leftSection}>
         <img
-          src={thumbnailImageUrl || '/default-thumbnail.png'}
+          src={thumbnailImageUrl}
           alt='썸네일'
           className={styles.thumbnail}
+          onError={imageErrorHandler}
         />
       </div>
       <div className={styles.rightSection}>

@@ -41,6 +41,7 @@ export const Login = ({ userType }: LoginPropsType) => {
   useEffect(() => {
     if (myInfo?.data.userId) {
       localStorage.setItem('userId', myInfo.data.userId);
+      localStorage.setItem('userNickname', myInfo.data.nickname);
     }
   }, [myInfo]);
 

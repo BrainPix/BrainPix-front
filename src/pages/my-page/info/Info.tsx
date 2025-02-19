@@ -18,8 +18,9 @@ import {
 } from '../../../apis/profileAPI';
 import {
   IndividualCareerResponseType,
-  IndividualContactType,
+  ContactType,
   IndividualSkillTypeResponseType,
+  putIndividualProfilePayloadType,
 } from '../../../types/profileType';
 import {
   CATEGORY_LABELS,
@@ -36,7 +37,7 @@ export const Info = () => {
   const queryClient = useQueryClient();
 
   const [editMode, setEditMode] = useState(false);
-  const [contacts, setContacts] = useState<IndividualContactType[]>([]);
+  const [contacts, setContacts] = useState<ContactType[]>([]);
   const [selectedSpecialization, setSelectedSpecialization] = useState<
     string[]
   >(['']);
@@ -60,6 +61,7 @@ export const Info = () => {
     selfIntroduction: '',
     stackOpen: false,
     careerOpen: false,
+    businessInfo: '',
   };
 
   const { register, handleSubmit, setValue } = useForm({
@@ -67,24 +69,24 @@ export const Info = () => {
   });
 
   const { data: personalData, isLoading: isPersonalDataPending } = useQuery({
-    queryKey: ['userData'],
+    queryKey: ['personalUserData'],
     queryFn: getProfilePersonal,
-    enabled: userType === '개인' || userType === null,
+    enabled: userType === '개인',
   });
 
   const { data: companyData, isLoading: isCompanyDataPending } = useQuery({
-    queryKey: ['userData'],
+    queryKey: ['companyUserData'],
     queryFn: getProfileCompany,
-    enabled: userType === '기업' || userType === null,
+    enabled: userType === '기업',
   });
 
   const { mutate: editPersonalInfoMutate } = useMutation({
-    mutationFn: (payload: IndividualInfoPayloadType) =>
+    mutationFn: (payload: putIndividualProfilePayloadType) =>
       putIndividualInfo(personalData.userId, payload),
     onSuccess: () => {
       successToast('수정되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: ['userData'],
+        queryKey: ['personalUserData'],
       });
     },
     onError: () => {
@@ -98,7 +100,7 @@ export const Info = () => {
     onSuccess: () => {
       successToast('수정되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: ['userData'],
+        queryKey: ['companyUserData'],
       });
     },
     onError: () => {
@@ -107,7 +109,7 @@ export const Info = () => {
   });
 
   useEffect(() => {
-    if (personalData?.contacts) {
+    if (personalData?.contacts !== undefined) {
       setValue('selfIntroduction', personalData.selfIntroduction);
       const updatedSpecializations = personalData.specializations.map(
         (value: string) => {
@@ -121,7 +123,7 @@ export const Info = () => {
       setSelectedProfileImage(personalData.profileImage);
     }
 
-    if (companyData?.businessInformation) {
+    if (companyData?.businessInformation !== undefined) {
       setValue('selfIntroduction', companyData.selfIntroduction);
       const updatedSpecializations = companyData.specializations?.map(
         (value: string) => {
@@ -130,7 +132,8 @@ export const Info = () => {
       );
       setSelectedSpecialization(updatedSpecializations);
       setContacts(companyData.companyInformations ?? []);
-      setSelectedProfileImage(personalData.imageUrl);
+      setSelectedProfileImage(companyData.imageUrl);
+      setBusinessInfo(companyData.businessInformation);
     }
   }, [personalData, companyData, setValue]);
 
@@ -174,18 +177,22 @@ export const Info = () => {
     if (userType === '개인') {
       const requestBody: IndividualInfoPayloadType = {
         profileImage: selectedProfileImage,
-        selfIntroduction: payload.selfIntroduction,
-        stackOpen: payload.stackOpen,
-        careerOpen: payload.careerOpen,
         contacts,
-        careers,
+        stacks: skills.map(({ stackName, proficiency }) => ({
+          name: stackName,
+          proficiency: proficiency,
+        })),
+        stackOpen: payload.stackOpen,
+        careers: careers.map(({ content, startDate, endDate }) => ({
+          content,
+          startDate,
+          endDate,
+        })),
+        selfIntroduction: payload.selfIntroduction,
         specializations: selectedSpecialization.map(
           (speicialization) => CATEGORY_MAPPER_TO_ENG[speicialization],
         ),
-        stacks: skills.map(({ stackName, ...rest }) => ({
-          name: stackName,
-          ...rest,
-        })),
+        careerOpen: payload.careerOpen,
       };
       editPersonalInfoMutate(requestBody);
     }
@@ -205,7 +212,7 @@ export const Info = () => {
     setEditMode(false);
   };
 
-  const handleClickAddInfoButton = (data: IndividualContactType) => {
+  const handleClickAddInfoButton = (data: ContactType) => {
     setContacts((prev) => {
       const existingIndex = prev.findIndex((item) => item.type === data.type);
       if (existingIndex !== -1) {
@@ -342,7 +349,9 @@ export const Info = () => {
             )}
             <BusinessInfoPart
               editMode={editMode}
-              businessInfoText={companyData.businessInformation}
+              businessInfoText={businessInfo}
+              {...register('businessInfo')}
+              setValue={setValue}
               onChange={handleChangeBusinessInfoInput}
             />
             <PortfolioPart

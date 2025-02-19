@@ -1,11 +1,11 @@
-import { ChangeEvent, forwardRef } from 'react';
+import { ChangeEvent, forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './introducePart.module.scss';
 import { UseFormSetValue } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
 import {
-  CompanyProfileType,
-  IndividualProfileType,
+  CompanyProfileResponseType,
+  IndividualProfileResponseType,
 } from '../../../types/profileType';
 
 interface FieldValuesType {
@@ -13,6 +13,7 @@ interface FieldValuesType {
   selfIntroduction: string;
   stackOpen: boolean;
   careerOpen: boolean;
+  businessInfo: string;
 }
 
 interface IntroducePartPropsType {
@@ -25,14 +26,22 @@ export const IntroducePart = forwardRef<
   IntroducePartPropsType
 >(({ editMode = false, setValue, ...rest }, ref) => {
   const queryClinet = useQueryClient();
+  const [userType, setUserType] = useState('');
 
-  const userData = queryClinet.getQueryData(['userData']);
-  const userType = localStorage.getItem('myType');
+  const userData =
+    userType === 'personal'
+      ? queryClinet.getQueryData(['personalUserData'])
+      : queryClinet.getQueryData(['companyUserData']);
+
+  useEffect(() => {
+    const myUserType = localStorage.getItem('myType');
+    if (myUserType) setUserType(myUserType);
+  }, []);
 
   const introducingText =
     userType === 'personal'
-      ? (userData as IndividualProfileType).selfIntroduction
-      : (userData as CompanyProfileType).selfIntroduction;
+      ? (userData as IndividualProfileResponseType)?.selfIntroduction
+      : (userData as CompanyProfileResponseType)?.selfIntroduction;
 
   setValue('selfIntroduction', introducingText);
 

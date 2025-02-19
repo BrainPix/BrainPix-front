@@ -16,8 +16,6 @@ export const applyForCollaboration = async (
     throw new Error('로그인이 필요합니다.');
   }
 
-  console.log('최종 API 요청 데이터:', requestData);
-
   const { data } = await axios.post(
     `${BASE_URL}/collaborations/${collaborationId}/apply`,
     requestData,
@@ -42,8 +40,6 @@ export const applyForRequest = async (
   if (!token) {
     throw new Error('로그인이 필요합니다.');
   }
-
-  console.log('최종 API 요청 데이터:', requestData);
 
   const { data } = await axios.post(
     `${BASE_URL}/request-tasks/${taskId}/apply`,

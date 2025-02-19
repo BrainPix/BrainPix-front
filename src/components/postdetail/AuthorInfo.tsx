@@ -1,6 +1,6 @@
 import styles from './authorInfo.module.scss';
-import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import Label from '../common/label/Label';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 import { getCategoryLabel } from '../../utils/categoryMapping';
 
@@ -25,17 +25,15 @@ const AuthorInfo = ({
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>작성자 정보</h1>
-        <div className={styles.arrowButton}>
-          <ArrowIcon className={styles.arrowIcon} />
-        </div>
       </div>
       <div className={styles.divider}></div>
       <div className={styles.content}>
         <div className={styles.profile}>
           <img
-            src={profileImageUrl || '/default-profile.png'}
+            src={profileImageUrl}
             alt='프로필 이미지'
             className={styles.profileIcon}
+            onError={imageErrorHandler}
           />
           <div className={styles.textContainer}>
             <span className={styles.name}>{name}</span>

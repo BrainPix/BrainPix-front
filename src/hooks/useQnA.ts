@@ -22,7 +22,6 @@ export const useQnA = (postId: number, _userId: number) => {
     mutationFn: ({ commentId }: { commentId: number }) =>
       deleteComment(postId, commentId),
     onSuccess: () => {
-      console.log('댓글 삭제 성공');
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
     },
   });
@@ -46,6 +45,7 @@ export const useQnA = (postId: number, _userId: number) => {
         createdDate: new Date().toISOString(),
         parentCommentId: null,
         childComments: [],
+        profileImageUrl: 'string',
       };
 
       if (previousData) {
@@ -58,7 +58,6 @@ export const useQnA = (postId: number, _userId: number) => {
       return { previousData };
     },
     onSuccess: () => {
-      console.log('댓글 작성 성공');
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
       setCurrentPage(0);
     },
@@ -94,6 +93,7 @@ export const useQnA = (postId: number, _userId: number) => {
         createdDate: new Date().toISOString(),
         parentCommentId,
         childComments: [],
+        profileImageUrl: 'string',
       };
 
       if (previousData) {
@@ -116,7 +116,6 @@ export const useQnA = (postId: number, _userId: number) => {
     },
 
     onSuccess: () => {
-      console.log('대댓글 작성 성공');
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
     },
 

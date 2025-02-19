@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios from 'axios';
 import styles from './requestAssignMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
@@ -52,9 +51,11 @@ interface CardData {
 export const RequestAssignMain = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_cardsData, setCardsData] = useState<CardData[]>([]);
   const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_isUpdating, setIsUpdating] = useState(false);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
@@ -92,8 +93,6 @@ export const RequestAssignMain = () => {
             })),
           );
         }
-      } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
       } finally {
         setIsInitialLoading(false);
         setIsUpdating(false);
@@ -149,7 +148,7 @@ export const RequestAssignMain = () => {
           ),
         );
       }
-    } catch (err) {
+    } catch {
       setIdeaData((prevData) =>
         prevData.map((idea) =>
           idea.ideaId === ideaId
@@ -161,12 +160,6 @@ export const RequestAssignMain = () => {
             : idea,
         ),
       );
-
-      if (axios.isAxiosError(err)) {
-        console.error('북마크 처리 실패:', err.message);
-      } else {
-        console.error('북마크 처리 중 에러:', err);
-      }
     }
   };
 

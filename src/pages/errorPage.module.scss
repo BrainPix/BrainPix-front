@@ -1,58 +1,32 @@
-.paymentContainer {
+.container {
   flex-direction: column;
   @include flex-center;
+  height: 100vh;
   width: 100%;
-  height: 70vh;
   background: $grey-50;
-}
-
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 5px solid rgba(66, 66, 66, 0.3);
-  border-top: 5px solid #377ff8;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  text-align: center;
 }
 
 .title {
-  color: $grey-700;
+  color: $grey-900;
   text-align: center;
-  @include pretendard-28-500;
+  @include pretendard-32-600;
   letter-spacing: -0.28px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 30 px;
 }
 
 .subtitle {
-  width: 421px;
   color: $grey-700;
   text-align: center;
-  @include pretendard-20-400;
+  @include pretendard-20-500;
   letter-spacing: -0.2px;
-  margin-bottom: 20px;
-}
-
-.description {
-  width: 563px;
-  color: $grey-700;
-  text-align: center;
-  @include pretendard-14-400;
-  letter-spacing: -0.14px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .buttonGroup {
   display: flex;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -69,11 +43,6 @@
   letter-spacing: -0.16px;
   border: none;
   cursor: pointer;
-
-  img {
-    width: 16px;
-    height: 16px;
-  }
 }
 
 .mainButton {
@@ -88,4 +57,5 @@
   @include pretendard-16-500;
   letter-spacing: -0.16px;
   cursor: pointer;
+  border: $grey-500 1px solid;
 }

@@ -26,7 +26,6 @@ const TeamBuildingButton = ({
 
   const openModal = () => {
     if (recruitments.length === 0) {
-      console.warn('지원할 모집 부문이 없습니다.');
       return;
     }
     setIsModalOpen(true);

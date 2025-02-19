@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios from 'axios';
 import styles from './ideaMarketMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
@@ -52,9 +51,11 @@ interface CardData {
 export const IdeaMarketMain = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_cardsData, setCardsData] = useState<CardData[]>([]);
   const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_isUpdating, setIsUpdating] = useState(false);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
@@ -92,8 +93,8 @@ export const IdeaMarketMain = () => {
             })),
           );
         }
-      } catch (error) {
-        console.error('아이디어 데이터 로딩 중 에러:', error);
+      } catch {
+        throw Error;
       } finally {
         setIsInitialLoading(false);
         setIsUpdating(false);
@@ -149,7 +150,7 @@ export const IdeaMarketMain = () => {
           ),
         );
       }
-    } catch (err) {
+    } catch {
       setIdeaData((prevData) =>
         prevData.map((idea) =>
           idea.ideaId === ideaId
@@ -161,12 +162,6 @@ export const IdeaMarketMain = () => {
             : idea,
         ),
       );
-
-      if (axios.isAxiosError(err)) {
-        console.error('북마크 처리 실패:', err.message);
-      } else {
-        console.error('북마크 처리 중 에러:', err);
-      }
     }
   };
 
@@ -227,36 +222,38 @@ export const IdeaMarketMain = () => {
             <span>전문가의 손길로 완성되는 아이디어</span>
             <span className={styles.highlight}></span>
           </div>
-          <Carousel
-            buttonPosition='center'
-            cardWidth={200}
-            cardCount={3}
-            gap={45}
-            dataLength={ideaData.length}>
-            {ideaData.map((idea) => (
-              <div
-                key={idea.ideaId}
-                className={styles.carouselItem}>
-                <PreviewThumbnail
-                  data={{
-                    ideaId: idea.ideaId,
-                    username: idea.writerName,
-                    description: idea.title,
-                    price: idea.price,
-                    imageUrl: idea.thumbnailImageUrl || '',
-                    profileImage: idea.writerImageUrl,
-                    isBookmarked: idea.isSavedPost,
-                    saves: idea.saveCount,
-                    views: idea.viewCount,
-                    auth: idea.auth,
-                    category: idea.category,
-                    size: 'large',
-                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
-                  }}
-                />
-              </div>
-            ))}
-          </Carousel>
+          <div>
+            <Carousel
+              buttonPosition='center'
+              cardWidth={200}
+              cardCount={3}
+              gap={45}
+              dataLength={ideaData.length}>
+              {ideaData.map((idea) => (
+                <div
+                  key={idea.ideaId}
+                  className={styles.carouselItem}>
+                  <PreviewThumbnail
+                    data={{
+                      ideaId: idea.ideaId,
+                      username: idea.writerName,
+                      description: idea.title,
+                      price: idea.price,
+                      imageUrl: idea.thumbnailImageUrl || '',
+                      profileImage: idea.writerImageUrl,
+                      isBookmarked: idea.isSavedPost,
+                      saves: idea.saveCount,
+                      views: idea.viewCount,
+                      auth: idea.auth,
+                      category: idea.category,
+                      size: 'large',
+                      onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+                    }}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
         </div>
       </div>
       <div className={styles.headerComponents}>

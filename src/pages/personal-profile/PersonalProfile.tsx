@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 
 import { PostsCarousel } from '../../components/personal-profile/PostsCarousel';
 import {
-  CompanyProfileType,
-  IndividualProfileType,
+  CompanyProfileResponseType,
+  IndividualProfileResponseType,
 } from '../../types/profileType';
 import {
   getOtherProfileCompany,
@@ -47,23 +47,23 @@ export const PersonalProfile = () => {
 
   const userData =
     userType === 'personal'
-      ? ((selectedPersonalUserInfo as IndividualProfileType) ??
+      ? ((selectedPersonalUserInfo as IndividualProfileResponseType) ??
         PERSONAL_RPOFILE_INIT)
-      : ((selectedCompanylUserInfo as CompanyProfileType) ??
+      : ((selectedCompanylUserInfo as CompanyProfileResponseType) ??
         COMPANY_RPOFILE_INIT);
 
-  const { name, specializations } = userData;
+  const { nickname, specializations } = userData;
 
   return (
     <div className={classNames(styles.container)}>
       <ProfileCard
         userType={userType || ''}
-        userName={name}
+        userName={nickname}
         specializations={specializations}
         profileImage={
           userType === 'personal'
-            ? (userData as IndividualProfileType).profileImage
-            : (userData as CompanyProfileType).imageUrl
+            ? (userData as IndividualProfileResponseType).profileImage
+            : (userData as CompanyProfileResponseType).imageUrl
         }
       />
       <DescriptionTable userData={userData} />
