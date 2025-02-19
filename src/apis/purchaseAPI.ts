@@ -1,18 +1,23 @@
 import axios from 'axios';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getIdeaMarketPayment = async (ideaId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/idea-markets/${ideaId}/purchase`;
 
-  if (!token) throw new Error('Access Token이 없습니다.');
+  try {
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  const { data } = await axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return data.data;
+    return data.data;
+  } catch {
+    throw Error;
+  }
 };

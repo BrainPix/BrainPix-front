@@ -1,12 +1,15 @@
 import axios from 'axios';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = `${import.meta.env.VITE_BASE_URL}`;
 
 export const getProfilePersonal = async () => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/profile/individual`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -16,16 +19,18 @@ export const getProfilePersonal = async () => {
     if (data.success) {
       return data.data;
     }
+  } catch {
+    throw Error;
   }
-
-  throw Error;
 };
 
 export const getProfileCompany = async () => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/profile/company`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -35,16 +40,18 @@ export const getProfileCompany = async () => {
     if (data.success) {
       return data.data;
     }
+  } catch {
+    throw Error;
   }
-
-  throw Error;
 };
 
 export const getOtherProfilePersonal = async (userId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/public-profile/individual/${userId}`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,16 +61,18 @@ export const getOtherProfilePersonal = async (userId: number) => {
     if (data.success) {
       return data.data;
     }
+  } catch {
+    throw Error;
   }
-
-  throw Error;
 };
 
 export const getOtherProfileCompany = async (userId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/public-profile/company/${userId}`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -73,16 +82,18 @@ export const getOtherProfileCompany = async (userId: number) => {
     if (data.success) {
       return data.data;
     }
+  } catch {
+    throw Error;
   }
-
-  throw Error;
 };
 
 export const getOtherProfilePosts = async (page: number, userId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/public-profile/${userId}?page=${page}&size=4`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -92,7 +103,7 @@ export const getOtherProfilePosts = async (page: number, userId: number) => {
     if (data.success) {
       return data.data;
     }
+  } catch {
+    throw Error;
   }
-
-  throw Error;
 };

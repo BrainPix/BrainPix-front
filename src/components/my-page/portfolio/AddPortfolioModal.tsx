@@ -17,8 +17,8 @@ import { PostPortfolioPayload } from '../../../types/myPageType';
 import { postPorfolio } from '../../../apis/portfolio';
 import { getPresignedURL } from '../../../apis/commonAPI';
 import { ToastContext } from '../../../contexts/toastContext';
-import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 import { formatBirth } from '../../../utils/formatBirth';
+import { Image } from '../../common/image/Image';
 
 interface AddPortfolioModalPropsType {
   onClose: () => void;
@@ -106,11 +106,10 @@ export const AddPortfolioModal = forwardRef<
         onSubmit={handleSubmit(handleSubmitHandler)}>
         <div className={classNames(styles.imageInputWrapper)}>
           {selectedImage && (
-            <img
+            <Image
               alt='선택된 이미지'
               src={selectedImage}
               className={classNames(styles.imageInputLabel)}
-              onError={imageErrorHandler}
             />
           )}
           <label htmlFor='imageInput'>

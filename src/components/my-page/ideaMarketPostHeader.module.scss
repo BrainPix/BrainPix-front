@@ -8,11 +8,13 @@
 
   .sectionTitle {
     @include pretendard-24-500;
+
     color: $grey-800;
   }
 
   .sectionCategory {
     @include pretendard-20-500;
+
     color: $grey-600;
   }
 }
@@ -30,6 +32,7 @@
 
   .imagePlaceholder {
     @include flex-center;
+
     width: 80px;
     height: 80px;
     background-color: #d9d9d9;
@@ -45,29 +48,33 @@
 
   .postCardCategory {
     @include pretendard-14-400;
+
     color: $grey-600;
   }
 
   .postCardTitle {
     @include pretendard-18-500;
+
     color: $grey-800;
   }
 
   .price {
     @include pretendard-16-500;
+
     color: $grey-800;
     margin: 0;
   }
 
-  .ButtonContainer {
+  .buttonContainer {
     @include flex-center;
+
     width: 10%;
   }
 
   .arrowButton {
     width: 25px;
     height: 25px;
-    background-image: url('../../assets/icons/arrow-button.svg');
+    background-image: url('../../assets/icons/arrowButton.svg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
