@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useContext, useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
@@ -100,6 +101,12 @@ export const Login = ({ userType }: LoginPropsType) => {
           )}>
           <form
             onSubmit={handleSubmit(handleSubmitHandler)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSubmit(handleSubmitHandler)();
+              }
+            }}
             className={classNames(styles.form)}>
             <div className={classNames(styles.inputWrapper)}>
               <h3 className={classNames(styles.label)}>아이디</h3>
