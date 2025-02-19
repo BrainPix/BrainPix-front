@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios from 'axios';
 import styles from './collaborationMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import {

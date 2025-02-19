@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useMemo } from 'react';
-import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import styles from './requestAssignMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';

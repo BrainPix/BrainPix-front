@@ -614,7 +614,7 @@ export const CollaborationRegister: React.FC<
             />
             <button
               type='button'
-              onClick={() => handleLoadProfile(member.identifier)}
+              onClick={() => handleLoadProfile()}
               className={styles.profileLoadButton}>
               프로필 불러오기
             </button>
