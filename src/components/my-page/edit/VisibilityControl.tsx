@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import styles from './VisibilityControl.module.scss';
+import styles from './visibilityControl.module.scss';
 import CheckButton from '../../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../../assets/icons/disabledCheckButton.svg?react';
 

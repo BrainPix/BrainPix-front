@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import styles from './FileUploader.module.scss';
+import styles from './fileUploader.module.scss';
 
 interface FileUploaderProps {
   pdfFile: File | null;

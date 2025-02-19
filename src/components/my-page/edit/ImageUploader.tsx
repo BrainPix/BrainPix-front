@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import styles from './ImageUploader.module.scss';
+import styles from './imageUploader.module.scss';
 import MainImage from '../../../assets/icons/mainImage.svg?react';
 
 interface ImageUploaderProps {

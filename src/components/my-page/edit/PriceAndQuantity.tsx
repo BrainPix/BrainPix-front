@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import styles from './PriceAndQuantity.module.scss';
+import styles from './priceAndQuantity.module.scss';
 import UpButton from '../../../assets/icons/categoryUpButton.svg?react';
 import DownButton from '../../../assets/icons/categoryDownButton.svg?react';
 import DisabledDownButton from '../../../assets/icons/disabledDownButton.svg?react';
