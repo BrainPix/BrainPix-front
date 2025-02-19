@@ -50,7 +50,7 @@ export const StepTwo = ({
       mutationFn: (email: string) => postEmailCode(email),
       onError: () => {
         setSendEmailButtonText('재전송');
-        errorToast('오류가 발생하였습니다. 잠시후 다시 시도해주세요.');
+        errorToast('오류가 발생하였습니다. 이메일을 다시 확인해주세요.');
       },
       onSuccess: () => {
         setEmailCheckResult('대기');
