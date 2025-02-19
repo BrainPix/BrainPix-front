@@ -45,6 +45,7 @@ export const useQnA = (postId: number, _userId: number) => {
         createdDate: new Date().toISOString(),
         parentCommentId: null,
         childComments: [],
+        profileImageUrl: 'string',
       };
 
       if (previousData) {
@@ -92,6 +93,7 @@ export const useQnA = (postId: number, _userId: number) => {
         createdDate: new Date().toISOString(),
         parentCommentId,
         childComments: [],
+        profileImageUrl: 'string',
       };
 
       if (previousData) {

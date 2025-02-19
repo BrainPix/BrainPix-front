@@ -85,7 +85,6 @@ export const RequestAssignEdit = () => {
         <QnASection
           userId={userId}
           postId={Number(taskId)}
-          profileImageUrl={post?.writer?.profileImageUrl || ''}
         />
         <AuthorInfo {...writerData} />
       </div>

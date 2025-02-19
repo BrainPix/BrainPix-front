@@ -72,9 +72,9 @@ const RequestSupportModal = ({
       return applyForRequest(taskId, requestData);
     },
     onSuccess: () => {
-      successToast('지원이 완료되었습니다!');
+      successToast('지원이 완료되었습니다! 지원 결과를 기다려주세요');
       onClose();
-      navigate('/request-assign');
+      navigate('/my/apply-request');
     },
     onError: (error: unknown) => {
       let errorMessage = '지원 요청 중 오류가 발생했습니다.';
@@ -84,20 +84,12 @@ const RequestSupportModal = ({
       }
 
       if (errorMessage.includes('이미 신청한 분야')) {
-        errorToast('⚠ 이미 신청함');
+        errorToast('이미 신청하셨습니다.');
       } else {
         errorToast(`${errorMessage}`);
       }
     },
   });
-
-  const handleSubmit = () => {
-    if (!selectedSupport) {
-      errorToast('지원할 모집 부문을 선택해주세요.');
-      return;
-    }
-    mutation.mutate();
-  };
 
   return (
     <div
@@ -137,16 +129,15 @@ const RequestSupportModal = ({
               {recruitments.map((recruitment) => (
                 <div
                   key={recruitment.recruitmentId}
-                  className={styles.supportRow}>
+                  className={styles.supportRow}
+                  onClick={() =>
+                    handleSupportSelection(recruitment.recruitmentId)
+                  }>
                   <span className={styles.field}>{recruitment.domain}</span>
                   <span className={styles.status}>
                     {recruitment.occupiedQuantity} / {recruitment.totalQuantity}
                   </span>
-                  <div
-                    className={styles.radioWrapper}
-                    onClick={() =>
-                      handleSupportSelection(recruitment.recruitmentId)
-                    }>
+                  <div className={styles.radioWrapper}>
                     {selectedSupport === recruitment.recruitmentId ? (
                       <ApplyIcon className={styles.radioIcon} />
                     ) : (
@@ -187,8 +178,14 @@ const RequestSupportModal = ({
               </button>
               <button
                 className={styles.submitButton}
-                onClick={handleSubmit}
-                disabled={mutation.isPending || !selectedSupport}>
+                onClick={() => {
+                  if (!selectedSupport) {
+                    errorToast('지원할 모집 부문을 선택해주세요.');
+                    return;
+                  }
+                  mutation.mutate();
+                }}
+                disabled={mutation.isPending}>
                 {mutation.isPending ? '지원 중...' : '지원하기'}
               </button>
             </div>

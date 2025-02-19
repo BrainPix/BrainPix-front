@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQnA } from '../../hooks/useQnA';
 import styles from './qnaSection.module.scss';
 import { Comment } from '../../types/commentsType';
-import React from 'react';
+import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 interface QnASectionProps {
   postId: number;
   userId: number; //props로 userId 받기
-  profileImageUrl: string;
 }
 
-const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
+const QnASection = ({ postId, userId }: QnASectionProps) => {
   const {
     commentsQuery,
     postCommentMutation,
@@ -25,6 +24,11 @@ const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
     {},
   );
   const [activeReply, setActiveReply] = useState<number | null>(null);
+
+  useEffect(() => {
+    //console.log('내 userId:', userId);
+    //console.log('댓글 데이터:', commentsQuery.data);
+  }, [userId, commentsQuery.data]);
 
   const handleDeleteComment = (commentId: number) => {
     deleteCommentMutation.mutate({ commentId });
@@ -106,9 +110,10 @@ const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
             className={styles.qnaItem}>
             <div className={styles.profile}>
               <img
-                src={profileImageUrl || '/default-profile.png'}
+                src={comment.profileImageUrl}
                 alt='프로필'
                 className={styles.profileIcon}
+                onError={imageErrorHandler}
               />
             </div>
             <div className={styles.content}>
@@ -157,9 +162,10 @@ const QnASection = ({ postId, userId, profileImageUrl }: QnASectionProps) => {
                       className={styles.qnaItemReply}>
                       <div className={styles.profile}>
                         <img
-                          src={profileImageUrl || '/default-profile.png'}
+                          src={child.profileImageUrl}
                           alt='프로필'
                           className={styles.profileIcon}
+                          onError={imageErrorHandler}
                         />
                       </div>
                       <div className={styles.content}>

@@ -70,7 +70,6 @@ export const PostDetailWithLink = () => {
       userId: m.userId,
       name: m.name,
       domain: m.domain,
-      openMyProfile: m.openMyProfile,
     })),
   };
 
@@ -107,7 +106,6 @@ export const PostDetailWithLink = () => {
       <div className={styles.margin}>
         <QnASection
           postId={Number(collaborationId)}
-          profileImageUrl={authorInfoData.profileImageUrl}
           userId={userId}
         />
         <AuthorInfo {...authorInfoData} />
