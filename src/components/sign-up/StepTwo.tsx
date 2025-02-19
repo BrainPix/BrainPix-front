@@ -14,6 +14,7 @@ import { postEmailCode, postEmailCodeNumber } from '../../apis/authAPI';
 import { useContext, useRef, useState } from 'react';
 import { EmailCodePayload } from '../../types/authType';
 import { ToastContext } from '../../contexts/toastContext';
+import Loading from '../../assets/icons/loading.svg?react';
 
 interface StepTwoPropType {
   registers: Record<string, UseFormRegisterReturn>;
@@ -42,17 +43,18 @@ export const StepTwo = ({
 
   const { errorToast } = useContext(ToastContext);
 
-  const { mutate: emailCheckMutation } = useMutation({
-    mutationFn: (email: string) => postEmailCode(email),
-    onError: () => {
-      setSendEmailButtonText('재전송');
-      errorToast('오류가 발생하였습니다. 잠시후 다시 시도해주세요.');
-    },
-    onSuccess: () => {
-      setEmailCheckResult('대기');
-      setSendEmailButtonText('재전송');
-    },
-  });
+  const { mutate: emailCheckMutation, isPending: isSignupLoading } =
+    useMutation({
+      mutationFn: (email: string) => postEmailCode(email),
+      onError: () => {
+        setSendEmailButtonText('재전송');
+        errorToast('오류가 발생하였습니다. 잠시후 다시 시도해주세요.');
+      },
+      onSuccess: () => {
+        setEmailCheckResult('대기');
+        setSendEmailButtonText('재전송');
+      },
+    });
 
   const { mutate: emailCheckCodeMutation } = useMutation({
     mutationFn: (payload: EmailCodePayload) => postEmailCodeNumber(payload),
@@ -203,7 +205,7 @@ export const StepTwo = ({
           </div>
         </div>
         <button
-          disabled={!isValid}
+          disabled={!isValid && emailCheckResult !== '성공'}
           className={classNames(
             styles.submitButton,
             isValid && emailCheckResult === '성공'
@@ -211,7 +213,14 @@ export const StepTwo = ({
               : 'buttonFilled-grey500',
           )}
           type='submit'>
-          완료
+          {isSignupLoading ? (
+            <Loading
+              width={20}
+              height={20}
+            />
+          ) : (
+            '완료'
+          )}
         </button>
       </div>
     </div>

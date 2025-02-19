@@ -13,6 +13,7 @@ import EyeNonVisible from '../../assets/icons/eyeNonVisible.svg?react';
 import EyeVisible from '../../assets/icons/eyeVisible.svg?react';
 import { ToastContext } from '../../contexts/toastContext';
 import { getMyBasicInfo } from '../../apis/mypageAPI';
+import Loading from '../../assets/icons/loading.svg?react';
 
 interface LoginPropsType {
   userType: 'personal' | 'corporate';
@@ -27,10 +28,10 @@ export const Login = ({ userType }: LoginPropsType) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     watch,
     setValue,
-  } = useForm({ mode: 'onSubmit' });
+  } = useForm({ mode: 'onChange' });
 
   const { data: myInfo, isFetching: isFetchingToGetMyInfo } = useQuery({
     queryFn: getMyBasicInfo,
@@ -45,7 +46,7 @@ export const Login = ({ userType }: LoginPropsType) => {
     }
   }, [myInfo]);
 
-  const { mutate: loginMutate } = useMutation({
+  const { mutate: loginMutate, isPending: isLoginLoading } = useMutation({
     mutationFn: (formData: LoginPayload) => postLogin(formData),
     onSuccess: (response) => {
       localStorage.setItem('accessToken', response.data.accessToken);
@@ -166,8 +167,17 @@ export const Login = ({ userType }: LoginPropsType) => {
             </div>
             <button
               type='submit'
-              className={classNames(styles.loginButton)}>
-              로그인
+              className={classNames(styles.loginButton, {
+                [styles.isValid]: isValid,
+              })}>
+              {isLoginLoading ? (
+                <Loading
+                  width={20}
+                  height={20}
+                />
+              ) : (
+                '로그인'
+              )}
             </button>
             <a
               href='/sign-up'
