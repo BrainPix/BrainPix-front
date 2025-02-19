@@ -51,7 +51,6 @@ export const Signup = () => {
     setValue,
     formState: { errors, isValid },
     getFieldState,
-    trigger,
     setError,
   } = useForm({ mode: 'onTouched' });
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Carousel } from '../common/carousel/Carousel';
 import styles from './portfolioCarousel.module.scss';
@@ -16,7 +16,6 @@ interface PortfolioCarouselPropsType {
 
 export const PortfolioCarousel = ({ size }: PortfolioCarouselPropsType) => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [currentData, setCurrentData] = useState<MyPorfolioType[][]>([]);
   const [clickedPage, setClickedPage] = useState<number>(0);
