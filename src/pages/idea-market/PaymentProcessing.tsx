@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
 import { kakaoPayApprove } from '../../apis/kakaoAPI';
@@ -8,58 +8,46 @@ export const PaymentProcessing = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isApproved, setIsApproved] = useState(false);
+  const hasExecuted = useRef(false);
 
   useEffect(() => {
+    if (hasExecuted.current) return;
+    hasExecuted.current = true;
+
     const pgToken = searchParams.get('pg_token');
     const orderId = searchParams.get('orderId');
     const ideaId = searchParams.get('ideaId');
 
-    if (!orderId || !ideaId) {
-      navigate('/idea-market/payment-fail'); //결제 실패 페이지로 이동
+    if (!pgToken || !orderId || !ideaId) {
+      navigate('/idea-market/payment-fail');
       return;
     }
 
-    if (!pgToken) {
-      navigate('/idea-market/payment-cancel'); //결제 취소 처리
-      return;
-    }
-
-    if (isApproved) {
-      return;
-    }
+    if (isApproved) return;
 
     const approvePayment = async () => {
+      setIsApproved(true);
+
       try {
         const response = await kakaoPayApprove({
           pgToken,
           orderId,
           ideaId: Number(ideaId),
         });
-        setIsApproved(true);
+
         sessionStorage.setItem('paymentSuccessData', JSON.stringify(response));
         navigate('/idea-market/payment-success');
-      } catch (error: unknown) {
-        if (
-          error instanceof Error &&
-          (error as { response?: { status?: number } }).response?.status === 404
-        ) {
-          sessionStorage.setItem('isApproved', 'true');
-          navigate('/idea-market/payment-success');
-        } else {
-          sessionStorage.setItem(
-            'failReason',
-            error instanceof Error ? error.message : '알 수 없는 오류',
-          );
-          navigate('/idea-market/payment-fail');
-        }
+      } catch {
+        sessionStorage.setItem('failReason', '알 수 없는 오류');
+        navigate('/idea-market/payment-fail');
       }
     };
 
     approvePayment();
-  }, [navigate, isApproved, searchParams]);
+  }, []);
 
   const goBackTwice = () => {
-    window.history.go(-2);
+    window.history.go(-1);
   };
 
   return (
