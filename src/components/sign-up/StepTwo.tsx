@@ -40,6 +40,8 @@ export const StepTwo = ({
   const [sendEmailButtonText, setSendEmailButtonText] = useState<
     '인증' | '재전송'
   >('인증');
+  const [initNameShake, setInitNameShake] = useState(false);
+  const [initBirthShake, setInitBirthShake] = useState(false);
 
   const { errorToast } = useContext(ToastContext);
 
@@ -86,25 +88,39 @@ export const StepTwo = ({
         <div>
           <div className={classNames(styles.inputContainer)}>
             <div className={classNames(styles.rowContainer)}>
-              <Input
-                label={userType === 'personal' ? '이름' : '담당자 이름'}
-                placeholder='이름 입력'
-                type='text'
-                {...registers.name}
-              />
-              <Input
-                label='생년월일'
-                placeholder='2025/01/01'
-                type='text'
-                maxLength={10}
-                {...registers.birth}
-              />
+              <div
+                onFocus={() => setInitNameShake(false)}
+                onBlur={() => setInitNameShake(true)}>
+                <Input
+                  label={userType === 'personal' ? '이름' : '담당자 이름'}
+                  placeholder='이름 입력'
+                  type='text'
+                  {...registers.name}
+                />
+              </div>
+              <div
+                onFocus={() => setInitBirthShake(false)}
+                onBlur={() => setInitBirthShake(true)}>
+                <Input
+                  label='생년월일'
+                  placeholder='2025/01/01'
+                  type='text'
+                  maxLength={10}
+                  {...registers.birth}
+                />
+              </div>
             </div>
             <div className={classNames(styles.errorMessage)}>
-              <p className={classNames(styles.name)}>
+              <p
+                className={classNames(styles.name, {
+                  [styles.shake]: initNameShake,
+                })}>
                 {errors.name?.message && String(errors.name?.message)}
               </p>
-              <p className={classNames(styles.birth)}>
+              <p
+                className={classNames(styles.birth, {
+                  [styles.shake]: initBirthShake,
+                })}>
                 {errors.birth?.message && String(errors.birth?.message)}
               </p>
             </div>
@@ -122,7 +138,7 @@ export const StepTwo = ({
               <div className={classNames(styles.inputContainer)}>
                 <div className={classNames(styles.rowContainer)}>
                   <Input
-                    label='기업명'
+                    label='기업 명'
                     placeholder='기업 명 입력'
                     type='text'
                     {...registers.nickname}
