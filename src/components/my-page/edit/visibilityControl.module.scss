@@ -20,6 +20,13 @@
   color: $red;
 }
 
+.visibilityContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
 .visibilityGroupWrapper {
   margin-top: 10px;
 }
@@ -55,13 +62,6 @@
     color: $grey-600;
     font-weight: 400;
   }
-}
-
-.visibilityContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
 }
 
 .portfolioVisibility {

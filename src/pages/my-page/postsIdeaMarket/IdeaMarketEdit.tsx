@@ -1,8 +1,8 @@
 import React, { useMemo, useEffect } from 'react';
 import ReactQuill from 'react-quill-new';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
-import styles from '../../idea-market/ideaMarketRegister.module.scss';
+import styles from './ideaMarketEdit.module.scss';
 
 import { Dropdown } from '../../../components/common/dropdown/Dropdown';
 import { ImageUploader } from '../../../components/my-page/edit/ImageUploader';
@@ -12,19 +12,15 @@ import { PageSelect } from '../../../components/my-page/edit/PageSelect';
 import { PriceAndQuantity } from '../../../components/my-page/edit/PriceAndQuantity';
 import { VisibilityControl } from '../../../components/my-page/edit/VisibilityControl';
 import { ContentEditor } from '../../../components/my-page/edit/ContentEditor';
+import { ButtonGroup } from '../../../components/my-page/edit/ButtonGroup';
 
 import { useIdeaMarketForm } from '../../../hooks/useIdeaMarketForm';
 
-import { useQuery, useMutation } from '@tanstack/react-query';
-import {
-  getPostIdeaMarketDetail,
-  putPostIdeaMarket,
-} from '../../../apis/postManagementAPI';
-import { IdeaMarketEditType } from '../../../types/postDataType';
+import { useQuery } from '@tanstack/react-query';
+import { getPostIdeaMarketDetail } from '../../../apis/postManagementAPI';
 import { IdeaMarketDetail } from '../../../types/postDataType';
 
 export const IdeaMarketEdit = () => {
-  const navigate = useNavigate();
   const { ideaId } = useParams<{ ideaId: string }>();
 
   const {
@@ -123,148 +119,99 @@ export const IdeaMarketEdit = () => {
     }
   }, [isSuccess, postData, setFormData]);
 
-  // 2) 수정 Mutation
-  const mutation = useMutation({
-    mutationFn: (payload: IdeaMarketEditType) =>
-      putPostIdeaMarket(Number(ideaId), payload),
-    onSuccess: () => {
-      alert('게시글 수정 성공!');
-      navigate(-1);
-    },
-    onError: (error) => {
-      console.log('게시글 수정 실패:', error);
-      alert('수정에 실패했습니다.');
-    },
-  });
-
-  // 3) 수정하기 버튼 핸들러
-  const handleUpdate = () => {
-    if (!ideaId) return;
-    // 서버 PUT API에 맞춰서 Request Body를 구성(IdeaMarketEditType)
-    const updatePayload: IdeaMarketEditType = {
-      title: formData.title,
-      content: formData.content,
-      specialization: 'DESIGN', // 또는 category -> 서버 enum 매핑
-      openMyProfile: isPortfolioVisible,
-      postAuth:
-        visibility === '전체공개'
-          ? 'ALL'
-          : visibility === '기업공개'
-            ? 'COMPANY'
-            : 'ME',
-      ideaMarketType:
-        pageType === 'Idea Solution' ? 'IDEA_SOLUTION' : 'MARKET_PLACE',
-      imageList: [], // 필요시 미리 업로드한 이미지 URLs
-      attachmentFileList: [], // PDF 등 첨부 파일 URLs
-    };
-
-    // Mutation 호출
-    mutation.mutate(updatePayload);
-  };
-
   if (isLoading) return <div>로딩 중...</div>;
   if (isError || !postData) return <div>게시글을 불러올 수 없습니다.</div>;
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>아이디어 수정하기</div>
-
-      {/* (예시) Dropdown/Category 분리 시 */}
       <div className={styles.horizontalContainer}>
-        {/* 카테고리 선택 (Dropdown 컴포넌트 예시) */}
-        <Dropdown
-          label='카테고리 (필수)'
-          defaultValue={category || '분야별'}
-          onSelect={setCategory}
-          // 필요시 options 전달
-        />
+        <div className={styles.formGroup}>
+          <Dropdown
+            label='카테고리 (필수)'
+            defaultValue={category || '분야별'}
+            onSelect={setCategory}
+          />
+        </div>
 
-        {/* 페이지 타입 선택 */}
-        <PageSelect
-          pageType={pageType}
-          setPageType={setPageType}
-          showDetail={showDetail}
-          setShowDetail={setShowDetail}
+        <div className={styles.formGroup}>
+          <PageSelect
+            pageType={pageType}
+            setPageType={setPageType}
+            showDetail={showDetail}
+            setShowDetail={setShowDetail}
+          />
+        </div>
+      </div>
+
+      <div className={styles.formGroup}>
+        <ImageUploader
+          previewImageUrl={previewImageUrl}
+          handleFileUpload={handleFileUpload}
+          handleImageUpload={handleImageUpload}
         />
       </div>
 
-      <ImageUploader
-        previewImageUrl={previewImageUrl}
-        handleFileUpload={handleFileUpload}
-        handleImageUpload={handleImageUpload}
-      />
+      <div className={styles.formGroup}>
+        <IdeaName
+          ref={ideaNameInputRef}
+          value={formData.title}
+          onChange={(e) => {
+            setFormData((prev) => ({ ...prev, title: e.target.value }));
+          }}
+        />
+      </div>
 
-      <IdeaName
-        ref={ideaNameInputRef}
-        value={formData.title}
-        onChange={(e) => {
-          setFormData((prev) => ({ ...prev, title: e.target.value }));
-        }}
-      />
+      <div className={styles.formGroup}>
+        <ContentEditor
+          value={formData.content}
+          onChange={handleContentChange}
+          quillRef={quillRef}
+          modules={modules}
+          formats={formats}
+        />
+      </div>
 
-      <ContentEditor
-        value={formData.content}
-        onChange={handleContentChange}
-        quillRef={quillRef}
-        modules={modules}
-        formats={formats}
-      />
+      <div className={styles.formGroup}>
+        <FileUploader
+          pdfFile={pdfFile}
+          handlePdfUpload={handlePdfUpload}
+          handlePdfClick={handlePdfClick}
+          pdfInputRef={pdfInputRef}
+        />
+      </div>
 
-      <FileUploader
-        pdfFile={pdfFile}
-        handlePdfUpload={handlePdfUpload}
-        handlePdfClick={handlePdfClick}
-        pdfInputRef={pdfInputRef}
-      />
+      <div className={styles.formGroup}>
+        <PriceAndQuantity
+          price={price}
+          onPriceChange={handlePriceChange}
+          quantity={quantity}
+          onQuantityChange={handleQuantityChange}
+          handleIncrement={handleIncrement}
+          handleDecrement={handleDecrement}
+          pageType={pageType}
+        />
+      </div>
 
-      <PriceAndQuantity
-        price={price}
-        onPriceChange={handlePriceChange}
-        quantity={quantity}
-        onQuantityChange={handleQuantityChange}
-        handleIncrement={handleIncrement}
-        handleDecrement={handleDecrement}
-        pageType={pageType}
-      />
+      <div className={styles.formGroup}>
+        <VisibilityControl
+          visibility={visibility}
+          setVisibility={setVisibility}
+          isPortfolioVisible={isPortfolioVisible}
+          togglePortfolioVisibility={togglePortfolioVisibility}
+          handleEditClick={handleEditClick}
+        />
+      </div>
 
-      <VisibilityControl
-        visibility={visibility}
-        setVisibility={setVisibility}
-        isPortfolioVisible={isPortfolioVisible}
-        togglePortfolioVisibility={togglePortfolioVisibility}
-        handleEditClick={handleEditClick}
-      />
-
-      <div className={styles.buttonWrapper}>
-        <button
-          onClick={() => navigate(-1)}
-          className={styles.cancelButton}>
-          취소
-        </button>
-
-        {ideaId ? (
-          /* 수정하기 버튼 */
-          <button
-            onClick={handleUpdate}
-            className={styles.submitButton}>
-            <span>수정</span>
-          </button>
-        ) : (
-          /* 등록하기 버튼 */
-          <button
-            onClick={async () => {
-              try {
-                await handleSubmit();
-                navigate('/idea-market/register-complete');
-              } catch (error) {
-                console.log('게시글 등록 에러 발생', error);
-                alert('등록에 실패했습니다. 다시 시도해주세요.');
-              }
-            }}
-            className={styles.submitButton}>
-            <span>등록</span>
-          </button>
-        )}
+      <div className={styles.formGroup}>
+        <ButtonGroup
+          ideaId={ideaId}
+          handleSubmit={handleSubmit}
+          formData={formData}
+          isPortfolioVisible={isPortfolioVisible}
+          visibility={visibility}
+          pageType={pageType}
+        />
       </div>
     </div>
   );

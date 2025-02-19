@@ -36,7 +36,7 @@ export const PageSelect = ({
   const detail = PAGE_TYPE_DETAILS[pageType];
 
   return (
-    <div className={`${styles.formGroup} ${styles.pageTypeGroup}`}>
+    <div className={styles.pageTypeGroup}>
       <div className={styles.labelWrapper}>
         <span id='pageTypeLabel'>
           페이지 설정 <span className={styles.required}>(필수)</span>

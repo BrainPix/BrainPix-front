@@ -1,5 +1,5 @@
 import { ChangeEvent, forwardRef } from 'react';
-import styles from '../../../pages/idea-market/ideaMarketRegister.module.scss';
+import styles from '../../../pages/my-page/postsIdeaMarket/ideaMarketEdit.module.scss';
 
 interface IdeaNameInputProps {
   value: string;
