@@ -11,6 +11,7 @@ import {
 } from '../../apis/collaborationAPI';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
+import LoadingPage from '../../components/common/loading/loadingPage';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -177,7 +178,7 @@ export const CollaborationMain = () => {
   }, [handleCategorySelect]);
 
   if (isInitialLoading) {
-    return <div>로딩 중...</div>;
+    return <LoadingPage />;
   }
 
   return (
