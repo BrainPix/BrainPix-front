@@ -38,7 +38,7 @@ import { SavedPosts } from './pages/my-page/saved-posts/SavedPosts';
 import { Main } from './pages/main/main';
 import { Signup } from './pages/sign-up/Signup';
 import { Login } from './pages/login/Login';
-import { ErrorPage } from './pages/ErrorPage';
+import { ErrorPage } from './pages/errorPage/ErrorPage';
 
 export const routes = createBrowserRouter([
   {
