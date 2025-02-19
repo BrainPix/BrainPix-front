@@ -231,8 +231,7 @@ export const deletePost = async (
     });
 
     return response.data;
-  } catch (error) {
-    console.error('아이디어 마켓 게시글 삭제 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
