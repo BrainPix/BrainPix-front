@@ -3,7 +3,7 @@ export interface Comment {
   writerId: number;
   content: string;
   writerName: string;
-  profileImageUrl: 'string';
+  profileImageUrl: string;
   createdDate: string;
   parentCommentId: number | null;
   childComments: Comment[];
