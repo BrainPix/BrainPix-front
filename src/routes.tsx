@@ -29,12 +29,12 @@ import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsColl
 import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
 import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
 import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
+import { RequestAssignRegister } from './pages/my-page/postsRequestAssign/RequestAssignRegister';
 import { PurchaseList } from './pages/my-page/apply/PurchaseList';
 import { ApplyRequest } from './pages/my-page/apply/ApplyRequest';
 import { ApplyCollaboration } from './pages/my-page/apply/ApplyCollaboration';
 import { Portfolio } from './pages/my-page/portfolio/Portfolio';
 import { Message } from './pages/my-page/message/Message';
-import { SavedPosts } from './pages/my-page/saved-posts/SavedPosts';
 import { Main } from './pages/main/main';
 import { Signup } from './pages/sign-up/Signup';
 import { Login } from './pages/login/Login';
@@ -157,28 +157,36 @@ export const routes = createBrowserRouter([
             element: <MyPagePosts />,
           },
           {
-            path: '/my/posts/idea-market/:ideaId',
+            path: '/my/posts/idea-market/:postId',
             element: <PostsIdeaMarket />,
           },
           {
-            path: '/my/posts/request-assign/:taskId',
+            path: '/my/posts/request-assign/:postId',
             element: <PostsRequestAssign />,
           },
           {
-            path: '/my/posts/collaboration/:collaborationId',
+            path: '/my/posts/collaboration/:postId',
             element: <PostsCollaboration />,
           },
           {
-            path: '/my/posts/idea-market/registered/:ideaId',
+            path: '/my/posts/idea-market/edit/:postId',
             element: <IdeaMarketEdit />,
           },
           {
-            path: '/my/posts/request-assign/registered/:taskId',
+            path: '/my/posts/request-assign/edit/:postId',
             element: <RequestAssignEdit />,
           },
           {
-            path: '/my/posts/collaboration/registered/:collaborationId',
+            path: '/my/posts/request-assign/register/:postId',
+            element: <RequestAssignRegister />,
+          },
+          {
+            path: '/my/posts/collaboration/edit/:postId',
             element: <CollaborationEdit />,
+          },
+          {
+            path: '/my/posts/request-assign/register/:postId',
+            element: <RequestAssignRegister />,
           },
           {
             path: '/my/portfolio',
@@ -199,10 +207,6 @@ export const routes = createBrowserRouter([
           {
             path: '/my/message',
             element: <Message />,
-          },
-          {
-            path: '/my/save',
-            element: <SavedPosts />,
           },
         ],
       },

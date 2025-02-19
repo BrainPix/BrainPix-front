@@ -1,3 +1,4 @@
+import { Image } from '../common/image/Image';
 import styles from './webLinkBox.module.scss';
 import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
@@ -13,8 +14,8 @@ const WebLinkBox = ({ link, thumbnailImageUrl }: WebLinkBoxProps) => {
     <div
       className={styles.container}
       onClick={() => window.open(link, '_blank', 'noopener noreferrer')}>
-      <img
-        src={thumbnailImageUrl}
+      <Image
+        src={thumbnailImageUrl || ''}
         alt='웹 링크 썸네일'
         className={styles.thumbnail}
         onError={imageErrorHandler}

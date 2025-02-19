@@ -1,5 +1,6 @@
 import styles from './itemDetailsInfo.module.scss';
-import arrowItemDetailsButtonIcon from '../../../assets/icons/arrow-button.svg';
+import arrowItemDetailsButtonIcon from '../../../assets/icons/arrowButton.svg';
+import { Image } from '../../common/image/Image';
 
 interface PurchaseDetailsInfoProps {
   tab: string;
@@ -31,7 +32,7 @@ export const PurchaseDetailsInfo = ({
         </div>
         <div className={styles.itemDetailsButtonContainer}>
           <button className={styles.itemDetailsButton}>
-            <img
+            <Image
               src={arrowItemDetailsButtonIcon}
               alt='화살표'
               className='arrowItemDetailsButton'

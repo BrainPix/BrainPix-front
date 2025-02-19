@@ -10,6 +10,7 @@ import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react';
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
+import { Image } from '../../components/common/image/Image';
 
 interface FormValues {
   category: string;
@@ -206,7 +207,7 @@ export const CollaborationRegister: React.FC<
                 handleImageUpload();
               }
             }}>
-            <img
+            <Image
               src={previewImageUrl}
               alt='Selected'
               className={styles.imagePreview}
