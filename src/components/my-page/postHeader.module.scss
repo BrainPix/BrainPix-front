@@ -58,7 +58,7 @@
     }
   }
 
-  .ButtonContainer {
+  .buttonContainer {
     @include flex-center;
 
     width: 10%;
@@ -67,7 +67,7 @@
   .arrowButton {
     width: 25px;
     height: 25px;
-    background-image: url('../../assets/icons/arrow-button.svg');
+    background-image: url('../../assets/icons/arrowButton.svg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

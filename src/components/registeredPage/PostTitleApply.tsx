@@ -11,7 +11,7 @@ import {
   getCategoryLabel,
   getTaskTypeLabel,
 } from '../../utils/categoryMapping';
-import { imageErrorHandler } from '../../utils/imageErrorHandler';
+import { Image } from '../common/image/Image';
 
 interface PostTitleApplyProps {
   thumbnailImageUrl: string;
@@ -69,11 +69,10 @@ const PostTitleApply = ({
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <img
+        <Image
           src={thumbnailImageUrl}
           alt='썸네일'
           className={styles.thumbnail}
-          onError={imageErrorHandler}
         />
       </div>
       <div className={styles.rightSection}>

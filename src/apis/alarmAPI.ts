@@ -1,12 +1,15 @@
 import axios from 'axios';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = `${import.meta.env.VITE_BASE_URL}/alarm`;
 
 export const getAlarms = async (page: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}?page=${page}&size=5`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `${token}`,
@@ -14,14 +17,18 @@ export const getAlarms = async (page: number) => {
     });
 
     return data?.data;
+  } catch {
+    throw Error;
   }
 };
 
 export const patchReadAlarm = async (alarmId: string) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/read/${alarmId}`;
 
-  if (token) {
+  try {
     const { data } = await axios.patch(
       url,
       {},
@@ -33,14 +40,18 @@ export const patchReadAlarm = async (alarmId: string) => {
     );
 
     return data;
+  } catch {
+    throw Error;
   }
 };
 
 export const getTrashAlarm = async (page: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/trash?page=${page}&size=5&sort=''`;
 
-  if (token) {
+  try {
     const { data } = await axios(url, {
       headers: {
         Authorization: `${token}`,
@@ -48,14 +59,18 @@ export const getTrashAlarm = async (page: number) => {
     });
 
     return data;
+  } catch {
+    throw Error;
   }
 };
 
 export const patchTrashAlarm = async (alarmId: string) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/trash/${alarmId}`;
 
-  if (token) {
+  try {
     const { data } = await axios.patch(
       url,
       {},
@@ -67,14 +82,18 @@ export const patchTrashAlarm = async (alarmId: string) => {
     );
 
     return data;
+  } catch {
+    throw Error;
   }
 };
 
 export const patchRestoreAlarm = async (alarmId: string) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/restore/${alarmId}`;
 
-  if (token) {
+  try {
     const { data } = await axios.patch(
       url,
       {},
@@ -86,14 +105,18 @@ export const patchRestoreAlarm = async (alarmId: string) => {
     );
 
     return data;
+  } catch {
+    throw Error;
   }
 };
 
 export const deleteAllAlarms = async () => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/delete`;
 
-  if (token) {
+  try {
     const { data } = await axios.delete(url, {
       headers: {
         Authorization: `${token}`,
@@ -101,14 +124,18 @@ export const deleteAllAlarms = async () => {
     });
 
     return data;
+  } catch {
+    throw Error;
   }
 };
 
 export const deleteAlarm = async (alarmId: string) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
+  if (!token) return null;
+
   const url = `${BASE_URL}/delete/${alarmId}`;
 
-  if (token) {
+  try {
     const { data } = await axios.delete(url, {
       headers: {
         Authorization: `${token}`,
@@ -116,5 +143,7 @@ export const deleteAlarm = async (alarmId: string) => {
     });
 
     return data;
+  } catch {
+    throw Error;
   }
 };

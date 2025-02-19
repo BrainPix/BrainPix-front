@@ -6,7 +6,7 @@ import styles from './myInfoCard.module.scss';
 import { getMyBasicInfo } from '../../../apis/mypageAPI';
 import { CATEGORY_LABELS } from '../../../constants/categoryMapper';
 import Label from '../label/Label';
-import { imageErrorHandler } from '../../../utils/imageErrorHandler';
+import { Image } from '../image/Image';
 import { MY_BASIC_INFO_INIT } from '../../../constants/initValues';
 
 interface MyInfoCardPropsType {
@@ -50,9 +50,8 @@ export const MyInfoCard = ({ token, onClickLogout }: MyInfoCardPropsType) => {
       ) : (
         <React.Fragment>
           <div className={classNames(styles.infoWrapper)}>
-            <img
+            <Image
               alt='프로필 이미지'
-              onError={imageErrorHandler}
               className={classNames(styles.profileImage)}
               src={profileImage}
             />

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { CommentsResponse } from '../types/commentsType';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -8,23 +9,23 @@ export const getComments = async (
   page: number,
   size: number = 10,
 ): Promise<CommentsResponse> => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
 
-  if (!token) {
-    throw new Error('로그인이 필요합니다.');
-  }
-
-  const { data } = await axios.get<{ data: CommentsResponse }>(
-    `${BASE_URL}/posts/${postId}/comments`,
-    {
-      params: { page, size },
-      headers: {
-        Authorization: `Bearer ${token}`,
+  try {
+    const { data } = await axios.get<{ data: CommentsResponse }>(
+      `${BASE_URL}/posts/${postId}/comments`,
+      {
+        params: { page, size },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    },
-  );
+    );
 
-  return data.data;
+    return data.data;
+  } catch {
+    throw Error;
+  }
 };
 
 export const postComment = async (
@@ -32,26 +33,26 @@ export const postComment = async (
   content: string,
   parentCommentId?: number,
 ) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
 
-  if (!token) {
-    throw new Error('로그인이 필요합니다.');
-  }
+  try {
+    const requestBody = { content, parentCommentId: parentCommentId ?? null };
 
-  const requestBody = { content, parentCommentId: parentCommentId ?? null };
-
-  const { data } = await axios.post(
-    `${BASE_URL}/posts/${postId}/comments`,
-    requestBody,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+    const { data } = await axios.post(
+      `${BASE_URL}/posts/${postId}/comments`,
+      requestBody,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
-    },
-  );
+    );
 
-  return data;
+    return data;
+  } catch {
+    throw Error;
+  }
 };
 
 export const postReply = async (
@@ -59,11 +60,7 @@ export const postReply = async (
   parentCommentId: number,
   content: string,
 ) => {
-  const token = localStorage.getItem('accessToken');
-
-  if (!token) {
-    throw new Error('로그인이 필요합니다.');
-  }
+  const token = checkAccessToken();
 
   const requestBody = { content };
 
@@ -86,7 +83,7 @@ export const postReply = async (
 };
 
 export const deleteComment = async (postId: number, commentId: number) => {
-  const token = localStorage.getItem('accessToken');
+  const token = checkAccessToken();
 
   if (!token) throw new Error('Access Token이 없습니다.');
 
