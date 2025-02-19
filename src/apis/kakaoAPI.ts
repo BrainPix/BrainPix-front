@@ -65,24 +65,26 @@ export const kakaoPayApprove = async ({
 }) => {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
-    throw new Error('인증 오류: 로그인 필요');
+    throw Error;
+  }
+
+  if (!pgToken) {
+    throw Error;
+  }
+
+  if (!orderId) {
+    throw Error;
   }
 
   const requestData = { pgToken, orderId, ideaId };
 
-  try {
-    const response = await axios.post(
-      `${BASE_URL}/kakao-pay/approve`,
-      requestData,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
+  return axios
+    .post(`${BASE_URL}/kakao-pay/approve`, requestData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
-    );
-    return response.data;
-  } catch {
-    throw Error;
-  }
+    })
+    .then((response) => response.data)
+    .catch(() => Error);
 };
