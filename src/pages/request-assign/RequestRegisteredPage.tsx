@@ -58,7 +58,6 @@ export const RequestRegisteredPage = () => {
   };
 
   const userId = getUserIdFromToken();
-  console.log('내 userId:', userId);
 
   return (
     <div className={styles.margin}>
@@ -74,7 +73,6 @@ export const RequestRegisteredPage = () => {
       <RecruitInfo recruitments={data.recruitments} />
       <QnASection
         postId={Number(taskId)}
-        profileImageUrl={writerData.profileImageUrl}
         userId={userId}
       />
       <AuthorInfo {...writerData} />

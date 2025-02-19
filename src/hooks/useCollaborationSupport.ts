@@ -8,7 +8,7 @@ export const useCollaborationSupport = () => {
   const navigate = useNavigate();
 
   const handleSupportSelection = (id: number) => {
-    setSelectedSupport(id === selectedSupport ? null : id);
+    setSelectedSupport((prev) => (prev === id ? null : id));
   };
 
   const toggleCheckbox = () => {

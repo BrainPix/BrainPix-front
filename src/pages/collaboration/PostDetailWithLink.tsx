@@ -25,8 +25,6 @@ export const PostDetailWithLink = () => {
     staleTime: 1000 * 60 * 5, // 5분
   });
 
-  console.log('API 응답 데이터:', data);
-
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>오류 발생!</div>;
   if (!data) return null;
@@ -72,7 +70,6 @@ export const PostDetailWithLink = () => {
       userId: m.userId,
       name: m.name,
       domain: m.domain,
-      openMyProfile: m.openMyProfile,
     })),
   };
 
@@ -86,7 +83,6 @@ export const PostDetailWithLink = () => {
   };
 
   const userId = getUserIdFromToken();
-  console.log('내 userId:', userId);
 
   return (
     <>
@@ -110,7 +106,6 @@ export const PostDetailWithLink = () => {
       <div className={styles.margin}>
         <QnASection
           postId={Number(collaborationId)}
-          profileImageUrl={authorInfoData.profileImageUrl}
           userId={userId}
         />
         <AuthorInfo {...authorInfoData} />

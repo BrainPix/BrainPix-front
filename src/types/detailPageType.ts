@@ -97,7 +97,8 @@ export interface CollaborationDetail {
     userId: number;
     name: string;
     domain: string;
-    openMyProfile: boolean;
   }[];
   openMyProfile: boolean;
+  isSavedPost: boolean;
+  isMyPost: boolean;
 }
