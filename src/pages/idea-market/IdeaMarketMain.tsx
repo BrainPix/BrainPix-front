@@ -221,7 +221,11 @@ export const IdeaMarketMain = () => {
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/idea-market/register')}>
+          onClick={() =>
+            navigate('/idea-market/register', {
+              state: { defaultPageType: 'Idea Solution' },
+            })
+          }>
           아이디어 등록하기
         </button>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill-new';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
 import styles from './requestAssignRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
@@ -124,10 +124,12 @@ interface RecruitmentField {
 
 export const RequestAssignRegisterNow = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const defaultPageType = location.state?.defaultPageType || 'OPEN_IDEA';
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [pageType, setPageType] = useState<'OPEN_IDEA' | 'TECH_ZONE'>(
-    'OPEN_IDEA',
+    defaultPageType,
   );
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);

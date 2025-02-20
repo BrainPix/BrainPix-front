@@ -224,7 +224,11 @@ export const RequestAssignTechZone = () => {
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/request-assign/register')}>
+          onClick={() =>
+            navigate('/request-assign/register', {
+              state: { defaultPageType: 'TECH_ZONE' },
+            })
+          }>
           요청 과제 등록하기
         </button>
       </div>
