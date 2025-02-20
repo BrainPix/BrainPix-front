@@ -26,9 +26,10 @@ import { MyPagePosts } from './pages/my-page/myPagePosts/MyPagePosts';
 import { PostsIdeaMarket } from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
 import { PostsRequestAssign } from './pages/my-page/postsRequestAssign/PostsRequestAssign';
 import { PostsCollaboration } from './pages/my-page/postsCollaboration/PostsCollaboration';
+import { IdeaMarketRegistered } from './pages/my-page/postsIdeaMarket/IdeaMarketRegistered';
+import { RequestAssignRegistered } from './pages/my-page/postsRequestAssign/RequestAssignRegistered';
+import { CollaborationRegistered } from './pages/my-page/postsCollaboration/CollaborationRegistered';
 import { IdeaMarketEdit } from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
-import { RequestAssignEdit } from './pages/my-page/postsRequestAssign/RequestAssignEdit';
-import { CollaborationEdit } from './pages/my-page/postsCollaboration/CollaborationEdit';
 import { PurchaseList } from './pages/my-page/apply/PurchaseList';
 import { ApplyRequest } from './pages/my-page/apply/ApplyRequest';
 import { ApplyCollaboration } from './pages/my-page/apply/ApplyCollaboration';
@@ -170,16 +171,28 @@ export const routes = createBrowserRouter([
           },
           {
             path: '/my/posts/idea-market/registered/:ideaId',
-            element: <IdeaMarketEdit />,
+            element: <IdeaMarketRegistered />,
           },
           {
             path: '/my/posts/request-assign/registered/:taskId',
-            element: <RequestAssignEdit />,
+            element: <RequestAssignRegistered />,
           },
           {
             path: '/my/posts/collaboration/registered/:collaborationId',
-            element: <CollaborationEdit />,
+            element: <CollaborationRegistered />,
           },
+          {
+            path: '/my/posts/idea-market/edit/:ideaId',
+            element: <IdeaMarketEdit />,
+          },
+          // {
+          //   path: '/my/posts/request-assign/edit/:taskId',
+          //   element: <RequestAssignEdit />,
+          // },
+          // {
+          //   path: '/my/posts/collaboration/edit/:collaborationId',
+          //   element: <CollaborationEdit />,
+          // },
           {
             path: '/my/portfolio',
             element: <Portfolio />,

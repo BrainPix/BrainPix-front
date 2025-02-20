@@ -1,0 +1,73 @@
+.fileUploadGroup {
+  margin-top: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.fileUploadLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  .labelText {
+    @include pretendard-20-500;
+    color: $grey-800;
+    line-height: normal;
+    letter-spacing: -0.2px;
+  }
+
+  .pdfText {
+    color: $grey-600;
+    font-family: $font-family;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.2px;
+  }
+}
+
+.pcButton {
+  display: flex;
+  width: 50px;
+  height: 24px;
+  padding: 2px 5px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 2px;
+  border: 1px solid $primary-100;
+  background: $grey-50;
+  
+  span {
+    color: $primary;
+    font-family: $font-family;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+}
+
+.fileUploadBox {
+  display: flex;
+  width: 800px;
+  padding: 15px 20px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 5px;
+  border: 1px solid $grey-500;
+  background: $grey-50;
+  margin-top: 20px;
+  cursor: pointer;
+  
+  .placeholder {
+    color: $grey-600;
+    font-family: $font-family;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.18px;
+  }
+}

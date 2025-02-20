@@ -9,7 +9,7 @@ import { PostFormContent } from '../../../components/my-page/PostFormContent';
 //import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 import styles from '../../../pages/request-assign/requestRegisteredPage.module.scss';
 
-export const CollaborationEdit = () => {
+export const CollaborationRegistered = () => {
   const FORM_DATA = {
     descriptionTitle: '과제 설명',
     description: '과제 설명입니다...',

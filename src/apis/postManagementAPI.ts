@@ -7,6 +7,7 @@ import {
   RequestTaskDetail,
   CollaborationDetail,
   PostApiResponse,
+  IdeaMarketEditType,
 } from '../types/postDataType';
 import { checkAccessToken } from '../utils/checkAccessToken';
 
@@ -213,6 +214,34 @@ export const postRejectCollaborationApplication = async (
     );
   } catch {
     throw Error;
+  }
+};
+
+export const putPostIdeaMarket = async (
+  ideaId: number,
+  data: IdeaMarketEditType,
+) => {
+  const url = `${BASE_URL}/idea-markets/${ideaId}`;
+  const API_TOKEN = localStorage.getItem('accessToken');
+
+  if (!API_TOKEN) {
+    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
+    window.location.href = '/login/personal';
+    throw new Error('인증되지 않은 사용자입니다.');
+  }
+
+  try {
+    const response = await axios.put(url, data, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.error('아이디어 마켓 게시글 수정 성공!!:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('아이디어 마켓 게시글 수정 실패:', error);
+    throw error;
   }
 };
 
