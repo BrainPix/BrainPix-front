@@ -1,18 +1,14 @@
-import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './ideaMarketRegisterComplete.module.scss';
 import FinishIcon from '../../assets/icons/finishIcon.svg?react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const IdeaMarketRegisterComplete = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const ideaId = new URLSearchParams(location.search).get('ideaId');
+  const [searchParams] = useSearchParams();
+  const postId = searchParams.get('postId');
 
   const handleRegisteredClick = () => {
-    if (ideaId) {
-      navigate(`/idea-market/registered/${ideaId}`);
-    } else {
-      navigate('/idea-market');
-    }
+    navigate(`/idea-market/registered/${postId}`);
   };
 
   const handleMyPageClick = () => {
@@ -33,7 +29,7 @@ export const IdeaMarketRegisterComplete = () => {
         <button
           onClick={handleRegisteredClick}
           className={styles.primaryButton}>
-          <span>{ideaId ? '등록글 보기' : '목록으로 이동'}</span>
+          <span>등록글 보기</span>
         </button>
         <button
           onClick={handleMyPageClick}

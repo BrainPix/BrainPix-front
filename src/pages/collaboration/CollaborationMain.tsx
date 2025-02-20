@@ -55,44 +55,35 @@ export const CollaborationMain = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const fetchCollaborations = useCallback(
-    async (category?: string) => {
-      try {
-        const params: GetCollaborationListRequest = {
-          page: 0,
-          size: 10,
-        };
+  const fetchCollaborations = useCallback(async (category?: string) => {
+    try {
+      const params: GetCollaborationListRequest = {
+        page: 0,
+        size: 10,
+      };
 
-        if (category && category !== '분야별') {
-          params.category = categoryMapReverse[category];
-        }
-
-        const response = await getCollaborationList(params);
-
-        if (response.success) {
-          const filteredData =
-            viewOption === 'company'
-              ? response.data.content.filter((item) => item.auth === 'COMPANY')
-              : response.data.content.filter((item) => item.auth !== 'COMPANY');
-
-          setCollaborationData(filteredData);
-        }
-      } catch {
-        alert('데이터 로딩에 실패했습니다.');
-      } finally {
-        setIsInitialLoading(false);
+      if (category && category !== '분야별') {
+        params.category = categoryMapReverse[category];
       }
-    },
-    [viewOption],
-  );
+
+      const response = await getCollaborationList(params);
+
+      if (response.success) {
+        setCollaborationData(response.data.content);
+      }
+    } catch {
+      alert('데이터 로딩에 실패했습니다.');
+    } finally {
+      setIsInitialLoading(false);
+    }
+  }, []);
 
   const handleViewOptionChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const newViewOption = event.target.value as 'all' | 'company';
       setViewOption(newViewOption);
-      fetchCollaborations(selectedCategory);
     },
-    [fetchCollaborations, selectedCategory],
+    [],
   );
 
   const handleCategorySelect = useCallback(
@@ -172,6 +163,14 @@ export const CollaborationMain = () => {
     ));
   }, [handleCategorySelect]);
 
+  const filteredCollaborationData = useMemo(() => {
+    return collaborationData.filter((item) =>
+      viewOption === 'company'
+        ? item.auth === 'COMPANY'
+        : item.auth !== 'COMPANY',
+    );
+  }, [collaborationData, viewOption]);
+
   if (isInitialLoading) {
     return <LoadingPage />;
   }
@@ -242,7 +241,7 @@ export const CollaborationMain = () => {
         </div>
       </div>
       <div className={styles.thumbnailGrid}>
-        {collaborationData.map((collab) => (
+        {filteredCollaborationData.map((collab) => (
           <PreviewThumbnail
             key={collab.collaborationId}
             data={{

@@ -115,7 +115,7 @@
 
 .helperText {
   @include pretendard-14-400;
-  color: #757575;
+  color: $grey-700;
   letter-spacing: -0.14px;
 }
 
@@ -128,8 +128,8 @@
   align-items: center;
   gap: 10px;
   border-radius: 5px;
-  border: 1px solid #9e9e9e;
-  background: #fafafa;
+  border: 1px solid $grey-600;
+  background: $grey-100;
 }
 
 .dateInput {
@@ -189,7 +189,7 @@
 
 .recruitmentDateLabel {
   @include pretendard-24-500;
-  color: var(--grey-grey-09, #424242);
+  color: var(--grey-grey-09, $grey-900);
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.24px;
@@ -498,6 +498,13 @@
 
     .ql-active {
       color: $primary;
+    }
+
+    .ql-editor.ql-blank::before {
+      transition: opacity 0.1s;
+      color: #999;
+      font-style: normal;
+      font-size: inherit;
     }
   }
 }
@@ -874,7 +881,7 @@
   align-items: center;
   gap: 10px;
   border-radius: 34px;
-  background: #616161;
+  background: $grey-800;
   border: none;
   width: 100px;
   height: 39px;
@@ -882,7 +889,7 @@
   
   span {
     @include pretendard-16-400;
-    color: #FAFAFA;
+    color: $grey-100;
     font-style: normal;
     line-height: normal;
     letter-spacing: -0.16px;
@@ -901,21 +908,21 @@
   cursor: pointer;
   
   &.disabled {
-    background: #E0E0E0;
+    background: $grey-400;
     border: none;
     cursor: not-allowed;
     
     span {
-      color: #FAFAFA;
+      color: $grey-100;
     }
   }
   
   &.enabled {
-    background: #FAFAFA;
-    border: 1px solid #9E9E9E;
+    background: $grey-100;
+    border: 1px solid $grey-600;
     
     span {
-      color: #757575;
+      color: $grey-700
     }
   }
   
