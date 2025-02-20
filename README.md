@@ -51,7 +51,7 @@ BRAINPIX-front/
 ├── README.md
 ├── .eslintrc.js
 ├── .gitignore
-├── .prettierrc.json
+├── .prettierrc
 ├── .stylelintrc.json
 ├── package-lock.json
 ├── package.json
@@ -61,25 +61,25 @@ BRAINPIX-front/
 ├── vite.config.ts
 ├── public/
 └── src/
-    ├── assets/
-    │   └── icons/
-    ├── components/
-    │   ├── button/
-    │   ├── header/
-    │   ├── preview/
-    ├── hooks/
-    ├── pages/
-    │   ├── collaboration/
-    │   ├── idea-market/
-    │   ├── layout/
-    │   ├── request-assign/
-    │   ├── sign-up/
-    │   └── test/
-    ├── styles/
-    ├── utils/
-    ├── App.tsx
-    ├── main.tsx
-    └── vite-env.d.ts
+├── assets/
+│   └── icons/
+├── components/
+│   ├── button/
+│   ├── header/
+│   └── preview/
+├── hooks/
+├── pages/
+│   ├── collaboration/
+│   ├── idea-market/
+│   ├── layout/
+│   ├── request-assign/
+│   ├── sign-up/
+│   └── test/
+├── styles/
+├── utils/
+├── App.tsx
+├── main.tsx
+└── vite-env.d.ts
 ```
 
 <br>
@@ -90,6 +90,13 @@ BRAINPIX-front/
 
 - **페이지**
   - 회원가입 페이지
+  - 회원가입 완료 페이지
+  - 로그인 페이지
+  - 로그인 완료 페이지
+  - 다른 사람에게 보여지는 프로필 페이지
+  - 마이페이지 기본 페이지
+  - 내 정보 페이지
+  - 내 포트폴리오 관리 페이지
 - **공통 컴포넌트**
   - navbar
 
@@ -99,6 +106,12 @@ BRAINPIX-front/
 
 - **페이지**
   - 아이디어 마켓(결제 페이지)
+  - 등록된 아이디어 보는 페이지
+  - 가격 제안 보내기 페이지
+  - 가격 제안 보내기 완료 페이지
+  - 등록된 요청과제 보는 페이지
+  - 요청 과제 지원 팝업
+  - 팀 빌딩 요청 페이지(링크 첨부 프로젝트, 자체 프로젝트)
 - **공통 컴포넌트**
   - 취소/등록 버튼
 
@@ -107,7 +120,10 @@ BRAINPIX-front/
 ### 임가희 / 제리
 
 - **페이지**
-  - 마이 페이지
+  - 내 게시물 관리 페이지 (아이디어 마켓, 요청과제, 협업 광장)
+  - 메시지 팝업창 (보내기 팝업, 답장 보여지는 팝업창)
+  - 가격 제안 페이지
+  - 저장된 목록 페이지(아이디어 마켓, 요청과제, 협업 광장)
 - **공통 컴포넌트**
   - 카테고리 설정 버튼
 
@@ -117,6 +133,13 @@ BRAINPIX-front/
 
 - **페이지**
   - 아이디어 마켓(메인 페이지)
+  - 아이디어 마켓(등록 페이지)
+  - 아이디어 마켓(등록 완료 페이지)
+  - 요청 과제(메인 페이지)
+  - 요청 과제(등록 페이지)
+  - 요청 과제(등록 완료 페이지)
+  - 협업 광장(메인 페이지)
+  - 협업 광장(등록 페이지)
 - **공통 컴포넌트**
   - 미리보기 컴포넌트
 
