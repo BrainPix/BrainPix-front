@@ -1,0 +1,31 @@
+.container {
+  @include flex-center;
+
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 300px);
+  background-color: #fff;
+}
+
+.logo {
+  width: 160px;
+  margin-bottom: 60px;
+}
+
+.title {
+  @include pretendard-32-600;
+
+  align-self: stretch;
+  color: $grey-900;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  @include pretendard-20-500;
+
+  align-self: stretch;
+  color: var(--grey-grey-07, #757575);
+  text-align: center;
+  margin-bottom: 32px;
+}
