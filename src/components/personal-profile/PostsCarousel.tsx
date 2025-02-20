@@ -82,11 +82,12 @@ export const PostsCarousel = () => {
                 writerName,
                 savedCount,
                 viewCount,
+                savedPost,
               }: getOtherPostsType) => (
                 <PreviewThumbnail
                   key={postId}
                   data={{
-                    isBookmarked: false,
+                    isBookmarked: savedPost,
                     ideaId: postId,
                     imageUrl: thumbnailImage,
                     description: title,
