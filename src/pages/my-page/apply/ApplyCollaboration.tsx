@@ -91,7 +91,7 @@ export const ApplyCollaboration = () => {
 
             <ApplyDetailsInfo
               tab={'협업 광장'}
-              category={collaboration.specialization}
+              specialization={collaboration.specialization}
               itemName={collaboration.postTitle}
               part={collaboration.specialization}
             />
@@ -141,7 +141,7 @@ export const ApplyCollaboration = () => {
 
             <ApplyDetailsInfo
               tab={'협업 광장'}
-              category={collaboration.specialization}
+              specialization={collaboration.specialization}
               itemName={collaboration.postTitle}
               part={collaboration.specialization}
             />

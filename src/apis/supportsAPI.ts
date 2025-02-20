@@ -19,6 +19,8 @@ export const getPurchases = async (
       params: { page, size },
     });
 
+    console.log(response.data?.data?.content);
+
     return response.data?.data?.content ?? [];
   } catch {
     throw Error;
@@ -40,6 +42,8 @@ export const getAcceptedRequestTasks = async (
       params: { page, size },
     });
 
+    console.log(response.data?.data?.content);
+
     return response.data?.data?.content ?? [];
   } catch {
     throw Error;
@@ -60,6 +64,8 @@ export const getRejectedRequestTasks = async (
       },
       params: { page, size },
     });
+
+    console.log(response.data?.data?.content);
 
     return response.data?.data?.content ?? [];
   } catch {

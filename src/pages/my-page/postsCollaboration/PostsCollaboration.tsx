@@ -27,7 +27,7 @@ export const PostsCollaboration = () => {
     <>
       <PostHeader
         tab={'협업 광장'}
-        category={post.specialization}
+        specialization={post.specialization}
         title={post.title}
         deadline={post.deadLine}
         postImage={post.thumbnailImageUrl}
