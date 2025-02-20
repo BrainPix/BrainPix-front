@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './levelCheckboxGroup.module.scss';
 
 interface LevelCheckboxGroupPropsType {
-  initialValue?: string;
+  initialValue?: string | boolean;
   onChangeLevel: (value: string) => void;
 }
 
