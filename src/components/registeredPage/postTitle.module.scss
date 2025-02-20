@@ -58,6 +58,7 @@
   align-items: center;
   gap: 8px;
   margin-top: 13px;
+  max-width: 90%;
 }
 
 .title {
@@ -67,7 +68,7 @@
   color: $grey-800;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 100%;
+  max-width: calc(100% - 100px);
   @include pretendard-26-500;
   letter-spacing: -0.36px;
 }

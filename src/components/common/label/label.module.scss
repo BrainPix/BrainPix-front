@@ -8,6 +8,9 @@
   letter-spacing: -0.16px;
   gap: 10px;
   width: fit-content;
+  flex-shrink: 0;
+  white-space: nowrap;
+  max-width: 100px;
 }
 
 // 기업

@@ -77,13 +77,16 @@
 
 .infoBox {
   display: flex;
-  width: 440px;
-  height: 93px;
+  flex-wrap: wrap;
+  width: 80%;
+  max-width: 550px;
+  min-height: 70px;
   border-radius: 5px;
   border: 1px solid $grey-400;
-  padding: 10px 15px;
-  gap: 20px;
-  margin-bottom: 50px;
+  padding: 5px 10px;
+  gap: 5px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .infoItem {
@@ -92,6 +95,7 @@
   flex-direction: column;
   gap: 8px;
   flex: 1;
+  min-width: 100px;
 }
 
 .dividerLine {
@@ -99,6 +103,7 @@
   height: 30px;
   background: $grey-300;
   margin-top: 45px;
+  align-self: center;
 }
 
 .infoTitle {
