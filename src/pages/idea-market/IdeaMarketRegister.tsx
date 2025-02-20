@@ -95,11 +95,7 @@ const OPTIONS = [
   '기타',
 ];
 
-interface IdeaMarketRegisterProps {
-  [key: string]: never;
-}
-
-export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
+export const IdeaMarketRegister = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);

@@ -5,11 +5,9 @@
 }
 
 .title {
+  @include pretendard-24-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.24px;
 }
@@ -27,8 +25,7 @@
 }
 
 .horizontalContainer {
-  display: flex;
-  justify-content: space-between;
+  @include flex-space-between;
   gap: 40px;
   margin-top: 40px;
   margin-bottom: 153px;
@@ -48,10 +45,9 @@
 }
 
 .pageDescription {
+  @include flex-column;
   position: absolute;
   margin-top: 5px;
-  display: flex;
-  flex-direction: column;
   padding: 15px 30px;
   gap: 10px;
   border-radius: 5px;
@@ -59,18 +55,14 @@
   width: 380px;
 
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-space-between;
     width: 100%;
   }
 
   .descriptionText {
+    @include pretendard-16-400;
     color: $primary-300;
-    font-family: $font-family;
-    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.16px;
   }
@@ -81,17 +73,14 @@
   }
 
   .detailDescription {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     gap: 10px;
     width: 100%;
 
     .mainText {
+      @include pretendard-14-400;
       color: $grey-800;
-      font-family: $font-family;
-      font-size: 14px;
       font-style: normal;
-      font-weight: 400;
       line-height: normal;
       letter-spacing: -0.14px;
     }
@@ -110,15 +99,12 @@
 }
 
 .labelWrapper {
+  @include pretendard-20-500;
+  @include flex-start;
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
 }
@@ -128,9 +114,8 @@
 }
 
 .helperText {
-  font-size: 14px;
+  @include pretendard-14-400;
   color: #757575;
-  font-weight: 400;
   letter-spacing: -0.14px;
 }
 
@@ -203,11 +188,9 @@
 }
 
 .recruitmentDateLabel {
+  @include pretendard-24-500;
   color: var(--grey-grey-09, #424242);
-  font-family: Pretendard;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.24px;
   margin: 0 5px;
@@ -268,12 +251,10 @@
   cursor: pointer;
   position: relative;
   
+  @include pretendard-18-500;
   color: $grey-600;
   text-align: center;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.18px;
 
@@ -385,14 +366,12 @@
 }
 
 .projectMemberInput {
+  @include pretendard-18-400;
   position: relative;
   border: none;
   background: transparent;
   color: $grey-700;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
   width: 33.33%;
@@ -419,11 +398,9 @@
 }
 
   .profileLoadButton {
+    @include pretendard-18-400;
     color: $primary;
-    font-family: $font-family;
-    font-size: 18px;
     font-style: normal;
-    font-weight: 400;
     cursor: pointer;
     text-decoration: none;
     background: none;
@@ -456,14 +433,12 @@
 }
 
 .ideaNameInput {
+  @include pretendard-18-400;
   width: 100%;
   border: none;
   background: transparent;
   color: $grey-700;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
 
@@ -538,21 +513,17 @@
   gap: 0.5rem;
   
   .labelText {
+    @include pretendard-20-500;
     color: $grey-800;
-    font-family: $font-family;
-    font-size: 20px;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
     letter-spacing: -0.2px;
   }
 
   .pdfText {
+    @include pretendard-20-400;
     color: $grey-600;
-    font-family: $font-family;
-    font-size: 20px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.2px;
   }
@@ -571,11 +542,9 @@
   background: $grey-50;
   
   span {
+    @include pretendard-16-400;
     color: $primary;
-    font-family: $font-family;
-    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.16px;
   }
@@ -594,11 +563,9 @@
   cursor: pointer;
   
   .placeholder {
+    @include pretendard-18-400;
     color: $grey-600;
-    font-family: $font-family;
-    font-size: 18px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.18px;
   }
@@ -617,11 +584,9 @@
 }
 
 .priceLabel, .quantityLabel {
+  @include pretendard-20-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
   display: flex;
@@ -631,11 +596,9 @@
 }
 
 .required {
+  @include pretendard-18-400;
   color: $red;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
 }
@@ -654,12 +617,10 @@
 }
 
 .input {
+  @include pretendard-18-400;
   color: $grey-700;
   text-align: right;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
   border: none;
@@ -669,11 +630,9 @@
 }
 
 .unit {
+  @include pretendard-18-400;
   color: $grey-600;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
   flex-shrink: 0;
@@ -756,11 +715,9 @@
 }
 
 .portfolioText {
+  @include pretendard-20-400;
   color: $grey-500;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.2px;
   transition: color 0.2s ease;
@@ -782,11 +739,9 @@
   border: none;
 
   span {
+    @include pretendard-14-400;
     color: $grey-50;
-    font-family: $font-family;
-    font-size: 14px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.14px;
   }
@@ -801,11 +756,9 @@
 }
 
 .cancelButton {
+  @include pretendard-24-400;
   color: $grey-600;
-  font-family: $font-family;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.24px;
   background: none;
@@ -830,11 +783,9 @@
   cursor: pointer;
 
   span {
+    @include pretendard-24-400;
     color: $grey-50;
-    font-family: $font-family;
-    font-size: 24px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.24px;
   }
@@ -845,13 +796,11 @@
 }
 
 .recruitmentFieldInput {
+  @include pretendard-18-400;
   border: none;
   background: transparent;
   color: $grey-700;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
   width: 50%;
@@ -874,14 +823,12 @@
 }
 
 .numberOfPeopleInput {
+  @include pretendard-18-400;
   width: 60px;
   text-align: right;
   border: none;
   background: transparent;
   color: $grey-700;
-  font-family: $font-family;
-  font-size: 18px;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
 
@@ -897,6 +844,7 @@
 }
 
 .addFieldButton {
+  @include pretendard-16-500;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -905,9 +853,6 @@
   border: none;
   background: none;
   color: $primary;
-  font-family: $font-family;
-  font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
 
   &:hover {
@@ -936,11 +881,9 @@
   cursor: pointer;
   
   span {
+    @include pretendard-16-400;
     color: #FAFAFA;
-    font-family: Pretendard;
-    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.16px;
   }
@@ -977,10 +920,8 @@
   }
   
   span {
-    font-family: Pretendard;
-    font-size: 16px;
+    @include pretendard-16-400;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.16px;
   }
