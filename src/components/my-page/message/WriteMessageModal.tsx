@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   forwardRef,
   useContext,
@@ -18,7 +19,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMessagesDetail, sendMessages } from '../../../apis/messageAPI';
 import { ToastContext } from '../../../contexts/toastContext';
 import Delete from '../../../assets/icons/delete.svg?react';
-import React from 'react';
 
 interface WriteMessageModalPropsType {
   onClose: () => void;
@@ -124,7 +124,7 @@ export const WriteMessageModal = forwardRef<
             </div>
           </div>
           <div className={classNames(styles.inputWrapper)}>
-            <span>받는 사람</span>
+            <span>받는 사람 (닉네임)</span>
             {type === 'write' && (
               <React.Fragment>
                 {receiver && (
