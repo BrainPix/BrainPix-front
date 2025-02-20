@@ -212,13 +212,12 @@
 }
 
 .carouselItem {
-  width: 200px; /* 🔹 Carousel 내 카드 크기 200x286 */
-  height: 286px; /* 🔹 고정 크기 설정 */
+  width: 200px;
+  height: 286px;
   display: flex;
   justify-content: center;
 }
 
-/* 🔹 PreviewThumbnail 크기 조정 */
 .previewThumbnail {
   width: 200px;
   height: 286px;
@@ -230,7 +229,6 @@
   overflow: hidden;
 }
 
-/* 🔹 이미지 크기 조정 (200x200) */
 .thumbnailImage {
   width: 200px;
   height: 200px;

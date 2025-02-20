@@ -1,5 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
-import { CollaborationCheck } from '../types/collaborationType';
+import {
+  CollaborationCheck,
+  GetCollaborationListRequest,
+  SearchParams,
+  BookmarkResponse,
+} from '../types/collaborationType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -34,29 +39,6 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-export interface GetCollaborationListRequest {
-  page?: number;
-  size?: number;
-  category?: string;
-  keyword?: string;
-  onlyCompany?: boolean;
-  sortType?: string;
-}
-
-interface SearchParams {
-  page?: number;
-  size?: number;
-}
-
-interface BookmarkResponse {
-  success: boolean;
-  code: string;
-  message: string;
-  data: {
-    isSaved: boolean;
-  };
-}
 
 export const getPopularCollaborations = async (params: SearchParams) => {
   const response = await apiClient.get<CollaborationCheck>(

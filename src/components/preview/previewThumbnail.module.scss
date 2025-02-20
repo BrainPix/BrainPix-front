@@ -31,12 +31,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
     display: block;
   }
 }
 
-// 나머지 스타일은 동일하게 유지
+
 .overlay {
   position: absolute;
   bottom: 0;

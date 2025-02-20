@@ -1,27 +1,52 @@
 export interface IdeaMarketCheck {
   success: true;
-  code: 'string';
-  message: 'string';
+  code: string;
+  message: string;
   data: {
     content: [
       {
-        ideaId: 0;
+        ideaId: number;
         auth: 'ALL' | 'COMPANY' | 'ME';
-        writerImageUrl: 'string';
-        writerName: 'string';
-        thumbnailImageUrl: 'string';
-        title: 'string';
-        price: 0;
-        category: 'string';
-        saveCount: 0;
-        viewCount: 0;
-        isSavedPost: true;
+        writerImageUrl: string;
+        writerName: string;
+        thumbnailImageUrl: string;
+        title: string;
+        price: number;
+        category: string;
+        saveCount: number;
+        viewCount: number;
+        isSavedPost: boolean;
       },
     ];
-    totalPages: 0;
-    totalElements: 0;
-    currentPage: 0;
-    size: 0;
-    hasNext: true;
+    totalPages: number;
+    totalElements: number;
+    currentPage: number;
+    size: number;
+    hasNext: boolean;
+  };
+}
+
+export interface GetIdeaListRequest {
+  type: 'IDEA_SOLUTION' | 'MARKET_PLACE';
+  page?: number;
+  size?: number;
+  category?: string;
+  keyword?: string;
+  onlyCompany?: boolean;
+  sortType?: string;
+}
+
+export interface SearchParams {
+  type: 'IDEA_SOLUTION' | 'MARKET_PLACE';
+  page?: number;
+  size?: number;
+}
+
+export interface BookmarkResponse {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    isSaved: boolean;
   };
 }

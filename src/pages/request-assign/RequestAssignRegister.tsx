@@ -122,13 +122,7 @@ interface RecruitmentField {
   numberOfPeople: number;
 }
 
-interface RequestAssignRegisterProps {
-  [key: string]: never;
-}
-
-export const RequestAssignRegisterNow: React.FC<
-  RequestAssignRegisterProps
-> = () => {
+export const RequestAssignRegisterNow = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);

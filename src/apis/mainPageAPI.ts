@@ -1,5 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
-import { IdeaMarketCheck } from '../types/mainType';
+import {
+  IdeaMarketCheck,
+  GetIdeaListRequest,
+  SearchParams,
+  BookmarkResponse,
+} from '../types/mainType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -34,31 +39,6 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-export interface GetIdeaListRequest {
-  type: 'IDEA_SOLUTION' | 'MARKET_PLACE';
-  page?: number;
-  size?: number;
-  category?: string;
-  keyword?: string;
-  onlyCompany?: boolean;
-  sortType?: string;
-}
-
-interface SearchParams {
-  type: 'IDEA_SOLUTION' | 'MARKET_PLACE';
-  page?: number;
-  size?: number;
-}
-
-interface BookmarkResponse {
-  success: boolean;
-  code: string;
-  message: string;
-  data: {
-    isSaved: boolean;
-  };
-}
 
 export const getPopularIdeas = async (params: SearchParams) => {
   try {

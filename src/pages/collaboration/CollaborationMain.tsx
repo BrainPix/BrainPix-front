@@ -6,8 +6,8 @@ import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import {
   toggleCollaborationBookmark,
   getCollaborationList,
-  GetCollaborationListRequest,
 } from '../../apis/collaborationAPI';
+import { GetCollaborationListRequest } from '../../types/collaborationType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import LoadingPage from '../loading/LoadingPage';
@@ -251,7 +251,7 @@ export const CollaborationMain = () => {
               username: collab.writerName,
               description: collab.title,
               deadline: collab.deadline,
-              imageUrl: collab.thumbnailImageUrl || undefined,
+              imageUrl: collab.thumbnailImageUrl,
               profileImage: collab.writerImageUrl,
               isBookmarked: collab.isSavedPost,
               saves: collab.saveCount,

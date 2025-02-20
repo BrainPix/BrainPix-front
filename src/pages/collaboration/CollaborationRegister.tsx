@@ -103,13 +103,7 @@ const OPTIONS = [
 //   numberOfPeople: number;
 // }
 
-interface CollaborationRequestDataProps {
-  [key: string]: never;
-}
-
-export const CollaborationRegister: React.FC<
-  CollaborationRequestDataProps
-> = () => {
+export const CollaborationRegister = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -412,7 +406,7 @@ export const CollaborationRegister: React.FC<
           <div className={styles.labelWrapper}>
             <label htmlFor='category'>
               주제 분야 설정
-              <span className={styles.required}>(필수)</span>
+              <span className={styles.required}> (필수)</span>
             </label>
           </div>
           <div
