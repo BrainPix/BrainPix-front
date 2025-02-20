@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { WriteMessageModal } from '../message/WriteMessageModal';
 import styles from './postAuthorInfo.module.scss';
 import Label from '../../common/label/Label';
 import arrowMessageButtonIcon from '../../../assets/icons/messageArrowButton.svg';
@@ -15,6 +17,11 @@ export const PostAuthorInfo = ({
   labelText,
   labelType,
 }: PostAuthorInfoProps) => {
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
+
+  const openMessageModal = () => setIsMessageModalOpen(true);
+  const closeMessageModal = () => setIsMessageModalOpen(false);
+
   return (
     <>
       <div className={styles.sellerInfoAndMessage}>
@@ -29,12 +36,23 @@ export const PostAuthorInfo = ({
           </div>
         </div>
         <div className={styles.messageButtonContainer}>
-          <button className={styles.messageButton}>메신저 보내기</button>
+          <button
+            className={styles.messageButton}
+            onClick={openMessageModal}>
+            메신저 보내기
+          </button>
           <Image
             src={arrowMessageButtonIcon}
             alt='화살표'
             className='arrowMessageButton'
           />
+
+          {isMessageModalOpen && (
+            <WriteMessageModal
+              onClose={closeMessageModal}
+              type='write'
+            />
+          )}
         </div>
       </div>
     </>
