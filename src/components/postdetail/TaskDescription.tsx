@@ -1,4 +1,5 @@
 import styles from './taskDescription.module.scss';
+import DOMPurify from 'dompurify';
 
 interface TaskDescriptionProps {
   content: string;
@@ -25,7 +26,9 @@ const TaskDescription = ({ content, attachments }: TaskDescriptionProps) => {
         <h1 className={styles.title}>협업 설명</h1>
         <div className={styles.divider}></div>
       </div>
-      <p className={styles.description}>{content || '협업 설명이 없습니다.'}</p>
+      <p className={styles.description}>
+        {DOMPurify.sanitize(content, { ALLOWED_TAGS: [] })}
+      </p>
       {attachments.length > 0 && (
         <div className={styles.attachment}>
           <h1 className={styles.attachmentTitle}>
