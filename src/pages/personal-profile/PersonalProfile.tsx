@@ -19,6 +19,7 @@ import {
   PERSONAL_RPOFILE_INIT,
 } from '../../constants/initValues';
 import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
+import LoadingPage from '../loading/LoadingPage';
 
 export const PersonalProfile = () => {
   const { id, userType } = useParams();
@@ -42,7 +43,7 @@ export const PersonalProfile = () => {
   });
 
   if (isFetchingCompanyInfoData || isFetchingPersonalInfoData) {
-    <div>로딩 중..</div>;
+    <LoadingPage />;
   }
 
   const userData =

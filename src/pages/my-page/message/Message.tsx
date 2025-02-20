@@ -21,7 +21,7 @@ import {
   patchMessageRead,
 } from '../../../apis/messageAPI';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
-import Loading from '../../../assets/icons/loading.svg?react';
+import LoadingPage from '../../loading/LoadingPage';
 
 export const Message = () => {
   const MENU: Record<MessagesKeyType, string> = {
@@ -118,123 +118,128 @@ export const Message = () => {
   });
 
   return (
-    <div>
-      {isOpenWriteModal && (
-        <WriteMessageModal
-          onClose={handleCloseWriteModal}
-          onClickReply={handleClickReplyButton}
-          ref={writeMessageModalRef}
-          type={writeModalType}
-          clickedMessageId={
-            writeModalType === 'show' || writeModalType === 'reply'
-              ? clickedMessageId
-              : ''
-          }
-        />
-      )}
-      <div className={classNames(styles.titleWrapper)}>
-        <span className={classNames(styles.title)}>메신저</span>
-        <span className={classNames(styles.readCount)}>
-          읽음 {messageCount?.readMessageCount}
-        </span>
-        <span className={classNames(styles.readCount)}>
-          안 읽음 {messageCount?.unreadMessageCount}
-        </span>
-        <button
-          onClick={() => {
-            setIsOpenWriteModal(true);
-            setWriteModalType('write');
-          }}
-          className={classNames(styles.writeButton, 'buttonOutlined-grey500')}>
-          메시지 쓰기
-        </button>
-      </div>
-      <div className={classNames(styles.menuContainer)}>
-        {Object.entries(MENU).map(([key, value]) => (
+    <>
+      <div>
+        {isOpenWriteModal && (
+          <WriteMessageModal
+            onClose={handleCloseWriteModal}
+            onClickReply={handleClickReplyButton}
+            ref={writeMessageModalRef}
+            type={writeModalType}
+            clickedMessageId={
+              writeModalType === 'show' || writeModalType === 'reply'
+                ? clickedMessageId
+                : ''
+            }
+          />
+        )}
+        <div className={classNames(styles.titleWrapper)}>
+          <span className={classNames(styles.title)}>메신저</span>
+          <span className={classNames(styles.readCount)}>
+            읽음 {messageCount?.readMessageCount}
+          </span>
+          <span className={classNames(styles.readCount)}>
+            안 읽음 {messageCount?.unreadMessageCount}
+          </span>
           <button
             onClick={() => {
-              setLastMessageIndex(2);
-              setClickedMenu(value);
-              setSelectedStatus(key as MessagesKeyType);
+              setIsOpenWriteModal(true);
+              setWriteModalType('write');
             }}
-            key={value}
-            className={classNames(styles.menu, {
-              [styles.clicked]: clickedMenu === value,
-            })}>
-            {value}
+            className={classNames(
+              styles.writeButton,
+              'buttonOutlined-grey500',
+            )}>
+            메시지 쓰기
           </button>
-        ))}
-      </div>
-      <div className={classNames(styles.messageCardContainer)}>
-        {messages?.pages[0].data.messageDetailList.length === 0 && (
-          <div className={classNames(styles.noDataText)}>
-            메세지가 없습니다.
-          </div>
-        )}
-        {messages?.pages.map((messagesData, pageIdx) => (
-          <React.Fragment key={pageIdx}>
-            {messagesData.data.messageDetailList.map(
-              (
-                {
-                  messageId,
-                  title,
-                  sendDate,
-                  senderNickname,
-                  isRead,
-                  messageType,
-                }: getMessagesResponseType,
-                idx: number,
-              ) => (
-                <div
-                  key={messageId}
-                  ref={
-                    3 * pageIdx + idx === lastMessageIndex ? setTarget : null
-                  }
-                  className={classNames(styles.messageCardContainer, {
-                    [styles.isRead]: isRead,
-                  })}>
+        </div>
+        <div className={classNames(styles.menuContainer)}>
+          {Object.entries(MENU).map(([key, value]) => (
+            <button
+              onClick={() => {
+                setLastMessageIndex(2);
+                setClickedMenu(value);
+                setSelectedStatus(key as MessagesKeyType);
+              }}
+              key={value}
+              className={classNames(styles.menu, {
+                [styles.clicked]: clickedMenu === value,
+              })}>
+              {value}
+            </button>
+          ))}
+        </div>
+        <div className={classNames(styles.messageCardContainer)}>
+          {messages?.pages[0].data.messageDetailList.length === 0 && (
+            <div className={classNames(styles.noDataText)}>
+              메세지가 없습니다.
+            </div>
+          )}
+          {messages?.pages.map((messagesData, pageIdx) => (
+            <React.Fragment key={pageIdx}>
+              {messagesData.data.messageDetailList.map(
+                (
+                  {
+                    messageId,
+                    title,
+                    sendDate,
+                    senderNickname,
+                    isRead,
+                    messageType,
+                  }: getMessagesResponseType,
+                  idx: number,
+                ) => (
                   <div
                     key={messageId}
-                    className={classNames(styles.messageCardWrapper, {
-                      [styles.isRead]: false,
+                    ref={
+                      3 * pageIdx + idx === lastMessageIndex ? setTarget : null
+                    }
+                    className={classNames(styles.messageCardContainer, {
+                      [styles.isRead]: isRead,
                     })}>
-                    <div className={classNames(styles.leftWrapper)}>
-                      <div className={classNames(styles.rootWrapper)}>
-                        <div className={classNames(styles.root)}>경로</div>
+                    <div
+                      key={messageId}
+                      className={classNames(styles.messageCardWrapper, {
+                        [styles.isRead]: false,
+                      })}>
+                      <div className={classNames(styles.leftWrapper)}>
+                        <div className={classNames(styles.rootWrapper)}>
+                          <div className={classNames(styles.root)}>경로</div>
+                        </div>
+                        <p className={classNames(styles.name)}>
+                          {senderNickname}
+                        </p>
+                        <div className={classNames(styles.contentWrapper)}>
+                          {selectedStatus === 'ALL' && (
+                            <span>
+                              {messageType === 'RECEIVED'
+                                ? '[받은 메세지]'
+                                : '[보낸 메세지]'}
+                            </span>
+                          )}
+                          <p className={classNames(styles.content)}>{title}</p>
+                        </div>
                       </div>
-                      <p className={classNames(styles.name)}>
-                        {senderNickname}
-                      </p>
-                      <div className={classNames(styles.contentWrapper)}>
-                        {selectedStatus === 'ALL' && (
-                          <span>
-                            {messageType === 'RECEIVED'
-                              ? '[받은 메세지]'
-                              : '[보낸 메세지]'}
-                          </span>
-                        )}
-                        <p className={classNames(styles.content)}>{title}</p>
+                      <div className={classNames(styles.rightWrapper)}>
+                        {sendDate}
+                        <button
+                          onClick={() => handleClickMessage(messageId, isRead)}
+                          className={classNames(
+                            'buttonFilled-grey800',
+                            styles.moreButton,
+                          )}>
+                          자세히
+                        </button>
                       </div>
-                    </div>
-                    <div className={classNames(styles.rightWrapper)}>
-                      {sendDate}
-                      <button
-                        onClick={() => handleClickMessage(messageId, isRead)}
-                        className={classNames(
-                          'buttonFilled-grey800',
-                          styles.moreButton,
-                        )}>
-                        자세히
-                      </button>
                     </div>
                   </div>
-                </div>
-              ),
-            )}
-          </React.Fragment>
-        ))}
+                ),
+              )}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
-      {isFetchingMessages && <Loading className={classNames(styles.loading)} />}
-    </div>
+      {isFetchingMessages && <LoadingPage />}
+    </>
   );
 };

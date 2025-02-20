@@ -9,6 +9,10 @@ import styles from './applyRequest.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetailsInfo';
+import { useContext } from 'react';
+import { ToastContext } from '../../../contexts/toastContext';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const ApplyRequest = () => {
   const FORM_DATA = {
@@ -16,46 +20,22 @@ export const ApplyRequest = () => {
     labelText: '개인',
     labelType: 'personal',
   };
-  // const APPLY_DATA = [
-  //   {
-  //     id: 1,
-  //     status: '수락됨',
-  //     statusType: 'accept',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '요청 과제',
-  //     category: '디자인',
-  //     itemName: '앱 개발 해주실 분',
-  //     part: '디자이너',
-  //   },
-  //   {
-  //     id: 2,
-  //     status: '거절됨',
-  //     statusType: 'reject',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '요청 과제',
-  //     category: '디자인',
-  //     itemName: '앱 개발 해주실 분',
-  //     part: '디자이너',
-  //   },
-  // ];
 
   const queryClient = useQueryClient();
+  const { successToast, errorToast } = useContext(ToastContext);
 
   const deleteMutation = useMutation({
     mutationFn: (purchasingId: number) =>
       deleteRejectedRequestTasks(purchasingId),
     onSuccess: () => {
-      alert('거절된 요청과제 지원 내역이 삭제되었습니다.');
+      successToast('거절된 요청과제 지원 내역이 삭제되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['RejectedRequestTasks'] }); // 삭제 후 리스트 새로고침
     },
     onError: () => {
-      alert('삭제에 실패했습니다.');
+      errorToast('삭제에 실패했습니다.');
     },
   });
 
-  // accept된 요청 과제
   const {
     data: acceptedTasks = [],
     isLoading: isLoadingAccepted,
@@ -65,7 +45,6 @@ export const ApplyRequest = () => {
     queryFn: () => getAcceptedRequestTasks(0, 10),
   });
 
-  // reject된 요청 과제
   const {
     data: rejectedTasks = [],
     isLoading: isLoadingRejected,
@@ -76,13 +55,11 @@ export const ApplyRequest = () => {
   });
 
   if (isLoadingAccepted || isLoadingRejected) {
-    return <div className={styles.loading}>로딩 중...</div>;
+    return <LoadingPage />;
   }
 
   if (isAcceptedError || isErrorRejected) {
-    return (
-      <div className={styles.error}>데이터를 불러오는 데 실패했습니다.</div>
-    );
+    return <ErrorPage />;
   }
 
   return (

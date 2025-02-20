@@ -14,7 +14,7 @@ export const PaymentFail = () => {
     if (ideaId) {
       navigate(`/idea-market/registered/${ideaId}`);
     } else {
-      navigate('/idea-market'); // 아이디어 ID가 없으면 기본 마켓 페이지로 이동
+      navigate('/idea-market');
     }
   };
 

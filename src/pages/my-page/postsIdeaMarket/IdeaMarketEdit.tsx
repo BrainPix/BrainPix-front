@@ -19,6 +19,8 @@ import { useIdeaMarketForm } from '../../../hooks/useIdeaMarketForm';
 import { useQuery } from '@tanstack/react-query';
 import { getPostIdeaMarketDetail } from '../../../apis/postManagementAPI';
 import { IdeaMarketDetail } from '../../../types/postDataType';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const IdeaMarketEdit = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -119,8 +121,8 @@ export const IdeaMarketEdit = () => {
     }
   }, [isSuccess, postData, setFormData]);
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !postData) return <div>게시글을 불러올 수 없습니다.</div>;
+  if (isLoading) return <LoadingPage />;
+  if (isError || !postData) return <ErrorPage />;
 
   return (
     <div className={styles.container}>

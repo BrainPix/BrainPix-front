@@ -5,7 +5,7 @@ import DotIcon from '../../assets/icons/dot.svg?react';
 import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
-import RequestSupportModal from '../modal/RequestSupportModal';
+import RequestSupportModal from '../common/modal/RequestSupportModal';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 import {
   getCategoryLabel,

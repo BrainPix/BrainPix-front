@@ -12,6 +12,8 @@ import { useQuery } from '@tanstack/react-query';
 import { RequestDetail } from '../../../types/detailPageType';
 import { getRequestDetail } from '../../../apis/detailPageAPI';
 import { getUserIdFromToken } from '../../../utils/auth';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const RequestAssignRegistered = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -64,8 +66,8 @@ export const RequestAssignRegistered = () => {
     totalCollaborations: post?.writer?.totalCollaborations ?? 0,
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>오류 발생!</div>;
+  if (isLoading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
 
   return (
     <>
