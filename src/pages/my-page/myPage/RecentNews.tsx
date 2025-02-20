@@ -54,7 +54,7 @@ export const RecentNews = () => {
   const { mutate: deleteAllMutate } = useMutation({
     mutationFn: deleteAllAlarms,
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      queryClient.resetQueries({
         queryKey: ['alarmsInTrash'],
       });
     },
