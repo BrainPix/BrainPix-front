@@ -3,6 +3,7 @@ import styles from './profileHeaderAuthor.module.scss';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deletePost } from '../../apis/postManagementAPI';
+import { Image } from '../common/image/Image';
 
 interface ProfileHeaderAuthorProps {
   name: string;
@@ -48,7 +49,7 @@ export const ProfileHeaderAuthor = ({
     <>
       <div className={styles.container}>
         <div className={styles.profileContainer}>
-          <img
+          <Image
             src={profileImageUrl || '/default-profile.png'}
             alt='프로필 이미지'
             className={styles.profileIcon}
