@@ -43,7 +43,9 @@ export const IntroducePart = forwardRef<
       ? (userData as IndividualProfileResponseType)?.selfIntroduction
       : (userData as CompanyProfileResponseType)?.selfIntroduction;
 
-  setValue('selfIntroduction', introducingText);
+  useEffect(() => {
+    setValue('selfIntroduction', introducingText);
+  }, [introducingText, setValue]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue('selfIntroduction', e.target.value);

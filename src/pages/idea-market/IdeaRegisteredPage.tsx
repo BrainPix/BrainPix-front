@@ -12,6 +12,7 @@ import { IdeaMarketDetail } from '../../types/detailPageType';
 import { getUserIdFromToken } from '../../utils/auth';
 import LoadingPage from '../loading/LoadingPage';
 import { ErrorPage } from '../errorPage/ErrorPage';
+import { Join } from '../join/Join';
 
 export const IdeaRegisteredPage = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -20,10 +21,11 @@ export const IdeaRegisteredPage = () => {
     queryKey: ['ideaMarketDetail', ideaId],
     queryFn: () => getIdeaMarketDetail(Number(ideaId)),
     enabled: !!ideaId,
-    staleTime: 1000 * 60 * 5, // 5분
+    staleTime: 1000 * 60 * 5,
   });
 
   if (isLoading) return <LoadingPage />;
+  if (!data) return <Join />;
   if (error) return <ErrorPage />;
 
   if (!data) return null;
