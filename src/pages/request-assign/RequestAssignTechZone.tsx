@@ -2,14 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import styles from './ideaMarketMarketPlace.module.scss';
+import styles from './requestAssignTechZone.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
 import {
   toggleIdeaBookmark,
   getIdeaList,
   GetIdeaListRequest,
-} from '../../apis/mainPageAPI';
+} from '../../apis/requestAssignMainPageAPI';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 
@@ -44,7 +44,7 @@ const sortMap: Record<string, SortType> = {
   lowView: 'LOWEST_PRICE',
 };
 
-export const IdeaMarketMarketPlace = () => {
+export const RequestAssignTechZone = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -57,7 +57,7 @@ export const IdeaMarketMarketPlace = () => {
     queryKey: ['ideaList', selectedCategory, viewOption, sortType],
     queryFn: async () => {
       const params: GetIdeaListRequest = {
-        type: 'IDEA_SOLUTION',
+        type: 'OPEN_IDEA',
         page: 0,
         size: 10,
         sortType: sortType,
@@ -75,7 +75,7 @@ export const IdeaMarketMarketPlace = () => {
     queryKey: ['popularIdeas'],
     queryFn: async () => {
       const params: GetIdeaListRequest = {
-        type: 'IDEA_SOLUTION',
+        type: 'OPEN_IDEA',
         page: 0,
         size: 9,
         sortType: 'POPULAR',
@@ -172,19 +172,19 @@ export const IdeaMarketMarketPlace = () => {
     <>
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
-          <span className={styles.mainTitle}>아이디어 마켓</span>
-          <span className={styles.subtitle}>Market Place</span>
+          <span className={styles.mainTitle}>요청 과제</span>
+          <span className={styles.subtitle}>Tech Zone</span>
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/idea-market/register')}>
-          아이디어 등록하기
+          onClick={() => navigate('/request-assign/register')}>
+          요청 과제 등록하기
         </button>
       </div>
       <div className={styles.carouselWrapper}>
         <div className={styles.ideaMarketMain}>
           <div className={styles.subTitle}>
-            <span>완성된 아이디어 제품과 서비스를 거래하는 공간</span>
+            <span>전문 지식이 필요한 기술 중심 프로젝트</span>
             <span className={styles.highlight}></span>
           </div>
           <Carousel
@@ -195,14 +195,15 @@ export const IdeaMarketMarketPlace = () => {
             dataLength={popularIdeaData.length}>
             {popularIdeaData.map((idea) => (
               <div
-                key={idea.ideaId}
+                key={idea.taskId}
                 className={styles.carouselItem}>
                 <PreviewThumbnail
                   data={{
-                    ideaId: idea.ideaId,
+                    ideaId: idea.taskId,
+                    routePrefix: 'request-assign',
                     username: idea.writerName,
                     description: idea.title,
-                    price: idea.price,
+                    deadline: idea.deadline,
                     imageUrl: idea.thumbnailImageUrl || '',
                     profileImage: idea.writerImageUrl,
                     isBookmarked: idea.isSavedPost,
@@ -211,7 +212,7 @@ export const IdeaMarketMarketPlace = () => {
                     auth: idea.auth,
                     category: idea.category,
                     size: 'large',
-                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+                    onBookmarkClick: () => handleBookmarkClick(idea.taskId),
                   }}
                 />
               </div>
@@ -282,12 +283,13 @@ export const IdeaMarketMarketPlace = () => {
       <div className={styles.thumbnailGrid}>
         {ideaData.map((idea) => (
           <PreviewThumbnail
-            key={idea.ideaId}
+            key={idea.taskId}
             data={{
-              ideaId: idea.ideaId,
+              ideaId: idea.taskId,
+              routePrefix: 'request-assign',
               username: idea.writerName,
               description: idea.title,
-              price: idea.price,
+              deadline: idea.deadline,
               imageUrl: idea.thumbnailImageUrl || undefined,
               profileImage: idea.writerImageUrl,
               isBookmarked: idea.isSavedPost,
@@ -295,7 +297,7 @@ export const IdeaMarketMarketPlace = () => {
               views: idea.viewCount,
               auth: idea.auth,
               category: idea.category,
-              onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+              onBookmarkClick: () => handleBookmarkClick(idea.taskId),
             }}
           />
         ))}

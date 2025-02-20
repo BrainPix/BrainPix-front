@@ -12,13 +12,18 @@ import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?reac
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 import { Image } from '../../components/common/image/Image';
 
-// 타입 정의
-interface IdeaMarketPriceDto {
-  price: number;
-  totalQuantity: number;
+interface IdeaMarketRequestData {
+  title: string;
+  content: string;
+  specialization: SpecializationType;
+  openMyProfile: boolean;
+  imageList: string[];
+  attachmentFileList: string[];
+  postAuth: PostAuth;
+  ideaMarketType: IdeaMarketType;
+  priceDto: IdeaMarketPriceDto;
 }
 
-// 카테고리 enum 타입
 type SpecializationType =
   | 'ADVERTISING_PROMOTION'
   | 'DESIGN'
@@ -34,27 +39,14 @@ type SpecializationType =
   | 'IT_TECH'
   | 'OTHERS';
 
-// 아이디어 마켓 타입
-type IdeaMarketType = 'IDEA_SOLUTION' | 'MARKET_PLACE';
-
-// 공개 범위 타입
 type PostAuth = 'ALL' | 'COMPANY' | 'ME';
 
-interface IdeaMarketRequestData {
-  title: string;
-  content: string;
-  specialization: SpecializationType;
-  openMyProfile: boolean;
-  postAuth: PostAuth;
-  ideaMarketType: IdeaMarketType;
-  priceDto: IdeaMarketPriceDto;
-  imageList: string[];
-  attachmentFileList: string[];
+type IdeaMarketType = 'IDEA_SOLUTION' | 'MARKET_PLACE';
+
+interface IdeaMarketPriceDto {
+  price: number;
+  totalQuantity: number;
 }
-
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const categoryToEnum: Record<string, SpecializationType> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -72,6 +64,21 @@ const categoryToEnum: Record<string, SpecializationType> = {
   기타: 'OTHERS',
 };
 
+const visibilityToEnum: Record<string, PostAuth> = {
+  전체공개: 'ALL',
+  기업공개: 'COMPANY',
+  비공개: 'ME',
+};
+
+const pageTypeToEnum: Record<string, IdeaMarketType> = {
+  'Idea Solution': 'IDEA_SOLUTION',
+  'Market Place': 'MARKET_PLACE',
+};
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const OPTIONS = [
   '광고 · 홍보',
   '디자인',
@@ -87,17 +94,6 @@ const OPTIONS = [
   'IT · 테크',
   '기타',
 ];
-
-const visibilityToEnum: Record<string, PostAuth> = {
-  전체공개: 'ALL',
-  기업공개: 'COMPANY',
-  비공개: 'ME',
-};
-
-const pageTypeToEnum: Record<string, IdeaMarketType> = {
-  'Idea Solution': 'IDEA_SOLUTION',
-  'Market Place': 'MARKET_PLACE',
-};
 
 interface IdeaMarketRegisterProps {
   [key: string]: never;
@@ -236,17 +232,40 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
     }
   };
 
+  const uploadPdfToPresignedUrl = async (
+    file: File,
+    presignedUrl: string,
+  ): Promise<string> => {
+    const response = await fetch(presignedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`PDF 업로드 실패`);
+    }
+
+    return presignedUrl.split('?')[0];
+  };
+
   const handleSubmit = async () => {
     try {
       let imageUrl = '';
+      let pdfUrl = '';
 
       const currentFileInput = fileInputRef.current;
       if (currentFileInput?.files && currentFileInput.files.length > 0) {
         const imageFile = currentFileInput.files[0];
-
         const presignedUrl = await getPresignedUrl(imageFile);
-
         imageUrl = await uploadImageToPresignedUrl(imageFile, presignedUrl);
+      }
+
+      if (pdfFile) {
+        const pdfPresignedUrl = await getPresignedUrl(pdfFile);
+        pdfUrl = await uploadPdfToPresignedUrl(pdfFile, pdfPresignedUrl);
       }
 
       const requestData: IdeaMarketRequestData = {
@@ -261,53 +280,48 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
           totalQuantity: quantity,
         },
         imageList: imageUrl ? [imageUrl] : [],
-        attachmentFileList: [],
+        attachmentFileList: pdfUrl ? [pdfUrl] : [],
       };
 
-      await submitIdeaMarket(requestData);
-      navigate('/idea-market/register-complete');
+      const response = await submitIdeaMarket(requestData);
+      navigate(`/idea-market/register-complete?ideaId=${response.id}`);
     } catch {
-      throw Error;
+      alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
   const submitIdeaMarket = async (
     data: IdeaMarketRequestData,
-  ): Promise<Response> => {
-    try {
-      const requestData = {
-        title: data.title,
-        content: data.content,
-        specialization: data.specialization,
-        openMyProfile: data.openMyProfile,
-        postAuth: data.postAuth,
-        ideaMarketType: data.ideaMarketType,
-        priceDto: {
-          price: data.priceDto.price,
-          totalQuantity: data.priceDto.totalQuantity,
-        },
-        imageList: data.imageList,
-        attachmentFileList: data.attachmentFileList,
-      };
+  ): Promise<{ id: number }> => {
+    const requestData = {
+      title: data.title,
+      content: data.content,
+      specialization: data.specialization,
+      openMyProfile: data.openMyProfile,
+      postAuth: data.postAuth,
+      ideaMarketType: data.ideaMarketType,
+      priceDto: {
+        price: data.priceDto.price,
+        totalQuantity: data.priceDto.totalQuantity,
+      },
+      imageList: data.imageList,
+      attachmentFileList: data.attachmentFileList,
+    };
 
-      const response = await fetch(`${BASE_URL}/idea-markets`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      });
+    const response = await fetch(`${BASE_URL}/idea-markets`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`API 호출 실패 (${response.status}): ${errorText}`);
-      }
-
-      return response;
-    } catch {
-      throw Error;
+    if (!response.ok) {
+      throw new Error(`API 호출 실패`);
     }
+
+    return await response.json();
   };
 
   useEffect(() => {

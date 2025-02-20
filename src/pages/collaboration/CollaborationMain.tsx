@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import styles from './collaborationMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
-import { Carousel } from '../../components/common/carousel/Carousel';
 import {
-  toggleIdeaBookmark,
-  getIdeaList,
-  GetIdeaListRequest,
-} from '../../apis/mainPageAPI';
+  toggleCollaborationBookmark,
+  getCollaborationList,
+  GetCollaborationListRequest,
+} from '../../apis/collaborationAPI';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
+import LoadingPage from '../../components/common/loading/LoadingPage';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -28,45 +28,37 @@ const categoryMapReverse: Record<string, string> = {
   기타: 'OTHERS',
 };
 
-interface IdeaData {
-  ideaId: number;
+interface CollaborationData {
+  collaborationId: number;
   auth: 'ALL' | 'COMPANY' | 'ME';
   writerImageUrl: string;
   writerName: string;
   thumbnailImageUrl: string;
   title: string;
-  price: number;
+  deadline: number;
   category: string;
+  occupiedQuantity: number;
+  totalQuantity: number;
   saveCount: number;
   viewCount: number;
   isSavedPost: boolean;
-}
-interface CardData {
-  id: number;
-  isBookmarked?: boolean;
-  saves: number;
-  views: number;
 }
 
 export const CollaborationMain = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_cardsData, setCardsData] = useState<CardData[]>([]);
-  const [ideaData, setIdeaData] = useState<IdeaData[]>([]);
-  const [isInitialLoading, setIsInitialLoading] = useState(true); // 초기 로딩용
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_isUpdating, setIsUpdating] = useState(false);
+  const [collaborationData, setCollaborationData] = useState<
+    CollaborationData[]
+  >([]);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [viewOption, setViewOption] = useState<'all' | 'company'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const fetchIdeas = useCallback(
+  const fetchCollaborations = useCallback(
     async (category?: string) => {
       try {
-        setIsUpdating(true);
-        const params: GetIdeaListRequest = {
-          type: 'IDEA_SOLUTION',
+        const params: GetCollaborationListRequest = {
           page: 0,
           size: 10,
         };
@@ -75,7 +67,7 @@ export const CollaborationMain = () => {
           params.category = categoryMapReverse[category];
         }
 
-        const response = await getIdeaList(params);
+        const response = await getCollaborationList(params);
 
         if (response.success) {
           const filteredData =
@@ -83,21 +75,12 @@ export const CollaborationMain = () => {
               ? response.data.content.filter((item) => item.auth === 'COMPANY')
               : response.data.content.filter((item) => item.auth !== 'COMPANY');
 
-          setIdeaData(filteredData);
-          setCardsData(
-            filteredData.map((item) => ({
-              id: item.ideaId,
-              isBookmarked: item.isSavedPost,
-              saves: item.saveCount,
-              views: item.viewCount,
-            })),
-          );
+          setCollaborationData(filteredData);
         }
       } catch {
-        throw Error;
+        alert('데이터 로딩에 실패했습니다.');
       } finally {
         setIsInitialLoading(false);
-        setIsUpdating(false);
       }
     },
     [viewOption],
@@ -107,67 +90,57 @@ export const CollaborationMain = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const newViewOption = event.target.value as 'all' | 'company';
       setViewOption(newViewOption);
-      fetchIdeas(selectedCategory);
+      fetchCollaborations(selectedCategory);
     },
-    [fetchIdeas, selectedCategory],
+    [fetchCollaborations, selectedCategory],
   );
 
   const handleCategorySelect = useCallback(
     (category: string) => {
       setSelectedCategory(category);
       setIsDropdownOpen(false);
-      fetchIdeas(category);
+      fetchCollaborations(category);
     },
-    [fetchIdeas],
+    [fetchCollaborations],
   );
 
-  const handleBookmarkClick = async (ideaId: number) => {
+  const handleBookmarkClick = async (collaborationId: number) => {
     try {
-      setIdeaData((prevData) =>
-        prevData.map((idea) =>
-          idea.ideaId === ideaId
+      setCollaborationData((prevData) =>
+        prevData.map((collab) =>
+          collab.collaborationId === collaborationId
             ? {
-                ...idea,
-                isSavedPost: !idea.isSavedPost,
-                saveCount: idea.saveCount + (idea.isSavedPost ? -1 : 1),
+                ...collab,
+                isSavedPost: !collab.isSavedPost,
+                saveCount: collab.saveCount + (collab.isSavedPost ? -1 : 1),
               }
-            : idea,
+            : collab,
         ),
       );
 
-      const response = await toggleIdeaBookmark(ideaId);
+      const response = await toggleCollaborationBookmark(collaborationId);
 
       if (!response.success) {
-        setIdeaData((prevData) =>
-          prevData.map((idea) =>
-            idea.ideaId === ideaId
+        setCollaborationData((prevData) =>
+          prevData.map((collab) =>
+            collab.collaborationId === collaborationId
               ? {
-                  ...idea,
-                  isSavedPost: !idea.isSavedPost,
-                  saveCount: idea.saveCount + (idea.isSavedPost ? 1 : -1),
+                  ...collab,
+                  isSavedPost: !collab.isSavedPost,
+                  saveCount: collab.saveCount + (collab.isSavedPost ? 1 : -1),
                 }
-              : idea,
+              : collab,
           ),
         );
       }
     } catch {
-      setIdeaData((prevData) =>
-        prevData.map((idea) =>
-          idea.ideaId === ideaId
-            ? {
-                ...idea,
-                isSavedPost: !idea.isSavedPost,
-                saveCount: idea.saveCount + (idea.isSavedPost ? 1 : -1),
-              }
-            : idea,
-        ),
-      );
+      alert('북마크 처리에 실패했습니다.');
     }
   };
 
   useEffect(() => {
-    fetchIdeas();
-  }, [fetchIdeas]);
+    fetchCollaborations();
+  }, [fetchCollaborations]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -200,63 +173,24 @@ export const CollaborationMain = () => {
   }, [handleCategorySelect]);
 
   if (isInitialLoading) {
-    return <div>로딩 중...</div>;
+    return <LoadingPage />;
   }
 
   return (
     <>
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
-          <span className={styles.mainTitle}>아이디어 마켓</span>
-          <span className={styles.subtitle}>Idea Solution</span>
+          <span className={styles.mainTitle}>협업 광장</span>
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/idea-market/register')}>
-          아이디어 등록하기
+          onClick={() => navigate('/collaboration/register')}>
+          팀원 모집 등록하기
         </button>
       </div>
-      <div className={styles.carouselWrapper}>
-        <div className={styles.ideaMarketMain}>
-          <div className={styles.subTitle}>
-            <span>전문가의 손길로 완성되는 아이디어</span>
-            <span className={styles.highlight}></span>
-          </div>
-          <Carousel
-            buttonPosition='center'
-            cardWidth={200}
-            cardCount={3}
-            gap={45}
-            dataLength={ideaData.length}>
-            {ideaData.map((idea) => (
-              <div
-                key={idea.ideaId}
-                className={styles.carouselItem}>
-                <PreviewThumbnail
-                  data={{
-                    ideaId: idea.ideaId,
-                    username: idea.writerName,
-                    description: idea.title,
-                    price: idea.price,
-                    imageUrl: idea.thumbnailImageUrl || '',
-                    profileImage: idea.writerImageUrl,
-                    isBookmarked: idea.isSavedPost,
-                    saves: idea.saveCount,
-                    views: idea.viewCount,
-                    auth: idea.auth,
-                    category: idea.category,
-                    size: 'large',
-                    onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
-                  }}
-                />
-              </div>
-            ))}
-          </Carousel>
-        </div>
-      </div>
+
       <div className={styles.headerComponents}>
         <div className={styles.leftComponents}>
-          <div className={styles.ideaText}>맞춤형 아이디어 모아보기</div>
           <div className={styles.filterWrapper}>
             <div
               ref={dropdownRef}
@@ -299,31 +233,35 @@ export const CollaborationMain = () => {
           <div className={styles.sortDropdown}>
             <select className={styles.sortSelect}>
               <option value='newest'>최신순</option>
-              <option value='popular'>오래된순</option>
-              <option value='low'>저가순</option>
-              <option value='highView'>낮은 가격순</option>
-              <option value='lowView'>높은 가격순</option>
+              <option value='oldest'>오래된순</option>
+              <option value='popular'>저장순</option>
+              <option value='highView'>높은 모집순</option>
+              <option value='lowView'>낮은 모집순</option>
             </select>
           </div>
         </div>
       </div>
       <div className={styles.thumbnailGrid}>
-        {ideaData.map((idea) => (
+        {collaborationData.map((collab) => (
           <PreviewThumbnail
-            key={idea.ideaId}
+            key={collab.collaborationId}
             data={{
-              ideaId: idea.ideaId,
-              username: idea.writerName,
-              description: idea.title,
-              price: idea.price,
-              imageUrl: idea.thumbnailImageUrl || undefined,
-              profileImage: idea.writerImageUrl,
-              isBookmarked: idea.isSavedPost,
-              saves: idea.saveCount,
-              views: idea.viewCount,
-              auth: idea.auth,
-              category: idea.category,
-              onBookmarkClick: () => handleBookmarkClick(idea.ideaId),
+              ideaId: collab.collaborationId,
+              routePrefix: 'collaboration',
+              username: collab.writerName,
+              description: collab.title,
+              deadline: collab.deadline,
+              imageUrl: collab.thumbnailImageUrl || undefined,
+              profileImage: collab.writerImageUrl,
+              isBookmarked: collab.isSavedPost,
+              saves: collab.saveCount,
+              views: collab.viewCount,
+              auth: collab.auth,
+              category: collab.category,
+              occupiedQuantity: collab.occupiedQuantity,
+              totalQuantity: collab.totalQuantity,
+              onBookmarkClick: () =>
+                handleBookmarkClick(collab.collaborationId),
             }}
           />
         ))}
