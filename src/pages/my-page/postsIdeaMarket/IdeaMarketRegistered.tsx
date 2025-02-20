@@ -47,7 +47,7 @@ export const IdeaMarketRegistered = () => {
     saveCount: post?.saveCount ?? 0,
     thumbnailImageUrl: post?.thumbnailImageUrl ?? '',
     createdDate: post?.createdDate ?? '',
-    isSavedPost: post?.isSavedPost ?? false,
+    isSavedPost: !!post?.isSavedPost,
   };
 
   const writerData = {
