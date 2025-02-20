@@ -39,12 +39,13 @@ import { Image } from '../../common/image/Image';
 interface PortfolioDetailModalPropsType {
   onClose: () => void;
   cardId: number;
+  editable?: boolean;
 }
 
 export const PortfolioDetailModal = forwardRef<
   HTMLDivElement,
   PortfolioDetailModalPropsType
->(({ onClose, cardId }, ref) => {
+>(({ onClose, cardId, editable = true }, ref) => {
   const modules = {
     toolbar: { container: '#toolbar' },
   };
@@ -186,7 +187,7 @@ export const PortfolioDetailModal = forwardRef<
                 'buttonOutlined-grey500',
                 styles.editButton,
               )}>
-              {!editMode && '수정하기'}
+              {!editMode && editable && '수정하기'}
             </button>
           </div>
           <hr className={classNames(styles.titleDivider)} />
@@ -328,15 +329,17 @@ export const PortfolioDetailModal = forwardRef<
                     className={classNames(styles.cancelButton)}>
                     닫기
                   </button>
-                  <button
-                    onClick={() => setIsOpenDeleteModal(true)}
-                    type='button'
-                    className={classNames(
-                      'buttonFilled-primary',
-                      styles.uploadButton,
-                    )}>
-                    삭제하기
-                  </button>
+                  {editable && (
+                    <button
+                      onClick={() => setIsOpenDeleteModal(true)}
+                      type='button'
+                      className={classNames(
+                        'buttonFilled-primary',
+                        styles.uploadButton,
+                      )}>
+                      삭제하기
+                    </button>
+                  )}
                 </div>
               </div>
             </>
