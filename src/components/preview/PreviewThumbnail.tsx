@@ -111,7 +111,15 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
             alt={description}
           />
         ) : (
-          <DefaultImage />
+          <DefaultImage
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+            preserveAspectRatio='none'
+          />
         )}
         <div className={styles.overlay}>
           <div className={styles.overlayTags}>

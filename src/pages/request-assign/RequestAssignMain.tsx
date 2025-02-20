@@ -1,15 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import styles from './requestAssignMain.module.scss';
 import PreviewThumbnail from '../../components/preview/PreviewThumbnail';
 import { Carousel } from '../../components/common/carousel/Carousel';
 import {
   toggleIdeaBookmark,
   getIdeaList,
-  GetIdeaListRequest,
 } from '../../apis/requestAssignMainPageAPI';
+import { GetIdeaListRequest } from '../../types/registerType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 
@@ -52,27 +56,11 @@ export const RequestAssignMain = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리');
   const [sortType, setSortType] = useState<SortType>('NEWEST');
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const { data: ideaListResponse, isLoading } = useQuery({
-    queryKey: ['ideaList', selectedCategory, viewOption, sortType],
-    queryFn: async () => {
-      const params: GetIdeaListRequest = {
-        type: 'OPEN_IDEA',
-        page: 0,
-        size: 10,
-        sortType: sortType,
-      };
-
-      if (selectedCategory !== '카테고리') {
-        params.category = categoryMapReverse[selectedCategory];
-      }
-
-      return await getIdeaList(params);
-    },
-  });
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const { data: popularIdeaResponse } = useQuery({
-    queryKey: ['popularIdeas'],
+    queryKey: ['popularOpenIdeas'],
     queryFn: async () => {
       const params: GetIdeaListRequest = {
         type: 'OPEN_IDEA',
@@ -80,8 +68,43 @@ export const RequestAssignMain = () => {
         size: 9,
         sortType: 'POPULAR',
       };
-
       return await getIdeaList(params);
+    },
+  });
+
+  const {
+    data: infiniteData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery({
+    queryKey: ['infiniteOpenIdeaList', selectedCategory, viewOption, sortType],
+    queryFn: async ({ pageParam }) => {
+      const params: GetIdeaListRequest = {
+        type: 'OPEN_IDEA',
+        page: pageParam,
+        size: 8,
+        sortType: sortType,
+      };
+
+      if (selectedCategory !== '카테고리') {
+        params.category = categoryMapReverse[selectedCategory];
+      }
+
+      const response = await getIdeaList(params);
+      return {
+        result: response,
+        nextPage: pageParam + 1,
+        isLast: !response.data.hasNext,
+      };
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.result.success || lastPage.isLast) {
+        return undefined;
+      }
+      return lastPage.nextPage;
     },
   });
 
@@ -91,12 +114,16 @@ export const RequestAssignMain = () => {
   }, [popularIdeaResponse]);
 
   const ideaData = useMemo(() => {
-    if (!ideaListResponse?.success) return [];
+    if (!infiniteData) return [];
 
-    return ideaListResponse.data.content.filter((item) =>
-      viewOption === 'company' ? item.auth === 'COMPANY' : item.auth === 'ALL',
-    );
-  }, [ideaListResponse, viewOption]);
+    return infiniteData.pages
+      .flatMap((page) => page.result.data.content)
+      .filter((item) =>
+        viewOption === 'company'
+          ? item.auth === 'COMPANY'
+          : item.auth === 'ALL',
+      );
+  }, [infiniteData, viewOption]);
 
   const handleViewOptionChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -114,7 +141,8 @@ export const RequestAssignMain = () => {
     try {
       const response = await toggleIdeaBookmark(ideaId);
       if (response.success) {
-        queryClient.invalidateQueries({ queryKey: ['ideaList'] });
+        queryClient.invalidateQueries({ queryKey: ['infiniteOpenIdeaList'] });
+        queryClient.invalidateQueries({ queryKey: ['popularOpenIdeas'] });
       }
     } catch {
       alert('북마크 처리에 실패했습니다.');
@@ -122,17 +150,35 @@ export const RequestAssignMain = () => {
   };
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const sortMap: Record<string, SortType> = {
-      newest: 'NEWEST',
-      oldest: 'OLDEST',
-      popular: 'POPULAR',
-      highView: 'HIGHEST_PRICE',
-      lowView: 'LOWEST_PRICE',
-    };
-
     const newSortType = sortMap[event.target.value] as SortType;
     setSortType(newSortType);
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        threshold: 0.1,
+      },
+    );
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+
+    observerRef.current = observer;
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -290,7 +336,7 @@ export const RequestAssignMain = () => {
               username: idea.writerName,
               description: idea.title,
               deadline: idea.deadline,
-              imageUrl: idea.thumbnailImageUrl || undefined,
+              imageUrl: idea.thumbnailImageUrl,
               profileImage: idea.writerImageUrl,
               isBookmarked: idea.isSavedPost,
               saves: idea.saveCount,
@@ -301,6 +347,14 @@ export const RequestAssignMain = () => {
             }}
           />
         ))}
+
+        <div
+          ref={loadMoreRef}
+          className={styles.loadMoreTrigger}>
+          {isFetchingNextPage && (
+            <div className={styles.loadingSpinner}>로딩 중...</div>
+          )}
+        </div>
       </div>
     </>
   );

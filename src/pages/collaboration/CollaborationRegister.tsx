@@ -103,13 +103,7 @@ const OPTIONS = [
 //   numberOfPeople: number;
 // }
 
-interface CollaborationRequestDataProps {
-  [key: string]: never;
-}
-
-export const CollaborationRegister: React.FC<
-  CollaborationRequestDataProps
-> = () => {
+export const CollaborationRegister = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
