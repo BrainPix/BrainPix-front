@@ -9,6 +9,7 @@ import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import { Image } from '../../components/common/image/Image';
+import { ConfirmModal } from '../../components/common/modal/ConfirmModal';
 
 interface CollaborationRequestData {
   title: string;
@@ -116,10 +117,11 @@ export const CollaborationRegister = () => {
   >('전체공개');
   const [link, setLink] = useState('');
   const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [recruitmentFields, setRecruitmentFields] = useState<
     CollaborationRecruitmentDto[]
-  >([{ domain: '', gatheringDto: { totalQuantity: 1 } }]);
+  >([{ domain: '', gatheringDto: { totalQuantity: 0 } }]);
 
   const [initialMembers, setInitialMembers] = useState<
     CollaborationHubInitialMemberDto[]
@@ -159,7 +161,7 @@ export const CollaborationRegister = () => {
   const handleAddField = () => {
     setRecruitmentFields((prev) => [
       ...prev,
-      { domain: '', gatheringDto: { totalQuantity: 1 } },
+      { domain: '', gatheringDto: { totalQuantity: 0 } },
     ]);
   };
 
@@ -169,11 +171,12 @@ export const CollaborationRegister = () => {
     );
   };
 
-  const handleQuantityChange = (index: number, totalQuantity: number) => {
+  const handleQuantityChange = (index: number, value: string) => {
+    const numValue = value ? parseInt(value) : 0;
     setRecruitmentFields((prev) =>
       prev.map((item, i) =>
         i === index
-          ? { ...item, gatheringDto: { ...item.gatheringDto, totalQuantity } }
+          ? { ...item, gatheringDto: { totalQuantity: numValue } }
           : item,
       ),
     );
@@ -193,12 +196,48 @@ export const CollaborationRegister = () => {
     );
   };
 
-  // const handleLinkSubmit = (submittedLink: string) => {
-  //   setLink(submittedLink);
-  // };
+  const handleLoadProfile = async (index: number) => {
+    try {
+      const member = initialMembers[index];
+      if (!member.identifier) {
+        alert('아이디를 입력해주세요.');
+        return;
+      }
 
-  const handleLoadProfile = async () => {
-    alert('프로필을 불러오는데 실패했습니다.');
+      const response = await fetch(
+        `${BASE_URL}/collaborations/validate/${member.identifier}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('프로필을 불러오는데 실패했습니다.');
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        setInitialMembers((prev) =>
+          prev.map((item, i) =>
+            i === index
+              ? {
+                  ...item,
+                  domain: item.domain || data.data?.domain || '',
+                }
+              : item,
+          ),
+        );
+      } else {
+        alert(data.message || '프로필을 불러오는데 실패했습니다.');
+      }
+    } catch {
+      alert('프로필을 불러오는데 실패했습니다.');
+    }
   };
 
   const handlePdfClick = () => {
@@ -280,7 +319,11 @@ export const CollaborationRegister = () => {
     return presignedUrl.split('?')[0];
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmSubmit = async () => {
     try {
       let imageUrl = '';
       let pdfUrl = '';
@@ -299,11 +342,9 @@ export const CollaborationRegister = () => {
 
       const deadlineString = `${recruitmentDeadline.year}-${recruitmentDeadline.month.padStart(2, '0')}-${recruitmentDeadline.day.padStart(2, '0')} 14:30`;
 
-      const plainContent = content.replace(/<[^>]*>/g, '');
-
       const requestData: CollaborationRequestData = {
         title: ideaNameInputRef.current?.value || '',
-        content: plainContent,
+        content: content,
         specialization: categoryToEnum[category],
         openMyProfile: isPortfolioVisible,
         imageList: imageUrl ? [imageUrl] : [],
@@ -323,11 +364,12 @@ export const CollaborationRegister = () => {
         deadline: deadlineString,
       };
 
-      const response = await submitRequestAssign(requestData);
-      navigate(`/personal-profile/${response.id}/creator`); // 변경된 부분
+      await submitRequestAssign(requestData);
+      navigate('/collaboration');
     } catch {
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
+    setIsModalOpen(false);
   };
 
   const submitRequestAssign = async (
@@ -554,7 +596,7 @@ export const CollaborationRegister = () => {
               value={field.gatheringDto.totalQuantity || ''}
               onChange={(e) => {
                 const value = e.target.value.replace(/[^0-9]/g, '');
-                handleQuantityChange(index, parseInt(value) || 1);
+                handleQuantityChange(index, value);
               }}
               placeholder='모집 인원'
               className={styles.recruitmentFieldInput}
@@ -608,7 +650,7 @@ export const CollaborationRegister = () => {
             />
             <button
               type='button'
-              onClick={() => handleLoadProfile()}
+              onClick={() => handleLoadProfile(index)}
               className={styles.profileLoadButton}>
               프로필 불러오기
             </button>
@@ -740,6 +782,11 @@ export const CollaborationRegister = () => {
           <span>등록</span>
         </button>
       </div>
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onConfirm={handleConfirmSubmit}
+        onCancel={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

@@ -333,7 +333,7 @@ export const RequestAssignRegisterNow = () => {
       };
 
       const response = await submitRequestAssign(requestData);
-      navigate(`/request-assign/register-complete?ideaId=${response.id}`);
+      navigate(`/request-assign/register-complete?postId=${response.id}`);
     } catch {
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
@@ -375,7 +375,8 @@ export const RequestAssignRegisterNow = () => {
       throw new Error(`API 호출 실패`);
     }
 
-    return await response.json();
+    const responseData = await response.json();
+    return { id: responseData.data.postId };
   };
 
   useEffect(() => {

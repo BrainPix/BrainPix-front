@@ -7,6 +7,8 @@ import RecruitmentStatus from '../../components/postdetail/RecruitmentStatus';
 import TeamBuildingButton from '../../components/postdetail/TeamBuildingButton';
 import QnASection from '../../components/postdetail/QnASection';
 import AuthorInfo from '../../components/postdetail/AuthorInfo';
+import LoadingPage from '../loading/LoadingPage';
+import { Join } from '../join/Join';
 import styles from './postDetailWithLink.module.scss';
 
 import { useParams } from 'react-router-dom';
@@ -25,8 +27,8 @@ export const PostDetailWithLink = () => {
     staleTime: 1000 * 60 * 5, // 5분
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>오류 발생!</div>;
+  if (isLoading) return <LoadingPage />;
+  if (error) return <Join />;
   if (!data) return null;
 
   const profileData = {
