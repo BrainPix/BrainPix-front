@@ -6,7 +6,7 @@ export const PaymentSuccess = () => {
   const navigate = useNavigate();
 
   const handleMyPageClick = () => {
-    navigate('/my/apply-idea-market'); // 구매내역 바로가기로 이동
+    navigate('/my/apply-idea-market');
   };
 
   return (

@@ -17,6 +17,8 @@ import {
   getSavedCollaborationHubs,
 } from '../../../apis/savePostsAPI.ts';
 import { useBookmark } from '../../../hooks/useBookmark.ts';
+import LoadingPage from '../../loading/LoadingPage.tsx';
+import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
 
 export const SavedPosts = () => {
   const navigate = useNavigate();
@@ -54,9 +56,9 @@ export const SavedPosts = () => {
         />
 
         {isLoading ? (
-          <p>로딩 중...</p>
+          <LoadingPage />
         ) : isError ? (
-          <p>데이터를 불러오는 중 오류가 발생했습니다.</p>
+          <ErrorPage />
         ) : (
           <>
             <div className={styles.count}>총 게시글 {posts.length}</div>

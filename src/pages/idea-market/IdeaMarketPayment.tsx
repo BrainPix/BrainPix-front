@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getIdeaMarketPayment } from '../../apis/purchaseAPI';
 import { IdeaMarketPurchase } from '../../types/purchaseType';
+import LoadingPage from '../loading/LoadingPage';
+import { ErrorPage } from '../errorPage/ErrorPage';
 
 export const IdeaMarketPayment = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -21,8 +23,8 @@ export const IdeaMarketPayment = () => {
     staleTime: 1000 * 60 * 5, // 5분 캐싱
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>오류 발생!</div>;
+  if (isLoading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
   if (!data) return null;
 
   const paymentTitleData = {

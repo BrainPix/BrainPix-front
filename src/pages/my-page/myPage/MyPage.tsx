@@ -15,6 +15,7 @@ import { getMyIdeas } from '../../../apis/ideaMarketAPI';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import { GetMyIdeasResponse } from '../../../types/ideaMarket';
 import Loading from '../../../assets/icons/loading.svg?react';
+import LoadingPage from '../../loading/LoadingPage';
 
 const INIT_DATA = {
   name: '',
@@ -68,7 +69,7 @@ export const MyPage = () => {
   });
 
   if (isFetchingAlarms) {
-    return <div>로딩중,,</div>;
+    return <LoadingPage />;
   }
 
   const myBaseInfo: MyBaseInfoType = myBaseInfoData?.data ?? INIT_DATA;

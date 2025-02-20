@@ -2,9 +2,10 @@
   @include flex-start;
   gap: 15px;
 
+  /* stylelint-disable-next-line selector-class-pattern */
   .react-spinners-PulseLoader {
     span {
-      background-color: $primary
+      background-color: $primary;
     }
   }
 }

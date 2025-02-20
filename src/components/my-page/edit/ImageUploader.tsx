@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import styles from './imageUploader.module.scss';
 import MainImage from '../../../assets/icons/mainImage.svg?react';
+import { Image } from '../../common/image/Image';
 
 interface ImageUploaderProps {
   previewImageUrl: string | null;
@@ -33,7 +34,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
               handleImageUpload();
             }
           }}>
-          <img
+          <Image
             src={previewImageUrl}
             alt='Selected'
             className={styles.imagePreview}

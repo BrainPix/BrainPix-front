@@ -10,6 +10,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getIdeaMarketDetail } from '../../apis/detailPageAPI';
 import { IdeaMarketDetail } from '../../types/detailPageType';
 import { getUserIdFromToken } from '../../utils/auth';
+import LoadingPage from '../loading/LoadingPage';
+import { ErrorPage } from '../errorPage/ErrorPage';
 
 export const IdeaRegisteredPage = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -21,8 +23,8 @@ export const IdeaRegisteredPage = () => {
     staleTime: 1000 * 60 * 5, // 5분
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>오류 발생!</div>;
+  if (isLoading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
 
   if (!data) return null;
 

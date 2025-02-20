@@ -13,6 +13,7 @@ import { toggleIdeaBookmark, getIdeaList } from '../../apis/mainPageAPI';
 import { GetIdeaListRequest } from '../../types/mainType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
+import LoadingPage from '../loading/LoadingPage';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -208,7 +209,7 @@ export const IdeaMarketMain = () => {
   }, []);
 
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <LoadingPage />;
   }
 
   return (

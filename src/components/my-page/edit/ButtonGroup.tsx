@@ -33,8 +33,7 @@ export const ButtonGroup = ({
       alert('게시글 수정 성공!');
       navigate(-1);
     },
-    onError: (error) => {
-      console.log('게시글 수정 실패:', error);
+    onError: () => {
       alert('수정에 실패했습니다.');
     },
   });
@@ -82,8 +81,7 @@ export const ButtonGroup = ({
             try {
               await handleSubmit();
               navigate('/idea-market/register-complete');
-            } catch (error) {
-              console.log('게시글 등록 에러 발생', error);
+            } catch {
               alert('등록에 실패했습니다. 다시 시도해주세요.');
             }
           }}

@@ -1,18 +1,18 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import styles from './supportModal.module.scss';
-import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
-import CheckLightIcon from '../../assets/icons/checkLight.svg?react';
-import ApplyIcon from '../../assets/icons/apply.svg?react';
-import UnapplyIcon from '../../assets/icons/unapply.svg?react';
-import { getCategoryLabel } from '../../utils/categoryMapping';
-
 import { useMutation } from '@tanstack/react-query';
-import { applyForRequest } from '../../apis/applyAPI';
-import axios from 'axios';
-import { useCollaborationSupport } from '../../hooks/useCollaborationSupport';
-import { useToast } from '../../contexts/toastContext';
 
-interface RequestSupportModalProps {
+import ArrowIcon from '../../../assets/icons/arrowUp2Thin.svg?react';
+import CheckLightIcon from '../../../assets/icons/checkLight.svg?react';
+import ApplyIcon from '../../../assets/icons/apply.svg?react';
+import UnapplyIcon from '../../../assets/icons/unapply.svg?react';
+import { getCategoryLabel } from '../../../utils/categoryMapping';
+import { applyForCollaboration } from '../../../apis/applyAPI';
+import { useCollaborationSupport } from '../../../hooks/useCollaborationSupport';
+import { useToast } from '../../../contexts/toastContext';
+
+interface CollaborationSupportModalProps {
   onClose: () => void;
   recruitments: {
     recruitmentId: number;
@@ -23,17 +23,17 @@ interface RequestSupportModalProps {
   category: string;
   writerName: string;
   title: string;
-  taskId: number;
+  collaborationId: number;
 }
 
-const RequestSupportModal = ({
+export const CollaborationSupportModal = ({
   onClose,
   recruitments,
   category,
   writerName,
   title,
-  taskId,
-}: RequestSupportModalProps) => {
+  collaborationId,
+}: CollaborationSupportModalProps) => {
   const {
     selectedSupport,
     message,
@@ -54,9 +54,9 @@ const RequestSupportModal = ({
 
   const mutation = useMutation({
     mutationFn: async () => {
-      if (!taskId) {
-        errorToast('요청과제 게시글 ID가 없습니다. 다시 시도해주세요.');
-        return Promise.reject('taskId is missing');
+      if (!collaborationId) {
+        errorToast('협업 게시글 ID가 없습니다. 다시 시도해주세요.');
+        return Promise.reject('collaborationId is missing');
       }
 
       if (!selectedSupport) {
@@ -65,16 +65,17 @@ const RequestSupportModal = ({
       }
 
       const requestData = {
-        requestRecruitmentId: selectedSupport,
+        collaborationRecruitmentId: selectedSupport,
         isOpenProfile: isChecked,
         message,
       };
-      return applyForRequest(taskId, requestData);
+
+      return applyForCollaboration(collaborationId, requestData);
     },
     onSuccess: () => {
       successToast('지원이 완료되었습니다! 지원 결과를 기다려주세요');
       onClose();
-      navigate('/my/apply-request');
+      navigate('/my/apply-collaboration');
     },
     onError: (error: unknown) => {
       let errorMessage = '지원 요청 중 오류가 발생했습니다.';
@@ -99,13 +100,13 @@ const RequestSupportModal = ({
         className={styles.modal}
         onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h1 className={styles.title}>요청과제 지원</h1>
+          <h1 className={styles.title}>협업 광장 지원</h1>
         </div>
         <hr className={styles.divider} />
         <div className={styles.content}>
           <div className={styles.titleSection}>
             <div className={styles.breadcrumb}>
-              <span>요청과제</span>
+              <span>협업 광장</span>
               <ArrowIcon className={styles.arrowIcon} />
               <span>{getCategoryLabel(category)}</span>
             </div>
@@ -115,6 +116,7 @@ const RequestSupportModal = ({
             </div>
           </div>
           <h2 className={styles.sectionTitle}>지원 부문</h2>
+          <hr className={styles.divider} />
           {recruitments.length === 0 ? (
             <p className={styles.noRecruitments}>
               지원할 모집 부문이 없습니다.
@@ -165,7 +167,9 @@ const RequestSupportModal = ({
                 <CheckLightIcon className={styles.checkIcon} />
               </div>
               <div
-                className={`${styles.checkboxLabel} ${isChecked ? styles.checkedLabel : ''}`}>
+                className={`${styles.checkboxLabel} ${
+                  isChecked ? styles.checkedLabel : ''
+                }`}>
                 프로필 공개
               </div>
             </div>
@@ -195,5 +199,3 @@ const RequestSupportModal = ({
     </div>
   );
 };
-
-export default RequestSupportModal;

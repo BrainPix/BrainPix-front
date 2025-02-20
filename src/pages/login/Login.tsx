@@ -62,7 +62,7 @@ export const Login = ({ userType }: LoginPropsType) => {
   });
 
   if (isFetchingToGetMyInfo) {
-    return <div>사용자 정보를 가져오는 중입니다...</div>;
+    return <Loading />;
   }
 
   const handleSubmitHandler: SubmitHandler<FieldValues> = (payload) => {

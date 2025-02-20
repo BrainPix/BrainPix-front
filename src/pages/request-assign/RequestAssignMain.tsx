@@ -16,6 +16,7 @@ import {
 import { GetIdeaListRequest } from '../../types/registerType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
+import LoadingPage from '../loading/LoadingPage';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -211,7 +212,7 @@ export const RequestAssignMain = () => {
   }, []);
 
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <LoadingPage />;
   }
 
   return (
