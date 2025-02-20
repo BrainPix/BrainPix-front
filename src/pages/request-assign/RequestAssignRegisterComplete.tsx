@@ -1,13 +1,14 @@
 import styles from './requestAssignRegisterComplete.module.scss';
 import FinishIcon from '../../assets/icons/finishIcon.svg?react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const RequestAssignRegisterComplete = () => {
   const navigate = useNavigate();
-  const { taskId } = useParams();
+  const [searchParams] = useSearchParams();
+  const postId = searchParams.get('postId');
 
   const handleRegisteredClick = () => {
-    navigate(`/request-assign/registered/${taskId}`);
+    navigate(`/request-assign/registered/${postId}`);
   };
 
   const handleMyPageClick = () => {

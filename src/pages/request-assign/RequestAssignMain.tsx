@@ -224,7 +224,11 @@ export const RequestAssignMain = () => {
         </div>
         <button
           className={styles.registerButton}
-          onClick={() => navigate('/request-assign/register')}>
+          onClick={() =>
+            navigate('/request-assign/register', {
+              state: { defaultPageType: 'OPEN_IDEA' },
+            })
+          }>
           요청 과제 등록하기
         </button>
       </div>

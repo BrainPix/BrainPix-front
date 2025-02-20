@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill-new';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
 import styles from './requestAssignRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
@@ -124,10 +124,12 @@ interface RecruitmentField {
 
 export const RequestAssignRegisterNow = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const defaultPageType = location.state?.defaultPageType || 'OPEN_IDEA';
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [pageType, setPageType] = useState<'OPEN_IDEA' | 'TECH_ZONE'>(
-    'OPEN_IDEA',
+    defaultPageType,
   );
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
@@ -331,7 +333,7 @@ export const RequestAssignRegisterNow = () => {
       };
 
       const response = await submitRequestAssign(requestData);
-      navigate(`/request-assign/register-complete?ideaId=${response.id}`);
+      navigate(`/request-assign/register-complete?postId=${response.id}`);
     } catch {
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
@@ -373,7 +375,8 @@ export const RequestAssignRegisterNow = () => {
       throw new Error(`API 호출 실패`);
     }
 
-    return await response.json();
+    const responseData = await response.json();
+    return { id: responseData.data.postId };
   };
 
   useEffect(() => {

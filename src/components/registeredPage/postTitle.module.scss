@@ -54,13 +54,21 @@
 
 .titleContainer {
   display: flex;
+  align-items: wrap;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 4px;
+  gap: 8px;
+  margin-top: 13px;
+  max-width: 90%;
 }
 
 .title {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
   color: $grey-800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 100px);
   @include pretendard-26-500;
   letter-spacing: -0.36px;
 }

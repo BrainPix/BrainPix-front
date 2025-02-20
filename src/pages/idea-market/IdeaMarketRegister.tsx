@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill-new';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'react-quill-new/dist/quill.snow.css';
 import styles from './ideaMarketRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
@@ -97,10 +97,12 @@ const OPTIONS = [
 
 export const IdeaMarketRegister = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const defaultPageType = location.state?.defaultPageType || 'Idea Solution';
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [pageType, setPageType] = useState<'Idea Solution' | 'Market Place'>(
-    'Idea Solution',
+    defaultPageType,
   );
   const [showDetail, setShowDetail] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
@@ -280,7 +282,7 @@ export const IdeaMarketRegister = () => {
       };
 
       const response = await submitIdeaMarket(requestData);
-      navigate(`/idea-market/register-complete?ideaId=${response.id}`);
+      navigate(`/idea-market/register-complete?postId=${response.id}`);
     } catch {
       alert('등록에 실패했습니다. 다시 시도해주세요.');
     }
@@ -317,7 +319,8 @@ export const IdeaMarketRegister = () => {
       throw new Error(`API 호출 실패`);
     }
 
-    return await response.json();
+    const responseData = await response.json();
+    return { id: responseData.data.postId };
   };
 
   useEffect(() => {

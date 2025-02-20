@@ -324,6 +324,13 @@
     .ql-active {
       color: $primary;
     }
+
+    .ql-editor.ql-blank::before {
+      transition: opacity 0.1s;
+      color: #999;
+      font-style: normal;
+      font-size: inherit;
+    }
   }
 }
 
