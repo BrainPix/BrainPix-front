@@ -51,6 +51,7 @@ export const RequestAssignRegistered = () => {
     deadline: post?.deadline ?? 0,
     writerName: post?.writer?.name ?? '',
     recruitments: post?.recruitments ?? [],
+    isSavedPost: post?.isSavedPost ?? false,
   };
 
   const writerData = {

@@ -3,6 +3,8 @@ import Label from '../common/label/Label';
 
 import { getCategoryLabel } from '../../utils/categoryMapping';
 import { Image } from '../common/image/Image';
+import { useState } from 'react';
+import { WriteMessageModal } from '../my-page/message/WriteMessageModal';
 
 interface AuthorInfoProps {
   name: string;
@@ -21,6 +23,16 @@ const AuthorInfo = ({
   totalIdeas,
   totalCollaborations,
 }: AuthorInfoProps) => {
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
+
+  const openMessageModal = () => {
+    setIsMessageModalOpen(true);
+  };
+
+  const closeMessageModal = () => {
+    setIsMessageModalOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -50,7 +62,9 @@ const AuthorInfo = ({
             )}
           </div>
         </div>
-        <button className={styles.messageButton}>
+        <button
+          className={styles.messageButton}
+          onClick={openMessageModal}>
           <div className={styles.messageText}>메신저 보내기</div>
         </button>
       </div>
@@ -72,6 +86,12 @@ const AuthorInfo = ({
           <span className={styles.infoValue}>{totalCollaborations}</span>
         </div>
       </div>
+      {isMessageModalOpen && (
+        <WriteMessageModal
+          onClose={closeMessageModal}
+          type='write'
+        />
+      )}
     </div>
   );
 };

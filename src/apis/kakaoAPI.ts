@@ -62,7 +62,6 @@ export const kakaoPayApprove = async ({
   ideaId: number;
 }) => {
   const token = checkAccessToken();
-  if (!token) return null;
 
   const requestData = { pgToken, orderId, ideaId };
 

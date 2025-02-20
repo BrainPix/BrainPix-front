@@ -44,6 +44,8 @@ export const PostDetailWithLink = () => {
     viewCount: data.viewCount,
     saveCount: data.saveCount,
     createdDate: data.createdDate,
+    isSavedPost: data.isSavedPost,
+    postId: Number(collaborationId),
   };
 
   const webLinkData = data.link
@@ -88,7 +90,10 @@ export const PostDetailWithLink = () => {
     <>
       <div className={styles.margin}>
         <ProfileHeader {...profileData} />
-        <PostHeader {...postHeaderData} />
+        <PostHeader
+          {...postHeaderData}
+          isSavedPost={postHeaderData.isSavedPost}
+        />
         {webLinkData && <WebLinkBox {...webLinkData} />}
         <TaskDescription {...taskDescriptionData} />
         <RecruitmentInfo {...recruitmentInfoData} />
