@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, ChangeEvent, MouseEvent } from 'react';
+import { SpecializationType } from '../types/specializationType';
 import {
   getPresignedUrl,
   uploadImageToPresignedUrl,
   submitIdeaMarket,
   IdeaMarketRequestData,
-  SpecializationType,
   IdeaMarketType,
   PostAuth,
 } from '../apis/ideaMarketEditAPI';
