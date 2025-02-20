@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -17,7 +17,10 @@ export const getIdeaMarketDetail = async (ideaId: number) => {
     });
 
     return data.data;
-  } catch {
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 404) {
+      return null;
+    }
     throw Error;
   }
 };
@@ -36,7 +39,10 @@ export const getRequestDetail = async (taskId: number) => {
     });
 
     return data.data;
-  } catch {
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 404) {
+      return null;
+    }
     throw Error;
   }
 };
