@@ -8,7 +8,7 @@ interface CurrentPeopleProps {
     memberId: {
       id: string;
       userType: string;
-      userId: number;
+      acceptedMemberId: number;
     }[];
   }[];
 }
@@ -47,7 +47,9 @@ export const CurrentPeople = ({ currentMembers }: CurrentPeopleProps) => {
               <div className={styles.buttonGroup}>
                 <button
                   className={styles.button}
-                  onClick={() => handleProfile(user.userId, user.userType)}>
+                  onClick={() =>
+                    handleProfile(user.acceptedMemberId, user.userType)
+                  }>
                   프로필
                 </button>
                 <button className={styles.button}>메신저</button>

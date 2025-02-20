@@ -79,6 +79,7 @@ export interface RequestTaskDetail extends RequestTask {
     memberId: {
       id: string;
       userType: string;
+      acceptedMemberId: number;
     }[];
   }[];
 }
