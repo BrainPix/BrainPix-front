@@ -13,6 +13,7 @@ import { getRequestDetail } from '../../apis/detailPageAPI';
 import { getUserIdFromToken } from '../../utils/auth';
 import LoadingPage from '../loading/LoadingPage';
 import { ErrorPage } from '../errorPage/ErrorPage';
+import { Join } from '../join/Join';
 
 export const RequestRegisteredPage = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -25,6 +26,7 @@ export const RequestRegisteredPage = () => {
   });
 
   if (isLoading) return <LoadingPage />;
+  if (!data) return <Join />;
   if (error) return <ErrorPage />;
 
   if (!data) return null;

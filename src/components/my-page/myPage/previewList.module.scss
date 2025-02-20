@@ -16,6 +16,7 @@
   @include pretendard-14-400;
 
   padding: 5px 10px;
+  min-width: fit-content;
   padding-top: 6px;
   background-color: $grey-900;
   color: $grey-100;
@@ -48,6 +49,10 @@
 .page {
   color: $grey-700;
   font-weight: 400;
+  width: 120px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .arrow {

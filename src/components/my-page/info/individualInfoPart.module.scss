@@ -130,6 +130,7 @@
   @include pretendard-14-400;
 
   padding: 5px 10px;
+  min-width: fit-content;
   background-color: $grey-400;
   border-radius: 5px;
   border: none;

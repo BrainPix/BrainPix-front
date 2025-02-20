@@ -38,6 +38,7 @@ export interface getOtherPostsType {
   price: number;
   currentMembers: number;
   totalMembers: number;
+  savedPost: boolean;
 }
 
 export interface Collaboration {
