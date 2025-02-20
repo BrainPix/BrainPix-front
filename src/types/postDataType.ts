@@ -110,3 +110,15 @@ export interface PostApiResponse<T> {
   size: number;
   hasNext: boolean;
 }
+
+// 게시글 수정 API 요청 데이터 타입
+export interface IdeaMarketEditType {
+  title: string;
+  content: string;
+  specialization: string;
+  openMyProfile: boolean;
+  postAuth: string;
+  ideaMarketType: string;
+  imageList: string[];
+  attachmentFileList: string[];
+}

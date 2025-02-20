@@ -23,7 +23,7 @@ export const ProfileHeaderAuthor = ({
   const queryClient = useQueryClient();
 
   const editPost = () => {
-    navigate(`${buttonPath}/register`); // 수정하기 : 등록 페이지로 이동
+    navigate(`/my/posts${buttonPath}/edit/${postId}`); // 수정하기 : 등록 페이지로 이동
   };
 
   const handleDeleteClick = () => {
