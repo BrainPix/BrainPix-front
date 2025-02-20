@@ -117,14 +117,14 @@ const PaymentSummary = ({ price, quantity, sellerId }: PaymentSummaryProps) => {
               selectedMethod === '휴대폰 결제' ? styles.selected : ''
             }`}
             onClick={() => handleButtonClick('휴대폰 결제')}>
-            휴대폰 결제
+            -
           </button>
           <button
             className={`${styles.button} ${
               selectedMethod === '계좌이체' ? styles.selected : ''
             }`}
             onClick={() => handleButtonClick('계좌이체')}>
-            계좌이체
+            -
           </button>
         </div>
       </div>
