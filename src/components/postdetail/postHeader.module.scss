@@ -30,17 +30,22 @@
 
 .titleContainer {
   display: flex;
+  align-items: wrap;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 10px;
-  position: relative;
+  gap: 8px;
+  margin-top: 13px;
 }
 
 .title {
-  @include pretendard-26-500;
-
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
   color: $grey-800;
-  letter-spacing: -0.26px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  @include pretendard-26-500;
+  letter-spacing: -0.36px;
 }
 
 .badge {
