@@ -16,30 +16,6 @@ export const ApplyRequest = () => {
     labelText: '개인',
     labelType: 'personal',
   };
-  // const APPLY_DATA = [
-  //   {
-  //     id: 1,
-  //     status: '수락됨',
-  //     statusType: 'accept',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '요청 과제',
-  //     category: '디자인',
-  //     itemName: '앱 개발 해주실 분',
-  //     part: '디자이너',
-  //   },
-  //   {
-  //     id: 2,
-  //     status: '거절됨',
-  //     statusType: 'reject',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '요청 과제',
-  //     category: '디자인',
-  //     itemName: '앱 개발 해주실 분',
-  //     part: '디자이너',
-  //   },
-  // ];
 
   const queryClient = useQueryClient();
 
@@ -113,8 +89,9 @@ export const ApplyRequest = () => {
             />
 
             <ApplyDetailsInfo
+              postId={requestTask.requestTaskId}
               tab='요청 과제'
-              category={requestTask.specialization}
+              specialization={requestTask.specialization}
               itemName={requestTask.postTitle}
               part={requestTask.domain}
             />
@@ -140,8 +117,9 @@ export const ApplyRequest = () => {
             </div>
 
             <ApplyDetailsInfo
+              postId={requestTask.requestTaskId}
               tab='요청 과제'
-              category={requestTask.specialization}
+              specialization={requestTask.specialization}
               itemName={requestTask.postTitle}
               part={requestTask.domain}
             />

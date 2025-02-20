@@ -9,7 +9,6 @@ import { PayInfo } from '../../../components/my-page/apply/PayInfo';
 
 export const PurchaseList = () => {
   const FORM_DATA = {
-    cardTitle: '구매 상세 내역',
     labelText: '기업',
     labelType: 'corporate',
   };
@@ -42,7 +41,7 @@ export const PurchaseList = () => {
               date={purchase.purchasedAt}
               status='구매 완료'
               statusType='purchaseCompleted'
-              cardTitle={FORM_DATA.cardTitle}
+              cardTitle={'구매 상세 내역'}
             />
             <div className={styles.cardContent}>
               <PostAuthorInfo
@@ -51,10 +50,12 @@ export const PurchaseList = () => {
                 labelType={FORM_DATA.labelType}
               />
               <PurchaseDetailsInfo
+                ideaId={purchase.purchasingId}
                 tab='아이디어 마켓'
                 specialization={purchase.specialization}
                 itemName={purchase.title}
                 price={purchase.finalPrice}
+                quantity={purchase.quantity}
               />
               <PayInfo
                 payment='카카오페이'
