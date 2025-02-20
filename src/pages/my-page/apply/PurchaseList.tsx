@@ -13,34 +13,6 @@ export const PurchaseList = () => {
     labelText: '기업',
     labelType: 'corporate',
   };
-  // const PURCHASE_DATA = [
-  //   {
-  //     id: 1,
-  //     status: '구매 완료',
-  //     statusType: 'purchaseCompleted',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '아이디어 마켓',
-  //     category: '디자인',
-  //     itemName: '디자인 해드립니다',
-  //     price: 200000,
-  //     payment: '카카오페이',
-  //     fee: 500,
-  //   },
-  //   {
-  //     id: 2,
-  //     status: '구매 완료',
-  //     statusType: 'purchaseCompleted',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '아이디어 마켓',
-  //     category: '디자인',
-  //     itemName: '디자인 해드립니다',
-  //     price: 200000,
-  //     payment: '카카오페이',
-  //     fee: 500,
-  //   },
-  // ];
 
   const {
     data: purchases = [],
@@ -80,7 +52,7 @@ export const PurchaseList = () => {
               />
               <PurchaseDetailsInfo
                 tab='아이디어 마켓'
-                category={purchase.specialization}
+                specialization={purchase.specialization}
                 itemName={purchase.title}
                 price={purchase.finalPrice}
               />
