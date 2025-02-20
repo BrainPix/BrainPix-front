@@ -6,6 +6,8 @@ import { PostHeader } from '../../../components/my-page/PostHeader.tsx';
 
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import LoadingPage from '../../loading/LoadingPage.tsx';
+import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
 
 export const PostsRequestAssign = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -21,8 +23,8 @@ export const PostsRequestAssign = () => {
     staleTime: 1000 * 60 * 10,
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !post) return <div>요청 과제 게시글을 찾을 수 없습니다.</div>;
+  if (isLoading) return <LoadingPage />;
+  if (isError || !post) return <ErrorPage />;
 
   return (
     <>

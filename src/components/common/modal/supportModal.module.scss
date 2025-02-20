@@ -5,11 +5,12 @@
   width: 100vw;
   height: 100vh;
   @include flex-center;
-  background: rgba(0, 0, 0, 0.5);
+
+  background: rgb(0 0 0 / 50%);
   z-index: 1000;
   justify-content: flex-end;
   align-items: flex-end;
-  padding: 10px 10px;
+  padding: 10px;
 }
 
 .modal {
@@ -18,19 +19,21 @@
   max-height: 90%;
   border-radius: 15px;
   background: $grey-50;
-  padding: 0px 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0 30px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
   overflow-y: auto;
 }
 
 .header {
   @include flex-space-between;
+
   margin-bottom: 15px;
 }
 
 .title {
   color: $grey-800;
   @include pretendard-24-500;
+
   letter-spacing: -0.36px;
   margin-top: 25px;
 }
@@ -63,6 +66,7 @@
   align-items: center;
   color: $grey-500;
   @include pretendard-14-400;
+
   margin-bottom: 7px;
 }
 
@@ -102,6 +106,7 @@
 
 .tableHeader {
   @include flex-space-between;
+
   padding: 15px 0;
   text-align: center;
   background: $grey-200;
@@ -111,9 +116,11 @@
 .column {
   flex: 1;
   @include flex-center;
+
   text-align: center;
   position: relative;
   @include pretendard-18-500;
+
   color: $grey-700;
 }
 
@@ -140,8 +147,10 @@
 .status {
   flex: 1;
   @include flex-center;
+
   text-align: center;
   @include pretendard-18-400;
+
   color: $grey-900;
   position: relative;
 }
@@ -183,15 +192,15 @@
   height: 200px;
   border-radius: 5px;
   border: 1px solid $grey-500;
-  padding: 15px 0px;
   align-self: stretch;
-  background: rgba(217, 217, 217, 0);
+  background: rgb(217 217 217 / 0%);
   resize: none;
   padding: 2%;
 }
 
 .footer {
   @include flex-space-between;
+
   padding-top: 10px;
   width: 100%;
 }
@@ -209,6 +218,7 @@
   border-radius: 50%;
   background-color: $grey-500;
   @include flex-center;
+
   transition: background-color 0.3s ease;
   position: relative;
 }
@@ -252,6 +262,7 @@
   border: none;
   color: $grey-700;
   @include pretendard-18-400;
+
   cursor: pointer;
 }
 
@@ -261,6 +272,7 @@
   background: $primary;
   color: white;
   @include pretendard-18-400;
+
   cursor: pointer;
   border: none;
 }

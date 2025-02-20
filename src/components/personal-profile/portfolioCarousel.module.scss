@@ -21,6 +21,10 @@
     @include pretendard-16-500;
 
     margin-bottom: 5px;
+    width: 160px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   & > .date {

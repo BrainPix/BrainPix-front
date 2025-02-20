@@ -16,6 +16,8 @@ import {
   getPostRequestTask,
   getPostCollaboration,
 } from '../../../apis/postManagementAPI.ts';
+import LoadingPage from '../../loading/LoadingPage.tsx';
+import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
 
 export const MyPagePosts = () => {
   const navigate = useNavigate();
@@ -51,9 +53,9 @@ export const MyPagePosts = () => {
         />
 
         {isLoading ? (
-          <p>로딩 중...</p>
+          <LoadingPage />
         ) : isError ? (
-          <p>데이터를 불러오는 중 오류가 발생했습니다.</p>
+          <ErrorPage />
         ) : (
           <>
             <div className={styles.count}>총 게시글 {posts.length}</div>

@@ -6,6 +6,8 @@ import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { PurchaseDetailsInfo } from '../../../components/my-page/apply/PurchaseDetailsInfo';
 import { PayInfo } from '../../../components/my-page/apply/PayInfo';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const PurchaseList = () => {
   const FORM_DATA = {
@@ -13,35 +15,6 @@ export const PurchaseList = () => {
     labelText: '기업',
     labelType: 'corporate',
   };
-  // const PURCHASE_DATA = [
-  //   {
-  //     id: 1,
-  //     status: '구매 완료',
-  //     statusType: 'purchaseCompleted',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '아이디어 마켓',
-  //     category: '디자인',
-  //     itemName: '디자인 해드립니다',
-  //     price: 200000,
-  //     payment: '카카오페이',
-  //     fee: 500,
-  //   },
-  //   {
-  //     id: 2,
-  //     status: '구매 완료',
-  //     statusType: 'purchaseCompleted',
-  //     date: '2024/12/24',
-  //     seller: 'SEO YEON',
-  //     tab: '아이디어 마켓',
-  //     category: '디자인',
-  //     itemName: '디자인 해드립니다',
-  //     price: 200000,
-  //     payment: '카카오페이',
-  //     fee: 500,
-  //   },
-  // ];
-
   const {
     data: purchases = [],
     isLoading,
@@ -51,8 +24,8 @@ export const PurchaseList = () => {
     queryFn: () => getPurchases(0, 10),
   });
 
-  if (isLoading) return <p>로딩 중...</p>;
-  if (isError) return <p>데이터를 불러오는 중 오류 발생</p>;
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage />;
 
   return (
     <div className={styles.container}>

@@ -10,6 +10,8 @@ import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetailsInfo';
 import { ApplyTable } from '../../../components/my-page/apply/ApplyTable';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const ApplyCollaboration = () => {
   const FORM_DATA = {
@@ -32,7 +34,6 @@ export const ApplyCollaboration = () => {
     },
   });
 
-  // accept된 협업 광장
   const {
     data: acceptedCollaborations = [],
     isLoading: isLoadingAccepted,
@@ -42,7 +43,6 @@ export const ApplyCollaboration = () => {
     queryFn: () => getAcceptedCollaborations(0, 10),
   });
 
-  // reject된 협업 광장
   const {
     data: rejectedCollaborations = [],
     isLoading: isLoadingRejected,
@@ -53,13 +53,11 @@ export const ApplyCollaboration = () => {
   });
 
   if (isLoadingAccepted || isLoadingRejected) {
-    return <div className={styles.loading}>로딩 중...</div>;
+    return <LoadingPage />;
   }
 
   if (isAcceptedError || isErrorRejected) {
-    return (
-      <div className={styles.error}>데이터를 불러오는 데 실패했습니다.</div>
-    );
+    return <ErrorPage />;
   }
 
   return (

@@ -10,7 +10,7 @@ import {
 } from '../../apis/collaborationAPI';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
-import LoadingPage from '../../components/common/loading/LoadingPage';
+import LoadingPage from '../loading/LoadingPage';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',

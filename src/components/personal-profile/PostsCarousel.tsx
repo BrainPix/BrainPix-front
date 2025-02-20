@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { Carousel } from '../common/carousel/Carousel';
 import styles from './postCarousel.module.scss';
 import { getOtherPostsType } from '../../types/postDataType';
 import { getOtherProfilePosts } from '../../apis/profileAPI';
 import PreviewThumbnail from '../preview/PreviewThumbnail';
+import { postSavedPosts } from '../../apis/savePostsAPI';
+import { ToastContext } from '../../contexts/toastContext';
 
 export const PostsCarousel = () => {
   const { id } = useParams();
+  const queryClient = useQueryClient();
+  const { errorToast, successToast } = useContext(ToastContext);
 
   const [clickedPage, setClickedPage] = useState(0);
   const [currentData, setCurrentData] = useState<getOtherPostsType[][]>([]);
@@ -18,6 +22,17 @@ export const PostsCarousel = () => {
   const { data: posts } = useQuery({
     queryKey: ['posts', clickedPage],
     queryFn: () => getOtherProfilePosts(clickedPage, Number(id)),
+  });
+
+  const { mutate: onSaveMutate } = useMutation({
+    mutationFn: (postId: number) => postSavedPosts(postId),
+    onSuccess: () => {
+      successToast('게시글을 저장하였습니다.');
+      queryClient.invalidateQueries({
+        queryKey: ['posts'],
+      });
+    },
+    onError: () => errorToast('저장에 실패하였습니다.'),
   });
 
   useEffect(() => {
@@ -71,6 +86,7 @@ export const PostsCarousel = () => {
                 <PreviewThumbnail
                   key={postId}
                   data={{
+                    isBookmarked: false,
                     ideaId: postId,
                     imageUrl: thumbnailImage,
                     description: title,
@@ -79,6 +95,7 @@ export const PostsCarousel = () => {
                     saves: savedCount,
                     views: viewCount,
                     category: specialization,
+                    onBookmarkClick: () => onSaveMutate(postId),
                     auth:
                       openScope === '전체 공개'
                         ? 'ALL'
