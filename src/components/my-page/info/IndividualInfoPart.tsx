@@ -2,11 +2,7 @@ import { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import styles from './individualInfoPart.module.scss';
-import { useQueryClient } from '@tanstack/react-query';
-import {
-  ContactType,
-  IndividualProfileResponseType,
-} from '../../../types/profileType';
+import { ContactType } from '../../../types/profileType';
 import {
   INFO_TYPE_MAPPER,
   INFO_TYPE_MAPPER_TO_ENG,
@@ -24,8 +20,6 @@ export const IndividualInfoPart = forwardRef<
   HTMLInputElement,
   IndividualInfoPartPropsType
 >(({ editMode, onClickAdd, contacts, onDelete }, ref) => {
-  const queryClient = useQueryClient();
-  const userData = queryClient.getQueryData(['userData']);
   const [userType, setUserType] = useState('');
   const [infoOpenChecked, setInfoOpenChecked] = useState(false);
   const [addInfo, setAddInfo] = useState<ContactType>({
@@ -41,7 +35,7 @@ export const IndividualInfoPart = forwardRef<
   }, []);
 
   const LABEL_OPTIONS =
-    (userData as IndividualProfileResponseType)?.userType === 'INDIVIDUAL'
+    userType === 'personal'
       ? ['연락처', '노션', '깃허브', '기타']
       : ['홈페이지', '이메일', '연락처', '기타'];
 
@@ -91,7 +85,7 @@ export const IndividualInfoPart = forwardRef<
           ) : (
             isPublic && (
               <div
-                key={value}
+                key={type}
                 className={classNames(styles.list)}>
                 <span className={classNames(styles.label)}>
                   {INFO_TYPE_MAPPER[type]}
