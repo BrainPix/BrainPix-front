@@ -412,7 +412,7 @@ export const CollaborationRegister: React.FC<
           <div className={styles.labelWrapper}>
             <label htmlFor='category'>
               주제 분야 설정
-              <span className={styles.required}>(필수)</span>
+              <span className={styles.required}> (필수)</span>
             </label>
           </div>
           <div

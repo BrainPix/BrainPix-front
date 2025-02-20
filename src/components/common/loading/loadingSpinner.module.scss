@@ -1,6 +1,5 @@
 .spinner {
-  display: flex;
-  align-items: center;
+  @include flex-start;
   gap: 15px;
 
   .react-spinners-PulseLoader {

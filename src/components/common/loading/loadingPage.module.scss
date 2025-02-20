@@ -1,18 +1,14 @@
 .container {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: $grey-50;
     padding: 40px 0;
 }
   
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex-column;
     flex-grow: 1;
     justify-content: center;
 }
@@ -22,25 +18,21 @@
 }
 
 .title {
+    @include pretendard-32-600;
     align-self: stretch;
-    color: var(--grey-grey-09, #424242);
+    color: $grey-900;
     text-align: center;
-    font-family: Pretendard;
-    font-size: 32px;
     font-style: normal;
-    font-weight: 600;
     line-height: normal;
     margin-bottom: 8px;
 }
 
 .subtitle {
+    @include pretendard-20-500;
     align-self: stretch;
-    color: var(--grey-grey-07, #757575);
+    color: $grey-700;
     text-align: center;
-    font-family: Pretendard;
-    font-size: 20px;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
     margin-bottom: 32px;
 }
