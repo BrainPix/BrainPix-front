@@ -1,0 +1,11 @@
+.spinner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .react-spinners-PulseLoader {
+    span {
+      background-color: $primary
+    }
+  }
+}

@@ -37,6 +37,7 @@ export const IdeaRegisteredPage = () => {
     saveCount: data.saveCount ?? 0,
     createdDate: data.createdDate ?? '',
     ideaId: data.ideaId ?? 0,
+    isSavedPost: data.isSavedPost ?? false,
   };
 
   const writerData = {

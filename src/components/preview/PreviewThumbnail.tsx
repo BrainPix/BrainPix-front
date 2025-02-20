@@ -14,6 +14,9 @@ interface PreviewThumbnailType {
   username?: string;
   description?: string;
   price?: number;
+  deadline?: number;
+  occupiedQuantity?: number;
+  totalQuantity?: number;
   isBookmarked?: boolean;
   auth?: 'ALL' | 'COMPANY' | 'ME';
   category?: string;
@@ -23,6 +26,7 @@ interface PreviewThumbnailType {
   onBookmarkClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   verified?: boolean;
   onClick?: () => void;
+  routePrefix?: string;
 }
 
 interface PreviewThumbnailProps {
@@ -48,10 +52,13 @@ const categoryMap: Record<string, string> = {
 const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
   const {
     ideaId,
+    routePrefix = 'idea-market',
     imageUrl = '',
     profileImage = '',
     username = '',
     description = '',
+    occupiedQuantity = 0,
+    totalQuantity = 0,
     price = 0,
     isBookmarked = false,
     auth = 'ALL',
@@ -79,7 +86,13 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
 
   const handleImageClick = () => {
     if (ideaId) {
-      navigate(`/idea-market/registered/${ideaId}`);
+      if (routePrefix === 'collaboration') {
+        navigate(`/collaboration/postdetailwithlink/${ideaId}`);
+      } else {
+        navigate(`/${routePrefix}/registered/${ideaId}`);
+      }
+    } else {
+      alert('페이지를 불러올 수 없습니다.');
     }
   };
 
@@ -129,7 +142,11 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
         </div>
 
         <div className={styles.priceSection}>
-          <span className={styles.price}>{price.toLocaleString()}원</span>
+          <span className={styles.price}>
+            {price !== undefined
+              ? `${price.toLocaleString()}원`
+              : `${occupiedQuantity}/${totalQuantity}명`}
+          </span>
           <button
             onClick={(e) => {
               e.stopPropagation();

@@ -40,6 +40,7 @@ export const RequestRegisteredPage = () => {
     createdDate: data.createdDate ?? '',
     writerName: data.writer?.name ?? '',
     taskId: Number(taskId),
+    isSavedPost: data.isSavedPost ?? false,
   };
 
   const writerData = {

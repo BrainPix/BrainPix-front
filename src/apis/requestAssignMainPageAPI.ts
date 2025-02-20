@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { IdeaMarketCheck } from '../types/mainType';
+import { RequestAssignCheck } from '../types/registerType';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -36,7 +36,7 @@ apiClient.interceptors.response.use(
 );
 
 export interface GetIdeaListRequest {
-  type: 'IDEA_SOLUTION' | 'MARKET_PLACE';
+  type: 'OPEN_IDEA' | 'TECH_ZONE';
   page?: number;
   size?: number;
   category?: string;
@@ -46,7 +46,7 @@ export interface GetIdeaListRequest {
 }
 
 interface SearchParams {
-  type: 'IDEA_SOLUTION' | 'MARKET_PLACE';
+  type: 'OPEN_IDEA' | 'TECH_ZONE';
   page?: number;
   size?: number;
 }
@@ -61,41 +61,33 @@ interface BookmarkResponse {
 }
 
 export const getPopularIdeas = async (params: SearchParams) => {
-  try {
-    const response = await apiClient.get<IdeaMarketCheck>(
-      'idea-markets/search/popular',
-      {
-        params: {
-          type: params.type,
-          page: params.page ?? 0,
-          size: params.size ?? 10,
-        },
+  const response = await apiClient.get<RequestAssignCheck>(
+    'request-tasks/search/popular',
+    {
+      params: {
+        type: params.type,
+        page: params.page ?? 0,
+        size: params.size ?? 10,
       },
-    );
+    },
+  );
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data;
-  } catch {
-    throw Error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data;
 };
 
-export const getIdeaMarketDetail = async (ideaId: number) => {
-  try {
-    const response = await apiClient.get<IdeaMarketCheck>(`
-      idea-markets/${ideaId}`);
+export const getRequestAssignDetail = async (taskId: number) => {
+  const response = await apiClient.get<RequestAssignCheck>(`
+    request-tasks/${taskId}`);
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data.data;
-  } catch {
-    throw Error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data.data;
 };
 
 export const withRetry = async <T>(
@@ -113,50 +105,38 @@ export const withRetry = async <T>(
 };
 
 export const toggleIdeaBookmark = async (postId: number) => {
-  try {
-    const response = await apiClient.post<BookmarkResponse>(
-      'saved-posts',
-      null,
-      {
-        params: { postId },
-      },
-    );
+  const response = await apiClient.post<BookmarkResponse>('saved-posts', null, {
+    params: { postId },
+  });
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data;
-  } catch {
-    throw Error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data;
 };
 
 export const getIdeaList = async (params: GetIdeaListRequest) => {
-  try {
-    const response = await apiClient.post<IdeaMarketCheck>(
-      'idea-markets/search',
-      {
-        type: params.type,
-        category: params.category,
-        keyword: params.keyword,
-        onlyCompany: params.onlyCompany,
-        sortType: params.sortType,
+  const response = await apiClient.post<RequestAssignCheck>(
+    'request-tasks/search',
+    {
+      type: params.type,
+      category: params.category,
+      keyword: params.keyword,
+      onlyCompany: params.onlyCompany,
+      sortType: params.sortType,
+    },
+    {
+      params: {
+        page: params.page ?? 0,
+        size: params.size ?? 10,
       },
-      {
-        params: {
-          page: params.page ?? 0,
-          size: params.size ?? 10,
-        },
-      },
-    );
+    },
+  );
 
-    if (!response.data) {
-      throw new Error('데이터가 없습니다.');
-    }
-
-    return response.data;
-  } catch {
-    throw Error;
+  if (!response.data) {
+    throw new Error('데이터가 없습니다.');
   }
+
+  return response.data;
 };

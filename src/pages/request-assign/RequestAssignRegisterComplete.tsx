@@ -1,12 +1,13 @@
 import styles from './requestAssignRegisterComplete.module.scss';
 import FinishIcon from '../../assets/icons/finishIcon.svg?react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const RequestAssignRegisterComplete = () => {
   const navigate = useNavigate();
+  const { taskId } = useParams();
 
   const handleRegisteredClick = () => {
-    navigate('/idea-market/registered/:ideaId');
+    navigate(`/request-assign/registered/${taskId}`);
   };
 
   const handleMyPageClick = () => {
