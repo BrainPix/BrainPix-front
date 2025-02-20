@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getPostIdeaMarketDetail } from '../../../apis/postManagementAPI.ts';
 import { IdeaMarketDetail } from '../../../types/postDataType.ts';
+import LoadingPage from '../../loading/LoadingPage.tsx';
+import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
 
 export const PostsIdeaMarket = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -21,8 +23,8 @@ export const PostsIdeaMarket = () => {
     staleTime: 1000 * 60 * 10,
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
+  if (isLoading) return <LoadingPage />;
+  if (isError || !post) return <ErrorPage />;
 
   return (
     <div className={styles.postcardWrapper}>

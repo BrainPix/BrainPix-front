@@ -1,4 +1,5 @@
 import styles from './ideaDescription.module.scss';
+import DOMPurify from 'dompurify';
 
 interface IdeaDescriptionProps {
   content: string;
@@ -24,7 +25,9 @@ const IdeaDescription = ({ content, attachments }: IdeaDescriptionProps) => {
         <h1 className={styles.title}>아이디어 설명</h1>
         <div className={styles.divider}></div>
       </div>
-      <p className={styles.description}>{content}</p>
+      <p className={styles.description}>
+        {DOMPurify.sanitize(content, { ALLOWED_TAGS: [] })}
+      </p>
       {attachments.length > 0 && (
         <div className={styles.attachment}>
           <h1 className={styles.attachmentTitle}>

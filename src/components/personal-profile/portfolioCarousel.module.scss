@@ -21,37 +21,15 @@
     @include pretendard-16-500;
 
     margin-bottom: 5px;
+    width: 160px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   & > .date {
     @include pretendard-14-500;
 
     color: $grey-600;
-  }
-}
-
-.noDataWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 15px;
-
-  & > .label {
-    @include pretendard-20-500;
-
-    color: $grey-900;
-  }
-
-  & > .text {
-    color: $grey-600;
-    margin: 0 auto;
-  }
-
-  & > .addPortfolioButton {
-    padding: 10px 20px;
-    margin: 0 auto;
-    border-radius: 10px;
-    width: fit-content;
-    cursor: pointer;
   }
 }

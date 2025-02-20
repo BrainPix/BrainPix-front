@@ -125,3 +125,45 @@ export const SignupRegisters = ({
 
   return registers;
 };
+
+export const ideaRegisterRegisters = ({
+  register,
+  watch,
+  setValue,
+}: RegistersProps) => {
+  if (!watch || !setValue) {
+    return {
+      title: register('title'),
+      content: register('content'),
+      specialization: register('specialization'),
+      openMyProfile: register('openMyProfile'),
+      price: register('price'),
+      totalQuantity: register('totalQuantity'),
+    };
+  }
+
+  const registers = {
+    title: register('title', {
+      // required: '제목 미입력',
+    }),
+    content: register('content', {
+      // required: '내용 미입력',
+    }),
+    specialization: register('content', {
+      // required: '분야 미입력',
+    }),
+    openMyProfile: register('openMyProfile'),
+    name: register('name', {}),
+    price: register('price', {
+      // required: '가격 미입력',
+      onChange(e) {
+        setValue('price', e.target.value.replace(/[^0-9]/g, ''));
+      },
+    }),
+    totalQuantity: register('totalQuantity', {
+      // required: '가격 미입력',
+    }),
+  };
+
+  return registers;
+};

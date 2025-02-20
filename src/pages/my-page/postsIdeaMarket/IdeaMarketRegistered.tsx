@@ -11,6 +11,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getIdeaMarketDetail } from '../../../apis/detailPageAPI';
 import { IdeaMarketDetail } from '../../../types/detailPageType';
 import { getUserIdFromToken } from '../../../utils/auth';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const IdeaMarketRegistered = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -47,6 +49,7 @@ export const IdeaMarketRegistered = () => {
     saveCount: post?.saveCount ?? 0,
     thumbnailImageUrl: post?.thumbnailImageUrl ?? '',
     createdDate: post?.createdDate ?? '',
+    isSavedPost: !!post?.isSavedPost,
   };
 
   const writerData = {
@@ -59,9 +62,8 @@ export const IdeaMarketRegistered = () => {
     totalCollaborations: post?.writer?.totalCollaborations ?? 0,
   };
 
-  if (!isReady) return <div>페이지 로딩 중...</div>;
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
+  if (!isReady || isLoading) return <LoadingPage />;
+  if (isError || !post) return <ErrorPage />;
 
   return (
     <>

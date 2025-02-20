@@ -22,6 +22,7 @@ export interface IdeaMarketDetail {
     totalCollaborations: number;
   };
   attachments: string[];
+  isSavedPost: boolean;
 }
 
 export interface RequestDetail {
@@ -58,6 +59,7 @@ export interface RequestDetail {
     paymentDuration: string;
   }[];
   openMyProfile: boolean;
+  isSavedPost: boolean;
 }
 
 export interface CollaborationDetail {

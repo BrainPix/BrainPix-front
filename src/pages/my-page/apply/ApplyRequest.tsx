@@ -9,6 +9,10 @@ import styles from './applyRequest.module.scss';
 import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetailsInfo';
+import { useContext } from 'react';
+import { ToastContext } from '../../../contexts/toastContext';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const ApplyRequest = () => {
   const FORM_DATA = {
@@ -18,20 +22,20 @@ export const ApplyRequest = () => {
   };
 
   const queryClient = useQueryClient();
+  const { successToast, errorToast } = useContext(ToastContext);
 
   const deleteMutation = useMutation({
     mutationFn: (purchasingId: number) =>
       deleteRejectedRequestTasks(purchasingId),
     onSuccess: () => {
-      alert('거절된 요청과제 지원 내역이 삭제되었습니다.');
+      successToast('거절된 요청과제 지원 내역이 삭제되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['RejectedRequestTasks'] }); // 삭제 후 리스트 새로고침
     },
     onError: () => {
-      alert('삭제에 실패했습니다.');
+      errorToast('삭제에 실패했습니다.');
     },
   });
 
-  // accept된 요청 과제
   const {
     data: acceptedTasks = [],
     isLoading: isLoadingAccepted,
@@ -41,7 +45,6 @@ export const ApplyRequest = () => {
     queryFn: () => getAcceptedRequestTasks(0, 10),
   });
 
-  // reject된 요청 과제
   const {
     data: rejectedTasks = [],
     isLoading: isLoadingRejected,
@@ -52,13 +55,11 @@ export const ApplyRequest = () => {
   });
 
   if (isLoadingAccepted || isLoadingRejected) {
-    return <div className={styles.loading}>로딩 중...</div>;
+    return <LoadingPage />;
   }
 
   if (isAcceptedError || isErrorRejected) {
-    return (
-      <div className={styles.error}>데이터를 불러오는 데 실패했습니다.</div>
-    );
+    return <ErrorPage />;
   }
 
   return (

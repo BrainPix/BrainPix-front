@@ -1,6 +1,6 @@
 import styles from './teamBuildingButton.module.scss';
 import { useState } from 'react';
-import { CollaborationSupportModal } from '../modal/CollaborationSupportModal';
+import { CollaborationSupportModal } from '../common/modal/CollaborationSupportModal';
 
 interface TeamBuildingButtonProps {
   recruitments: {

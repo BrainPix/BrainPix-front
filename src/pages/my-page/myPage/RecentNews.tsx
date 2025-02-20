@@ -20,6 +20,7 @@ import { getAlarmResponseType } from '../../../types/alarmType';
 import React from 'react';
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import { ToastContext } from '../../../contexts/toastContext';
+import LoadingPage from '../../loading/LoadingPage';
 
 export const RecentNews = () => {
   const queryClient = useQueryClient();
@@ -85,7 +86,7 @@ export const RecentNews = () => {
   }, [alarms]);
 
   if (isFetchingAlarms) {
-    return <div>로딩중,,</div>;
+    return <LoadingPage />;
   }
 
   const handleClickPreviousArrow = () => {

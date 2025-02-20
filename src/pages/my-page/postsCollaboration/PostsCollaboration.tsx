@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getPostCollaborationDetail } from '../../../apis/postManagementAPI.ts';
 import { CollaborationDetail } from '../../../types/postDataType.ts';
+import LoadingPage from '../../loading/LoadingPage.tsx';
+import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
 
 export const PostsCollaboration = () => {
   const { collaborationId } = useParams<{ collaborationId: string }>();
@@ -20,9 +22,8 @@ export const PostsCollaboration = () => {
     enabled: !!collaborationId,
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !post) return <div>게시글을 찾을 수 없습니다.</div>;
-
+  if (isLoading) return <LoadingPage />;
+  if (isError || !post) return <ErrorPage />;
   return (
     <>
       <PostHeader

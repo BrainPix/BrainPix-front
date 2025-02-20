@@ -7,6 +7,7 @@ import { IdeaMarketRegisterComplete } from './pages/idea-market/IdeaMarketRegist
 import { IdeaRegisteredPage } from './pages/idea-market/IdeaRegisteredPage';
 import { IdeaMarketPayment } from './pages/idea-market/IdeaMarketPayment';
 import { RequestAssignMain } from './pages/request-assign/RequestAssignMain';
+import { RequestAssignTechZone } from './pages/request-assign/RequestAssignTechZone';
 import { RequestAssignRegisterNow } from './pages/request-assign/RequestAssignRegister';
 import { RequestAssignRegisterComplete } from './pages/request-assign/RequestAssignRegisterComplete';
 import { PaymentProcessing } from './pages/idea-market/PaymentProcessing';
@@ -39,7 +40,7 @@ import { SavedPosts } from './pages/my-page/saved-posts/SavedPosts';
 import { Main } from './pages/main/main';
 import { Signup } from './pages/sign-up/Signup';
 import { Login } from './pages/login/Login';
-import { ErrorPage } from './pages/ErrorPage';
+import { ErrorPage } from './pages/errorPage/ErrorPage';
 
 export const routes = createBrowserRouter([
   {
@@ -109,6 +110,14 @@ export const routes = createBrowserRouter([
       {
         path: '/request-assign',
         element: <RequestAssignMain />,
+      },
+      {
+        path: '/request-assign/open-idea',
+        element: <RequestAssignMain />,
+      },
+      {
+        path: '/request-assign/tech-zone',
+        element: <RequestAssignTechZone />,
       },
       {
         path: '/request-assign/register',

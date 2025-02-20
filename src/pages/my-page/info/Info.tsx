@@ -32,6 +32,8 @@ import {
 } from '../../../types/myPageType';
 import { putCompanyInfo, putIndividualInfo } from '../../../apis/mypageAPI';
 import { ToastContext } from '../../../contexts/toastContext';
+import { ErrorPage } from '../../errorPage/ErrorPage';
+import LoadingPage from '../../loading/LoadingPage';
 
 export const Info = () => {
   const queryClient = useQueryClient();
@@ -138,11 +140,11 @@ export const Info = () => {
   }, [personalData, companyData, setValue]);
 
   if (!userType) {
-    return <div>로딩 중...</div>;
+    return <ErrorPage />;
   }
 
   if (isPersonalDataPending || isCompanyDataPending) {
-    return <div>로딩 중..</div>;
+    return <LoadingPage />;
   }
 
   const handleClickEditButton = () => {

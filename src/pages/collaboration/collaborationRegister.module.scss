@@ -5,11 +5,9 @@
 }
 
 .title {
+  @include pretendard-24-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.24px;
 }
@@ -27,11 +25,10 @@
 }
 
 .horizontalContainer {
-  display: flex;
-  justify-content: space-between;
+  @include flex-space-between;
   gap: 40px;
   margin-top: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 153px;
 }
 
 .formGroup {
@@ -43,22 +40,161 @@
   margin-bottom: 0;
 }
 
+.pageTypeGroup {
+  position: relative;
+}
+
+.pageDescription {
+  @include flex-column;
+  position: absolute;
+  margin-top: 5px;
+  padding: 15px 30px;
+  gap: 10px;
+  border-radius: 5px;
+  background: $grey-200;
+  width: 380px;
+
+  .header {
+    @include flex-space-between;
+    width: 100%;
+  }
+
+  .descriptionText {
+    @include pretendard-16-400;
+    color: $primary-300;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+
+  .infoIcon {
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .detailDescription {
+    @include flex-column;
+    gap: 10px;
+    width: 100%;
+
+    .mainText {
+      @include pretendard-14-400;
+      color: $grey-800;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.14px;
+    }
+
+    .subText {
+      color: $grey-700;
+      font-family: $font-family;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.12px;
+      white-space: pre-line;
+    }
+  }
+}
+
 .labelWrapper {
+  @include pretendard-20-500;
+  @include flex-start;
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
 }
 
 .required {
   color: $red;
+}
+
+.helperText {
+  @include pretendard-14-400;
+  color: #757575;
+  letter-spacing: -0.14px;
+}
+
+.dateInputWrapper {
+  display: flex;
+  width: 380px;
+  height: 51px;
+  padding: 15px 20px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  border: 1px solid #9e9e9e;
+  background: #fafafa;
+}
+
+.dateInput {
+  width: 60px; 
+  height: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.dateSeparator {
+  font-size: 16px;
+  color: #666;
+}
+
+.recruitmentDateContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.recruitmentDateWrapper {
+  display: flex;
+  width: 200px;
+  min-width: 200px;
+  height: 51px;
+  padding: 0px 20px;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid $grey-500;
+  background: $grey-50;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.recruitmentDateInput {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  outline: none;
+  color: $grey-700;
+  font-family: $font-family;
+  padding: 0;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: $grey-500;
+  }
+}
+
+.recruitmentDateLabel {
+  @include pretendard-24-500;
+  color: var(--grey-grey-09, #424242);
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  margin: 0 5px;
+  flex-shrink: 0;
 }
 
 .select {
@@ -95,6 +231,68 @@
   }
 }
 
+.pageTypeWrapper {
+  display: flex;
+  width: 380px;
+  height: 51px;
+  align-items: center;
+  border: 1px solid $grey-300;
+  border-radius: 5px;
+  background: white;
+  overflow: hidden;
+}
+
+.pageTypeButton {
+  width: 50%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  
+  @include pretendard-18-500;
+  color: $grey-600;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.18px;
+
+  &:first-child::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 16px;
+    background-color: $grey-300;
+  }
+
+  &.active {
+    color: $primary;
+  }
+}
+
+.imageUploadButton {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed $grey-300;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+}
+
+.imageIcon {
+  font-size: 24px;
+  color: $grey-500;
+  margin-bottom: 0.5rem;
+}
+
 .imagePreviewContainer {
   width: 100px;
   height: 100px;
@@ -113,24 +311,134 @@
 
 .ideaNameWrapper {
   display: flex;
-  width: 800px;
+  width: 450px;
+  height: 54px;
   padding: 15px 20px;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   border-radius: 5px;
   border: 1px solid $grey-500;
   background: $grey-50;
+  position: relative;
+
+  .recruitmentFieldInput:first-child {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 16px;
+      width: 1px;
+      background-color: $grey-300;
+    }
+  }
+}
+
+.projectMemberWrapper {
+  display: flex;
+  width: 750px;
+  height: 54px;
+  padding: 15px 20px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  border: 1px solid $grey-500;
+  background: $grey-50;
+  position: relative;
+
+  .profileLoadButton {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 16px;
+      width: 1px;
+      background-color: $grey-300;
+    }
+  }
+}
+
+.projectMemberInput {
+  @include pretendard-18-400;
+  position: relative;
+  border: none;
+  background: transparent;
+  color: $grey-700;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.18px;
+  width: 33.33%;
+  padding: 0 10px;
+
+  &::placeholder {
+    color: $grey-700;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    width: 1px;
+    background-color: $grey-300;
+  }
+}
+
+  .profileLoadButton {
+    @include pretendard-18-400;
+    color: $primary;
+    font-style: normal;
+    cursor: pointer;
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0 10px;
+    width: 33.33%;
+    text-align: center;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+.fieldInputWrapper {
+  width: 200px;
+  min-width: 200px;
+}
+
+.recruitmentInputWrapper {
+  width: 250px;
+  min-width: 250px;
+}
+
+.priceInputWrapper {
+  width: 350px;
+  min-width: 350px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .ideaNameInput {
+  @include pretendard-18-400;
   width: 100%;
   border: none;
   background: transparent;
   color: $grey-700;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
 
@@ -205,21 +513,17 @@
   gap: 0.5rem;
   
   .labelText {
+    @include pretendard-20-500;
     color: $grey-800;
-    font-family: $font-family;
-    font-size: 20px;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
     letter-spacing: -0.2px;
   }
 
   .pdfText {
+    @include pretendard-20-400;
     color: $grey-600;
-    font-family: $font-family;
-    font-size: 20px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.2px;
   }
@@ -238,11 +542,9 @@
   background: $grey-50;
   
   span {
+    @include pretendard-16-400;
     color: $primary;
-    font-family: $font-family;
-    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.16px;
   }
@@ -261,11 +563,9 @@
   cursor: pointer;
   
   .placeholder {
+    @include pretendard-18-400;
     color: $grey-600;
-    font-family: $font-family;
-    font-size: 18px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.18px;
   }
@@ -284,11 +584,9 @@
 }
 
 .priceLabel, .quantityLabel {
+  @include pretendard-20-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
   display: flex;
@@ -298,11 +596,9 @@
 }
 
 .required {
+  @include pretendard-18-400;
   color: $red;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
 }
@@ -321,12 +617,10 @@
 }
 
 .input {
+  @include pretendard-18-400;
   color: $grey-700;
   text-align: right;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
   border: none;
@@ -336,11 +630,9 @@
 }
 
 .unit {
+  @include pretendard-18-400;
   color: $grey-600;
-  font-family: $font-family;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.18px;
   flex-shrink: 0;
@@ -423,11 +715,9 @@
 }
 
 .portfolioText {
+  @include pretendard-20-400;
   color: $grey-500;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.2px;
   transition: color 0.2s ease;
@@ -449,11 +739,9 @@
   border: none;
 
   span {
+    @include pretendard-14-400;
     color: $grey-50;
-    font-family: $font-family;
-    font-size: 14px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.14px;
   }
@@ -468,11 +756,9 @@
 }
 
 .cancelButton {
+  @include pretendard-24-400;
   color: $grey-600;
-  font-family: $font-family;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.24px;
   background: none;
@@ -497,16 +783,174 @@
   cursor: pointer;
 
   span {
+    @include pretendard-24-400;
     color: $grey-50;
-    font-family: $font-family;
-    font-size: 24px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.24px;
   }
 
   &:hover {
     opacity: 0.9;
+  }
+}
+
+.recruitmentFieldInput {
+  @include pretendard-18-400;
+  border: none;
+  background: transparent;
+  color: $grey-700;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.18px;
+  width: 50%;
+  padding: 0 10px;
+
+  &::placeholder {
+    color: $grey-700;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.numberOfPeopleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+}
+
+.numberOfPeopleInput {
+  @include pretendard-18-400;
+  width: 60px;
+  text-align: right;
+  border: none;
+  background: transparent;
+  color: $grey-700;
+  line-height: normal;
+  letter-spacing: -0.18px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.addFieldButton {
+  @include pretendard-16-500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border: none;
+  background: none;
+  color: $primary;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.recruitmentFieldButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.addButton {
+  display: flex;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 34px;
+  background: #616161;
+  border: none;
+  width: 100px;
+  height: 39px;
+  cursor: pointer;
+  
+  span {
+    @include pretendard-16-400;
+    color: #FAFAFA;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+}
+
+.deleteButton {
+  display: flex;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 34px;
+  width: 100px;
+  height: 39px;
+  cursor: pointer;
+  
+  &.disabled {
+    background: #E0E0E0;
+    border: none;
+    cursor: not-allowed;
+    
+    span {
+      color: #FAFAFA;
+    }
+  }
+  
+  &.enabled {
+    background: #FAFAFA;
+    border: 1px solid #9E9E9E;
+    
+    span {
+      color: #757575;
+    }
+  }
+  
+  span {
+    @include pretendard-16-400;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+}
+
+.deleteText {
+  position: absolute;
+  right: -50px;
+  color: $grey-600;
+  font-family: $font-family;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+
+  &:hover {
+    color: $red;
+  }
+}
+
+.periodSelect {
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: $grey-700;
+  font-family: $font-family;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
   }
 }

@@ -51,7 +51,6 @@ export const Signup = () => {
     setValue,
     formState: { errors, isValid },
     getFieldState,
-    trigger,
     setError,
   } = useForm({ mode: 'onTouched' });
 
@@ -94,8 +93,6 @@ export const Signup = () => {
   };
 
   const handleClickNextButton = async () => {
-    await trigger();
-
     if (
       !(
         getFieldState('id').invalid ||

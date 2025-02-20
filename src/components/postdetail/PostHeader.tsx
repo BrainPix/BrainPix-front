@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './postHeader.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import DotIcon from '../../assets/icons/dot.svg?react';
@@ -6,8 +6,8 @@ import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 import Label from '../common/label/Label';
-
 import { getCategoryLabel } from '../../utils/categoryMapping';
+import { postSavedPosts } from '../../apis/savePostsAPI';
 
 interface PostHeaderProps {
   category: string;
@@ -17,6 +17,8 @@ interface PostHeaderProps {
   viewCount: number;
   saveCount: number;
   createdDate: string;
+  postId: number;
+  isSavedPost: boolean;
 }
 
 const PostHeader = ({
@@ -27,13 +29,43 @@ const PostHeader = ({
   viewCount,
   saveCount,
   createdDate,
+  postId,
+  isSavedPost,
 }: PostHeaderProps) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(isSavedPost);
   const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
 
-  const toggleBookmark = () => {
-    setIsBookmarked((prev) => !prev);
-    setCurrentSaveCount((prev) => (isBookmarked ? prev - 1 : prev + 1));
+  useEffect(() => {
+    const savedBookmarks = JSON.parse(
+      localStorage.getItem('bookmarkedPosts') || '[]',
+    );
+    setIsBookmarked(savedBookmarks.includes(postId));
+  }, [postId]);
+
+  const handleBookmarkClick = async () => {
+    try {
+      await postSavedPosts(postId);
+      const updatedBookmarked = !isBookmarked;
+      setIsBookmarked(updatedBookmarked);
+      setCurrentSaveCount((prev) => (updatedBookmarked ? prev + 1 : prev - 1));
+
+      const savedBookmarks = JSON.parse(
+        localStorage.getItem('bookmarkedPosts') || '[]',
+      );
+      if (updatedBookmarked) {
+        localStorage.setItem(
+          'bookmarkedPosts',
+          JSON.stringify([...savedBookmarks, postId]),
+        );
+      } else {
+        localStorage.setItem(
+          'bookmarkedPosts',
+          JSON.stringify(savedBookmarks.filter((id: number) => id !== postId)),
+        );
+      }
+    } catch {
+      throw Error;
+    }
   };
 
   return (
@@ -69,7 +101,7 @@ const PostHeader = ({
         <span className={styles.info}>저장 {currentSaveCount}</span>
         <button
           className={styles.bookmarkButton}
-          onClick={toggleBookmark}>
+          onClick={handleBookmarkClick}>
           <EmptyCircleIcon
             className={styles.outerCircle}
             style={{

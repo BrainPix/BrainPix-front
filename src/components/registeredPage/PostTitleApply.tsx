@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './postTitle.module.scss';
 import ArrowIcon from '../../assets/icons/arrowUp2Thin.svg?react';
 import DotIcon from '../../assets/icons/dot.svg?react';
 import BookmarkIcon from '../../assets/icons/bookmarkFill.svg?react';
 import EmptyCircleIcon from '../../assets/icons/emptyCircle.svg?react';
 import Label from '../common/label/Label';
-import RequestSupportModal from '../modal/RequestSupportModal';
+import RequestSupportModal from '../common/modal/RequestSupportModal';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 import {
   getCategoryLabel,
   getTaskTypeLabel,
 } from '../../utils/categoryMapping';
 import { Image } from '../common/image/Image';
+import { postSavedPosts } from '../../apis/savePostsAPI';
 
 interface PostTitleApplyProps {
   thumbnailImageUrl: string;
@@ -26,6 +27,7 @@ interface PostTitleApplyProps {
   createdDate: string;
   writerName: string;
   taskId: number;
+  isSavedPost: boolean;
   recruitments: {
     recruitmentId: number;
     domain: string;
@@ -48,14 +50,43 @@ const PostTitleApply = ({
   writerName,
   recruitments,
   taskId,
+  isSavedPost,
 }: PostTitleApplyProps) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(isSavedPost);
   const [currentSaveCount, setCurrentSaveCount] = useState(saveCount);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleBookmark = () => {
-    setIsBookmarked((prev) => !prev);
-    setCurrentSaveCount((prev) => (isBookmarked ? prev - 1 : prev + 1));
+  useEffect(() => {
+    const savedBookmarks = JSON.parse(
+      localStorage.getItem('bookmarkedPosts') || '[]',
+    );
+    setIsBookmarked(savedBookmarks.includes(taskId));
+  }, [taskId]);
+
+  const handleBookmarkClick = async () => {
+    try {
+      await postSavedPosts(taskId);
+      const updatedBookmarked = !isBookmarked;
+      setIsBookmarked(updatedBookmarked);
+      setCurrentSaveCount((prev) => (updatedBookmarked ? prev + 1 : prev - 1));
+
+      const savedBookmarks = JSON.parse(
+        localStorage.getItem('bookmarkedPosts') || '[]',
+      );
+      if (updatedBookmarked) {
+        localStorage.setItem(
+          'bookmarkedPosts',
+          JSON.stringify([...savedBookmarks, taskId]),
+        );
+      } else {
+        localStorage.setItem(
+          'bookmarkedPosts',
+          JSON.stringify(savedBookmarks.filter((id: number) => id !== taskId)),
+        );
+      }
+    } catch {
+      throw Error;
+    }
   };
 
   const openModal = () => {
@@ -98,7 +129,7 @@ const PostTitleApply = ({
           )}
           <button
             className={styles.bookmarkButton}
-            onClick={toggleBookmark}>
+            onClick={handleBookmarkClick}>
             <EmptyCircleIcon
               className={styles.outerCircle}
               style={{

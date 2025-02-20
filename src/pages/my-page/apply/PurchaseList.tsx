@@ -6,6 +6,8 @@ import { CardHeader } from '../../../components/my-page/apply/CardHeader';
 import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo';
 import { PurchaseDetailsInfo } from '../../../components/my-page/apply/PurchaseDetailsInfo';
 import { PayInfo } from '../../../components/my-page/apply/PayInfo';
+import LoadingPage from '../../loading/LoadingPage';
+import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const PurchaseList = () => {
   const FORM_DATA = {
@@ -22,8 +24,8 @@ export const PurchaseList = () => {
     queryFn: () => getPurchases(0, 10),
   });
 
-  if (isLoading) return <p>로딩 중...</p>;
-  if (isError) return <p>데이터를 불러오는 중 오류 발생</p>;
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage />;
 
   return (
     <div className={styles.container}>

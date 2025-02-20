@@ -1,8 +1,6 @@
 .ideaMarketHeader {
-  display: flex;
+  @include flex-space-between;
   padding: 30px 0px;
-  justify-content: space-between;
-  align-items: center;
   align-self: stretch;
   width: 800px;
   margin: 0 auto;
@@ -20,49 +18,40 @@
 }
 
 .titleWrapper {
-  display: flex;
-  align-items: center;
+  @include flex-start;
   gap: 15px;
 }
 
 .mainTitle {
+  @include pretendard-28-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 28px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.28px;
 }
 
 .subtitle {
+  @include pretendard-24-400;
   color: $grey-600;
-  font-family: $font-family;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.24px;
 }
 
 .registerButton {
-  display: flex;
+  @include flex-center;
   width: 228px;
   height: 54px;
   padding: 15px 30px;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
   border-radius: 45px;
   background: $grey-800;
   border: none;
   cursor: pointer;
 
+  @include pretendard-20-500;
   color: $grey-50;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
 
@@ -81,8 +70,7 @@
 .ideaMarketMain {
   width: 800px;
   padding: 40px 0px;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   align-items: flex-start;
   gap: 30px;
   margin: 0 auto;
@@ -95,11 +83,9 @@
   gap: 5px;
   
   span:first-child {
+    @include pretendard-18-400;
     color: $grey-600;
-    font-family: $font-family;
-    font-size: 18px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.18px;
   }
@@ -115,22 +101,18 @@
     
     &::before {
       content: '금주의 ';
+      @include pretendard-26-500;
       color: $grey-800;
-      font-family: $font-family;
-      font-size: 26px;
       font-style: normal;
-      font-weight: 500;
       line-height: normal;
       letter-spacing: -0.26px;
     }
 
     &::after {
-      content: '인기 Idea Solution';
+      content: '인기 Open Idea';
+      @include pretendard-26-500;
       color: $primary;
-      font-family: $font-family;
-      font-size: 26px;
       font-style: normal;
-      font-weight: 500;
       line-height: normal;
       letter-spacing: -0.26px;
     }
@@ -140,17 +122,14 @@
 .headerComponents {
   width: 800px;
   margin: 47px auto 0;
-  display: flex;
-  justify-content: space-between;
+  @include flex-space-between;
   align-items: flex-start;
 }
 
 .ideaText {
+  @include pretendard-24-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.24px;
 }
@@ -213,13 +192,12 @@
 }
 
 .carouselItem {
-  width: 200px;  /* 🔹 Carousel 내 카드 크기 200x286 */
-  height: 286px; /* 🔹 고정 크기 설정 */
+  width: 200px;
+  height: 286px;
   display: flex;
   justify-content: center;
 }
 
-/* 🔹 PreviewThumbnail 크기 조정 */
 .previewThumbnail {
   width: 200px;
   height: 286px;
@@ -231,7 +209,6 @@
   overflow: hidden;
 }
 
-/* 🔹 이미지 크기 조정 (200x200) */
 .thumbnailImage {
   width: 200px;
   height: 200px;
@@ -242,7 +219,7 @@
   img, svg {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 🔹 비율 유지하면서 꽉 채우기 */
+    object-fit: cover;
   }
 }
 

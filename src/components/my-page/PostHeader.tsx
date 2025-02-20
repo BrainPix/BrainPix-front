@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './postHeader.module.scss';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 import { calculateDday } from '../../utils/dateUtils';
+import { Image } from '../common/image/Image';
 import { getCategoryLabel } from '../../utils/categoryMapping.ts';
 
 interface PostHeaderProps {
@@ -44,7 +45,7 @@ export const PostHeader = ({
       </div>
       <div className={styles.postcardHeader}>
         {postImage ? (
-          <img
+          <Image
             className={styles.imagePlaceholder}
             src={postImage}
             alt='게시글 사진'

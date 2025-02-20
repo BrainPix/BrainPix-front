@@ -1,8 +1,6 @@
 .ideaMarketHeader {
-  display: flex;
+  @include flex-space-between;
   padding: 30px 0px;
-  justify-content: space-between;
-  align-items: center;
   align-self: stretch;
   width: 800px;
   margin: 0 auto;
@@ -20,49 +18,32 @@
 }
 
 .titleWrapper {
-  display: flex;
-  align-items: center;
+  @include flex-start;
   gap: 15px;
 }
 
 .mainTitle {
+  @include pretendard-28-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 28px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.28px;
 }
 
-.subtitle {
-  color: $grey-600;
-  font-family: $font-family;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.24px;
-}
-
 .registerButton {
-  display: flex;
+  @include flex-center;
   width: 228px;
   height: 54px;
   padding: 15px 30px;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
   border-radius: 45px;
   background: $grey-800;
   border: none;
   cursor: pointer;
 
+  @include pretendard-20-500;
   color: $grey-50;
-  font-family: $font-family;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.2px;
 
@@ -81,8 +62,7 @@
 .ideaMarketMain {
   width: 800px;
   padding: 40px 0px;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   align-items: flex-start;
   gap: 30px;
   margin: 0 auto;
@@ -90,47 +70,38 @@
 }
 
 .subTitle {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: 5px;
   
   span:first-child {
+    @include pretendard-18-400;
     color: $grey-600;
-    font-family: $font-family;
-    font-size: 18px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.18px;
   }
 
   .highlight {
+    @include pretendard-26-500;
     color: $grey-800;
-    font-family: $font-family;
-    font-size: 26px;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
     letter-spacing: -0.26px;
     
     &::before {
       content: '금주의 ';
+      @include pretendard-26-500;
       color: $grey-800;
-      font-family: $font-family;
-      font-size: 26px;
       font-style: normal;
-      font-weight: 500;
       line-height: normal;
       letter-spacing: -0.26px;
     }
 
     &::after {
       content: '인기 Idea Solution';
+      @include pretendard-26-500;
       color: $primary;
-      font-family: $font-family;
-      font-size: 26px;
       font-style: normal;
-      font-weight: 500;
       line-height: normal;
       letter-spacing: -0.26px;
     }
@@ -138,46 +109,41 @@
 }
 
 .headerComponents {
+  @include flex-space-between;
   width: 800px;
   margin: 47px auto 0;
-  display: flex;
-  justify-content: space-between;
   align-items: flex-start;
 }
 
 .ideaText {
+  @include pretendard-24-500;
   color: $grey-800;
-  font-family: $font-family;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.24px;
 }
 
 .filterWrapper {
-  display: flex;
+  @include flex-start;
   gap: 20px;
   margin-top: 16px;
 }
 
 .categoryFilter {
-  display: flex;
-  align-items: center;
+  @include flex-start;
   gap: 12px;
 }
 
 .viewOptions {
-  display: flex;
+  @include flex-start;
   gap: 16px;
-  align-items: center;
 }
 
 .radioWrapper {
-  display: flex;
-  align-items: center;
+  @include flex-start;
   gap: 8px;
   cursor: pointer;
+
 
   input[type="radio"] {
     width: 16px;
@@ -186,8 +152,8 @@
 }
 
 .radioLabel {
+  @include pretendard-14-400;
   color: $grey-700;
-  font-size: 14px;
 }
 
 .sortSelect {
@@ -204,34 +170,29 @@
 }
 
 .thumbnailGrid {
+  @include grid-center(repeat(4, 165px));
   width: 800px;
   margin: 40px auto;
-  display: grid;
-  grid-template-columns: repeat(4, 165px);
   gap: 47px;
   justify-content: center;
 }
 
 .carouselItem {
-  width: 200px;  /* 🔹 Carousel 내 카드 크기 200x286 */
-  height: 286px; /* 🔹 고정 크기 설정 */
-  display: flex;
-  justify-content: center;
+  @include flex-center;
+  width: 200px;
+  height: 286px;
 }
 
-/* 🔹 PreviewThumbnail 크기 조정 */
 .previewThumbnail {
+  @include flex-column;
   width: 200px;
   height: 286px;
   border-radius: 5px;
   border: 0.5px solid $grey-400;
-  display: flex;
-  flex-direction: column;
   background: $grey-50;
   overflow: hidden;
 }
 
-/* 🔹 이미지 크기 조정 (200x200) */
 .thumbnailImage {
   width: 200px;
   height: 200px;
@@ -242,18 +203,16 @@
   img, svg {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 🔹 비율 유지하면서 꽉 채우기 */
+    object-fit: cover;
   }
 }
 
 .select {
+  @include flex-space-between;
   position: relative;
-  display: flex;
   width: 240px;
   height: 51px;
   padding: 15px 20px;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 5px;
   border: 1px solid $grey-400;
   background: $grey-50;
