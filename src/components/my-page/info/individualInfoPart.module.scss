@@ -2,7 +2,7 @@
 
 .individualInfoWrapper {
   margin-bottom: 30px;
-  width: 450px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -16,9 +16,11 @@
   letter-spacing: -0.28px;
   display: flex;
   align-items: center;
+  gap: 20px;
 
   & > .label {
     min-width: 75px;
+    text-align: left;
   }
 
   & > .value {

@@ -1,0 +1,129 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.title {
+  color: $grey-800;
+  font-family: $font-family;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.24px;
+}
+
+.horizontalContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 40px;
+  margin-bottom: 153px;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.categoryGroup {
+  width: 380px;
+  margin-bottom: 0;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid $grey-400;
+  border-radius: 0 0 5px 5px;
+  z-index: 1000;
+}
+
+.dropdownItem {
+  padding: 12px 20px;
+  cursor: pointer;
+
+  &:hover {
+    background: $grey-50;
+  }
+}
+
+.ideaNameWrapper {
+  display: flex;
+  width: 800px;
+  padding: 15px 20px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 5px;
+  border: 1px solid $grey-500;
+  background: $grey-50;
+}
+
+.ideaNameInput {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: $grey-700;
+  font-family: $font-family;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.18px;
+
+  &::placeholder {
+    color: $grey-700;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.editor {
+  :global {
+    .ql-container {
+      min-height: 200px;
+    }
+
+    .ql-toolbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background: $grey-50;
+      
+      .ql-formats {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+
+    .ql-font-Sans-Serif {
+      font-family: sans-serif;
+    }
+
+    .ql-picker.ql-font {
+      min-width: 108px;
+    }
+
+    .ql-toolbar button {
+      width: 28px;
+      height: 28px;
+      padding: 4px;
+      
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    .ql-active {
+      color: $primary;
+    }
+  }
+}

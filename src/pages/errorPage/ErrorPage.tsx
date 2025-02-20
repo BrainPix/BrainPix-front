@@ -1,4 +1,4 @@
-import PageErrorIcon from '../assets/icons/pageError.svg?react';
+import PageErrorIcon from '../../assets/icons/pageError.svg?react';
 import styles from './errorPage.module.scss';
 import { useNavigate } from 'react-router-dom';
 

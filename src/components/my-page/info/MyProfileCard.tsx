@@ -30,7 +30,7 @@ export const MyProfileCard = ({
   selectedImage,
 }: MyProfileCardPropsType) => {
   const IMAGE_BASE_URL = import.meta.env.VITE_S3_URL;
-  const userType = userData.userType == 'COMPANY' ? '기업' : '개인';
+  const userType = userData?.userType == 'COMPANY' ? '기업' : '개인';
 
   const { errorToast } = useContext(ToastContext);
 
@@ -62,15 +62,11 @@ export const MyProfileCard = ({
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(styles.profileContainer)}>
-        {selectedImage ? (
-          <Image
-            className={classNames(styles.profile)}
-            src={selectedImage}
-            alt='프로필 이미지'
-          />
-        ) : (
-          <div className={classNames(styles.profile)} />
-        )}
+        <Image
+          className={classNames(styles.profile)}
+          src={selectedImage}
+          alt='프로필 이미지'
+        />
         <div className={classNames(styles.info)}>
           <Label
             text={userType}
@@ -79,9 +75,10 @@ export const MyProfileCard = ({
           <h1 className={classNames(styles.name)}>{userData.nickname}</h1>
           {(status === 'edit' || status === 'save') && (
             <div className={classNames(styles.position)}>
-              {userData.specializations.map((specialization) => (
+              {userData.specializations.map((specialization, idx) => (
                 <span key={specialization}>
                   {CATEGORY_LABELS[specialization]}
+                  {idx !== userData.specializations.length - 1 && ' |'}
                 </span>
               ))}
             </div>
