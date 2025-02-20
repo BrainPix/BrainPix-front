@@ -127,6 +127,8 @@
 }
 
 .username {
+  @include pretendard-14-500;
+
   color: $grey-800;
   font-size: 14px;
   font-weight: 500;

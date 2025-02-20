@@ -10,6 +10,7 @@ import DisabledDownButton from '../../assets/icons/disabledDownButton.svg?react'
 import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
+import { Image } from '../../components/common/image/Image';
 
 // 타입 정의
 interface IdeaMarketPriceDto {
@@ -490,7 +491,7 @@ export const IdeaMarketRegister: React.FC<IdeaMarketRegisterProps> = () => {
                 handleImageUpload();
               }
             }}>
-            <img
+            <Image
               src={previewImageUrl}
               alt='Selected'
               className={styles.imagePreview}

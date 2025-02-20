@@ -1,8 +1,8 @@
 import styles from './authorInfo.module.scss';
 import Label from '../common/label/Label';
-import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
 import { getCategoryLabel } from '../../utils/categoryMapping';
+import { Image } from '../common/image/Image';
 
 interface AuthorInfoProps {
   name: string;
@@ -29,11 +29,10 @@ const AuthorInfo = ({
       <div className={styles.divider}></div>
       <div className={styles.content}>
         <div className={styles.profile}>
-          <img
+          <Image
             src={profileImageUrl}
             alt='프로필 이미지'
             className={styles.profileIcon}
-            onError={imageErrorHandler}
           />
           <div className={styles.textContainer}>
             <span className={styles.name}>{name}</span>

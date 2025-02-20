@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQnA } from '../../hooks/useQnA';
 import styles from './qnaSection.module.scss';
 import { Comment } from '../../types/commentsType';
-import { imageErrorHandler } from '../../utils/imageErrorHandler';
+import { Image } from '../common/image/Image';
 
 interface QnASectionProps {
   postId: number;
@@ -109,11 +109,10 @@ const QnASection = ({ postId, userId }: QnASectionProps) => {
             key={comment.commentId}
             className={styles.qnaItem}>
             <div className={styles.profile}>
-              <img
+              <Image
                 src={comment.profileImageUrl}
                 alt='프로필'
                 className={styles.profileIcon}
-                onError={imageErrorHandler}
               />
             </div>
             <div className={styles.content}>
@@ -161,11 +160,10 @@ const QnASection = ({ postId, userId }: QnASectionProps) => {
                       key={child.commentId}
                       className={styles.qnaItemReply}>
                       <div className={styles.profile}>
-                        <img
+                        <Image
                           src={child.profileImageUrl}
                           alt='프로필'
                           className={styles.profileIcon}
-                          onError={imageErrorHandler}
                         />
                       </div>
                       <div className={styles.content}>

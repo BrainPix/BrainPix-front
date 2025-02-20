@@ -4,14 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import { Carousel } from '../common/carousel/Carousel';
-import defaultImage from '../../assets/images/brainPixIcon.png';
-import { getOtherProfilePosts } from '../../apis/profileAPI';
 import styles from './postCarousel.module.scss';
 import { getOtherPostsType } from '../../types/postDataType';
-import { imageErrorHandler } from '../../utils/imageErrorHandler';
 import { CATEGORY_LABELS } from '../../constants/categoryMapper';
 import Bookmark from '../../assets/icons/bookmark.svg?react';
 import { calculateDday } from '../../utils/calculateDday';
+import { Image } from '../common/image/Image';
+import { getOtherProfilePosts } from '../../apis/profileAPI';
 
 export const PostsCarousel = () => {
   const { id } = useParams();
@@ -103,15 +102,14 @@ export const PostsCarousel = () => {
                       <div className={classNames(styles.title)}>{title}</div>
                     </div>
 
-                    <img
+                    <Image
                       alt='게시글 대표사진'
                       className={classNames(styles.image)}
-                      src={thumbnailImage || defaultImage}
-                      onError={imageErrorHandler}
+                      src={thumbnailImage}
                     />
 
                     <div className={classNames(styles.userProfileWrapper)}>
-                      <img
+                      <Image
                         alt='작성자 프로필'
                         src={writerImageUrl}
                         className={classNames(styles.userProfileImage)}

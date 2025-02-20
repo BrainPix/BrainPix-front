@@ -13,11 +13,15 @@ export const getPresignedURL = async ({
 }: getPresignedPropsType) => {
   const url = `${BASE_URL}/files/presigned-url`;
 
-  const { data } = await axios.get(url, {
-    params: { fileName: fileName, contentType: fileType },
-  });
+  try {
+    const { data } = await axios.get(url, {
+      params: { fileName: fileName, contentType: fileType },
+    });
 
-  return data;
+    return data;
+  } catch {
+    throw Error;
+  }
 };
 
 export const puPresignedURL = async ({
@@ -26,9 +30,13 @@ export const puPresignedURL = async ({
 }: getPresignedPropsType) => {
   const url = `${BASE_URL}/files/presigned-url`;
 
-  const { data } = await axios.put(url, {
-    params: { fileName: fileName, contentType: fileType },
-  });
+  try {
+    const { data } = await axios.put(url, {
+      params: { fileName: fileName, contentType: fileType },
+    });
 
-  return data;
+    return data;
+  } catch {
+    throw Error;
+  }
 };

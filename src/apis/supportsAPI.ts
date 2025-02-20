@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Purchase, RequestTasks, Collaborations } from '../types/supportsType';
+import { checkAccessToken } from '../utils/checkAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -8,18 +9,12 @@ export const getPurchases = async (
   size = 10,
 ): Promise<Purchase[]> => {
   const url = `${BASE_URL}/supports/idea-market/purchases`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-    return [];
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -35,18 +30,12 @@ export const getAcceptedRequestTasks = async (
   size = 10,
 ): Promise<RequestTasks[]> => {
   const url = `${BASE_URL}/supports/request-tasks/accepted`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-    return [];
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -62,18 +51,12 @@ export const getRejectedRequestTasks = async (
   size = 10,
 ): Promise<RequestTasks[]> => {
   const url = `${BASE_URL}/supports/request-tasks/rejected`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-    return [];
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -88,24 +71,16 @@ export const deleteRejectedRequestTasks = async (
   purchasingId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/supports/request-tasks/${purchasingId}`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     await axios.delete(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-
-    console.log(`요청 과제 ${purchasingId}번 게시글 삭제 성공`);
-  } catch (error) {
-    console.error('삭제 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };
 
@@ -114,18 +89,12 @@ export const getAcceptedCollaborations = async (
   size = 10,
 ): Promise<Collaborations[]> => {
   const url = `${BASE_URL}/supports/collaborations/accepted`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-    return [];
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -141,18 +110,12 @@ export const getRejectedCollaborations = async (
   size = 10,
 ): Promise<Collaborations[]> => {
   const url = `${BASE_URL}/supports/collaborations/rejected`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-    return [];
-  }
+  const token = checkAccessToken();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       params: { page, size },
     });
@@ -167,23 +130,15 @@ export const deleteRejectedCollaborations = async (
   collectionGatheringId: number,
 ): Promise<void> => {
   const url = `${BASE_URL}/supports/collaborations/${collectionGatheringId}`;
-  const API_TOKEN = localStorage.getItem('accessToken');
-
-  if (!API_TOKEN) {
-    console.error('API_TOKEN이 없습니다! 다시 로그인하세요.');
-    window.location.href = 'login/individual';
-  }
+  const token = checkAccessToken();
 
   try {
     await axios.delete(url, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-
-    console.log(`협업 광장 ${collectionGatheringId}번 게시글 삭제 성공`);
-  } catch (error) {
-    console.error('삭제 요청 실패:', error);
-    throw error;
+  } catch {
+    throw Error;
   }
 };

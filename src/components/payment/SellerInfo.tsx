@@ -1,3 +1,4 @@
+import { Image } from '../common/image/Image';
 import styles from './sellerInfo.module.scss';
 import { imageErrorHandler } from '../../utils/imageErrorHandler';
 
@@ -12,7 +13,7 @@ const SellerInfo = ({ name, profileImageUrl, email }: SellerInfoProps) => {
     <div className={styles.sellerInfo}>
       <div className={styles.title}>판매자 정보</div>
       <div className={styles.infoBox}>
-        <img
+        <Image
           src={profileImageUrl}
           alt='판매자 프로필'
           className={styles.profile}

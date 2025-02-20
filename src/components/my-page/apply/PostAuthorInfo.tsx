@@ -2,6 +2,7 @@ import styles from './postAuthorInfo.module.scss';
 import Label from '../../common/label/Label';
 import arrowMessageButtonIcon from '../../../assets/icons/messageArrowButton.svg';
 import { isValidLabelType } from '../../../utils/isValidLabelType';
+import { Image } from '../../common/image/Image';
 
 interface PostAuthorInfoProps {
   seller: string;
@@ -29,7 +30,7 @@ export const PostAuthorInfo = ({
         </div>
         <div className={styles.messageButtonContainer}>
           <button className={styles.messageButton}>메신저 보내기</button>
-          <img
+          <Image
             src={arrowMessageButtonIcon}
             alt='화살표'
             className='arrowMessageButton'

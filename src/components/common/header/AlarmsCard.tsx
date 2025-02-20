@@ -46,7 +46,7 @@ export const AlarmsCard = ({ token }: AlramCardPropsType) => {
                 </div>
               ) : (
                 <div className={classNames(styles.alarmListContainer)}>
-                  {alarmsData.data.alarmDetailList.map(
+                  {alarmsData.alarmDetailList.map(
                     (alarm: getAlarmResponseType) => (
                       <div
                         className={classNames(styles.list, {
