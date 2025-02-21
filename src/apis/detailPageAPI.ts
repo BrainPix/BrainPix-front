@@ -18,7 +18,7 @@ export const getIdeaMarketDetail = async (ideaId: number) => {
 
     return data.data;
   } catch (error) {
-    if (error instanceof AxiosError && error.response?.status === 404) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
       return null;
     }
     throw Error;
@@ -40,7 +40,7 @@ export const getRequestDetail = async (taskId: number) => {
 
     return data.data;
   } catch (error) {
-    if (error instanceof AxiosError && error.response?.status === 404) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
       return null;
     }
     throw Error;
