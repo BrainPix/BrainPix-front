@@ -8,7 +8,7 @@ interface CurrentPeopleProps {
     memberId: {
       id: string;
       userType: string;
-      acceptedMemberId: number;
+      acceptedMemberId?: number;
     }[];
   }[];
 }
@@ -48,7 +48,7 @@ export const CurrentPeople = ({ currentMembers }: CurrentPeopleProps) => {
                 <button
                   className={styles.button}
                   onClick={() =>
-                    handleProfile(user.acceptedMemberId, user.userType)
+                    handleProfile(user.acceptedMemberId ?? 0, user.userType)
                   }>
                   프로필
                 </button>
