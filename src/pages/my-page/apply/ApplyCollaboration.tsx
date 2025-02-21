@@ -88,8 +88,9 @@ export const ApplyCollaboration = () => {
             />
 
             <ApplyDetailsInfo
+              postId={collaboration.collaborationId}
               tab={'협업 광장'}
-              category={collaboration.specialization}
+              specialization={collaboration.specialization}
               itemName={collaboration.postTitle}
               part={collaboration.specialization}
             />
@@ -108,6 +109,7 @@ export const ApplyCollaboration = () => {
                 <ApplyTable
                   key={index}
                   id={teamInfo.joiners[index]?.joinerID}
+                  userType={teamInfo.joiners[index]?.userType}
                   role={teamInfo.domain}
                   current={teamInfo.occupied}
                   total={teamInfo.total}
@@ -138,8 +140,9 @@ export const ApplyCollaboration = () => {
             </div>
 
             <ApplyDetailsInfo
+              postId={collaboration.collaborationId}
               tab={'협업 광장'}
-              category={collaboration.specialization}
+              specialization={collaboration.specialization}
               itemName={collaboration.postTitle}
               part={collaboration.specialization}
             />

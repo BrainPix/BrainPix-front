@@ -10,11 +10,6 @@ import LoadingPage from '../../loading/LoadingPage';
 import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const PurchaseList = () => {
-  const FORM_DATA = {
-    cardTitle: '구매 상세 내역',
-    labelText: '기업',
-    labelType: 'corporate',
-  };
   const {
     data: purchases = [],
     isLoading,
@@ -43,19 +38,21 @@ export const PurchaseList = () => {
               date={purchase.purchasedAt}
               status='구매 완료'
               statusType='purchaseCompleted'
-              cardTitle={FORM_DATA.cardTitle}
+              cardTitle={'구매 상세 내역'}
             />
             <div className={styles.cardContent}>
               <PostAuthorInfo
                 seller={purchase.writerName}
-                labelText={FORM_DATA.labelText}
-                labelType={FORM_DATA.labelType}
+                labelText={purchase.writerType}
+                labelType={purchase.writerType}
               />
               <PurchaseDetailsInfo
+                ideaId={purchase.purchasingId}
                 tab='아이디어 마켓'
-                category={purchase.specialization}
+                specialization={purchase.specialization}
                 itemName={purchase.title}
                 price={purchase.finalPrice}
+                quantity={purchase.quantity}
               />
               <PayInfo
                 payment='카카오페이'

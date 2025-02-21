@@ -90,8 +90,9 @@ export const ApplyRequest = () => {
             />
 
             <ApplyDetailsInfo
+              postId={requestTask.requestTaskId}
               tab='요청 과제'
-              category={requestTask.specialization}
+              specialization={requestTask.specialization}
               itemName={requestTask.postTitle}
               part={requestTask.domain}
             />
@@ -117,8 +118,9 @@ export const ApplyRequest = () => {
             </div>
 
             <ApplyDetailsInfo
+              postId={requestTask.requestTaskId}
               tab='요청 과제'
-              category={requestTask.specialization}
+              specialization={requestTask.specialization}
               itemName={requestTask.postTitle}
               part={requestTask.domain}
             />

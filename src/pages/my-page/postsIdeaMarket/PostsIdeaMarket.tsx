@@ -30,7 +30,7 @@ export const PostsIdeaMarket = () => {
     <div className={styles.postcardWrapper}>
       <IdeaMarketPostHeader
         tab={'아이디어 마켓'}
-        category={post.specialization}
+        specialization={post.specialization}
         title={post.title}
         price={post.price}
         ideaId={Number(ideaId)}

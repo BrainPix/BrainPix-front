@@ -30,7 +30,7 @@ export const PostsRequestAssign = () => {
     <>
       <PostHeader
         tab={'요청 과제'}
-        category={post.specialization}
+        specialization={post.specialization}
         title={post.title}
         deadline={post.deadLine}
         postImage={post.thumbnailImageUrl}
