@@ -70,7 +70,7 @@ export const RecentNews = () => {
     queryFn: ({ pageParam = 0 }) => getTrashAlarm(pageParam),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage.currentPage < pages[0].data.totalPages) {
+      if (lastPage.currentPage < pages[0].data?.totalPages) {
         return lastPage?.currentPage + 1;
       }
     },
@@ -78,7 +78,7 @@ export const RecentNews = () => {
 
   useEffect(() => {
     if (alarms?.totalPage < 5) {
-      const pages = new Array(alarms.data.totalPage)
+      const pages = new Array(alarms.data?.totalPage)
         .fill(0)
         .map((_, idx) => idx + 1);
       setCurrentPageNums(pages);
@@ -155,7 +155,7 @@ export const RecentNews = () => {
             className={classNames(styles.arrowButton)}
             onClick={handleClickNextArrow}
             disabled={
-              currentPageNums[currentPageNums.length - 1] >= alarms.totalPage
+              currentPageNums[currentPageNums.length - 1] >= alarms?.totalPage
             }>
             <Arrow
               width={20}
