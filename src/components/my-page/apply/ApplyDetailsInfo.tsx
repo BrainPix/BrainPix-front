@@ -21,7 +21,7 @@ export const ApplyDetailsInfo = ({
 }: ApplyDetailsInfoProps) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    if (tab === '요청 과제') navigate(`/request-assign/registerd/${postId}`);
+    if (tab === '요청 과제') navigate(`/request-assign/registered/${postId}`);
     if (tab === '협업 광장')
       navigate(`/collaboration/postdetailwithlink/${postId}`);
   };

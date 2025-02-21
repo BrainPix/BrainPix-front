@@ -10,11 +10,6 @@ import LoadingPage from '../../loading/LoadingPage';
 import { ErrorPage } from '../../errorPage/ErrorPage';
 
 export const PurchaseList = () => {
-  const FORM_DATA = {
-    labelText: '기업',
-    labelType: 'corporate',
-  };
-
   const {
     data: purchases = [],
     isLoading,
@@ -48,8 +43,8 @@ export const PurchaseList = () => {
             <div className={styles.cardContent}>
               <PostAuthorInfo
                 seller={purchase.writerName}
-                labelText={FORM_DATA.labelText}
-                labelType={FORM_DATA.labelType}
+                labelText={purchase.writerType}
+                labelType={purchase.writerType}
               />
               <PurchaseDetailsInfo
                 ideaId={purchase.purchasingId}

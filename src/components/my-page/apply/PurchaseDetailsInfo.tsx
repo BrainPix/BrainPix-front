@@ -26,7 +26,7 @@ export const PurchaseDetailsInfo = ({
   const navigate = useNavigate();
   const handleNavigate = () => {
     console.log('ideaId', ideaId);
-    navigate(`/idea-market/registerd/${ideaId}`);
+    navigate(`/idea-market/registered/${ideaId}`);
   };
 
   return (
