@@ -50,7 +50,7 @@ export const MetaTag = (data: Props) => {
       />
       <meta
         property='og:image:width'
-        content='250'
+        content='230'
       />
       <meta
         property='og:image:height'

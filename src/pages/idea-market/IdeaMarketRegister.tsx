@@ -11,6 +11,7 @@ import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import InfoDropdown from '../../assets/icons/infoDropdown.svg?react';
 import { Image } from '../../components/common/image/Image';
+import { MetaTag } from '../../seoMetaTag';
 
 interface IdeaMarketRequestData {
   title: string;
@@ -373,312 +374,322 @@ const IdeaMarketRegister = () => {
   const formats = ['font', 'size', 'align', 'link', 'image'];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>아이디어 등록하기</div>
-      <div className={styles.horizontalContainer}>
-        <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
-          <div className={styles.labelWrapper}>
-            <label htmlFor='category'>
-              카테고리
-              <span className={styles.required}>(필수)</span>
-            </label>
+    <>
+      <MetaTag
+        description='내 아이디어를 등록하고 상품으로 판매해보세요.'
+        keywords='아이디어 솔루션, 아이디어 거래 아이디어 등록'
+        title='아이디어 등록'
+        url='/idea-market/register'
+      />
+      <div className={styles.container}>
+        <div className={styles.title}>아이디어 등록하기</div>
+        <div className={styles.horizontalContainer}>
+          <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
+            <div className={styles.labelWrapper}>
+              <label htmlFor='category'>
+                카테고리
+                <span className={styles.required}>(필수)</span>
+              </label>
+            </div>
+            <div
+              className={styles.select}
+              onClick={() => setIsDropdownOpen((prev) => !prev)}>
+              <span>{category || '분야별'}</span>
+              {isDropdownOpen ? <UpButton /> : <DownButton />}
+              {isDropdownOpen && (
+                <div className={styles.dropdownMenu}>
+                  {OPTIONS.map((option) => (
+                    <div
+                      key={option}
+                      className={styles.dropdownItem}
+                      onClick={() => setCategory(option)}>
+                      {option}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-          <div
-            className={styles.select}
-            onClick={() => setIsDropdownOpen((prev) => !prev)}>
-            <span>{category || '분야별'}</span>
-            {isDropdownOpen ? <UpButton /> : <DownButton />}
-            {isDropdownOpen && (
-              <div className={styles.dropdownMenu}>
-                {OPTIONS.map((option) => (
-                  <div
-                    key={option}
-                    className={styles.dropdownItem}
-                    onClick={() => setCategory(option)}>
-                    {option}
+
+          <div className={`${styles.formGroup} ${styles.pageTypeGroup}`}>
+            <div className={styles.labelWrapper}>
+              <span id='pageTypeLabel'>
+                페이지 설정
+                <span className={styles.required}>(필수)</span>
+              </span>
+            </div>
+            <div
+              className={styles.pageTypeWrapper}
+              role='group'
+              aria-labelledby='pageTypeLabel'>
+              <button
+                className={`${styles.pageTypeButton} ${pageType === 'Idea Solution' ? styles.active : ''}`}
+                onClick={() => setPageType('Idea Solution')}>
+                Idea Solution
+              </button>
+              <button
+                className={`${styles.pageTypeButton} ${pageType === 'Market Place' ? styles.active : ''}`}
+                onClick={() => setPageType('Market Place')}>
+                Market Place
+              </button>
+            </div>
+
+            {pageType === 'Idea Solution' && (
+              <div
+                className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
+                onClick={() => setShowDetail(!showDetail)}>
+                <div className={styles.header}>
+                  <span className={styles.descriptionText}>
+                    Idea Solution이란?
+                  </span>
+                  <InfoDropdown
+                    className={styles.infoIcon}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowDetail(!showDetail);
+                    }}
+                  />
+                </div>
+                {showDetail && (
+                  <div className={styles.detailDescription}>
+                    <span className={styles.mainText}>
+                      전문가가 제공하는 과제 제작 서비스
+                    </span>
+                    <span className={styles.subText}>
+                      {`ex) '블로그 제작을 도와드립니다.' / '로고 제작 서비스를 제공합니다.'`}
+                    </span>
                   </div>
-                ))}
+                )}
+              </div>
+            )}
+
+            {pageType === 'Market Place' && (
+              <div
+                className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
+                onClick={() => setShowDetail(!showDetail)}>
+                <div className={styles.header}>
+                  <span className={styles.descriptionText}>
+                    Market Place란?
+                  </span>
+                  <InfoDropdown
+                    className={styles.infoIcon}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowDetail(!showDetail);
+                    }}
+                  />
+                </div>
+                {showDetail && (
+                  <div className={styles.detailDescription}>
+                    <span className={styles.mainText}>
+                      완성된 과제물과 창의적인 제품을 거래하는 공간
+                    </span>
+                    <span className={styles.subText}>
+                      {`ex) '어르신 맞춤형 키오스크 로봇' / '다이어트 식단 관리 앱 개발'`}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </div>
         </div>
 
-        <div className={`${styles.formGroup} ${styles.pageTypeGroup}`}>
-          <div className={styles.labelWrapper}>
-            <span id='pageTypeLabel'>
-              페이지 설정
-              <span className={styles.required}>(필수)</span>
+        <div className={styles.formGroup}>
+          <input
+            id='fileInput'
+            type='file'
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+            style={{ display: 'none' }}
+            accept='image/*'
+          />
+          {previewImageUrl ? (
+            <div
+              className={styles.imagePreviewContainer}
+              onClick={handleImageUpload}
+              role='button'
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleImageUpload();
+                }
+              }}>
+              <Image
+                src={previewImageUrl}
+                alt='Selected'
+                className={styles.imagePreview}
+              />
+            </div>
+          ) : (
+            <MainImage
+              onClick={handleImageUpload}
+              className={styles.mainImage}
+            />
+          )}
+        </div>
+
+        <div className={styles.formGroup}>
+          <div className={styles.ideaNameWrapper}>
+            <input
+              ref={ideaNameInputRef}
+              type='text'
+              placeholder='아이디어명 입니다'
+              className={styles.ideaNameInput}
+            />
+          </div>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label
+            htmlFor='editor'
+            className={styles.visuallyHidden}>
+            아이디어 내용
+          </label>
+          <ReactQuill
+            ref={quillRef}
+            id='editor'
+            value={content}
+            onChange={setContent}
+            className={styles.editor}
+            theme='snow'
+            modules={modules}
+            formats={formats}
+            placeholder='아이디어 내용을 입력하세요. (필수)'
+          />
+        </div>
+
+        <div className={styles.fileUploadGroup}>
+          <div className={styles.fileUploadLabel}>
+            <span className={styles.labelText}>첨부파일</span>
+            <span className={styles.pdfText}>(PDF)</span>
+            <div className={styles.pcButton}>
+              <span>내 PC</span>
+            </div>
+          </div>
+          <div
+            className={styles.fileUploadBox}
+            onClick={handlePdfClick}>
+            <span className={styles.placeholder}>
+              {pdfFile ? pdfFile.name : '파일이 업로드 되지 않았습니다.'}
             </span>
           </div>
-          <div
-            className={styles.pageTypeWrapper}
-            role='group'
-            aria-labelledby='pageTypeLabel'>
-            <button
-              className={`${styles.pageTypeButton} ${pageType === 'Idea Solution' ? styles.active : ''}`}
-              onClick={() => setPageType('Idea Solution')}>
-              Idea Solution
-            </button>
-            <button
-              className={`${styles.pageTypeButton} ${pageType === 'Market Place' ? styles.active : ''}`}
-              onClick={() => setPageType('Market Place')}>
-              Market Place
-            </button>
-          </div>
-
-          {pageType === 'Idea Solution' && (
-            <div
-              className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
-              onClick={() => setShowDetail(!showDetail)}>
-              <div className={styles.header}>
-                <span className={styles.descriptionText}>
-                  Idea Solution이란?
-                </span>
-                <InfoDropdown
-                  className={styles.infoIcon}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDetail(!showDetail);
-                  }}
-                />
-              </div>
-              {showDetail && (
-                <div className={styles.detailDescription}>
-                  <span className={styles.mainText}>
-                    전문가가 제공하는 과제 제작 서비스
-                  </span>
-                  <span className={styles.subText}>
-                    {`ex) '블로그 제작을 도와드립니다.' / '로고 제작 서비스를 제공합니다.'`}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
-
-          {pageType === 'Market Place' && (
-            <div
-              className={`${styles.pageDescription} ${showDetail ? styles.detail : ''}`}
-              onClick={() => setShowDetail(!showDetail)}>
-              <div className={styles.header}>
-                <span className={styles.descriptionText}>Market Place란?</span>
-                <InfoDropdown
-                  className={styles.infoIcon}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDetail(!showDetail);
-                  }}
-                />
-              </div>
-              {showDetail && (
-                <div className={styles.detailDescription}>
-                  <span className={styles.mainText}>
-                    완성된 과제물과 창의적인 제품을 거래하는 공간
-                  </span>
-                  <span className={styles.subText}>
-                    {`ex) '어르신 맞춤형 키오스크 로봇' / '다이어트 식단 관리 앱 개발'`}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className={styles.formGroup}>
-        <input
-          id='fileInput'
-          type='file'
-          ref={fileInputRef}
-          onChange={handleFileUpload}
-          style={{ display: 'none' }}
-          accept='image/*'
-        />
-        {previewImageUrl ? (
-          <div
-            className={styles.imagePreviewContainer}
-            onClick={handleImageUpload}
-            role='button'
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                handleImageUpload();
-              }
-            }}>
-            <Image
-              src={previewImageUrl}
-              alt='Selected'
-              className={styles.imagePreview}
-            />
-          </div>
-        ) : (
-          <MainImage
-            onClick={handleImageUpload}
-            className={styles.mainImage}
-          />
-        )}
-      </div>
-
-      <div className={styles.formGroup}>
-        <div className={styles.ideaNameWrapper}>
           <input
-            ref={ideaNameInputRef}
-            type='text'
-            placeholder='아이디어명 입니다'
-            className={styles.ideaNameInput}
+            ref={pdfInputRef}
+            type='file'
+            accept='.pdf'
+            onChange={handlePdfUpload}
+            style={{ display: 'none' }}
           />
         </div>
-      </div>
 
-      <div className={styles.formGroup}>
-        <label
-          htmlFor='editor'
-          className={styles.visuallyHidden}>
-          아이디어 내용
-        </label>
-        <ReactQuill
-          ref={quillRef}
-          id='editor'
-          value={content}
-          onChange={setContent}
-          className={styles.editor}
-          theme='snow'
-          modules={modules}
-          formats={formats}
-          placeholder='아이디어 내용을 입력하세요. (필수)'
-        />
-      </div>
-
-      <div className={styles.fileUploadGroup}>
-        <div className={styles.fileUploadLabel}>
-          <span className={styles.labelText}>첨부파일</span>
-          <span className={styles.pdfText}>(PDF)</span>
-          <div className={styles.pcButton}>
-            <span>내 PC</span>
-          </div>
-        </div>
-        <div
-          className={styles.fileUploadBox}
-          onClick={handlePdfClick}>
-          <span className={styles.placeholder}>
-            {pdfFile ? pdfFile.name : '파일이 업로드 되지 않았습니다.'}
-          </span>
-        </div>
-        <input
-          ref={pdfInputRef}
-          type='file'
-          accept='.pdf'
-          onChange={handlePdfUpload}
-          style={{ display: 'none' }}
-        />
-      </div>
-
-      <div className={styles.priceQuantityContainer}>
-        <div className={styles.priceGroup}>
-          <div className={styles.priceLabel}>
-            책정 금액
-            <span className={styles.required}>(필수)</span>
-          </div>
-          <div className={styles.inputWrapper}>
-            <input
-              type='text'
-              value={price}
-              onChange={handlePriceChange}
-              className={styles.input}
-            />
-            <span className={styles.unit}>원</span>
-          </div>
-        </div>
-
-        {pageType === 'Market Place' && (
-          <div className={styles.quantityGroup}>
-            <div className={styles.quantityLabel}>
-              수량 설정
+        <div className={styles.priceQuantityContainer}>
+          <div className={styles.priceGroup}>
+            <div className={styles.priceLabel}>
+              책정 금액
               <span className={styles.required}>(필수)</span>
             </div>
             <div className={styles.inputWrapper}>
               <input
                 type='text'
-                value={quantity}
-                onChange={handleQuantityChange}
+                value={price}
+                onChange={handlePriceChange}
                 className={styles.input}
               />
-              <span className={styles.unit}>개</span>
-              <div className={styles.quantityControlWrapper}>
+              <span className={styles.unit}>원</span>
+            </div>
+          </div>
+
+          {pageType === 'Market Place' && (
+            <div className={styles.quantityGroup}>
+              <div className={styles.quantityLabel}>
+                수량 설정
+                <span className={styles.required}>(필수)</span>
+              </div>
+              <div className={styles.inputWrapper}>
+                <input
+                  type='text'
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  className={styles.input}
+                />
+                <span className={styles.unit}>개</span>
+                <div className={styles.quantityControlWrapper}>
+                  <button
+                    onClick={handleIncrement}
+                    className={styles.quantityButton}>
+                    <UpButton />
+                  </button>
+                  <button
+                    onClick={handleDecrement}
+                    className={styles.quantityButton}
+                    disabled={quantity === 0}>
+                    {quantity === 0 ? <DisabledDownButton /> : <DownButton />}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className={styles.formGroup}>
+          <div className={styles.labelWrapper}>
+            <span id='visibilityLabel'>
+              공개 여부
+              <span className={styles.required}>(필수)</span>
+            </span>
+          </div>
+          <div className={styles.visibilityContainer}>
+            <div className={styles.visibilityGroupWrapper}>
+              <div className={styles.visibilityWrapper}>
                 <button
-                  onClick={handleIncrement}
-                  className={styles.quantityButton}>
-                  <UpButton />
+                  className={`${styles.visibilityButton} ${visibility === '전체공개' ? styles.active : ''}`}
+                  onClick={() => setVisibility('전체공개')}>
+                  전체공개
                 </button>
                 <button
-                  onClick={handleDecrement}
-                  className={styles.quantityButton}
-                  disabled={quantity === 0}>
-                  {quantity === 0 ? <DisabledDownButton /> : <DownButton />}
+                  className={`${styles.visibilityButton} ${visibility === '기업공개' ? styles.active : ''}`}
+                  onClick={() => setVisibility('기업공개')}>
+                  기업공개
+                </button>
+                <button
+                  className={`${styles.visibilityButton} ${visibility === '비공개' ? styles.active : ''}`}
+                  onClick={() => setVisibility('비공개')}>
+                  비공개
                 </button>
               </div>
             </div>
-          </div>
-        )}
-      </div>
 
-      <div className={styles.formGroup}>
-        <div className={styles.labelWrapper}>
-          <span id='visibilityLabel'>
-            공개 여부
-            <span className={styles.required}>(필수)</span>
-          </span>
-        </div>
-        <div className={styles.visibilityContainer}>
-          <div className={styles.visibilityGroupWrapper}>
-            <div className={styles.visibilityWrapper}>
+            <div
+              className={styles.portfolioVisibility}
+              onClick={handlePortfolioVisibility}>
+              {isPortfolioVisible ? <CheckButton /> : <DisabledCheckButton />}
+              <span
+                className={`${styles.portfolioText} ${isPortfolioVisible ? styles.active : ''}`}>
+                프로필 공개
+              </span>
               <button
-                className={`${styles.visibilityButton} ${visibility === '전체공개' ? styles.active : ''}`}
-                onClick={() => setVisibility('전체공개')}>
-                전체공개
-              </button>
-              <button
-                className={`${styles.visibilityButton} ${visibility === '기업공개' ? styles.active : ''}`}
-                onClick={() => setVisibility('기업공개')}>
-                기업공개
-              </button>
-              <button
-                className={`${styles.visibilityButton} ${visibility === '비공개' ? styles.active : ''}`}
-                onClick={() => setVisibility('비공개')}>
-                비공개
+                className={styles.editButton}
+                onClick={handleEditClick}>
+                <span>EDIT</span>
               </button>
             </div>
           </div>
+        </div>
 
-          <div
-            className={styles.portfolioVisibility}
-            onClick={handlePortfolioVisibility}>
-            {isPortfolioVisible ? <CheckButton /> : <DisabledCheckButton />}
-            <span
-              className={`${styles.portfolioText} ${isPortfolioVisible ? styles.active : ''}`}>
-              프로필 공개
-            </span>
-            <button
-              className={styles.editButton}
-              onClick={handleEditClick}>
-              <span>EDIT</span>
-            </button>
-          </div>
+        <div className={styles.buttonWrapper}>
+          <button
+            onClick={handleCancel}
+            className={styles.cancelButton}>
+            취소
+          </button>
+          <button
+            onClick={handleSubmit}
+            className={styles.submitButton}>
+            <span>등록</span>
+          </button>
         </div>
       </div>
-
-      <div className={styles.buttonWrapper}>
-        <button
-          onClick={handleCancel}
-          className={styles.cancelButton}>
-          취소
-        </button>
-        <button
-          onClick={handleSubmit}
-          className={styles.submitButton}>
-          <span>등록</span>
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

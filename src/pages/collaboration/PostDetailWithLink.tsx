@@ -95,6 +95,7 @@ const PostDetailWithLink = () => {
         description={data?.title}
         keywords={data?.title}
         title={`${data.writer.name}님의 글`}
+        image={data.thumbnailImageUrl}
         url={`/collaboration/postdetailwithlink/${collaborationId}`}
       />
       <div className={styles.margin}>
