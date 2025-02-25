@@ -11,6 +11,7 @@ import { GetCollaborationListRequest } from '../../types/collaborationType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import LoadingPage from '../loading/LoadingPage';
+import { MetaTag } from '../../seoMetaTag';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -177,6 +178,12 @@ const CollaborationMain = () => {
 
   return (
     <>
+      <MetaTag
+        description='협업을 위한 사람을 모집해요.'
+        keywords='협업 광장, 협업 구인'
+        title='협업 광장'
+        url='/collaboration'
+      />
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
           <span className={styles.mainTitle}>협업 광장</span>

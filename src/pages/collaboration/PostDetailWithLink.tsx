@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getCollaborationDetail } from '../../apis/detailPageAPI';
 import { CollaborationDetail } from '../../types/detailPageType';
 import { getUserIdFromToken } from '../../utils/auth';
+import { MetaTag } from '../../seoMetaTag';
 
 const PostDetailWithLink = () => {
   const { collaborationId } = useParams<{ collaborationId: string }>();
@@ -90,6 +91,12 @@ const PostDetailWithLink = () => {
 
   return (
     <>
+      <MetaTag
+        description={data?.title}
+        keywords={data?.title}
+        title={`${data.writer.name}님의 글`}
+        url={`/collaboration/postdetailwithlink/${collaborationId}`}
+      />
       <div className={styles.margin}>
         <ProfileHeader {...profileData} />
         <PostHeader

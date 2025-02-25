@@ -98,12 +98,6 @@ const OPTIONS = [
   '기타',
 ];
 
-// interface RecruitmentField {
-//   id: number;
-//   field: string;
-//   numberOfPeople: number;
-// }
-
 const CollaborationRegister = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
