@@ -17,6 +17,7 @@ import { GetIdeaListRequest } from '../../types/registerType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import LoadingPage from '../loading/LoadingPage';
+import { MetaTag } from '../../seoMetaTag';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -217,6 +218,12 @@ const RequestAssignTechZone = () => {
 
   return (
     <>
+      <MetaTag
+        description='전문적인 지식이 필요한 요청 과제를 제시하고, 업무 수행을 해요'
+        keywords='소규모 기업, 단기 과제, 전문적 기술 요청'
+        title='테크존'
+        url='/request-assign/tech-zone'
+      />
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
           <span className={styles.mainTitle}>요청 과제</span>

@@ -14,6 +14,7 @@ import { getUserIdFromToken } from '../../utils/auth';
 import LoadingPage from '../loading/LoadingPage';
 import ErrorPage from '../errorPage/ErrorPage';
 import { Join } from '../join/Join';
+import { MetaTag } from '../../seoMetaTag';
 
 const RequestRegisteredPage = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -65,23 +66,32 @@ const RequestRegisteredPage = () => {
   const userId = getUserIdFromToken();
 
   return (
-    <div className={styles.margin}>
-      <ProfileHeader {...writerData} />
-      <PostTitleApply
-        {...postData}
-        recruitments={data.recruitments}
+    <>
+      <MetaTag
+        description={postData.title}
+        keywords='요청과제'
+        title={`${writerData.name}님의 요청과제`}
+        image={postData.thumbnailImageUrl}
+        url={`/idea-market/registered/${postData.taskId}`}
       />
-      <AssignmentDescription
-        content={descriptionData.content}
-        attachments={descriptionData.attachments}
-      />
-      <RecruitInfo recruitments={data.recruitments} />
-      <QnASection
-        postId={Number(taskId)}
-        userId={userId}
-      />
-      <AuthorInfo {...writerData} />
-    </div>
+      <div className={styles.margin}>
+        <ProfileHeader {...writerData} />
+        <PostTitleApply
+          {...postData}
+          recruitments={data.recruitments}
+        />
+        <AssignmentDescription
+          content={descriptionData.content}
+          attachments={descriptionData.attachments}
+        />
+        <RecruitInfo recruitments={data.recruitments} />
+        <QnASection
+          postId={Number(taskId)}
+          userId={userId}
+        />
+        <AuthorInfo {...writerData} />
+      </div>
+    </>
   );
 };
 export default RequestRegisteredPage;

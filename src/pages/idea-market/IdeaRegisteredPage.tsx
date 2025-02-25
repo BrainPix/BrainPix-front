@@ -13,6 +13,7 @@ import { getUserIdFromToken } from '../../utils/auth';
 import LoadingPage from '../loading/LoadingPage';
 import ErrorPage from '../errorPage/ErrorPage';
 import { Join } from '../join/Join';
+import { MetaTag } from '../../seoMetaTag';
 
 const IdeaRegisteredPage = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -62,19 +63,28 @@ const IdeaRegisteredPage = () => {
   const userId = getUserIdFromToken();
 
   return (
-    <div className={styles.margin}>
-      <ProfileHeader {...writerData} />
-      <PostTitlePay {...postData} />
-      <IdeaDescription
-        content={descriptionData.content}
-        attachments={descriptionData.attachments}
+    <>
+      <MetaTag
+        description={postData.title}
+        keywords='아이디어 솔루션, 아이디어 거래'
+        title={`${writerData.name}님의 아이디어`}
+        image={postData.thumbnailImageUrl}
+        url={`/idea-market/registered/${postData.ideaId}`}
       />
-      <QnASection
-        postId={Number(ideaId)}
-        userId={userId}
-      />
-      <AuthorInfo {...writerData} />
-    </div>
+      <div className={styles.margin}>
+        <ProfileHeader {...writerData} />
+        <PostTitlePay {...postData} />
+        <IdeaDescription
+          content={descriptionData.content}
+          attachments={descriptionData.attachments}
+        />
+        <QnASection
+          postId={Number(ideaId)}
+          userId={userId}
+        />
+        <AuthorInfo {...writerData} />
+      </div>
+    </>
   );
 };
 

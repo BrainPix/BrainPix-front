@@ -17,6 +17,7 @@ import { GetIdeaListRequest } from '../../types/registerType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import LoadingPage from '../loading/LoadingPage';
+import { MetaTag } from '../../seoMetaTag';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -217,6 +218,12 @@ const RequestAssignMain = () => {
 
   return (
     <>
+      <MetaTag
+        description='누구나 자유롭게 요청 과제를 제시하고, 업무 수행을 해요'
+        keywords='소규모 기업, 단기 과제'
+        title='오픈 아이디어'
+        url='/request-assign'
+      />
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
           <span className={styles.mainTitle}>요청 과제</span>

@@ -10,6 +10,7 @@ import { getIdeaMarketPayment } from '../../apis/purchaseAPI';
 import { IdeaMarketPurchase } from '../../types/purchaseType';
 import LoadingPage from '../loading/LoadingPage';
 import ErrorPage from '../errorPage/ErrorPage';
+import { MetaTag } from '../../seoMetaTag';
 
 const IdeaMarketPayment = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -50,6 +51,13 @@ const IdeaMarketPayment = () => {
 
   return (
     <>
+      <MetaTag
+        description={paymentTitleData.title}
+        keywords=''
+        title={`${sellerInfoData.name}님의 아이디어`}
+        image={paymentTitleData.thumbnailImageUrl}
+        url={`/idea-market/registered/${ideaId}`}
+      />
       <div className={styles.ideaMarketPaymentLayout}>
         <PaymentTitle {...paymentTitleData} />
         <SellerInfo {...sellerInfoData} />

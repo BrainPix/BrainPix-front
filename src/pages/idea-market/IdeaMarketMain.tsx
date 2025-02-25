@@ -14,6 +14,7 @@ import { GetIdeaListRequest } from '../../types/mainType';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
 import UpButton from '../../assets/icons/categoryUpButton.svg?react';
 import LoadingPage from '../loading/LoadingPage';
+import { MetaTag } from '../../seoMetaTag';
 
 const categoryMapReverse: Record<string, string> = {
   '광고 · 홍보': 'ADVERTISING_PROMOTION',
@@ -214,6 +215,12 @@ const IdeaMarketMain = () => {
 
   return (
     <>
+      <MetaTag
+        description='내 아이디어를 등록하고 상품으로 판매해요.'
+        keywords='아이디어 솔루션, 아이디어 거래'
+        title='아이디어 솔루션'
+        url='/idea-market'
+      />
       <div className={styles.ideaMarketHeader}>
         <div className={styles.titleWrapper}>
           <span className={styles.mainTitle}>아이디어 마켓</span>
