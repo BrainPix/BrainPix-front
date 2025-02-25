@@ -7,7 +7,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig({
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom'],
       treeshake: true,
     },
     cssCodeSplit: true,
