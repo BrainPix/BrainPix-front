@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './applyStatus.module.scss';
 
 interface CurrentPeopleProps {
@@ -13,16 +14,11 @@ interface CurrentPeopleProps {
 }
 
 export const CurrentPeople = ({ currentMembers }: CurrentPeopleProps) => {
-  // const CURRENT_MEMBERS = [
-  //   {
-  //     id: 'serqe',
-  //     role: '디자이너',
-  //     current: 1,
-  //   },
-  // ];
-  {
-    console.log('해당 요청 과제의 현재 인원 : ', currentMembers);
-  }
+  const navigate = useNavigate();
+  const handleProfile = (userId: number, userType: string) => {
+    navigate(`/personal-profile/${userId}/${userType}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.tableTitle}>현재 인원</div>
@@ -49,7 +45,13 @@ export const CurrentPeople = ({ currentMembers }: CurrentPeopleProps) => {
               <span>{member.approvedCount}</span>
               <span className={styles.divider} />
               <div className={styles.buttonGroup}>
-                <button className={styles.button}>프로필</button>
+                <button
+                  className={styles.button}
+                  onClick={() =>
+                    handleProfile(user.acceptedMemberId ?? 0, user.userType)
+                  }>
+                  프로필
+                </button>
                 <button className={styles.button}>메신저</button>
               </div>
             </div>

@@ -75,3 +75,8 @@ export const SKILL_PROFICIENCY_MAPPER_TO_ENG: Record<string, string> = {
   중: 'MEDIUM',
   하: 'LOW',
 };
+
+export const LABEL_TYPE_MAPPER: Record<string, string> = {
+  INDIVIDUAL: '개인',
+  COMPANY: '기업',
+};

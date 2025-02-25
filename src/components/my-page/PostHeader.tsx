@@ -3,10 +3,11 @@ import styles from './postHeader.module.scss';
 import { DeadlineLabel } from '../common/label/DeadlineLabel';
 import { calculateDday } from '../../utils/dateUtils';
 import { Image } from '../common/image/Image';
+import { getCategoryLabel } from '../../utils/categoryMapping.ts';
 
 interface PostHeaderProps {
   tab: string;
-  category: string;
+  specialization: string;
   title: string;
   deadline?: string;
   postImage?: string | null;
@@ -15,7 +16,7 @@ interface PostHeaderProps {
 
 export const PostHeader = ({
   tab,
-  category,
+  specialization,
   title,
   deadline,
   postImage,
@@ -23,6 +24,7 @@ export const PostHeader = ({
 }: PostHeaderProps) => {
   const navigate = useNavigate();
   const dDay = deadline ? calculateDday(deadline) : undefined;
+  const FORMATTED_SPECIALIZATION = getCategoryLabel(specialization);
 
   const handleEditNavigate = () => {
     let editPath = '/';
@@ -53,7 +55,7 @@ export const PostHeader = ({
         )}
         <div className={styles.postcardInfo}>
           <div className={styles.postcardCategory}>
-            {tab} {'>'} {category}
+            {tab} {'>'} {FORMATTED_SPECIALIZATION}
           </div>
           <p className={styles.postTitle}>{title}</p>
           {dDay !== undefined && <DeadlineLabel deadline={dDay} />}

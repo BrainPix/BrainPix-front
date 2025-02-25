@@ -22,10 +22,6 @@ export const ApplyStatus = ({
   applicationStatus,
   postType,
 }: ApplyStatusProps) => {
-  // const APPLY_RECORDS = [
-  //   { id: 'drerwr', role: '디자이너', current: 1, total: 4 },
-  // ];
-
   const handleAccept = async (id?: number) => {
     if (!id) {
       return;

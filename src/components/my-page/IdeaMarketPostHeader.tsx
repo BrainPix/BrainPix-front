@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './ideaMarketPostHeader.module.scss';
+import { getCategoryLabel } from '../../utils/categoryMapping';
 
 interface PostHeaderProps {
   tab: string;
-  category: string;
+  specialization: string;
   title: string;
   price: number;
   ideaId: number;
@@ -11,13 +12,15 @@ interface PostHeaderProps {
 
 export const IdeaMarketPostHeader = ({
   tab,
-  category,
+  specialization,
   title,
   price,
   ideaId,
 }: PostHeaderProps) => {
   const navigate = useNavigate();
   const FORMATTEDPRICE = price.toLocaleString();
+
+  const FORMATTED_SPECIALIZATION = getCategoryLabel(specialization);
 
   const handleEditNavigate = () => {
     if (ideaId) {
@@ -37,7 +40,7 @@ export const IdeaMarketPostHeader = ({
         <div className={styles.imagePlaceholder} />
         <div className={styles.postcardInfo}>
           <div className={styles.postCardCategory}>
-            {tab} &gt; {category}
+            {tab} &gt; {FORMATTED_SPECIALIZATION}
           </div>
           <div className={styles.postCardTitle}>{title}</div>
           <div className={styles.price}>{FORMATTEDPRICE} 원</div>
