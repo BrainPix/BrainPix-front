@@ -23,7 +23,7 @@ import {
 import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserverAPI';
 import LoadingPage from '../../loading/LoadingPage';
 
-export const Message = () => {
+const Message = () => {
   const MENU: Record<MessagesKeyType, string> = {
     ALL: '전체 메세지',
     SEND: '보낸 메세지',
@@ -243,3 +243,4 @@ export const Message = () => {
     </>
   );
 };
+export default Message;

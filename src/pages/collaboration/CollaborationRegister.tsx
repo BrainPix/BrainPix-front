@@ -104,7 +104,7 @@ const OPTIONS = [
 //   numberOfPeople: number;
 // }
 
-export const CollaborationRegister = () => {
+const CollaborationRegister = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -790,3 +790,5 @@ export const CollaborationRegister = () => {
     </div>
   );
 };
+
+export default CollaborationRegister;

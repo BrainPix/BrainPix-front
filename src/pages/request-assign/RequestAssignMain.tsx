@@ -49,7 +49,7 @@ const sortMap: Record<string, SortType> = {
   lowView: 'LOWEST_PRICE',
 };
 
-export const RequestAssignMain = () => {
+const RequestAssignMain = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -364,3 +364,5 @@ export const RequestAssignMain = () => {
     </>
   );
 };
+
+export default RequestAssignMain;

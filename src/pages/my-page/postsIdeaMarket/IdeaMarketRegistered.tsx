@@ -12,9 +12,9 @@ import { getIdeaMarketDetail } from '../../../apis/detailPageAPI';
 import { IdeaMarketDetail } from '../../../types/detailPageType';
 import { getUserIdFromToken } from '../../../utils/auth';
 import LoadingPage from '../../loading/LoadingPage';
-import { ErrorPage } from '../../errorPage/ErrorPage';
+import ErrorPage from '../../errorPage/ErrorPage';
 
-export const IdeaMarketRegistered = () => {
+const IdeaMarketRegistered = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
   const userId = getUserIdFromToken();
   const [resolvedIdeaId, setResolvedIdeaId] = useState<number | null>(null);
@@ -89,3 +89,4 @@ export const IdeaMarketRegistered = () => {
     </>
   );
 };
+export default IdeaMarketRegistered;

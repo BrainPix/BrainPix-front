@@ -11,10 +11,10 @@ import { getIdeaMarketDetail } from '../../apis/detailPageAPI';
 import { IdeaMarketDetail } from '../../types/detailPageType';
 import { getUserIdFromToken } from '../../utils/auth';
 import LoadingPage from '../loading/LoadingPage';
-import { ErrorPage } from '../errorPage/ErrorPage';
+import ErrorPage from '../errorPage/ErrorPage';
 import { Join } from '../join/Join';
 
-export const IdeaRegisteredPage = () => {
+const IdeaRegisteredPage = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
 
   const { data, isLoading, error } = useQuery<IdeaMarketDetail, Error>({
@@ -77,3 +77,5 @@ export const IdeaRegisteredPage = () => {
     </div>
   );
 };
+
+export default IdeaRegisteredPage;

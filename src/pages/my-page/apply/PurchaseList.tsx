@@ -7,9 +7,9 @@ import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo
 import { PurchaseDetailsInfo } from '../../../components/my-page/apply/PurchaseDetailsInfo';
 import { PayInfo } from '../../../components/my-page/apply/PayInfo';
 import LoadingPage from '../../loading/LoadingPage';
-import { ErrorPage } from '../../errorPage/ErrorPage';
+import ErrorPage from '../../errorPage/ErrorPage';
 
-export const PurchaseList = () => {
+const PurchaseList = () => {
   const FORM_DATA = {
     cardTitle: '구매 상세 내역',
     labelText: '기업',
@@ -71,3 +71,4 @@ export const PurchaseList = () => {
     </div>
   );
 };
+export default PurchaseList;

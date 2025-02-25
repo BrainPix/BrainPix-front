@@ -17,9 +17,9 @@ import {
   getPostCollaboration,
 } from '../../../apis/postManagementAPI.ts';
 import LoadingPage from '../../loading/LoadingPage.tsx';
-import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
+import ErrorPage from '../../errorPage/ErrorPage.tsx';
 
-export const MyPagePosts = () => {
+const MyPagePosts = () => {
   const navigate = useNavigate();
 
   const TABS = ['아이디어 마켓', '요청 과제', '협업 광장'];
@@ -102,3 +102,4 @@ export const MyPagePosts = () => {
     </div>
   );
 };
+export default MyPagePosts;

@@ -21,7 +21,7 @@ import {
 import { PortfolioCarousel } from '../../components/personal-profile/PortfolioCarousel';
 import LoadingPage from '../loading/LoadingPage';
 
-export const PersonalProfile = () => {
+const PersonalProfile = () => {
   const { id, userType } = useParams();
 
   const {
@@ -73,3 +73,4 @@ export const PersonalProfile = () => {
     </div>
   );
 };
+export default PersonalProfile;

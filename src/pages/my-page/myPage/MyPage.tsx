@@ -26,7 +26,7 @@ const INIT_DATA = {
   selfIntroduction: '',
 };
 
-export const MyPage = () => {
+const MyPage = () => {
   const [lastCardId, setLastCardId] = useState(0);
 
   const { setTarget } = useIntersectionObserverAPI({
@@ -179,3 +179,4 @@ export const MyPage = () => {
     </div>
   );
 };
+export default MyPage;

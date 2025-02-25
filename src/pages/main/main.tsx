@@ -7,7 +7,7 @@ import Individual from '../../assets/icons/individualMember.svg?react';
 import Corporate from '../../assets/icons/corporateMember.svg?react';
 import Logo from '../../assets/icons/logo.svg?react';
 
-export const Main = () => {
+const Main = () => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('accessToken');
 
@@ -44,3 +44,4 @@ export const Main = () => {
     </div>
   );
 };
+export default Main;

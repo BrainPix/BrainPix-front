@@ -12,10 +12,10 @@ import { RequestDetail } from '../../types/detailPageType';
 import { getRequestDetail } from '../../apis/detailPageAPI';
 import { getUserIdFromToken } from '../../utils/auth';
 import LoadingPage from '../loading/LoadingPage';
-import { ErrorPage } from '../errorPage/ErrorPage';
+import ErrorPage from '../errorPage/ErrorPage';
 import { Join } from '../join/Join';
 
-export const RequestRegisteredPage = () => {
+const RequestRegisteredPage = () => {
   const { taskId } = useParams<{ taskId: string }>();
 
   const { data, isLoading, error } = useQuery<RequestDetail, Error>({
@@ -84,3 +84,4 @@ export const RequestRegisteredPage = () => {
     </div>
   );
 };
+export default RequestRegisteredPage;

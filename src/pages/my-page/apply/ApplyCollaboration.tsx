@@ -11,9 +11,9 @@ import { PostAuthorInfo } from '../../../components/my-page/apply/PostAuthorInfo
 import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetailsInfo';
 import { ApplyTable } from '../../../components/my-page/apply/ApplyTable';
 import LoadingPage from '../../loading/LoadingPage';
-import { ErrorPage } from '../../errorPage/ErrorPage';
+import ErrorPage from '../../errorPage/ErrorPage';
 
-export const ApplyCollaboration = () => {
+const ApplyCollaboration = () => {
   const FORM_DATA = {
     cardTitle: '협업 광장 지원 상세',
     labelText: '기업',
@@ -151,3 +151,4 @@ export const ApplyCollaboration = () => {
     </div>
   );
 };
+export default ApplyCollaboration;

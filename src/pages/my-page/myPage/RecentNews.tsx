@@ -22,7 +22,7 @@ import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserv
 import { ToastContext } from '../../../contexts/toastContext';
 import LoadingPage from '../../loading/LoadingPage';
 
-export const RecentNews = () => {
+const RecentNews = () => {
   const queryClient = useQueryClient();
   const { errorToast } = useContext(ToastContext);
 
@@ -217,3 +217,4 @@ export const RecentNews = () => {
     </div>
   );
 };
+export default RecentNews;

@@ -95,7 +95,7 @@ const OPTIONS = [
   '기타',
 ];
 
-export const IdeaMarketRegister = () => {
+const IdeaMarketRegister = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const defaultPageType = location.state?.defaultPageType || 'Idea Solution';
@@ -681,3 +681,5 @@ export const IdeaMarketRegister = () => {
     </div>
   );
 };
+
+export default IdeaMarketRegister;

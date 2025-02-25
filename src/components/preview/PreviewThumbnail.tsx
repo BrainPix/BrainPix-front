@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import Bookmark from '../../assets/icons/bookmark.svg?react';
 import UnclickBookmark from '../../assets/icons/unclickBookmark.svg?react';
-import DefaultImage from '../../assets/icons/defaultImage.svg?react';
 import styles from './previewThumbnail.module.scss';
 import { Image } from '../common/image/Image';
 
@@ -106,22 +105,11 @@ const PreviewThumbnail: React.FC<PreviewThumbnailProps> = ({ data }) => {
         className={styles.thumbnailImage}
         onClick={handleImageClick}
         style={{ cursor: 'pointer' }}>
-        {imageUrl && imageUrl.trim() !== '' && imageUrl !== 'string' ? (
-          <Image
-            src={imageUrl}
-            alt={description}
-          />
-        ) : (
-          <DefaultImage
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-            }}
-            preserveAspectRatio='none'
-          />
-        )}
+        <Image
+          src={imageUrl}
+          alt={description}
+        />
+
         <div className={styles.overlay}>
           <div className={styles.overlayTags}>
             <span className={classNames(styles.postAuth, authClass)}>

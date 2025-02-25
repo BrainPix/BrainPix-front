@@ -49,7 +49,7 @@ const sortMap: Record<string, SortType> = {
   lowView: 'LOWEST_PRICE',
 };
 
-export const RequestAssignTechZone = () => {
+const RequestAssignTechZone = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -364,3 +364,4 @@ export const RequestAssignTechZone = () => {
     </>
   );
 };
+export default RequestAssignTechZone;

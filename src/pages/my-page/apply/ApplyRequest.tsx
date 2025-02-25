@@ -12,9 +12,9 @@ import { ApplyDetailsInfo } from '../../../components/my-page/apply/ApplyDetails
 import { useContext } from 'react';
 import { ToastContext } from '../../../contexts/toastContext';
 import LoadingPage from '../../loading/LoadingPage';
-import { ErrorPage } from '../../errorPage/ErrorPage';
+import ErrorPage from '../../errorPage/ErrorPage';
 
-export const ApplyRequest = () => {
+const ApplyRequest = () => {
   const FORM_DATA = {
     cardTitle: '요청 과제 지원 상세',
     labelText: '개인',
@@ -130,3 +130,4 @@ export const ApplyRequest = () => {
     </div>
   );
 };
+export default ApplyRequest;

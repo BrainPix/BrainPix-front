@@ -4,7 +4,7 @@ import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
 import { kakaoPayApprove } from '../../apis/kakaoAPI';
 import styles from './paymentProcessing.module.scss';
 
-export const PaymentProcessing = () => {
+const PaymentProcessing = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isApproved, setIsApproved] = useState(false);

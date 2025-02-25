@@ -13,7 +13,7 @@ import { useIntersectionObserverAPI } from '../../../hooks/useIntersectionObserv
 import { imageErrorHandler } from '../../../utils/imageErrorHandler';
 import { Image } from '../../../components/common/image/Image';
 
-export const Portfolio = () => {
+const Portfolio = () => {
   const [lastCardId, setLastCardId] = useState(0);
   const [clickedCardId, setClickedCardId] = useState<number>(-1);
   const [userId, setUserId] = useState(-1);
@@ -152,3 +152,4 @@ export const Portfolio = () => {
     </div>
   );
 };
+export default Portfolio;

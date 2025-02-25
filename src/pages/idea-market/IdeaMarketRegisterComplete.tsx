@@ -2,7 +2,7 @@ import styles from './ideaMarketRegisterComplete.module.scss';
 import FinishIcon from '../../assets/icons/finishIcon.svg?react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-export const IdeaMarketRegisterComplete = () => {
+const IdeaMarketRegisterComplete = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const postId = searchParams.get('postId');
@@ -40,3 +40,5 @@ export const IdeaMarketRegisterComplete = () => {
     </div>
   );
 };
+
+export default IdeaMarketRegisterComplete;

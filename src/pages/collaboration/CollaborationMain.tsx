@@ -44,7 +44,7 @@ interface CollaborationData {
   isSavedPost: boolean;
 }
 
-export const CollaborationMain = () => {
+const CollaborationMain = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [collaborationData, setCollaborationData] = useState<
@@ -268,3 +268,4 @@ export const CollaborationMain = () => {
     </>
   );
 };
+export default CollaborationMain;
