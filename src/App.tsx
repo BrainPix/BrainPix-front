@@ -5,14 +5,13 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastProvider } from './contexts/toastContext';
 import { Suspense } from 'react';
 import LoadingPage from './pages/loading/LoadingPage';
-import { MetaTag } from './seoMetaTag';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
-    <>
-      <MetaTag />
+    <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <ToastProvider>
@@ -21,7 +20,7 @@ function App() {
           </Suspense>
         </ToastProvider>
       </QueryClientProvider>
-    </>
+    </HelmetProvider>
   );
 }
 

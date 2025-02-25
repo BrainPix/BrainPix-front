@@ -1,37 +1,52 @@
 import { Helmet } from 'react-helmet-async';
+import Logo from './assets/images/logoImage.png';
 
-export const MetaTag = () => {
+interface Props {
+  title: string;
+  description: string;
+  keywords: string;
+  image?: string;
+  url: string;
+}
+
+export const MetaTag = (data: Props) => {
+  const { title, description, keywords, image, url } = data;
+
   return (
     <Helmet>
-      <title>BrainPIX 아이디어 거래 & 협업 플랫폼</title>
+      <title>{`BrainPIX ${title}`}</title>
       <link
         rel='icon'
         type='image/svg+xml'
         href='/src/assets/icons/logo.svg'
       />
       <meta
-        name='viewport'
-        content='width=device-width, initial-scale=1.0'
-      />
-      <meta
         name='keywords'
-        content='브레인픽스, brainpix, 아이디어 거래, 협업'
+        content={keywords}
       />
       <meta
         name='description'
-        content='BrainPIX에서 누구나 자신의 아이디어를 거래하고, 딱 맞는 협력자를 찾아요.'
+        content={description}
       />
       <meta
         property='og:type'
         content='website'
       />
       <meta
-        property='og:name'
-        content='BrainPIX'
+        property='og:title'
+        content={title}
+      />
+      <meta
+        property='og:site_name'
+        content={title}
+      />
+      <meta
+        property='og:description'
+        content={description}
       />
       <meta
         property='og:image'
-        content='/src/assets/icons/logo.svg'
+        content={image || Logo}
       />
       <meta
         property='og:image:width'
@@ -39,11 +54,11 @@ export const MetaTag = () => {
       />
       <meta
         property='og:image:height'
-        content='100'
+        content='200'
       />
       <meta
-        property='og:locale'
-        content='ko_KR'
+        property='og:url'
+        content={url}
       />
     </Helmet>
   );
