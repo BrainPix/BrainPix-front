@@ -20,7 +20,7 @@ interface LoginPropsType {
   userType: 'personal' | 'corporate';
 }
 
-export const Login = ({ userType }: LoginPropsType) => {
+const Login = ({ userType }: LoginPropsType) => {
   const [member, setMember] = useState<'personal' | 'corporate'>(userType);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const { errorToast, successToast } = useContext(ToastContext);
@@ -197,3 +197,4 @@ export const Login = ({ userType }: LoginPropsType) => {
     </div>
   );
 };
+export default Login;

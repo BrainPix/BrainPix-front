@@ -2,7 +2,7 @@ import PageErrorIcon from '../../assets/icons/pageError.svg?react';
 import styles from './errorPage.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-export const ErrorPage = () => {
+const ErrorPage = () => {
   const navigate = useNavigate();
 
   const goBackTwice = () => {
@@ -30,3 +30,4 @@ export const ErrorPage = () => {
     </div>
   );
 };
+export default ErrorPage;

@@ -32,10 +32,10 @@ import {
 } from '../../../types/myPageType';
 import { putCompanyInfo, putIndividualInfo } from '../../../apis/mypageAPI';
 import { ToastContext } from '../../../contexts/toastContext';
-import { ErrorPage } from '../../errorPage/ErrorPage';
+import ErrorPage from '../../errorPage/ErrorPage';
 import LoadingPage from '../../loading/LoadingPage';
 
-export const Info = () => {
+const Info = () => {
   const queryClient = useQueryClient();
 
   const [editMode, setEditMode] = useState(false);
@@ -366,3 +366,4 @@ export const Info = () => {
     </div>
   );
 };
+export default Info;

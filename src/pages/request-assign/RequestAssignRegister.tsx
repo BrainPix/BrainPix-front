@@ -83,14 +83,6 @@ const visibilityToEnum: Record<string, PostAuth> = {
   비공개: 'ME',
 };
 
-// const PaymentDurationEnumMap: Record<string, PaymentDurationType> = {
-//   건당: 'ONCE',
-//   월간: 'MONTHLY',
-//   주간: 'WEEKLY',
-//   일간: 'DAILY',
-//   추후협의: 'NOT_APPLICABLE',
-// };
-
 const RequestTaskTypeEnumMap: Record<string, RequestTaskType> = {
   OPEN_IDEA: 'OPEN_IDEA',
   TECH_ZONE: 'TECH_ZONE',
@@ -122,7 +114,7 @@ interface RecruitmentField {
   numberOfPeople: number;
 }
 
-export const RequestAssignRegisterNow = () => {
+const RequestAssignRegisterNow = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const defaultPageType = location.state?.defaultPageType || 'OPEN_IDEA';
@@ -806,3 +798,5 @@ export const RequestAssignRegisterNow = () => {
     </div>
   );
 };
+
+export default RequestAssignRegisterNow;

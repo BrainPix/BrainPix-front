@@ -46,7 +46,7 @@ const sortMap: Record<string, SortType> = {
   lowView: 'LOWEST_PRICE',
 };
 
-export const IdeaMarketMarketPlace = () => {
+const IdeaMarketMarketPlace = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -359,3 +359,5 @@ export const IdeaMarketMarketPlace = () => {
     </>
   );
 };
+
+export default IdeaMarketMarketPlace;

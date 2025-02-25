@@ -17,7 +17,7 @@ import { getCollaborationDetail } from '../../apis/detailPageAPI';
 import { CollaborationDetail } from '../../types/detailPageType';
 import { getUserIdFromToken } from '../../utils/auth';
 
-export const PostDetailWithLink = () => {
+const PostDetailWithLink = () => {
   const { collaborationId } = useParams<{ collaborationId: string }>();
 
   const { data, isLoading, error } = useQuery<CollaborationDetail, Error>({
@@ -120,3 +120,4 @@ export const PostDetailWithLink = () => {
     </>
   );
 };
+export default PostDetailWithLink;

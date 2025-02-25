@@ -20,9 +20,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getPostIdeaMarketDetail } from '../../../apis/postManagementAPI';
 import { IdeaMarketDetail } from '../../../types/postDataType';
 import LoadingPage from '../../loading/LoadingPage';
-import { ErrorPage } from '../../errorPage/ErrorPage';
+import ErrorPage from '../../errorPage/ErrorPage';
 
-export const IdeaMarketEdit = () => {
+const IdeaMarketEdit = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
 
   const {
@@ -218,3 +218,4 @@ export const IdeaMarketEdit = () => {
     </div>
   );
 };
+export default IdeaMarketEdit;

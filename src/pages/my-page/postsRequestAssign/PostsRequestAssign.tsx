@@ -7,9 +7,9 @@ import { PostHeader } from '../../../components/my-page/PostHeader.tsx';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import LoadingPage from '../../loading/LoadingPage.tsx';
-import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
+import ErrorPage from '../../errorPage/ErrorPage.tsx';
 
-export const PostsRequestAssign = () => {
+const PostsRequestAssign = () => {
   const { taskId } = useParams<{ taskId: string }>();
 
   const {
@@ -44,3 +44,4 @@ export const PostsRequestAssign = () => {
     </>
   );
 };
+export default PostsRequestAssign;

@@ -9,9 +9,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getIdeaMarketPayment } from '../../apis/purchaseAPI';
 import { IdeaMarketPurchase } from '../../types/purchaseType';
 import LoadingPage from '../loading/LoadingPage';
-import { ErrorPage } from '../errorPage/ErrorPage';
+import ErrorPage from '../errorPage/ErrorPage';
 
-export const IdeaMarketPayment = () => {
+const IdeaMarketPayment = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
   const parsedIdeaId = ideaId && !isNaN(Number(ideaId)) ? Number(ideaId) : null;
   const [quantity, setQuantity] = useState(1);
@@ -61,3 +61,5 @@ export const IdeaMarketPayment = () => {
     </>
   );
 };
+
+export default IdeaMarketPayment;

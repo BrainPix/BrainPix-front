@@ -2,7 +2,7 @@ import styles from './paymentSuccess.module.scss';
 import FinishIcon from '../../assets/icons/finishIcon.svg?react';
 import { useNavigate } from 'react-router-dom';
 
-export const PaymentSuccess = () => {
+const PaymentSuccess = () => {
   const navigate = useNavigate();
 
   const handleMyPageClick = () => {
@@ -25,3 +25,4 @@ export const PaymentSuccess = () => {
     </div>
   );
 };
+export default PaymentSuccess;

@@ -2,7 +2,7 @@ import styles from './paymentFail.module.scss';
 import FailIcon from '../../assets/icons/failIcon.svg?react';
 import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
 
-export const PaymentCancel = () => {
+const PaymentCancel = () => {
   const goBackTwice = () => {
     window.history.go(-3);
   };
@@ -24,3 +24,4 @@ export const PaymentCancel = () => {
     </div>
   );
 };
+export default PaymentCancel;

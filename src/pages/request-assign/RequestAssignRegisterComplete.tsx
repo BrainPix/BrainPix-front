@@ -2,7 +2,7 @@ import styles from './requestAssignRegisterComplete.module.scss';
 import FinishIcon from '../../assets/icons/finishIcon.svg?react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-export const RequestAssignRegisterComplete = () => {
+const RequestAssignRegisterComplete = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const postId = searchParams.get('postId');
@@ -40,3 +40,4 @@ export const RequestAssignRegisterComplete = () => {
     </div>
   );
 };
+export default RequestAssignRegisterComplete;

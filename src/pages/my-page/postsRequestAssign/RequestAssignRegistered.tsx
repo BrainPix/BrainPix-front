@@ -13,9 +13,9 @@ import { RequestDetail } from '../../../types/detailPageType';
 import { getRequestDetail } from '../../../apis/detailPageAPI';
 import { getUserIdFromToken } from '../../../utils/auth';
 import LoadingPage from '../../loading/LoadingPage';
-import { ErrorPage } from '../../errorPage/ErrorPage';
+import ErrorPage from '../../errorPage/ErrorPage';
 
-export const RequestAssignRegistered = () => {
+const RequestAssignRegistered = () => {
   const { taskId } = useParams<{ taskId: string }>();
   const userId = getUserIdFromToken();
   const [resolvedTaskId, setResolvedTaskId] = useState<number | null>(null);
@@ -94,3 +94,4 @@ export const RequestAssignRegistered = () => {
     </>
   );
 };
+export default RequestAssignRegistered;

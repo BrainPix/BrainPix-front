@@ -16,7 +16,7 @@ import {
 import { ToastContext } from '../../contexts/toastContext';
 import { useNavigate } from 'react-router-dom';
 
-export const Signup = () => {
+const Signup = () => {
   const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
@@ -148,3 +148,4 @@ export const Signup = () => {
     </div>
   );
 };
+export default Signup;

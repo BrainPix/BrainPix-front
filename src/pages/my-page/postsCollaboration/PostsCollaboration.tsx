@@ -7,9 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getPostCollaborationDetail } from '../../../apis/postManagementAPI.ts';
 import { CollaborationDetail } from '../../../types/postDataType.ts';
 import LoadingPage from '../../loading/LoadingPage.tsx';
-import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
+import ErrorPage from '../../errorPage/ErrorPage.tsx';
 
-export const PostsCollaboration = () => {
+const PostsCollaboration = () => {
   const { collaborationId } = useParams<{ collaborationId: string }>();
 
   const {
@@ -42,3 +42,4 @@ export const PostsCollaboration = () => {
     </>
   );
 };
+export default PostsCollaboration;

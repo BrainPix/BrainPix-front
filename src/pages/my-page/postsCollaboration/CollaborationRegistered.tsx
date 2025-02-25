@@ -2,14 +2,9 @@ import { ProfileHeaderAuthor } from '../../../components/my-page/ProfileHeaderAu
 import { CollaboPostHeader } from '../../../components/my-page/CollaboPostHeader';
 import WebLinkBox from '../../../components/postdetail/WebLinkBox';
 import { PostFormContent } from '../../../components/my-page/PostFormContent';
-//import RecruitmentInfo from '../../../components/postdetail/RecruitmentInfo';
-//import RecruitmentStatus from '../../../components/postdetail/RecruitmentStatus';
-//import TeamBuildingButton from '../../../components/postdetail/TeamBuildingButton';
-//import QnASection from '../../../components/postdetail/QnASection';
-//import AuthorInfo from '../../../components/postdetail/AuthorInfo';
 import styles from '../../../pages/request-assign/requestRegisteredPage.module.scss';
 
-export const CollaborationRegistered = () => {
+const CollaborationRegistered = () => {
   const FORM_DATA = {
     descriptionTitle: '과제 설명',
     description: '과제 설명입니다...',
@@ -29,7 +24,6 @@ export const CollaborationRegistered = () => {
     deadLine: 21,
     viewCount: 120,
     saveCount: 12,
-    //webLink: 'https://www.sytech.com',
   };
 
   return (
@@ -52,7 +46,6 @@ export const CollaborationRegistered = () => {
           deadline={POST_DATA.deadLine}
           viewCount={POST_DATA.viewCount}
           saveCount={POST_DATA.saveCount}
-          //webLink={POST_DATA.webLink}
         />
         <WebLinkBox />
         {/* 과제 설명, 첨부파일 */}
@@ -62,17 +55,11 @@ export const CollaborationRegistered = () => {
           attachmentTitle={FORM_DATA.attachmentTitle}
           attachmentFileName={FORM_DATA.attachmentFileName}
         />
-        {/*<RecruitmentInfo />*/}
-        {/*<RecruitmentStatus />*/}
       </div>
       <div className={styles.buttonMargin}>
         <div className={styles.button}>{/*<TeamBuildingButton /*/}</div>
       </div>
-      <div className={styles.margin}>
-        {/* 담당자 Q&A, 작성자 정보 */}
-        {/*<QnASection />*/}
-        {/*<AuthorInfo />*/}
-      </div>
     </>
   );
 };
+export default CollaborationRegistered;

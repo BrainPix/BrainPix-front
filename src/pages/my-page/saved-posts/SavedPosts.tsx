@@ -18,9 +18,9 @@ import {
 } from '../../../apis/savePostsAPI.ts';
 import { useBookmark } from '../../../hooks/useBookmark.ts';
 import LoadingPage from '../../loading/LoadingPage.tsx';
-import { ErrorPage } from '../../errorPage/ErrorPage.tsx';
+import ErrorPage from '../../errorPage/ErrorPage.tsx';
 
-export const SavedPosts = () => {
+const SavedPosts = () => {
   const navigate = useNavigate();
 
   const TABS = ['아이디어 마켓', '요청 과제', '협업 광장'];
@@ -108,3 +108,4 @@ export const SavedPosts = () => {
     </div>
   );
 };
+export default SavedPosts;

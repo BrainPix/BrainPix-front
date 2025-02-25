@@ -3,7 +3,7 @@ import FailIcon from '../../assets/icons/failIcon.svg?react';
 import IdeaReplayIcon from '../../assets/icons/ideaReplay.svg?react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export const PaymentFail = () => {
+const PaymentFail = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,3 +35,5 @@ export const PaymentFail = () => {
     </div>
   );
 };
+
+export default PaymentFail;
