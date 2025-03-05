@@ -56,8 +56,8 @@ VITE_S3_URL=https://brainpix.s3.ap-northeast-2.amazonaws.com
     </tr>
     <tr>
       <td align="center"><a href="https://github.com/ggjiny">권소현</td>
-      <td align="center"><a href="https://github.com/Young2un">김민정</td>
-      <td align="center"><a href="https://github.com/minjeong9919">임가희</td>
+      <td align="center"><a href="https://github.com/minjeong9919">김민정</td>
+      <td align="center"><a href="https://github.com/gaaahee">임가희</td>
       <td align="center"><a href="https://github.com/bokeeeey">최규호</td>
     </tr>
   </tbody>
