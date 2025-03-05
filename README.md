@@ -45,27 +45,6 @@ VITE_S3_URL=https://brainpix.s3.ap-northeast-2.amazonaws.com
 
 <br/>
 
-## 기술적 기능 및 최적화
-- 🔀 **CI/CD 자동화 파이프라인 구축**  
-  - GitHub Actions를 활용하여 **CI/CD 자동화**  
-  - **배포 전 코드 lint, stylelint 및 빌드 오류 자동 검출**  
-  - `develop` 브랜치 동기화 시 vercel을 통한 **자동 배포 실행**  
-
-- 🥪 **Context API 기반 토스트 컴포넌트 구현**  
-  - 커스텀 토스트 컴포넌트 직접 구현
-  - **Context API**를 활용한 **전역 상태 관리**  
-  - 어디서든 쉽게 호출 가능하도록 최적화
- 
-- 🔀 **rollup-plugin-visualizer을 이용한 번들링 최적화 진행**  
-  - **rollup-plugin-visualizer**를 활용하여 번들 사이즈를 시각적으로 확인
-  - react-quill-new 라이브러리의 텍스트 에디터를 컴포넌트화하여 **lazy import 적용**
-  - **초기 빌드 시간 단축 및 번들 크기 감소**
- 
-- 🔀 **react-helmet-async를 활용한 SEO 최적화**  
-  - `react-helmet-async`를 사용하여 페이지별로 **제목(title), 설명(description), Open Graph(OG) 메타태그 동적 적용**  
-
-<br/>
-
 ## 팀원 소개
 <table>
   <tbody>
