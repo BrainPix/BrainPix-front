@@ -14,7 +14,7 @@
 ## 프로젝트 실행
 ```
 // 1️⃣ 저장소 클론
-git clone https://github.com/yourusername/brainpix.git
+git clone https://github.com/minjeong9919/brainpix.git
 
 // 2️⃣ 패키지 설치
 npm install
